@@ -108,7 +108,7 @@ body {
 
 .section-news {
   display: grid;
-  grid-template-columns: 60% 40%;
+  grid-template-columns: 70% 30%;
 }
 
 .section-news-left--head {
@@ -143,16 +143,16 @@ body {
 
 .section-news-left .card-container .card {
   margin-right: 1.5rem;
-  width: 200px;
-  height: 330px;
+  width: 300px;
+  padding-bottom: 1rem;
   background-color: white;
   border-radius: 10px;
 }
 
 .section-news-left .card-container .card-img {
-  height: 100px;
+  height: 200px;
   border-radius: 10px 10px 0 0;
-  width: 200px;
+  width: 300px;
   overflow: hidden;
   background-position: center;
   background-size: cover;
@@ -174,17 +174,24 @@ body {
 .section-news-left .card-container .card .news-headlines {
   margin-top: 1.5rem;
   padding: 0 15px;
-  height: 90px;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
 }
 
 .section-news-left .card-container .card .news-headlines span {
   font-weight: bold;
   display: block;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .section-news-left .card-container .card .news-headlines p {
   color: grey;
+}
+
+.section-news-left .card-container .card .description {
+  padding: 0 15px;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
 }
 
 .section-news-left .card-container .card .published {
@@ -201,6 +208,7 @@ body {
   margin-left: 1rem;
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
 
 .section-news-left .card-container .card .published .user span {
@@ -420,6 +428,25 @@ body {
   font-size: 1.2rem;
   color: grey;
   margin-bottom: 5px;
+}
+
+.home-section-2 .grid-2 .long-card-ver {
+  display: flex;
+  flex-direction: column;
+}
+
+.home-section-2 .grid-2 .long-card-ver .long-card-img {
+  width: 100%;
+  height: 20rem;
+  background-size: cover;
+  background-position: center;
+}
+
+.home-section-2 .grid-2 .long-card-ver .heading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
 }
 
 .home-section-3 {

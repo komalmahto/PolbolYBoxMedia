@@ -20,10 +20,39 @@ const { Meta } = Card;
 
 const Home = ({ fetchNews, news: { news } }) => {
   const [selectedTags, setSelectedTags] = useState([]);
+  const [newsBasedOnCategory,setNewsBasedOnCategory]=useState({});
+  let newsData=news && news
 
   useEffect(() => {
     fetchNews();
+    fetchNewsSelected();
+
   }, []);
+
+  useEffect(() =>{
+    fetchNewsSelected();
+
+  },[selectedTags])
+
+  const fetchNewsSelected = async (page) => {
+    const queryParam = selectedTags.join(',');
+    try {
+        const response = await axios.get('/common/news', {
+            params: {
+                page,
+                categories: selectedTags.length > 0 ? queryParam : undefined
+            }
+        });
+        const responseJSON = response.data;
+        setNewsBasedOnCategory(responseJSON)
+        newsData=response.JSON
+
+        console.log(responseJSON,"selected news");
+   
+    } catch (err) {
+        console.log(err);
+    }
+};
   console.log(news);
   function onChange(checkedValues) {
     console.log('checked = ', checkedValues);
@@ -40,6 +69,7 @@ const Home = ({ fetchNews, news: { news } }) => {
       };
     }
   };
+  
   return (
     <div className='box'>
       <section className='section-news'>
@@ -68,22 +98,21 @@ const Home = ({ fetchNews, news: { news } }) => {
           </div>
 
           <div style={{ overflowX: 'scroll' }} className='card-container'>
-            {news &&
-              news.payload.length > 0 &&
-              news.payload.map((p) => (
+            {Object.keys(newsBasedOnCategory).length>0 &&
+              newsBasedOnCategory.payload.data.length > 0 &&
+              newsBasedOnCategory.payload.data.map((p) => (
                 <div className='card'>
                   <div
                     className='card-img'
                     style={{ backgroundImage: `url(${p.images[0]})` }}
                   ></div>
-                  <div className='category-container'>
-                    {p.categories.map((c) => (
-                      <span className='category'>{c}</span>
-                    ))}
-                  </div>
+                  
                   <div className='news-headlines'>
                     <span><img style={{height:'25px',width:'25px',marginRight:'1rem'}} src={icons[p.categories[0]]}/>{p.categories[0]} News</span>
                     <p>{p.short_headline}</p>
+                  </div>
+                  <div className="description">
+                  <p>{p.description.substr(0,80)+'...'}.</p>
                   </div>
                   <div className='published'>
                     <img
@@ -95,9 +124,7 @@ const Home = ({ fetchNews, news: { news } }) => {
                       <span>
                         {p.user.firstName} {p.user.lastName}
                       </span>
-                      <span>
-                        {moment(p.createdAt).format('MMMM Do YYYY, h:mm a')}
-                      </span>
+                
                     </div>
                   </div>
                   <div className='read-more'>
@@ -144,7 +171,7 @@ const Home = ({ fetchNews, news: { news } }) => {
       <HomePollsAndAwards/>
       </section>
       <section className="home-section-3">
-      <HomeSection3/>
+     {/* <HomeSection3/>*/}
       </section>
     </div>
   );
