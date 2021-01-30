@@ -2,7 +2,7 @@ import React from 'react';
 import { Select } from 'antd';
 import { Menu, Dropdown } from 'antd';
 import { DownOutlined, UserOutlined } from '@ant-design/icons';
-import logo from '../../assets/GIF-2021-01-24-17-20-09.gif';
+import logo from '../../assets/2160 4K.gif';
 import {Link,useLocation} from 'react-router-dom'
 const { Option } = Select;
 

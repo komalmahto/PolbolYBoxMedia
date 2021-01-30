@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Tabs } from 'antd';
 import { Checkbox, Row, Col } from 'antd';
-import { fetchPolls } from '../Actions/PollsAction';
-import { fetchAwards } from '../Actions/AwardsAction';
+import { fetchPolls } from '../../Actions/PollsAction';
+import { fetchAwards } from '../../Actions/AwardsAction';
 import { connect } from 'react-redux';
 import moment from 'moment';
-import {icons,cats} from '../Components/icons/Icons'
-import axios from '../axios'
+import {icons,cats} from '../../Components/icons/Icons'
+import axios from '../../axios'
 
 const { TabPane } = Tabs;
 
@@ -199,7 +199,7 @@ if(type2==='polls'){
           style={{ width: '100%' }}
           onChange={onChangeSel}
         >
-        {type2==='awards'&&types.map((p)=>(
+        {type2==='awards'&&cats.map((p)=>(
           <label style={checkChecked1(p)}>
             {p}
             <Checkbox style={{ display: 'none' }} value={p}></Checkbox>
