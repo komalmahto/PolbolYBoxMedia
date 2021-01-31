@@ -73,7 +73,7 @@ const Home = ({ fetchNews, news: { news } }) => {
       items: 3,
     },
     mobile: {
-      breakpoint: { max: 464, min: 0 },
+      breakpoint: { max: 500, min: 0 },
       items: 1,
     },
   };
@@ -103,7 +103,7 @@ const Home = ({ fetchNews, news: { news } }) => {
               ))}
             </Checkbox.Group>
           </div>
-          <Carousel
+          <div
             style={{ overflowX: 'scroll' }}
             className='card-container'
             responsive={responsive}
@@ -111,7 +111,7 @@ const Home = ({ fetchNews, news: { news } }) => {
             {Object.keys(newsBasedOnCategory).length > 0 &&
               newsBasedOnCategory.payload.data.length > 0 &&
               newsBasedOnCategory.payload.data.map((p) => <NewsCard p={p} />)}
-          </Carousel>
+          </div>
         </div>
         <div className='section-news-right'>
           <div className='trending-head'>

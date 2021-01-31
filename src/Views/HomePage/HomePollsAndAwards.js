@@ -6,6 +6,7 @@ import { fetchAwards } from '../../Actions/AwardsAction';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import {icons,cats} from '../../Components/icons/Icons'
+import PollCard from '../../Components/Polls/PollCard'
 import axios from '../../axios'
 
 const { TabPane } = Tabs;
@@ -224,18 +225,7 @@ if(type2==='polls'){
             {useData &&
               useData.map((p) => (
 
-              p.hidden===false&&  <div className={type2==='polls'?'long-card long-card-hor':'long-card long-card-ver'}>
-                <div className='long-card-img' style={{backgroundImage:`url(${type2==='polls'?p.image:p.icon})`}}></div>
-                <div className='long-card-desc'>
-                <div style={{display:'flex', flexDirection:'column',justifyContent:'space-between'}}>
-                <span className="heading">{type2==='polls'&&<img style={{height:'25px',width:'25px',marginRight:'1rem'}} src={type2==='polls'?icons[p.categories[0]]:icons[p.type[0]]}/>}{type2==='polls'? `Poll on ${p.categories[0]}`:`${getExpiryString1(p.lifeSpan)}`}</span>
-                <p>{p.question}</p>
-              
-                </div>
-              { type2==='polls'&& <span className="give-rating">Give Rating</span>}
-                </div>
-                 
-                </div>
+              p.hidden===false&&  <PollCard icons={icons} type2={type2} p={p} getExpiryString1={getExpiryString1}/>
               ))}
           </div>
         </div>

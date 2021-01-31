@@ -4,6 +4,8 @@ import { Menu, Dropdown } from 'antd';
 import { DownOutlined, UserOutlined } from '@ant-design/icons';
 import logo from '../../assets/2160 4K.gif';
 import {Link,useLocation} from 'react-router-dom'
+import {Navbar} from 'react-bootstrap'
+
 const { Option } = Select;
 
 const Nav = () => {
@@ -14,6 +16,14 @@ const Nav = () => {
       <Menu.Item danger>Login/Register</Menu.Item>
     </Menu>
   );
+
+  function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+  }
+  
+  function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+  }
 
   return (
     <div className='header'>
@@ -61,9 +71,22 @@ const Nav = () => {
             <li className={location.pathname==='/livetv'?"active-link":null}><Link to="/livetv">LIVE TV</Link></li>
             <li className={location.pathname==='/quiz'?"active-link":null}><Link to="/quiz">QUIZ</Link></li>
           </ul>
+          
+
         </div>
-        <div className="nav-right"></div>
+        <div className="nav-right">
+        <span  className="side" style={{fontSize:"30px",cursor:"pointer",color:'white',marginRight:'3rem'}} onClick={openNav}>&#9776;</span>
+        </div>
       </nav>
+      <div id="mySidenav" className="sidenav">
+      <a href="javascript:void(0)"  className="closebtn" onClick={closeNav}>&times;</a>
+      <li onClick={closeNav} className={location.pathname==='/'?"active-link":null}><Link to='/'>HOME</Link></li>
+      <li onClick={closeNav} className={location.pathname==='/news'?"active-link":null}><Link to='/news'>NEWS</Link></li>
+      <li onClick={closeNav} className={location.pathname==='/polls'?"active-link":null}><Link to="/polls">POLLS</Link></li>
+      <li onClick={closeNav} className={location.pathname==='/awards'?"active-link":null}><Link to="/awards">AWARDS</Link></li>
+      <li onClick={closeNav} className={location.pathname==='/livetv'?"active-link":null}><Link to="/livetv">LIVE TV</Link></li>
+      <li onClick={closeNav} className={location.pathname==='/quiz'?"active-link":null}><Link to="/quiz">QUIZ</Link></li>
+    </div>
     </div>
   );
 };

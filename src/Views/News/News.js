@@ -6,6 +6,7 @@ import NewsCard from '../../Components/News/NewsCard';
 import {cats} from '../../Components/icons/Icons'
 import {Checkbox} from 'antd'
 import axios from '../../axios';
+import CategoryBar from '../../Components/CategoryBar/CategoryBar'
 
 const News = ({ fetchNews, news: { news } }) => {
   const [selectedTags, setSelectedTags] = useState([]);
@@ -101,20 +102,7 @@ console.log(p1);
       </section>
 
       <section className="news-section2">
-      <div className='section-news-left--tags  news-tags'>
-      <Checkbox.Group
-      className='tags'
-      style={{ width: '100%' }}
-      onChange={onChange}
-    >
-      {cats.map((p) => (
-        <label style={checkChecked(p)}>
-          {p}
-          <Checkbox style={{ display: 'none' }} value={p}></Checkbox>
-        </label>
-      ))}
-    </Checkbox.Group>
-    </div>
+     <CategoryBar onChange={onChange} cats={cats} checkChecked={checkChecked}/>
     <div className="news-container">
     {Object.keys(newsBasedOnCategory).length > 0 &&
       newsBasedOnCategory.payload.data.length > 0 &&
