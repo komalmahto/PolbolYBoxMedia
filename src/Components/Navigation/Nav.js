@@ -1,19 +1,25 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { Select } from 'antd';
 import { Menu, Dropdown } from 'antd';
 import { DownOutlined, UserOutlined } from '@ant-design/icons';
 import logo from '../../assets/2160 4K.gif';
 import {Link,useLocation} from 'react-router-dom'
 import {Navbar} from 'react-bootstrap'
+import Modal from '../Modal/Modal'
 
 const { Option } = Select;
 
 const Nav = () => {
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const location=useLocation();
   const handleChange = () => {};
+  const onClick = ()=>{
+    setIsModalVisible(true)
+  }
+
   const menu = (
     <Menu>
-      <Menu.Item danger>Login/Register</Menu.Item>
+      <Menu.Item onClick={onClick} danger>Login/Register</Menu.Item>
     </Menu>
   );
 
@@ -27,6 +33,7 @@ const Nav = () => {
 
   return (
     <div className='header'>
+    <Modal isModalVisible={isModalVisible} setIsModalVisible={setIsModalVisible}/>
       <div className='header-top'>
         <Select
           bordered={false}

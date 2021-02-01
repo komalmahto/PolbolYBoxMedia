@@ -12,7 +12,7 @@ const PollCard = ({type2,p,icons,getExpiryString1}) => {
       <div
         className='long-card-img'
         style={{
-          backgroundImage: `url(${type2 === 'polls' ? p.image : p.icon})`,
+          backgroundImage: `url(${type2 === 'polls' ? p.image : p.icon?p.icon:p.image})`,
         }}
       ></div>
       <div className='long-card-desc'>

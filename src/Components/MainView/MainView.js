@@ -5,6 +5,8 @@ import Home from '../../Views/HomePage/Home'
 import News from '../../Views/News/News'
 import Polls from '../../Views/Polls/Polls'
 import Awards from '../../Views/Awards/Awards'
+import Livetv from '../../Views/LiveTv/Livetv'
+import Graph from '../../Components/Result/Graph'
 
 
 const MainView = () => {
@@ -16,6 +18,8 @@ const MainView = () => {
     <Route exact path="/news" component={News}/>
     <Route exact path="/polls" component={Polls}/>
     <Route exact path="/awards" component={Awards}/>
+    <Route exact path="/livetv" component={Livetv}/>
+    <Route exact path="/result/:id" component={Graph}/>
     </Switch>
     </div>
     <Footer/>

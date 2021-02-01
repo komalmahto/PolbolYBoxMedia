@@ -11,31 +11,24 @@ import { connect } from 'react-redux';
 
 const Awards = ({fetchAwards,awards:{awards}}) => {
   const [selectedTags, setSelectedTags] = useState([]);
-  const [pollsBasedOnCategory, setPollsBasedOnCategory] = useState({});
+  const [expiredAwards, setExpiredAwards] = useState({});
 
   const { TabPane } = Tabs;
   useEffect(() => {
-    fetchPollsSelected();
+    fetchExpiredAwards();
     fetchAwards();
   }, []);
 
-  useEffect(() => {
-    fetchPollsSelected();
-  }, [selectedTags]);
+  // useEffect(() => {
+  //   fetchExpiredAwards();
+  // }, [selectedTags]);
 
-  const fetchPollsSelected = async (page) => {
-    const queryParam = selectedTags.join(',');
+  const fetchExpiredAwards = async (page) => {
     try {
-      const response = await axios.get('/common/polls', {
-        params: {
-          page,
-          categories: selectedTags.length > 0 ? queryParam : undefined,
-        },
-      });
+      const response = await axios.get('/award/fetchAwardsAndCategories?mode=expired');
       const responseJSON = response.data;
-      setPollsBasedOnCategory(responseJSON);
-
-      console.log(responseJSON, 'selected news');
+      setExpiredAwards(responseJSON);
+      console.log(responseJSON, 'expired awards');
     } catch (err) {
       console.log(err);
     }
@@ -80,10 +73,33 @@ const Awards = ({fetchAwards,awards:{awards}}) => {
     return minDiff;
   };
 
+
+  const getExpiryString1 = (expiryTime) => {
+    const lifeEndTime = moment(expiryTime);
+    const now = moment();
+    let duration = moment.duration(lifeEndTime.diff(now));
+    console.log(duration,"duration")
+    let difference = Math.floor(duration.asDays());
+    let minDiff = Math.floor(duration.asMinutes());
+    console.log(minDiff, 'diff');
+
+    let unit = 'days';
+    if (difference < 1) {
+      difference = Math.floor(duration.asHours());
+      unit = 'hours';
+    }
+    if (difference < 1) {
+      difference = Math.floor(duration.asMinutes());
+      unit = 'minutes';
+    }
+    return minDiff<0?'show has expired':`${duration._data.hours} hours ${duration._data.minutes} minutes left!!`;
+  };
+
   const PollView = (data, type, type2) => {
-    let useData;
+    let useData=[];
     if(type2==='awards'){
       if (type === 'active') {
+        if(data &&data.length>0){
         if(selectedTags.length>0){
           useData =
           data &&data.length>0 &&
@@ -91,14 +107,16 @@ const Awards = ({fetchAwards,awards:{awards}}) => {
             return getExpiryString(p.lifeSpan) > 0;
           });
         }
+      
         else{
         useData =
           data &&data.length>0 &&
           data.filter((p) => {
             return getExpiryString(p.lifeSpan) > 0;
           });
-        console.log(useData);
+        console.log(useData,"use");
         }
+      }
       } else if (type === 'expired') {
         if(selectedTags.length>0){
           useData =
@@ -116,19 +134,20 @@ const Awards = ({fetchAwards,awards:{awards}}) => {
         console.log(useData);
         }
       }
+      console.log(useData,"usedata")
     }
 
     return (
       <>
         <div style={{ margin: '1.5rem 0' }}>
-          {useData && <span>{useData.length + ' ' + type + ' ' + type2}</span>}
+          {useData &&<span>{useData.length + ' ' + type + ' ' + type2}</span>}
         </div>
         <div className='pollCont'>
           {useData &&
             useData.map(
               (p) =>
                 p.hidden === false && (
-                  <PollCard icons={icons} type2={type2} p={p} />
+                  <PollCard icons={icons} type2={type2} p={p} getExpiryString1={getExpiryString1}/>
                 )
             )}
         </div>
@@ -150,7 +169,7 @@ const Awards = ({fetchAwards,awards:{awards}}) => {
               {PollView(awards, 'active', 'awards')}
             </TabPane>
             <TabPane tab='Expired' key='2'>
-              {PollView(awards, 'expired', 'awards')}
+              {PollView(expiredAwards.payload, 'expired', 'awards')}
             </TabPane>
           </Tabs>
         </div>

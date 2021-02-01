@@ -15,6 +15,7 @@ const HomePollsAndAwards = ({ fetchPolls,fetchAwards, polls: { polls },awards:{a
   const [selectedTagsPolls, setSelectedTagsPolls] = useState([]);
   const [selectedTagsAwards,setSelectedTagsAwards]=useState([])
   const [pollsBasedOnCategory,setPollsBasedOnCategory]=useState({})
+  const [expiredAwards,setExpiredAwards]=useState({})
 
   const types=[
     "Bollywood",
@@ -26,11 +27,23 @@ const HomePollsAndAwards = ({ fetchPolls,fetchAwards, polls: { polls },awards:{a
     fetchPolls();
     fetchAwards();
     fetchPollsSelected();
+    fetchExpiredAwards();
   }, []);
 useEffect(()=>{
   fetchPollsSelected();
 
 },[selectedTagsPolls])
+
+const fetchExpiredAwards = async (page) => {
+  try {
+    const response = await axios.get('/award/fetchAwardsAndCategories?mode=expired');
+    const responseJSON = response.data;
+    setExpiredAwards(responseJSON);
+    console.log(responseJSON, 'expired awards');
+  } catch (err) {
+    console.log(err);
+  }
+};
 
   const fetchPollsSelected = async (page) => {
     const queryParam = selectedTagsPolls.join(',');
@@ -217,6 +230,7 @@ if(type2==='polls'){
           <div className="top">
             <span>
               {useData && useData.length}{' '}
+              {data && data.length===0&& "0"}{" "}
               {type === 'active' ? 'active' : 'expired'} {type2==='polls'?'polls':'Awards'}
             </span>
             <span>View all</span>
@@ -251,7 +265,7 @@ if(type2==='polls'){
               {grid(awards,'active','awards')}
             </TabPane>
             <TabPane tab='Expired' key='2'>
-              {grid(awards,'expired','awards')}
+              {grid(expiredAwards.payload,'expired','awards')}
             </TabPane>
           </Tabs>
         </TabPane>

@@ -12,6 +12,7 @@ import axios from '../../axios';
 import { fetchNews } from '../../Actions/NewsAction';
 import NewsCard from '../../Components/News/NewsCard';
 import NewsTrendingCard from '../../Components/News/NewsTrendingCard';
+import {Link} from 'react-router-dom'
 
 const Home = ({ fetchNews, news: { news } }) => {
   const [selectedTags, setSelectedTags] = useState([]);
@@ -84,10 +85,10 @@ const Home = ({ fetchNews, news: { news } }) => {
         <div className='section-news-left'>
           <div className='section-news-left--head'>
             <span>News</span>
-            <span>
+            <Link style={{color:'black'}} to="/news">
               View all
               <RightOutlined />
-            </span>
+            </Link>
           </div>
           <div className='section-news-left--tags'>
             <Checkbox.Group
@@ -116,7 +117,7 @@ const Home = ({ fetchNews, news: { news } }) => {
         <div className='section-news-right'>
           <div className='trending-head'>
             <span>Trending</span>
-            <span>View all</span>
+            <Link style={{color:'black'}} to="/news">View all</Link>
           </div>
           <div className='trending-news'>
             {news &&
