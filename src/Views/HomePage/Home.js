@@ -119,7 +119,7 @@ const Home = ({ fetchNews, news: { news } }) => {
             <span>Trending</span>
             <Link style={{color:'black'}} to="/news">View all</Link>
           </div>
-          <div className='trending-news'>
+          <div className='trending-news' style={{overflowY:'scroll'}}>
             {news &&
               news.payload.length > 0 &&
               news.payload

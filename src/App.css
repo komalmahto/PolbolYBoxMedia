@@ -193,6 +193,11 @@ body {
   font-size: 1.8rem;
 }
 
+.section-news-right .trending-news {
+  height: 480px;
+  overflow-y: scroll;
+}
+
 .card-container p {
   margin: 0;
 }
@@ -384,6 +389,11 @@ body {
 .news .news-section1 .spotlight-head span:nth-child(1) {
   font-weight: bold;
   font-size: 1.8rem;
+}
+
+.news .news-section1 .spotlight .trending-news {
+  height: 300px;
+  overflow-y: scroll;
 }
 
 .news .news-section1 .left .left-head {
@@ -762,5 +772,216 @@ body {
   .sidenav a {
     font-size: 18px;
   }
+}
+
+.award-categories-card {
+  width: 300px;
+  height: 300px;
+  background-color: white;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.award-categories-card .img {
+  background-position: center;
+  background-size: cover;
+  width: 300px;
+  height: 250px;
+}
+
+.award-categories-card .data {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+  font-weight: bold;
+}
+
+.nominee-card .img {
+  background-position: center;
+  background-size: cover;
+}
+
+.jury-card {
+  background-color: white;
+  border-radius: 10px;
+  padding: 1rem;
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  grid-column-gap: 1rem;
+}
+
+.jury-card .img {
+  background-position: center;
+  background-size: cover;
+}
+
+.jury-card .data {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.jury-card .data p {
+  margin: 0;
+}
+
+.quiz-cat {
+  background-color: white;
+  padding: 1rem;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.quiz-cat img {
+  margin-bottom: 1rem;
+}
+
+.quiz-cat span {
+  font-weight: bold;
+  display: block;
+  text-align: center;
+  color: black;
+}
+
+.level-card {
+  background-color: white;
+  padding: 1rem;
+  display: grid;
+  border-radius: 10px;
+  grid-template-columns: 70% 30%;
+}
+
+.level-card .left {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.level-card .left .meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.quiz .options {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.quiz-box .quiz-head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.quiz-box .quiz-head .level {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+}
+
+.quiz-box .quiz-head .timer {
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+}
+
+.quiz-box .quiz-head .timer .timer-val {
+  margin-left: 1rem;
+  font-weight: bold;
+}
+
+.quiz-box .quiz-head .timer .timer-logo {
+  font-size: 2.3rem;
+}
+
+.quiz-box .quiz-head .questionNo {
+  margin-top: 1rem;
+  font-size: 1.3rem;
+  background-color: #a62844;
+  color: white;
+  padding: 1rem;
+  border-radius: 10px;
+}
+
+.quiz-box .start {
+  cursor: pointer;
+  background-color: #a62844;
+  padding: 1rem;
+  font-size: 1.5rem;
+  border-radius: 10px;
+  color: white;
+}
+
+.quiz-box .quiz {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.quiz-box .quiz .quiz-ques {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 60%;
+}
+
+@media screen and (max-width: 750px) {
+  .quiz-box .quiz .quiz-ques {
+    width: 100%;
+  }
+}
+
+.quiz-box .quiz .quiz-ques p {
+  width: 100%;
+  padding: 1rem;
+  text-align: center;
+  background-color: white;
+  border-radius: 10px;
+}
+
+.quiz-box .quiz .quiz-ques .options {
+  width: 100%;
+  grid-gap: 1rem;
+}
+
+@media screen and (max-width: 750px) {
+  .quiz-box .quiz .quiz-ques .options {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.quiz-box .quiz .quiz-ques .options .opt {
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+  font-size: 1.3rem;
+  border-radius: 10px;
+  background-color: white;
+}
+
+.quiz-box .buttons {
+  margin-top: 2rem;
+}
+
+.quiz-box .buttons .btn {
+  padding: 1rem;
+  background-color: #a62844;
+  color: white;
+  border-radius: 10px;
+  margin-left: 2rem;
+  font-size: 1.6rem;
+  cursor: pointer;
+}
+
+.quiz-result {
+  font-size: 1.3rem;
+  font-weight: bold;
 }
 /*# sourceMappingURL=App.css.map */

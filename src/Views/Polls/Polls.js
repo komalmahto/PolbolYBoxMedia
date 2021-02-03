@@ -105,7 +105,7 @@ const Polls = () => {
             useData.map(
               (p) =>
                 p.hidden === false && (
-                  <PollCard icons={icons} type2={type2} p={p} />
+                  <PollCard icons={icons} type2={type2} p={p} type={type}/>
                 )
             )}
         </div>

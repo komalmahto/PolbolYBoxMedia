@@ -8,16 +8,28 @@ import PollCard from '../../Components/Polls/PollCard';
 import { icons } from '../../Components/icons/Icons';
 import { fetchAwards } from '../../Actions/AwardsAction';
 import { connect } from 'react-redux';
+import { Modal, Button } from 'antd';
+import NomineeCard from '../../Components/Cards/NomineeCard'
+import JuryCard from '../../Components/Cards/JuryCard'
+import AwardResult from '../../Components/Result/AwardResult'
+
 
 const Awards = ({fetchAwards,awards:{awards}}) => {
   const [selectedTags, setSelectedTags] = useState([]);
   const [expiredAwards, setExpiredAwards] = useState({});
+  const [type3,setType3]=useState(false)
+  const [type3Data,setType3Data]=useState({});
 
   const { TabPane } = Tabs;
   useEffect(() => {
     fetchExpiredAwards();
     fetchAwards();
+    window.scrollTo(0, 0);
+
   }, []);
+
+
+
 
   // useEffect(() => {
   //   fetchExpiredAwards();
@@ -94,7 +106,20 @@ const Awards = ({fetchAwards,awards:{awards}}) => {
     }
     return minDiff<0?'show has expired':`${duration._data.hours} hours ${duration._data.minutes} minutes left!!`;
   };
+  const handleOk = () => {
+    setType3(false);
+  };
 
+  const handleCancel = () => {
+    setType3(false);
+  };
+  const setIt=(p)=>{
+    console.log(p)
+    if(p.isSubcategory){
+      setType3(true)
+      setType3Data(p)
+    }
+  }
   const PollView = (data, type, type2) => {
     let useData=[];
     if(type2==='awards'){
@@ -137,6 +162,10 @@ const Awards = ({fetchAwards,awards:{awards}}) => {
       console.log(useData,"usedata")
     }
 
+
+
+    
+  
     return (
       <>
         <div style={{ margin: '1.5rem 0' }}>
@@ -147,7 +176,9 @@ const Awards = ({fetchAwards,awards:{awards}}) => {
             useData.map(
               (p) =>
                 p.hidden === false && (
-                  <PollCard icons={icons} type2={type2} p={p} getExpiryString1={getExpiryString1}/>
+                  <div onClick={()=>setIt(p)}>
+                  <PollCard setType3Data={setType3Data} type3={type3} setType3={setType3} icons={icons} type2={type2} p={p} getExpiryString1={getExpiryString1}/>
+                  </div>
                 )
             )}
         </div>
@@ -155,7 +186,32 @@ const Awards = ({fetchAwards,awards:{awards}}) => {
     );
   };
   return (
+    
     <div className='poll-box'>
+    <Modal width="100%"  title={type3Data&& Object.keys(type3Data).length>0 && type3Data.heading} visible={type3} onOk={handleOk} onCancel={handleCancel}>
+   {/* <h3>{type3Data&& Object.keys(type3Data).length>0 && type3Data.heading}</h3>*/}
+    <Tabs onChange={callback} type="card">
+    <TabPane tab="Nominees" key="1">
+    <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(200px,1fr))',justifyItems:'center',gridGap:'1.5rem'}}>
+      {type3Data&& Object.keys(type3Data).length>0 && type3Data.nominations.map((p)=>(
+        <NomineeCard p={p}/>
+      ))}
+      </div>
+    </TabPane>
+    <TabPane tab="Jury" key="2">
+    <div tyle={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(320px,1fr))',justifyItems:'center',gridGap:'1.5rem'}}>
+    {type3Data&& Object.keys(type3Data).length>0 && type3Data.jurys.map((p)=>(
+      <JuryCard p={p}/>
+    ))}
+    </div>
+    </TabPane>
+   
+    <TabPane tab="Results" key="3">
+    <AwardResult id={type3Data&& Object.keys(type3Data).length>0 && type3Data._id} />
+  </TabPane>
+  </Tabs>
+    
+    </Modal>
       <div>
         <h1>Awards</h1>
         <div>
