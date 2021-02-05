@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {RightOutlined} from '@ant-design/icons'
 import {icons} from '../icons/Icons'
+import {Link}from 'react-router-dom'
 
 
 const NewsCard = ({p,setIt,data}) => {
@@ -39,9 +40,11 @@ const NewsCard = ({p,setIt,data}) => {
                     </div>
                   </div>
                   <div className='read-more'>
-                    <span style={{cursor:'pointer'}} onClick={()=>setIt(p)}>
+                    {setIt?<span style={{cursor:'pointer'}} onClick={()=>setIt&&setIt(p)}>
                       Read more <RightOutlined />
-                    </span>
+                    </span>:<Link to={`/news/${p._id}`} style={{cursor:'pointer'}} onClick={()=>setIt&&setIt(p)}>
+                    Read more <RightOutlined />
+                  </Link>}
                   </div>
                 </div>
   

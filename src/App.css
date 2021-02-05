@@ -2,17 +2,19 @@
   margin: 0;
   padding: 0;
   font-family: 'Open Sans', sans-serif;
+  color: #222222;
 }
 
 html {
   font-size: 62.5%;
   box-sizing: border-box;
-  background-color: #f5f5f5;
+  background-color: white;
 }
 
 body {
   box-sizing: border-box;
-  background-color: #f5f5f5;
+  background-color: white;
+  color: #222222;
 }
 
 .header .header-top {
@@ -29,7 +31,7 @@ body {
   background-color: gray;
   display: flex;
   align-items: center;
-  color: white;
+  color: #ffffff;
   border-radius: 7px 7px 0 0;
   font-size: 1.2rem;
   height: 2.2rem;
@@ -57,7 +59,7 @@ body {
   height: 6rem;
   display: flex;
   align-items: center;
-  background-color: grey;
+  background-color: #ac074b;
   justify-content: space-between;
 }
 
@@ -116,7 +118,7 @@ body {
 
 .box {
   padding: 2rem 5rem;
-  background-color: #f5f5f5;
+  background-color: white;
 }
 
 @media only screen and (max-width: 1250px) {
@@ -149,6 +151,8 @@ body {
 
 .section-news-left--tags .tags {
   display: flex;
+  align-items: center;
+  justify-content: center;
   flex-wrap: wrap;
 }
 
@@ -870,11 +874,40 @@ body {
   grid-template-columns: repeat(2, 1fr);
 }
 
+.quiz-box .hint-btn span {
+  display: flex;
+  align-items: center;
+  background-color: #a62844;
+  padding: 0.8rem 2rem;
+  border-radius: 20px;
+  margin-bottom: 2rem;
+  color: white;
+}
+
+.quiz-box .hint-btn span img {
+  margin-right: 1rem;
+}
+
 .quiz-box .quiz-head {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.quiz-box .quiz-head .hint {
+  align-self: flex-start;
+  margin-left: 1rem;
+  font-size: 2.5rem;
+  display: flex;
+  align-items: center;
+  background-color: #f3d8e2;
+  padding: 1rem;
+  border-radius: 20px;
+}
+
+.quiz-box .quiz-head .hint span {
+  margin-right: 1rem;
 }
 
 .quiz-box .quiz-head .level {
@@ -938,9 +971,10 @@ body {
 
 .quiz-box .quiz .quiz-ques p {
   width: 100%;
-  padding: 1rem;
+  padding: 3rem;
   text-align: center;
-  background-color: white;
+  font-size: 1.6rem;
+  color: #222222;
   border-radius: 10px;
 }
 
@@ -958,16 +992,31 @@ body {
 
 .quiz-box .quiz .quiz-ques .options .opt {
   margin-bottom: 2rem;
+  cursor: pointer;
   display: flex;
   justify-content: center;
   padding: 1rem;
   font-size: 1.3rem;
   border-radius: 10px;
+  font-size: 1.6rem;
   background-color: white;
+  border: 2px solid transparent;
+  background-color: #f5f5f5;
+  transition: all 0.3s;
+}
+
+.quiz-box .quiz .quiz-ques .options .opt:hover {
+  background-color: #f3d8e2;
 }
 
 .quiz-box .buttons {
   margin-top: 2rem;
+  height: 4rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  justify-content: space-evenly;
 }
 
 .quiz-box .buttons .btn {
@@ -975,7 +1024,10 @@ body {
   background-color: #a62844;
   color: white;
   border-radius: 10px;
-  margin-left: 2rem;
+  width: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 1.6rem;
   cursor: pointer;
 }
@@ -983,5 +1035,80 @@ body {
 .quiz-result {
   font-size: 1.3rem;
   font-weight: bold;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.quiz-result .bottom {
+  display: flex;
+  justify-content: center;
+  color: white;
+}
+
+.quiz-result .bottom .cont {
+  background-color: #a62844;
+  width: 70%;
+  padding: 1rem;
+  border-radius: 15px;
+  color: white;
+}
+
+.quiz-result .bottom .cont p {
+  display: grid;
+  color: white;
+  grid-template-columns: 50% 50%;
+  justify-items: flex-end;
+  grid-column-gap: 1rem;
+}
+
+.quiz-result .bottom .cont p span {
+  color: white;
+}
+
+.quiz-result .bottom .cont p span:nth-child(2) {
+  justify-self: flex-start;
+}
+
+.quiz-result .total-score {
+  display: flex;
+  justify-content: center;
+}
+
+.quiz-result .total-score p {
+  background-color: #a62844;
+  width: 70%;
+  display: flex;
+  justify-content: center;
+  color: white;
+  font-size: 1.6rem;
+  padding: 1rem;
+  border-radius: 15px;
+}
+
+.modal {
+  background-color: rgba(173, 8, 74, 0.3);
+  border-radius: 5px;
+  color: #333;
+  font-family: sans-serif;
+  line-height: 1.5;
+  max-width: 100%;
+  color: white;
+  padding: 1rem 2rem;
+}
+
+.modal a {
+  color: #bf0222;
+}
+
+@supports (backdrop-filter: none) {
+  .modal {
+    backdrop-filter: blur(10px);
+    background-color: rgba(173, 8, 74, 0.3);
+  }
+  .warning {
+    display: none;
+  }
 }
 /*# sourceMappingURL=App.css.map */

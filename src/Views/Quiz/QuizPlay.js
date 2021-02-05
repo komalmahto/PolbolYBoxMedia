@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import useSound from 'use-sound';
 import boopSfx from '../../assets/Blop-Mark_DiAngelo-79054334.mp3';
-import correctSound from '../../assets/correct.mp3';
+import correctSound from '../../assets/state-change_confirm-up.wav';
 import wrongSound from '../../assets/Wrong-answer-sound-effect.mp3';
+import tik from '../../assets/ticktok.wav'
 import { Modal, Button } from 'antd';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
-
+import light from '../../assets/light-bulb-1.png'
 import { FieldTimeOutlined, LogoutOutlined } from '@ant-design/icons';
 const { confirm } = Modal;
 
@@ -15,7 +16,7 @@ const QuizPlay = ({ match, history }) => {
   const [play] = useSound(boopSfx);
   const [correct] = useSound(correctSound);
   const [wrong] = useSound(wrongSound);
-
+  const [tiktok] = useSound(tik);
   const [start, setStart] = useState(false);
   const [index, setIndex] = useState(0);
   const [display, setDisplay] = useState({});
@@ -26,6 +27,12 @@ const QuizPlay = ({ match, history }) => {
   });
   const [final, setFinal] = useState({});
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [hint,setHint]=useState({
+    value:5,
+    taken:false
+  })
+  const [hintRes,setHintRes]=useState({});
+  const [alert,setAlert]=useState(false)
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -35,7 +42,6 @@ const QuizPlay = ({ match, history }) => {
     history.push(`/quiz/levels/${match.params.catId}`);
 
     setIsModalVisible(false);
-
   };
 
   const handleCancel = () => {
@@ -43,7 +49,6 @@ const QuizPlay = ({ match, history }) => {
 
     setIsModalVisible(false);
   };
-
 
   const fetchQuiz = async () => {
     await axios
@@ -53,6 +58,7 @@ const QuizPlay = ({ match, history }) => {
       .then((res) => {
         console.log(res.data);
         setQuestions(res.data.payload);
+        
       });
   };
 
@@ -60,6 +66,10 @@ const QuizPlay = ({ match, history }) => {
     fetchQuiz();
   }, []);
 
+  useEffect(() =>{
+    startQuiz();
+
+  },[questions])
   useEffect(() => {
     if (timer.isOn) {
       let timer1 = setTimeout(
@@ -75,7 +85,6 @@ const QuizPlay = ({ match, history }) => {
             )
             .then((res) => {
               setResult(res.data.payload);
-              fetchQuiz();
             });
         };
         timeOut();
@@ -88,16 +97,17 @@ const QuizPlay = ({ match, history }) => {
     }
   });
 
- 
   const startQuiz = () => {
+    if(Object.keys(questions).length>0){
     setStart(true);
     setDisplay(questions.questions[index]);
     setTimer({ ...timer, isOn: true });
+    }
   };
 
   const showAns = async (answerId) => {
     setTimer({ ...timer, isOn: false });
-    setResult({ hello: 'hello' });
+    // setResult({ hello: 'hello' });
     console.log('answerId', answerId);
     console.log('questionId', display._id);
     console.log('resultId', questions.resultId);
@@ -170,10 +180,12 @@ const QuizPlay = ({ match, history }) => {
 
   const nextQuestion = () => {
     if (index < questions.questions.length) {
-      setDisplay(questions.questions[index+1]);
+      setDisplay(questions.questions[index + 1]);
       setIndex(index + 1);
       setTimer({ ...timer, time: 20, isOn: true });
       setResult({});
+      setHint({...hint,taken:false})
+    setAlert(false)
     }
   };
   const timerBlink = () => {
@@ -206,8 +218,46 @@ const QuizPlay = ({ match, history }) => {
     });
   }
 
+  const getHint=async (id) =>{
+    if(!hint.taken && hint.value>0 &&timer.time>0){
+  await axios.get(`http://52.66.203.244:2113/api/v1/quiz/hint/guest?quesId=${id}&cost=1`)
+  .then((res)=>{
+    setHintRes(res.data.payload)
+    console.log(res.data.payload)
+    const ind=display.options.map((ind,val)=>{
+      if(val._id===res.data.payload){
+        return ind
+      }
+    })
+    console.log(ind)
+    
+    function generateRandom(min, max) {
+      var num = Math.floor(Math.random() * (max - min + 1)) + min;
+      return (num === ind) ? generateRandom(min, max) : num;
+  }
+  display.options.splice(generateRandom(0,3),1)
+
+  
+    setHint({value:hint.value-1,taken:true})
+
+  })
+    }
+
+  }
+  useEffect(()=>{
+    if(alert===false){
+    if(timer.time<6){
+      tiktok()
+      setAlert(true)
+    }
+  }
+  },[timer.time])
+ 
+  
+
   return (
     <div className='box'>
+   
       <Modal
         title='Quiz Result'
         visible={isModalVisible}
@@ -215,17 +265,24 @@ const QuizPlay = ({ match, history }) => {
         onCancel={handleCancel}
       >
         {Object.keys(final).length > 0 && (
-          <div className="quiz-result">
-            <p>Score: {final.score}</p>
-            <p>Correct: {final.countCorrect}</p>
-            <p>Total score: {final.totalScore}</p>
-            <p>Out of: {final.outOf}</p>
-            <p>Accuracy: {final.accuracy}</p>
+          <div className='quiz-result'>
+          <div className="total-score">
+            <p >Total Score: {final.score}/{final.outOf}</p>
+            </div>
+            <div className="bottom">
+            <div className="cont">
+            <p><span>Correct Answers :</span><span>{final.countCorrect}/{final.maxQuestions}</span> </p>
+            <p><span>No of Attempts :</span><span>{final.attempts}</span> </p>
+            <p><span>Accuracy :</span><span> {final.accuracy} %</span></p>
+            </div>
+            </div>
           </div>
         )}
       </Modal>
       <div className='quiz-box'>
+      
         <div className='quiz-head'>
+        <div className="hint"><span>{hint.value}</span><img style={{height:'35px'}} src={light}></img></div>
           <span className='level'>Level 1 </span>
           <span className='timer'>
             <FieldTimeOutlined className='timer-logo' />
@@ -240,18 +297,18 @@ const QuizPlay = ({ match, history }) => {
             </span>
           )}
         </div>
-        {!start && (
+        {/*!start && (
           <center style={{ marginTop: '1.5rem' }}>
             {' '}
             <span className='start' onClick={startQuiz}>
               Start Quiz
             </span>
           </center>
-        )}
+        )*/}
         {start && display && (
-          <div className='quiz'>
+          <div className='quiz '>
             <div className='quiz-ques'>
-              <p>{display.content.question}</p>
+              <p className="modal">{display.content.question}</p>
               <div className='options'>
                 {display.options.map((op) => (
                   <span
@@ -263,16 +320,21 @@ const QuizPlay = ({ match, history }) => {
                   </span>
                 ))}
               </div>
-              {Object.keys(result).length > 0 && (
+              <div className="hint-btn"><span style={{cursor:'pointer'}} onClick={()=>getHint(display._id)}><img style={{height:'25px'}} src={light}></img>Hint</span> </div>
+              
                 <div className='buttons'>
-                  <span className='btn' onClick={showConfirm}>
-                    Exit <LogoutOutlined />
+                {Object.keys(result).length > 0 && (
+                  <>
+                  <span  className='btn' onClick={showConfirm}>
+                    Exit 
                   </span>
                   <span className='btn' onClick={nextQuestion}>
                     Next
                   </span>
+                  </>
+                  )}
                 </div>
-              )}
+            
             </div>
           </div>
         )}

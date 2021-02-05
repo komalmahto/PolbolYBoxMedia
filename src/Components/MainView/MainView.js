@@ -23,7 +23,7 @@ const MainView = () => {
     <div>
     <Switch>
     <Route exact path="/" component={Home}/>
-    <Route exact path="/news" component={News}/>
+    <Route path="/news" component={News}/>
     <Route exact path="/polls" component={Polls}/>
     <Route exact path="/awards" component={Awards}/>
     <Route exact path="/livetv" component={Livetv}/>

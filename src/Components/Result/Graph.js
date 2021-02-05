@@ -236,7 +236,7 @@ ageArr.push(<Option value={property}>{property}</Option>)
   }
   }
   return (
-    <Modal width="100%" title="Poll result" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+    <Modal  id="res" title="Poll result" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
 
     <div
     style={{

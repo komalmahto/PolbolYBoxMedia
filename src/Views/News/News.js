@@ -8,11 +8,16 @@ import {Checkbox} from 'antd'
 import axios from '../../axios';
 import CategoryBar from '../../Components/CategoryBar/CategoryBar'
 
-const News = ({ fetchNews, news: { news } }) => {
+const News = ({ fetchNews, news: { news } ,match,history}) => {
   const [selectedTags, setSelectedTags] = useState([]);
   const [newsBasedOnCategory, setNewsBasedOnCategory] = useState({});
   let p1=news && news.payload.length>0 && news.payload[0]
   const [data,setData]=useState(p1)
+  useEffect(()=>{
+    console.log(match);
+  
+  },[])
+  console.log(history)
 console.log(p1);
   useEffect(() => {
     fetchNews();

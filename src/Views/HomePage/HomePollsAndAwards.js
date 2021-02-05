@@ -239,7 +239,7 @@ if(type2==='polls'){
             {useData &&
               useData.map((p) => (
 
-              p.hidden===false&&  <PollCard icons={icons} type2={type2} p={p} getExpiryString1={getExpiryString1}/>
+              p.hidden===false&&  <PollCard type={type} icons={icons} type2={type2} p={p} getExpiryString1={getExpiryString1}/>
               ))}
           </div>
         </div>
