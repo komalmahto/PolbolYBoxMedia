@@ -12,7 +12,7 @@ import {useHistory} from 'react-router-dom'
 
 const { TabPane } = Tabs;
 
-const HomePollsAndAwards = ({ fetchPolls,fetchAwards, polls: { polls },awards:{awards} }) => {
+const HomePollsAndAwards = ({ fetchPolls,fetchAwards, polls: { polls },awards:{awards},english:{english} }) => {
   const [selectedTagsPolls, setSelectedTagsPolls] = useState([]);
   const [selectedTagsAwards,setSelectedTagsAwards]=useState([])
   const [pollsBasedOnCategory,setPollsBasedOnCategory]=useState({})
@@ -25,11 +25,11 @@ const history=useHistory();
   ]
  
   useEffect(() => {
-    fetchPolls();
+    fetchPolls(english);
     fetchAwards();
     fetchPollsSelected();
     fetchExpiredAwards();
-  }, []);
+  }, [english]);
 useEffect(()=>{
   fetchPollsSelected();
 
@@ -37,7 +37,7 @@ useEffect(()=>{
 
 const fetchExpiredAwards = async (page) => {
   try {
-    const response = await axios.get('/award/fetchAwardsAndCategories?mode=expired');
+    const response = await axios.get(`/award/fetchAwardsAndCategories?mode=expired&hindi=${!english}`);
     const responseJSON = response.data;
     setExpiredAwards(responseJSON);
     console.log(responseJSON, 'expired awards');
@@ -49,7 +49,7 @@ const fetchExpiredAwards = async (page) => {
   const fetchPollsSelected = async (page) => {
     const queryParam = selectedTagsPolls.join(',');
     try {
-        const response = await axios.get('/common/polls', {
+        const response = await axios.get(`/common/polls`, {
             params: {
                 page,
                 categories: selectedTagsPolls.length > 0 ? queryParam : undefined
@@ -221,11 +221,6 @@ if(type2==='polls'){
           </label>
         ))}
         </Checkbox.Group>}
-
-
-
-
-
         </div>
         <div style={{overflowY:'scroll'}}>
           <div className="top">
@@ -240,7 +235,7 @@ if(type2==='polls'){
             {useData &&
               useData.map((p) => (
 
-              p.hidden===false&&  <PollCard type={type} icons={icons} type2={type2} p={p} getExpiryString1={getExpiryString1}/>
+              p.hidden===false&&  <PollCard english={english} type={type} icons={icons} type2={type2} p={p} getExpiryString1={getExpiryString1}/>
               ))}
           </div>
         </div>
@@ -277,7 +272,8 @@ if(type2==='polls'){
 
 const mapStateToProps = (state) => ({
   polls: state.polls,
-  awards:state.awards
+  awards:state.awards,
+  english:state.english
 });
 
 export default connect(mapStateToProps, {

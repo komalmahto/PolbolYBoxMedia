@@ -15,9 +15,17 @@ const News = ({ fetchNews, news: { news } ,match,history}) => {
   const [data,setData]=useState(p1)
   useEffect(()=>{
     console.log(match);
+    setData(history.location.pathname.split('/')[2])
+    if(news && news.payload.length>0){
+      const lol=news.payload.filter((p)=>{
+        return p._id ===history.location.pathname.split('/')[2]
+        
+      })
+      setData(lol[0])
+    }
   
-  },[])
-  console.log(history)
+  },[news])
+  console.log(history.location.pathname.split('/')[2],"his")
 console.log(p1);
   useEffect(() => {
     fetchNews();
@@ -73,6 +81,8 @@ console.log(p1);
       <div className='news-head'>
         <h1>News</h1>
       </div>
+      <CategoryBar onChange={onChange} cats={cats} checkChecked={checkChecked}/>
+
       <section className='news-section1'>
         <div className="left">
         <div className="left-head"><p>{data &&data.headline}</p><span>{data && data.categories[0]}</span></div>
@@ -92,7 +102,7 @@ console.log(p1);
         <div className='spotlight'>
           <div className='spotlight-head'>
             <span>Spotlight</span>
-            <span>View all</span>
+           {/* <span>View all</span>*/}
           </div>
           <div className='trending-news'>
             {news &&
@@ -107,7 +117,6 @@ console.log(p1);
       </section>
 
       <section className="news-section2">
-     <CategoryBar onChange={onChange} cats={cats} checkChecked={checkChecked}/>
     <div className="news-container">
     {Object.keys(newsBasedOnCategory).length > 0 &&
       newsBasedOnCategory.payload.data.length > 0 &&

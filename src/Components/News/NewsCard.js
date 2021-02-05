@@ -28,10 +28,13 @@ const NewsCard = ({ p, setIt, data }) => {
         </span>
         <p>{p.short_headline}</p>
       </div>
+      <div style={{fontWeight:'bold'}} className='description'>
+      <p>{p.headline}</p>
+      </div>
       <div className='description'>
         <p>{p.description.substr(0, 80) + '...'}.</p>
       </div>
-      <div className='published'>
+      {/*<div className='published'>
         <img
           src={p.user.avatar}
           style={{ width: '25px', height: '25px' }}
@@ -42,7 +45,7 @@ const NewsCard = ({ p, setIt, data }) => {
             {p.user.firstName} {p.user.lastName}
           </span>
         </div>
-      </div>
+  </div>*/}
       <div className='read-more'>
         {setIt ? (
           <span className="read" style={{ cursor: 'pointer' }} onClick={() => setIt && setIt(p)}>

@@ -6,15 +6,16 @@ import axios from '../../axios';
 import moment from 'moment';
 import PollCard from '../../Components/Polls/PollCard';
 import { icons } from '../../Components/icons/Icons';
+import {connect} from 'react-redux';
 
-const Polls = () => {
+const Polls = ({english:{english}}) => {
   const [selectedTags, setSelectedTags] = useState([]);
   const [pollsBasedOnCategory, setPollsBasedOnCategory] = useState({});
 
   const { TabPane } = Tabs;
   useEffect(() => {
     fetchPollsSelected();
-  }, []);
+  }, [english]);
 
   useEffect(() => {
     fetchPollsSelected();
@@ -23,7 +24,7 @@ const Polls = () => {
   const fetchPollsSelected = async (page) => {
     const queryParam = selectedTags.join(',');
     try {
-      const response = await axios.get('/common/polls', {
+      const response = await axios.get(`/common/polls?hindi=${!english}`, {
         params: {
           page,
           categories: selectedTags.length > 0 ? queryParam : undefined,
@@ -105,7 +106,7 @@ const Polls = () => {
             useData.map(
               (p) =>
                 p.hidden === false && (
-                  <PollCard icons={icons} type2={type2} p={p} type={type}/>
+                  <PollCard english={english} icons={icons} type2={type2} p={p} type={type}/>
                 )
             )}
         </div>
@@ -136,4 +137,8 @@ const Polls = () => {
   );
 };
 
-export default Polls;
+const mapStateToProps = (state) => ({
+  english:state.english
+});
+
+export default connect(mapStateToProps)(Polls);

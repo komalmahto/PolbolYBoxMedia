@@ -14,14 +14,14 @@ import NewsCard from '../../Components/News/NewsCard';
 import NewsTrendingCard from '../../Components/News/NewsTrendingCard';
 import {Link} from 'react-router-dom'
 
-const Home = ({ fetchNews, news: { news } }) => {
+const Home = ({ fetchNews, news: { news },english:{english}}) => {
   const [selectedTags, setSelectedTags] = useState([]);
   const [newsBasedOnCategory, setNewsBasedOnCategory] = useState({});
 
   useEffect(() => {
-    fetchNews();
+    fetchNews(english);
     fetchNewsSelected();
-  }, []);
+  }, [english]);
 
   useEffect(() => {
     fetchNewsSelected();
@@ -30,7 +30,7 @@ const Home = ({ fetchNews, news: { news } }) => {
   const fetchNewsSelected = async (page) => {
     const queryParam = selectedTags.join(',');
     try {
-      const response = await axios.get('/common/news', {
+      const response = await axios.get(`/common/news?hindi=${!english}`, {
         params: {
           page,
           categories: selectedTags.length > 0 ? queryParam : undefined,
@@ -141,6 +141,7 @@ const Home = ({ fetchNews, news: { news } }) => {
 };
 const mapStateToProps = (state) => ({
   news: state.news,
+  english:state.english
 });
 
 export default connect(mapStateToProps, {
