@@ -84,10 +84,10 @@ const Home = ({ fetchNews, news: { news } }) => {
       <section className='section-news'>
         <div className='section-news-left'>
           <div className='section-news-left--head'>
-            <span>News</span>
-            <Link style={{color:'black'}} to="/news">
+            <span className="news-head">News</span>
+            <Link className="viewAll"  to="/news">
               View all
-              <RightOutlined />
+              <span></span>
             </Link>
           </div>
           <div className='section-news-left--tags'>
@@ -117,7 +117,7 @@ const Home = ({ fetchNews, news: { news } }) => {
         <div className='section-news-right'>
           <div className='trending-head'>
             <span>Trending</span>
-            <Link style={{color:'black'}} to="/news">View all</Link>
+            <Link className="viewAll" to="/news">View all</Link>
           </div>
           <div className='trending-news' style={{overflowY:'scroll'}}>
             {news &&

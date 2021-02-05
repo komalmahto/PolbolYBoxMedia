@@ -8,6 +8,7 @@ import moment from 'moment';
 import {icons,cats} from '../../Components/icons/Icons'
 import PollCard from '../../Components/Polls/PollCard'
 import axios from '../../axios'
+import {useHistory} from 'react-router-dom'
 
 const { TabPane } = Tabs;
 
@@ -16,7 +17,7 @@ const HomePollsAndAwards = ({ fetchPolls,fetchAwards, polls: { polls },awards:{a
   const [selectedTagsAwards,setSelectedTagsAwards]=useState([])
   const [pollsBasedOnCategory,setPollsBasedOnCategory]=useState({})
   const [expiredAwards,setExpiredAwards]=useState({})
-
+const history=useHistory();
   const types=[
     "Bollywood",
     "Sports",
@@ -233,7 +234,7 @@ if(type2==='polls'){
               {data && data.length===0&& "0"}{" "}
               {type === 'active' ? 'active' : 'expired'} {type2==='polls'?'polls':'Awards'}
             </span>
-            <span>View all</span>
+            <span onClick={()=>{type2==='polls'?history.push('/polls'):history.push("/awards")}}  className="viewAll">View all</span>
           </div>
           <div className="grid-2" >
             {useData &&

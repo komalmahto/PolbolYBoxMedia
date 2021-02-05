@@ -10,7 +10,7 @@ const CategoryBar = ({cats,onChange,checkChecked}) => {
     onChange={onChange}
   >
     {cats.map((p) => (
-      <label style={checkChecked(p)}>
+      <label className="cat" style={checkChecked(p)}>
         {p}
         <Checkbox style={{ display: 'none' }} value={p}></Checkbox>
       </label>

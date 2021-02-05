@@ -219,7 +219,7 @@ const QuizPlay = ({ match, history }) => {
   }
 
   const getHint=async (id) =>{
-    if(!hint.taken && hint.value>0 &&timer.time>0){
+    if(!hint.taken && hint.value>0 &&timer.time>0 && Object.keys(result).length ===0){
   await axios.get(`http://52.66.203.244:2113/api/v1/quiz/hint/guest?quesId=${id}&cost=1`)
   .then((res)=>{
     setHintRes(res.data.payload)
