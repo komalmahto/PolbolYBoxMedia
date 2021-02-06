@@ -37,7 +37,7 @@ Education,
 Economy, 
 Health,
  Movie,
-Fashion
+Fashion,
 }
 
 

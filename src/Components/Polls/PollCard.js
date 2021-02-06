@@ -52,6 +52,21 @@ return `/award/subcat/${p._id}`
             : 'long-card long-card-ver'
         }
       >
+      <div className="lef"> <span className='heading'>
+      {type2 === 'polls' && (
+        <img
+          style={{ height: '25px', width: '25px', marginRight: '1rem' }}
+          src={
+            type2 === 'polls'
+              ? icons[p.categories[0]]
+              : icons[p.type[0]]
+          }
+        />
+      )}
+      {type2 === 'polls'
+        ? `Poll on ${p.categories[0]}`
+        : `${getExpiryString1 && getExpiryString1(p.lifeSpan)}`}
+    </span>
         {english&&<div
           className='long-card-img'
           style={{
@@ -68,6 +83,7 @@ return `/award/subcat/${p._id}`
             })`,
           }}
         ></div>}
+        </div>
         <div className='long-card-desc'>
           <div
             style={{
@@ -76,21 +92,7 @@ return `/award/subcat/${p._id}`
               justifyContent: 'space-between',
             }}
           >
-            <span className='heading'>
-              {type2 === 'polls' && (
-                <img
-                  style={{ height: '25px', width: '25px', marginRight: '1rem' }}
-                  src={
-                    type2 === 'polls'
-                      ? icons[p.categories[0]]
-                      : icons[p.type[0]]
-                  }
-                />
-              )}
-              {type2 === 'polls'
-                ? `Poll on ${p.categories[0]}`
-                : `${getExpiryString1 && getExpiryString1(p.lifeSpan)}`}
-            </span>
+           
             {type2 === 'awards' && p.hasCategories && (
               <Link
                 style={{ textAlign: 'center' }}
@@ -116,7 +118,6 @@ return `/award/subcat/${p._id}`
           </div>
           {type2 === 'polls' && (
             <div style={{display:'flex',justifyContent:'space-between',marginTop:'0.5rem'}}>
-            <span className='give-rating'>Give Rating</span>
           <span><LikeOutlined /> {p.likesCount}</span>
             </div>
           )}

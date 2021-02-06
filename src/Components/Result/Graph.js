@@ -59,6 +59,29 @@ const Graph = ({ match, id, isModalVisible, setIsModalVisible }) => {
     },
   });
 
+
+  const [dataPie,setDataPie]=useState({       
+    series: [],
+    options: {
+      chart: {
+        width: '100%',
+        type: 'pie',
+      },
+      labels: [],
+      responsive: [{
+        breakpoint: 1280,
+        options: {
+          chart: {
+            width: '100%'
+          },
+          legend: {
+            position: 'bottom'
+          }
+        }
+      }]
+    },
+  })
+
   useEffect(() => {
     if (id) {
       fetchResult();
@@ -84,7 +107,7 @@ const Graph = ({ match, id, isModalVisible, setIsModalVisible }) => {
     if (Object.keys(data).length > 0 && data.poll.type === 'bar') {
       if (overall) {
         Object.keys(data).length > 0 &&
-          data.global.chartData.length > 0 &&
+       data.global.chartData.length > 0 &&
           data.global.chartData.map((d) => {
             dat1.push(d.rating);
             dat2.push(d.perc);
@@ -114,6 +137,7 @@ const Graph = ({ match, id, isModalVisible, setIsModalVisible }) => {
             dat2.push(d.perc);
           });
       }
+     
     }
     seriesData = [
       {
@@ -128,9 +152,98 @@ const Graph = ({ match, id, isModalVisible, setIsModalVisible }) => {
       options: {
         // recreate the object that contains the field to update
         ...prevState.options, // copy all the fields of the object
-        xaxis: { ...prevState.xaxis, categories: [...dat1] }, // overwrite the value of the field to update
+        labels: dat1, // overwrite the value of the field to update
       },
     }));
+
+
+    if (Object.keys(data).length > 0 && data.poll.type==='pie'  ) {
+      if (overall) {
+        Object.keys(data).length > 0 &&
+         Object.keys(data.global).length > 0 &&
+          Object.keys(data.global).map((key,ind) => {
+            // dat1.push(d.rating);
+            // dat2.push(d.perc);
+            console.log(data.global[key])
+            console.log(key,'key');
+            console.log(ind,'ind');
+            dat1.push(data.global[key])
+            dat2.push(data.options[key])
+          });
+         
+
+      }
+      if (ageFilter !== 'Age') {
+        Object.keys(data).length > 0 &&
+        Object.keys(data.age).length > 0 &&
+           Object.keys(data.age[ageFilter]).map((key,ind) => {
+            // dat1.push(d.rating);
+            // dat2.push(d.perc);
+            console.log(key);
+            console.log(ind);
+            console.log(data.age[ageFilter][key]);
+            // console.log(data.age[key])
+            // console.log(key,'key');
+            // console.log(ind,'ind');
+            dat1.push(data.age[ageFilter][key])
+            dat2.push(data.options[key])
+          });
+      }
+      if (regionFilter !== 'Region') {
+        Object.keys(data).length > 0 &&
+        Object.keys(data.region).length > 0 &&
+           Object.keys(data.region[regionFilter]).map((key,ind) => {
+            // dat1.push(d.rating);
+            // dat2.push(d.perc);
+            console.log(key);
+            console.log(ind);
+            console.log(data.region[regionFilter][key]);
+            // console.log(data.region[key])
+            // console.log(key,'key');
+            // console.log(ind,'ind');
+            dat1.push(data.region[regionFilter][key])
+            dat2.push(data.options[key])
+          });
+      }
+      if (genderFilter !== 'Gender') {
+        Object.keys(data).length > 0 &&
+        Object.keys(data.gender).length > 0 &&
+           Object.keys(data.gender[genderFilter]).map((key,ind) => {
+            // dat1.push(d.rating);
+            // dat2.push(d.perc);
+            console.log(key);
+            console.log(ind);
+            console.log(data.gender[genderFilter][key]);
+            // console.log(data.gender[key])
+            // console.log(key,'key');
+            // console.log(ind,'ind');
+            dat1.push(data.gender[genderFilter][key])
+            dat2.push(data.options[key])
+          });
+      }
+    
+      // setData1({ ...data1, series: seriesData });
+  
+      // setData1((prevState) => ({
+      //   ...prevState, // copy all other field/objects
+      //   options: {
+      //     // recreate the object that contains the field to update
+      //     ...prevState.options, // copy all the fields of the object
+      //     xaxis: { ...prevState.xaxis, categories: [...dat1] }, // overwrite the value of the field to update
+      //   },
+      // }));
+
+      setDataPie({ ...dataPie, series: dat1 });
+      setDataPie((prevState) => ({
+        ...prevState, // copy all other field/objects
+        options: {
+          // recreate the object that contains the field to update
+          ...prevState.options, // copy all the fields of the object
+          labels: dat2, // overwrite the value of the field to update
+        },
+      }));
+    }
+  
     return seriesData;
   };
 
@@ -147,7 +260,7 @@ const Graph = ({ match, id, isModalVisible, setIsModalVisible }) => {
     return () => {
       clearTimeout(timer1);
     };
-  }, [data1]);
+  }, [data1,dataPie]);
 
   const age = () => {
     const ageArr = [];
@@ -257,12 +370,12 @@ const Graph = ({ match, id, isModalVisible, setIsModalVisible }) => {
       >
         <div>
           <p>{Object.keys(data).length > 0 && data.poll.question}</p>
-          <p>
+          {Object.keys(data).length > 0&& data.poll.type==='bar'&&<p>
             <span style={{ fontWeight: 'bold', marginRight: '2rem' }}>
               {overAllRating()}
             </span>{' '}
             <span style={{ fontWeight: 'bold' }}>{totalVotes()}</span>
-          </p>
+          </p>}
         </div>
 
         <div>
@@ -278,7 +391,7 @@ const Graph = ({ match, id, isModalVisible, setIsModalVisible }) => {
           >
             {age()}
           </Select>
-          <Select
+          {Object.keys(data).length>0&& data.regionFilter&& <Select
             value={regionFilter}
             defaultValue='region'
             style={{ width: 120 }}
@@ -286,6 +399,7 @@ const Graph = ({ match, id, isModalVisible, setIsModalVisible }) => {
           >
             {region()}
           </Select>
+          }
           <Select
             value={genderFilter}
             defaultValue='gender'
@@ -303,10 +417,15 @@ const Graph = ({ match, id, isModalVisible, setIsModalVisible }) => {
           height={400}
         />
 }
-{
-  Object.keys(data).length>0&&data.poll.type==='pie'&&
-  <PieChart data={data}/>
+{Object.keys(data).length>0&&data.poll.type==='pie'&& <ReactApexChart
+options={dataPie.options}
+series={dataPie.series}
+type='pie'
+height={400}
+/>
 }
+
+{/*Object.keys(data).length>0&&data.poll.type==='pie'&& dataPie.series.length>0&&dataPie.options.labels.length>0&& <PieChart dataPie={dataPie}/>*/}
         {/*<Chart
 width={'100%'}
 height={'300px'}

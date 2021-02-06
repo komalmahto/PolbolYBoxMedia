@@ -9,7 +9,10 @@ import {icons,cats} from '../../Components/icons/Icons'
 import PollCard from '../../Components/Polls/PollCard'
 import axios from '../../axios'
 import {useHistory} from 'react-router-dom'
-
+import { Modal, Button } from 'antd';
+import NomineeCard from '../../Components/Cards/NomineeCard'
+import JuryCard from '../../Components/Cards/JuryCard'
+import AwardResult from '../../Components/Result/AwardResult'
 const { TabPane } = Tabs;
 
 const HomePollsAndAwards = ({ fetchPolls,fetchAwards, polls: { polls },awards:{awards},english:{english} }) => {
@@ -17,6 +20,9 @@ const HomePollsAndAwards = ({ fetchPolls,fetchAwards, polls: { polls },awards:{a
   const [selectedTagsAwards,setSelectedTagsAwards]=useState([])
   const [pollsBasedOnCategory,setPollsBasedOnCategory]=useState({})
   const [expiredAwards,setExpiredAwards]=useState({})
+  const [type3Data,setType3Data]=useState({});
+  const [type3,setType3]=useState(false)
+
 const history=useHistory();
   const types=[
     "Bollywood",
@@ -193,6 +199,14 @@ if(type2==='polls'){
       }
     }
   }
+  const setIt=(p)=>{
+    console.log(p)
+    if(p.isSubcategory){
+      setType3(true)
+      setType3Data(p)
+    }
+  }
+  
 
     return (
       <div className='grid-46'>
@@ -235,15 +249,51 @@ if(type2==='polls'){
             {useData &&
               useData.map((p) => (
 
-              p.hidden===false&&  <PollCard english={english} type={type} icons={icons} type2={type2} p={p} getExpiryString1={getExpiryString1}/>
+              p.hidden===false&& 
+              <div onClick={()=>setIt(p)}>
+               <PollCard english={english} type={type} icons={icons} type2={type2} p={p} getExpiryString1={getExpiryString1}/>
+               </div>
               ))}
           </div>
         </div>
       </div>
     );
   };
+
+
+  const handleOk = () => {
+    setType3(false);
+  };
+
+  const handleCancel = () => {
+    setType3(false);
+  };
   return (
     <div className='card-container'>
+    <Modal width="100%"  title={type3Data&& Object.keys(type3Data).length>0 && type3Data.heading} visible={type3} onOk={handleOk} onCancel={handleCancel}>
+   {/* <h3>{type3Data&& Object.keys(type3Data).length>0 && type3Data.heading}</h3>*/}
+    <Tabs onChange={callback} type="card">
+    <TabPane tab="Nominees" key="1">
+    <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(200px,1fr))',justifyItems:'center',gridGap:'1.5rem'}}>
+      {type3Data&& Object.keys(type3Data).length>0 && type3Data.nominations.map((p)=>(
+        <NomineeCard p={p}/>
+      ))}
+      </div>
+    </TabPane>
+    <TabPane tab="Jury" key="2">
+    <div tyle={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(320px,1fr))',justifyItems:'center',gridGap:'1.5rem'}}>
+    {type3Data&& Object.keys(type3Data).length>0 && type3Data.jurys.map((p)=>(
+      <JuryCard p={p}/>
+    ))}
+    </div>
+    </TabPane>
+   
+    <TabPane tab="Results" key="3">
+    <AwardResult id={type3Data&& Object.keys(type3Data).length>0 && type3Data._id} />
+  </TabPane>
+  </Tabs>
+    
+    </Modal>
       <Tabs type='card'>
         <TabPane tab='Polls' key='1'>
           <Tabs defaultActiveKey='1' onChange={callback}>

@@ -26,8 +26,8 @@ const NewsCard = ({ p, setIt, data }) => {
           />
           {p.categories[0]} News
         </span>
-        <p>{p.short_headline}</p>
-      </div>
+{ /*       <p>{p.short_headline}</p>
+  */}      </div>
       <div style={{fontWeight:'bold'}} className='description'>
       <p>{p.headline}</p>
       </div>

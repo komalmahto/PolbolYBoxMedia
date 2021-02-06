@@ -1,7 +1,7 @@
 import React,{useState} from 'react'
 import ReactApexChart from 'react-apexcharts';
 
-const PieChart = () => {
+const PieChart = (dataPie) => {
   const [data,setData]=useState({
           
     series: [44, 55, 13, 43, 22],
@@ -26,7 +26,7 @@ const PieChart = () => {
   })
   return (
     <div id="chart">
-    <ReactApexChart options={data.options} series={data.series} type="pie" width={380} />
+    <ReactApexChart options={Object.keys(dataPie).length>0&&dataPie.options} series={Object.keys(dataPie).length>0&&dataPie.series} type="pie" width={380} />
   </div>
       
   )
