@@ -56,7 +56,13 @@ const News = ({ fetchNews, news: { news },english:{english}, match, history }) =
         },
       });
       const responseJSON = response.data;
-      setNewsBasedOnCategory(responseJSON);
+      if(responseJSON.payload.data===null){
+      setNewsBasedOnCategory([]);
+      }
+      else{
+        setNewsBasedOnCategory(responseJSON);
+      }
+
       console.log(responseJSON, 'selected news');
     } catch (err) {
       console.log(err);
@@ -165,9 +171,14 @@ const News = ({ fetchNews, news: { news },english:{english}, match, history }) =
         <div className='news-container'>
           {Object.keys(newsBasedOnCategory).length > 0 &&
             newsBasedOnCategory.payload.data.length > 0 &&
+            newsBasedOnCategory.payload.data[0]!==null&&
             newsBasedOnCategory.payload.data.map((p) => (
+    
               <NewsCard data={data} setIt={setIt} p={p} />
+            
+      
             ))}
+           
         </div>
       </section>
     </div>

@@ -9,13 +9,15 @@ import Lifestyle from '../../assets/lifestyle.png'
 import Entertainment from '../../assets/entertainment.png'
 import Sports from '../../assets/sports.png'
 import Business from '../../assets/buisness.png'
-import Politics from '../../assets/indian politics.png'
+import IndianPolitics from '../../assets/indian politics.png'
 import Elections from '../../assets/elections.png'
 import Education from '../../assets/education.png'
 import Economy from '../../assets/economy.png'
 import Health from '../../assets/health.png'
 import Movie from '../../assets/movies.png'
 import Fashion from '../../assets/fashion.png'
+import SocialIssues from '../../assets/social issues.png'
+
 
 
 
@@ -31,13 +33,17 @@ Lifestyle,
 Entertainment ,
 Sports,
 Business,
-Politics,
 Elections,
 Education,
 Economy, 
 Health,
  Movie,
 Fashion,
+"Indian Politics":IndianPolitics,
+"Social":SocialIssues,
+Bollywood:Movie,
+"Social Issues":SocialIssues,
+"Politics":IndianPolitics
 }
 
 
@@ -52,10 +58,14 @@ export const cats=[ 'Social',
  'Entertainment' ,
  'Sports',
  'Business',
- 'Politics',
+ 'Indian Politics',
  'Elections',
  'Education',
  'Economy', 
  'Health',
   'Movie',
- 'Fashion']
+ 'Fashion',
+'Bollywood',
+"Social Issues",
+"Politics"
+]

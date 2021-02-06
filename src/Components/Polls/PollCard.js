@@ -116,6 +116,7 @@ return `/award/subcat/${p._id}`
             )}
             <p>{english?p.question:p.question_hindi}</p>
           </div>
+          <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:'1rem'}}>
           {type2 === 'polls' && (
             <div style={{display:'flex',justifyContent:'space-between',marginTop:'0.5rem'}}>
           <span><LikeOutlined /> {p.likesCount}</span>
@@ -129,7 +130,8 @@ return `/award/subcat/${p._id}`
               Result <PieChartOutlined />
             </span>
           )}
-          {type2==='polls'&&(            <Link onClick={()=>english?window.open(`${p.url}`):window.open(`${p.url_hindi}`)}>Read more</Link>
+          </div>
+          {type2==='polls'&&(            <Link style={{textAlign:'right'}} onClick={()=>english?window.open(`${p.url}`):window.open(`${p.url_hindi}`)}>Read more</Link>
             )}
         </div>
       </Link>
