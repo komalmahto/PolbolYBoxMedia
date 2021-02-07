@@ -65,10 +65,11 @@ const Nav = ({ fetchLanguage, english: { english } }) => {
             style={{ height: '22px' }}
             value='english'
           >
-            English
+            {english?'English':'अंग्रेज़ी'}
           </Option>
           <Option className='language-option' value='hindi'>
-            Hindi
+          {english?'Hindi':'हिंदी '}
+
           </Option>
         </Select>
         <Dropdown className='guest' overlay={menu}>
@@ -99,27 +100,27 @@ const Nav = ({ fetchLanguage, english: { english } }) => {
             <li
               className={location.pathname === '/news' ? 'active-link' : null}
             >
-              <Link to='/news'>NEWS</Link>
+              <Link to='/news'>{english?'NEWS':'समाचार'}</Link>
             </li>
             <li
               className={location.pathname === '/polls' ? 'active-link' : null}
             >
-              <Link to='/polls'>POLLS</Link>
+              <Link to='/polls'>{english?'POLLS':'मतदान'}</Link>
             </li>
             <li
               className={location.pathname === '/awards' ? 'active-link' : null}
             >
-              <Link to='/awards'>AWARDS</Link>
+              <Link to='/awards'>{english?'AWARDS':'अवार्डस'}</Link>
             </li>
             <li
               className={location.pathname === '/livetv' ? 'active-link' : null}
             >
-              <Link to='/livetv'>LIVE TV</Link>
+              <Link to='/livetv'>{english?'LIVE TV':'लाइव टीवी'}</Link>
             </li>
             <li
               className={location.pathname === '/quiz' ? 'active-link' : null}
             >
-              <Link to='/quiz'>QUIZ</Link>
+              <Link to='/quiz'>{english?'QUIZ':'क्विज़'}</Link>
             </li>
           </ul>
         </div>

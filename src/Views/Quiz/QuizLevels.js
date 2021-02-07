@@ -1,8 +1,9 @@
 import React,{useEffect,useState} from 'react'
 import axios from '../../axios'
 import QuizLevelsCard from '../../Components/Cards/QuizLevelsCard'
+import {connect} from 'react-redux'
 
-const QuizLevels = ({match,history}) => {
+const QuizLevels = ({match,history,english:{english}}) => {
   const [levels,setLevels]=useState([])
   useEffect(() => {
 fetchLevels();
@@ -32,7 +33,7 @@ fetchLevels();
     {
       levels && levels.length >0&& levels.map((level)=>(
         <div onClick={()=>startLevel1(level)}>
-        <QuizLevelsCard  level={level}/>
+        <QuizLevelsCard  english={english} level={level}/>
         </div>
         ))
     }
@@ -42,4 +43,8 @@ fetchLevels();
   )
 }
 
-export default QuizLevels
+const mapStateToProps = (state) => ({
+  english: state.english,
+ });
+ 
+ export default connect(mapStateToProps)(QuizLevels);

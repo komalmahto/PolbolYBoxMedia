@@ -824,7 +824,7 @@ body::-webkit-scrollbar-thumb:hover {
 
 .pollCont {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
   grid-gap: 1rem;
 }
 
@@ -1276,5 +1276,22 @@ body::-webkit-scrollbar-thumb:hover {
 .mod .down {
   display: flex;
   justify-content: center;
+}
+
+.copy {
+  margin-top: 1rem;
+}
+
+.copy input {
+  width: 250px;
+  border: 1px solid grey;
+  padding: 1rem;
+  border-radius: 10px;
+  margin-right: 1.5rem;
+}
+
+.copy span:hover {
+  color: green;
+  cursor: pointer;
 }
 /*# sourceMappingURL=App.css.map */

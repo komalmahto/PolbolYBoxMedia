@@ -9,9 +9,10 @@ import { Modal, Button } from 'antd';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import light from '../../assets/light-bulb-1.png'
 import { FieldTimeOutlined, LogoutOutlined } from '@ant-design/icons';
+import {connect} from 'react-redux'
 const { confirm } = Modal;
 
-const QuizPlay = ({ match, history }) => {
+const QuizPlay = ({ match, history,english:{english} }) => {
   const [questions, setQuestions] = useState({});
   const [play] = useSound(boopSfx);
   const [correct] = useSound(correctSound);
@@ -283,7 +284,7 @@ const QuizPlay = ({ match, history }) => {
       
         <div className='quiz-head'>
         <div className="hint"><span>{hint.value}</span><img style={{height:'35px'}} src={light}></img></div>
-          <span className='level'>Level 1 </span>
+          <span className='level'>{english?'Level':'स्तर'} 1 </span>
           <span className='timer'>
             <FieldTimeOutlined className='timer-logo' />
             <span style={timerBlink()} className='timer-val'>
@@ -320,7 +321,7 @@ const QuizPlay = ({ match, history }) => {
                   </span>
                 ))}
               </div>
-              <div className="hint-btn"><span style={{cursor:'pointer'}} onClick={()=>getHint(display._id)}><img style={{height:'25px'}} src={light}></img>Hint</span> </div>
+              <div className="hint-btn"><span style={{cursor:'pointer'}} onClick={()=>getHint(display._id)}><img style={{height:'25px'}} src={light}></img>{english?'Hint':'हिंट'}</span> </div>
               
                 <div className='buttons'>
                 {Object.keys(result).length > 0 && (
@@ -343,4 +344,8 @@ const QuizPlay = ({ match, history }) => {
   );
 };
 
-export default QuizPlay;
+const mapStateToProps = (state) => ({
+  english: state.english,
+ });
+ 
+ export default connect(mapStateToProps)(QuizPlay);

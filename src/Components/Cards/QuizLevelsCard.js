@@ -1,13 +1,13 @@
 import React from 'react';
 import {PlayCircleOutlined,LockOutlined} from '@ant-design/icons'
 
-const QuizLevelsCard = ({ level }) => {
+const QuizLevelsCard = ({ level,english }) => {
   return (
     <div className="level-card" >
       <div className="left">
         <img style={{ width: '70px' }} src={level.icon} alt='' />
         <div className="meta">
-          <span>Level {level.level}</span>
+          <span>{english?'Level':"स्तर"} {level.level}</span>
           <div>
      {level.level===1?<span style={{fontSize:'4rem'}}><PlayCircleOutlined /></span> :<span  style={{fontSize:'4rem'}}><LockOutlined /></span>}
       </div>

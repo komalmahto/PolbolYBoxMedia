@@ -84,7 +84,7 @@ const Home = ({ fetchNews, news: { news },english:{english}}) => {
       <section className='section-news'>
         <div className='section-news-left'>
           <div className='section-news-left--head'>
-            <span className="news-head">News</span>
+            <span className="news-head">{english?'NEWS':'समाचार'}</span>
             <Link className="viewAll"  to="/news">
               View all
               <span></span>

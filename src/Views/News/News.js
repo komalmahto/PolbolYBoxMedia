@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState,useRef } from 'react';
 import { connect } from 'react-redux';
 import { fetchNews } from '../../Actions/NewsAction';
 import NewsTrendingCard from '../../Components/News/NewsTrendingCard';
@@ -9,12 +9,17 @@ import axios from '../../axios';
 import CategoryBar from '../../Components/CategoryBar/CategoryBar';
 import { icons } from '../../Components/icons/Icons';
 import {Link} from 'react-router-dom'
-import {HeartOutlined,CommentOutlined,ShareAltOutlined,ArrowRightOutlined} from '@ant-design/icons'
+import {HeartOutlined,CommentOutlined,ShareAltOutlined,ArrowRightOutlined,CopyOutlined} from '@ant-design/icons'
 
 const News = ({ fetchNews, news: { news },english:{english}, match, history }) => {
   const [selectedTags, setSelectedTags] = useState([]);
   const [newsBasedOnCategory, setNewsBasedOnCategory] = useState({});
   const [data, setData] = useState({});
+  const textAreaRef = useRef(null);
+  const [copy,setCopy]=useState("")
+  const [copySuccess, setCopySuccess] = useState('');
+
+
   useEffect(() => {
     console.log(match);
     const ne=history.location.pathname.split('/')[2]
@@ -87,12 +92,33 @@ const News = ({ fetchNews, news: { news },english:{english}, match, history }) =
     console.log(p);
 
     setData(p);
+    setCopy("")
+    setCopySuccess("")
     window.scrollTo(0, 0);
+  };
+  const copyToClip=(id)=>{
+    console.log(id)
+    axios.get(`news/shortUrl/${id}`)
+    .then((res) =>{
+     setCopy(res.data.payload)
+    } )
+
+  }
+
+
+  function copyToClipboard(e) {
+    textAreaRef.current.select();
+    document.execCommand('copy');
+    // This is just personal preference.
+    // I prefer to not show the the whole text area selected.
+    e.target.focus();
+    setCopySuccess('Copied!');
+
   };
   return (
     <div className='news'>
       <div className='news-head'>
-        <h1>News</h1>
+        <h1>{english?'NEWS':'समाचार'}</h1>
       </div>
       <CategoryBar
         onChange={onChange}
@@ -142,12 +168,24 @@ const News = ({ fetchNews, news: { news },english:{english}, match, history }) =
             <div className="ico">
             <span><HeartOutlined /></span>
             <span><CommentOutlined /></span>
-            <span><ShareAltOutlined /></span>
+            <span onClick={()=>copyToClip(data && data._id)}><ShareAltOutlined /></span>
             </div>
+           
             <div className="read">
             <Link onClick={()=>window.open(`${data.source}`)} target="_blank" className="readmore">Read more <span><ArrowRightOutlined /></span></Link>
             </div>
+
             </div>
+            <div className="copy">
+            {copy&&<form>
+            <input type="text"
+              ref={textAreaRef}
+              value={copy}
+            />
+            <span onClick={copyToClipboard}>{copySuccess?copySuccess:<CopyOutlined />}</span>            
+          </form>}
+          </div>
+
           </div>
         )}
         <div className='spotlight'>
@@ -162,7 +200,11 @@ const News = ({ fetchNews, news: { news },english:{english}, match, history }) =
                 .filter((f) => {
                   return f.trending === true;
                 })
-                .map((k) => <NewsTrendingCard k={k} />)}
+                .map((k) => 
+                
+                <NewsTrendingCard k={k} setIt={setIt}/>
+             
+                )}
           </div>
         </div>
       </section>

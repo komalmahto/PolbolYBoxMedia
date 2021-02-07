@@ -295,7 +295,7 @@ if(type2==='polls'){
     
     </Modal>
       <Tabs type='card'>
-        <TabPane tab='Polls' key='1'>
+        <TabPane tab={english?'Polls':'मतदान'} key='1'>
           <Tabs defaultActiveKey='1' onChange={callback}>
             <TabPane tab='Active' key='1'>
               {grid(pollsBasedOnCategory, 'active','polls')}
@@ -305,7 +305,7 @@ if(type2==='polls'){
             </TabPane>
           </Tabs>
         </TabPane>
-        <TabPane tab='Awards' key='2'>
+        <TabPane tab={english?'Awards':'अवार्डस'} key='2'>
           <Tabs defaultActiveKey='1' onChange={callback}>
             <TabPane tab='Active' key='1'>
               {grid(awards,'active','awards')}

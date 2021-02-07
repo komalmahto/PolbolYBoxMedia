@@ -2,9 +2,9 @@ import React from 'react'
 import {RightOutlined} from '@ant-design/icons'
 import {Link} from 'react-router-dom'
 
-const NewsTrendingCard = ({k}) => {
+const NewsTrendingCard = ({k,setIt}) => {
   return (
-    <Link to={`/news/${k._id}`} className='trending-news-single'>
+    <div onClick={()=>setIt(k)} className='trending-news-single'>
     <div className='image-cont'>
       <img src={k.images[0]} alt='' />
     </div>
@@ -17,7 +17,7 @@ const NewsTrendingCard = ({k}) => {
         <RightOutlined />
       </div>
     </div>
-  </Link>
+  </div>
   )
 }
 

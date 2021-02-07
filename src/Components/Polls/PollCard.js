@@ -127,7 +127,8 @@ return `/award/subcat/${p._id}`
               style={{ cursor: 'pointer' }}
               onClick={() => showModal(p._id)}
             >
-              Result <PieChartOutlined />
+            {english?'Result':'परिणाम'}{' '}
+              <PieChartOutlined />
             </span>
           )}
           </div>

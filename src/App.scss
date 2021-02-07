@@ -760,13 +760,15 @@ align-items: center;
 
 .pollCont{
  display: grid;
- grid-template-columns: repeat(auto-fit,minmax(320px,1fr));
+ grid-template-columns: repeat(auto-fit,minmax(400px,1fr));
  grid-gap:1rem;
+ 
 }
 
 .long-card-ver{
   display: flex;
   flex-direction: column;
+  
   .long-card-img{
     width: 100%;
     height: 20rem;
@@ -1202,5 +1204,21 @@ flex-direction: column;
   .down{
     display: flex;
     justify-content: center;
+  }
+}
+.copy{
+  margin-top: 1rem;
+  input{
+    width: 250px;
+    border: 1px solid grey;
+    padding: 1rem;
+    border-radius: 10px;
+    margin-right: 1.5rem;
+  }
+  span{
+    &:hover{
+      color: green;
+      cursor: pointer;
+    }
   }
 }
