@@ -391,7 +391,7 @@ const Graph = ({ match, id, isModalVisible, setIsModalVisible }) => {
           >
             {age()}
           </Select>
-          {Object.keys(data).length>0&& data.regionFilter&& <Select
+         <Select
             value={regionFilter}
             defaultValue='region'
             style={{ width: 120 }}
@@ -399,7 +399,7 @@ const Graph = ({ match, id, isModalVisible, setIsModalVisible }) => {
           >
             {region()}
           </Select>
-          }
+ 
           <Select
             value={genderFilter}
             defaultValue='gender'

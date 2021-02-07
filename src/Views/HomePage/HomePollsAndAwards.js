@@ -217,7 +217,7 @@ if(type2==='polls'){
             onChange={onChange}
           >
           {type2==='polls'&&cats.map((p)=>(
-            <label style={checkChecked(p)}>
+            <label className="cur" style={checkChecked(p)}>
               {p}
               <Checkbox style={{ display: 'none' }} value={p}></Checkbox>
             </label>
@@ -229,7 +229,7 @@ if(type2==='polls'){
           onChange={onChangeSel}
         >
         {type2==='awards'&&cats.map((p)=>(
-          <label style={checkChecked1(p)}>
+          <label className="cur" style={checkChecked1(p)}>
             {p}
             <Checkbox style={{ display: 'none' }} value={p}></Checkbox>
           </label>
@@ -268,9 +268,31 @@ if(type2==='polls'){
   const handleCancel = () => {
     setType3(false);
   };
+  const checkLength=(data,type)=>{
+
+    let useData=[]
+    if(type==='polls'){
+    useData =
+    Object.keys(data).length>0 &&
+    data.payload.payload.filter((p) => {
+      return getExpiryString(p.lifeSpan) > 0;
+    });
+  console.log(useData);
+  return useData.length;
+  }
+  if(type==='awards'){
+    useData =
+        data &&data.length>0 &&
+        data.filter((l)=>{return selectedTagsAwards.includes(l.type[0])}).filter((p) => {
+          return getExpiryString(p.lifeSpan) > 0;
+        });
+    return useData.length;
+  }
+  }
+
   return (
     <div className='card-container'>
-    <Modal width="100%"  title={type3Data&& Object.keys(type3Data).length>0 && type3Data.heading} visible={type3} onOk={handleOk} onCancel={handleCancel}>
+    <Modal   title={type3Data&& Object.keys(type3Data).length>0 && type3Data.heading} visible={type3} onOk={handleOk} onCancel={handleCancel}>
    {/* <h3>{type3Data&& Object.keys(type3Data).length>0 && type3Data.heading}</h3>*/}
     <Tabs onChange={callback} type="card">
     <TabPane tab="Nominees" key="1">
@@ -296,7 +318,7 @@ if(type2==='polls'){
     </Modal>
       <Tabs type='card'>
         <TabPane tab={english?'Polls':'मतदान'} key='1'>
-          <Tabs defaultActiveKey='1' onChange={callback}>
+          <Tabs defaultActiveKey={checkLength(pollsBasedOnCategory,'polls')===0?'1':'2'} onChange={callback}>
             <TabPane tab='Active' key='1'>
               {grid(pollsBasedOnCategory, 'active','polls')}
             </TabPane>
@@ -306,7 +328,7 @@ if(type2==='polls'){
           </Tabs>
         </TabPane>
         <TabPane tab={english?'Awards':'अवार्डस'} key='2'>
-          <Tabs defaultActiveKey='1' onChange={callback}>
+          <Tabs defaultActiveKey={checkLength(pollsBasedOnCategory,'awards')===0?'1':'2'} onChange={callback}>
             <TabPane tab='Active' key='1'>
               {grid(awards,'active','awards')}
             </TabPane>

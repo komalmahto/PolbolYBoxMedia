@@ -8,9 +8,11 @@ import { Switch } from 'antd';
 
 
 
-const Livetv = ({fetchNews,news:{news}}) => {
+const Livetv = ({fetchNews,news:{news},history}) => {
   const [channels,setChannels]=useState([])
   const [english,setEnglish]=useState(true)
+  const [trending,setTrending]=useState([])
+
   const [play,setPlay]=useState(english? {
     "language": "english",
     "priority": 90,
@@ -37,7 +39,14 @@ const Livetv = ({fetchNews,news:{news}}) => {
   useEffect(() =>{
     fetchNews();
     fetchChannels();
+    getTrending();
   },[])
+  const getTrending=async()=>{
+    await axios.get(`notification/latest?language=${english?'english':'hindi'}`).then((res)=>{
+      console.log(res.data.payload,"trend")
+     setTrending(res.data.payload.payload)
+    })
+  }
 
   useEffect(()=>{
     if(english){
@@ -100,7 +109,8 @@ if(play._id === id){
     marginRight:'15px',
     marginBottom:'1.5rem',
     border:"4px solid red",
-    padding:"0.5rem"
+    padding:"0.5rem",
+    cursor:'pointer',
   
 
   }
@@ -112,6 +122,7 @@ else {
     borderRadius:'50%',
     marginRight:'15px',
     marginBottom:'1.5rem',
+    cursor:'pointer',
   }
 }
 }
@@ -120,12 +131,12 @@ else {
   return (
     <div className="news">
     <div className='news-head'>
-    <h1>Live Tv</h1>
-  </div>
+{ /*   <h1>Live Tv</h1>
+*/}  </div>
   <section  className='news-section1'>
     <div className="left">
     <div style={{marginBottom:'2rem'}}>
-    {channels.filter((p)=>{return english?p.language==='english':p.language==="hindi" }).map((c)=>(
+    {channels.filter((h)=>{return h.hidden===false}).filter((p)=>{return english?p.language==='english':p.language==="hindi" }).map((c)=>(
       <img style={checkPlaying(c._id)} onClick={()=>playTv(c)}  src={c.image} alt=""/>
     ))}
     
@@ -139,17 +150,18 @@ else {
     </div>
     <div className='spotlight'>
       <div className='spotlight-head'>
-        <span>Spotlight</span>
+        <span>Trending</span>
         <span>View all</span>
       </div>
       <div className='trending-news'>
-        {news &&
-          news.payload.length > 0 &&
-          news.payload
-            .filter((f) => {
-              return f.trending === true;
-            })
-            .map((k) => <NewsTrendingCard k={k} />)}
+        {trending&&
+          trending.length>0&&
+          trending
+            .map((k) => 
+            <div onClick={()=>history.push(`/news/${k._id}`)}>
+            <NewsTrendingCard k={k} />
+            </div>
+            )}
       </div>
     </div>
   </section>

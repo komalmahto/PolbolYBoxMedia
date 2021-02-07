@@ -14,7 +14,7 @@ import Elections from '../../assets/elections.png'
 import Education from '../../assets/education.png'
 import Economy from '../../assets/economy.png'
 import Health from '../../assets/health.png'
-import Movie from '../../assets/movies.png'
+import Movies from '../../assets/movies.png'
 import Fashion from '../../assets/fashion.png'
 import SocialIssues from '../../assets/social issues.png'
 
@@ -37,11 +37,11 @@ Elections,
 Education,
 Economy, 
 Health,
- Movie,
+ Movies,
 Fashion,
 "Indian Politics":IndianPolitics,
 "Social":SocialIssues,
-Bollywood:Movie,
+Bollywood:Movies,
 "Social Issues":SocialIssues,
 "Politics":IndianPolitics
 }
@@ -63,7 +63,7 @@ export const cats=[ 'Social',
  'Education',
  'Economy', 
  'Health',
-  'Movie',
+  'Movies',
  'Fashion',
 'Bollywood',
 "Social Issues",

@@ -17,10 +17,7 @@ const HomeSection3 = () => {
           />
         </div>
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum
-          ipsam ea earum delectus, fugit vero quo dignissimos assumenda?
-          Provident in assumenda suscipit enim officia, quia nobis officiis
-          blanditiis delectus doloribus.
+        Polbol provides exercises for your mind in form of quizzes to test your intelligence and for your entertainment.
         </p>
         <Button onClick={()=>history.push('/quiz')} type='primary' shape='round' ghost>
           Play quiz
@@ -35,10 +32,7 @@ const HomeSection3 = () => {
           />
         </div>
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum
-          ipsam ea earum delectus, fugit vero quo dignissimos assumenda?
-          Provident in assumenda suscipit enim officia, quia nobis officiis
-          blanditiis delectus doloribus.
+        Never miss any important update with Polbol, catch all the news from top-rated news channel at once place.
         </p>
         <Button onClick={()=>history.push('/livetv')}  shape='round' type='primary' ghost>
           Watch live

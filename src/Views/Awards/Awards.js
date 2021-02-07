@@ -120,6 +120,23 @@ const Awards = ({fetchAwards,awards:{awards}}) => {
       setType3Data(p)
     }
   }
+  const checkLength=(data,type)=>{
+
+    let useData=[]
+   
+  if(type==='awards'){
+   
+    if(selectedTags.length>0){
+      useData =
+      data &&data.length>0 &&
+      data.filter((l)=>{return selectedTags.includes(l.type[0])}).filter((p) => {
+        return getExpiryString(p.lifeSpan) > 0;
+      });
+    }
+    console.log(useData,"uuu")
+    return useData.length;
+}
+  }
   const PollView = (data, type, type2) => {
     let useData=[];
     if(type2==='awards'){
@@ -163,7 +180,7 @@ const Awards = ({fetchAwards,awards:{awards}}) => {
     }
 
 
-
+    
     
   
     return (
@@ -188,9 +205,9 @@ const Awards = ({fetchAwards,awards:{awards}}) => {
   return (
     
     <div className='poll-box'>
-    <Modal width="100%"  title={type3Data&& Object.keys(type3Data).length>0 && type3Data.heading} visible={type3} onOk={handleOk} onCancel={handleCancel}>
+    <Modal  title={type3Data&& Object.keys(type3Data).length>0 && type3Data.heading} visible={type3} onOk={handleOk} onCancel={handleCancel}>
    {/* <h3>{type3Data&& Object.keys(type3Data).length>0 && type3Data.heading}</h3>*/}
-    <Tabs onChange={callback} type="card">
+    <Tabs  onChange={callback} type="card">
     <TabPane tab="Nominees" key="1">
     <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(200px,1fr))',justifyItems:'center',gridGap:'1.5rem'}}>
       {type3Data&& Object.keys(type3Data).length>0 && type3Data.nominations.map((p)=>(
@@ -220,7 +237,7 @@ const Awards = ({fetchAwards,awards:{awards}}) => {
             checkChecked={checkChecked}
             cats={cats}
           />
-          <Tabs onChange={callback} type='card'>
+          <Tabs defaultActiveKey={checkLength(awards,'awards')===0?'2':'1'} onChange={callback} type='card'>
             <TabPane tab='Active' key='1'>
               {PollView(awards, 'active', 'awards')}
             </TabPane>

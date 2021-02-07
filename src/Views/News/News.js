@@ -9,7 +9,8 @@ import axios from '../../axios';
 import CategoryBar from '../../Components/CategoryBar/CategoryBar';
 import { icons } from '../../Components/icons/Icons';
 import {Link} from 'react-router-dom'
-import {HeartOutlined,CommentOutlined,ShareAltOutlined,ArrowRightOutlined,CopyOutlined} from '@ant-design/icons'
+import Modal from '../../Components/Modal/Modal'
+import {HeartOutlined,CommentOutlined,ShareAltOutlined,ArrowRightOutlined,CopyOutlined,RightOutlined} from '@ant-design/icons'
 
 const News = ({ fetchNews, news: { news },english:{english}, match, history }) => {
   const [selectedTags, setSelectedTags] = useState([]);
@@ -18,8 +19,12 @@ const News = ({ fetchNews, news: { news },english:{english}, match, history }) =
   const textAreaRef = useRef(null);
   const [copy,setCopy]=useState("")
   const [copySuccess, setCopySuccess] = useState('');
+  const [trending,setTrending]=useState([])
+  const [isModalVisible,setIsModalVisible]=useState(false)
 
-
+useEffect(() => {
+  window.scrollTo(0,0)
+}, [])
   useEffect(() => {
     console.log(match);
     const ne=history.location.pathname.split('/')[2]
@@ -44,8 +49,17 @@ const News = ({ fetchNews, news: { news },english:{english}, match, history }) =
   useEffect(() => {
     fetchNews(english);
     fetchNewsSelected(1);
+    getTrending()
    
   }, [english]);
+
+
+  const getTrending=async()=>{
+    await axios.get(`notification/latest?language=${english?'english':'hindi'}`).then((res)=>{
+      console.log(res.data.payload,"trend")
+     setTrending(res.data.payload.payload)
+    })
+  }
 
   useEffect(() => {
     fetchNewsSelected(1);
@@ -115,8 +129,13 @@ const News = ({ fetchNews, news: { news },english:{english}, match, history }) =
     setCopySuccess('Copied!');
 
   };
+  const setMod=()=>{
+    setIsModalVisible(true)
+  }
   return (
     <div className='news'>
+    <Modal   isModalVisible={isModalVisible}
+    setIsModalVisible={setIsModalVisible}/>
       <div className='news-head'>
         <h1>{english?'NEWS':'समाचार'}</h1>
       </div>
@@ -134,27 +153,30 @@ const News = ({ fetchNews, news: { news },english:{english}, match, history }) =
                 style={{ height: '40px', width: '40px', marginRight: '1rem' }}
                 src={
                   data &&
-                  data.categories.length > 0 &&
-                  icons[data.categories[0]]
+                  data.categories&&
+                  data.categories.length > 0 ?
+                  icons[data.categories[0]]:icons[data.icon]
                 }
               />
+
               <div>
                 <span>
                   News on{' '}
-                  {data && data.categories.length > 0 && data.categories[0]}
+                  {data &&data.categories&& data.categories.length > 0 && data.categories[0]}
+                  {data && data.icon}
                 </span>
-                <p>
-                  By {data.user.firstName} {data.user.lastName}
-                </p>
+                {data.user &&<p>
+                  By {data.user&&data.user.firstName&&data.user.firstName} {data.user&&data.user.lastName&&data.user.lastName}
+                </p>}
               </div>
             </div>
             <div className='left-body'>
               <div className='image'>
-                <img src={data && data.images[0]} alt='' />
+                <img src={data && data.images&& data.images[0]?data.images[0]:data.news.images[0]} alt='' />
               </div>
               <div className='description'>
                 <div className='left-head'>
-                  <p>{data && data.headline}</p>
+                  <p>{data && data.headline?data.headline:data.title}</p>
                 </div>
 
                 <p>{data && data.description}</p>
@@ -166,13 +188,13 @@ const News = ({ fetchNews, news: { news },english:{english}, match, history }) =
             </div>
             <div className="news-bot">
             <div className="ico">
-            <span><HeartOutlined /></span>
-            <span><CommentOutlined /></span>
-            <span onClick={()=>copyToClip(data && data._id)}><ShareAltOutlined /></span>
+            <span ><HeartOutlined />{data.likesCount}</span>
+            <span><CommentOutlined onClick={setMod}/>{data.commentCount}</span>
+            <span style={{cursor:'pointer'}} onClick={()=>copyToClip(data && data.targetId?data.targetId:data._id)}><ShareAltOutlined /></span>
             </div>
            
             <div className="read">
-            <Link onClick={()=>window.open(`${data.source}`)} target="_blank" className="readmore">Read more <span><ArrowRightOutlined /></span></Link>
+            <Link onClick={()=>window.open(`${data.source}`)} target="_blank" className="readmore">Read more <span><RightOutlined /></span></Link>
             </div>
 
             </div>
@@ -190,16 +212,13 @@ const News = ({ fetchNews, news: { news },english:{english}, match, history }) =
         )}
         <div className='spotlight'>
           <div className='spotlight-head'>
-            <span>Spotlight</span>
+            <span>Trending</span>
             {/* <span>View all</span>*/}
           </div>
           <div className='trending-news'>
-            {news &&
-              news.payload.length > 0 &&
-              news.payload
-                .filter((f) => {
-                  return f.trending === true;
-                })
+            {trending &&
+              trending.length >0&&
+              trending
                 .map((k) => 
                 
                 <NewsTrendingCard k={k} setIt={setIt}/>
@@ -235,3 +254,12 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   fetchNews,
 })(News);
+
+
+
+// news &&
+//               news.payload.length > 0 &&
+//               news.payload
+//                 .filter((f) => {
+//                   return f.trending === true;
+//                 })

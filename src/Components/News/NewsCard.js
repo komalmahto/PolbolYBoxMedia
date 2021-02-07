@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { RightOutlined } from '@ant-design/icons';
+import { RightOutlined,HeartOutlined,CommentOutlined,ShareAltOutlined } from '@ant-design/icons';
 import { icons } from '../icons/Icons';
 import { Link } from 'react-router-dom';
 
@@ -46,7 +46,15 @@ const NewsCard = ({ p, setIt, data }) => {
           </span>
         </div>
   </div>*/}
+
+ 
+ 
       <div className='read-more'>
+      {/*<div className="ico">
+      <span className="i"><span style={{marginRight:'0.3rem'}}><HeartOutlined /></span>{p.likesCount}</span>
+      <span className="i"><span style={{marginRight:'0.3rem'}}><CommentOutlined /></span>{p.commentCount}</span>
+      <span className="i"><span><ShareAltOutlined /></span></span>
+</div>*/}
         {setIt ? (
           <span className="read" style={{ cursor: 'pointer' }} onClick={() => setIt && setIt(p)}>
             Read more <RightOutlined />
@@ -55,7 +63,7 @@ const NewsCard = ({ p, setIt, data }) => {
           <Link
           className="read"
             to={`/news/${p._id}`}
-            style={{ cursor: 'pointer' }}
+            style={{ cursor: 'pointer',color:'#1890ff' }}
             onClick={() => setIt && setIt(p)}
           >
             Read more <RightOutlined />

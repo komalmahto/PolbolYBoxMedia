@@ -200,10 +200,11 @@ body {
         label{
           margin-bottom: 1rem;
 
-          margin-right:2rem;
+          margin-right:0.8rem;
           background-color: #efefef;
           padding: 0.5rem 0.7rem;
           border-radius: 10px;
+          font-size: 1rem;
         }
       }
     }
@@ -560,7 +561,7 @@ align-items: center;
 .trending-news{
   
   &-single{
-    height: 90px;
+    height: 130px;
     padding-left: 1rem;
     margin-top: 1rem;
     display: flex;
@@ -586,7 +587,7 @@ align-items: center;
     }
     .image-cont{
       // margin-top: 1rem;
-      height: 90px;
+      height: 130px;
       width: 160px;
       overflow: hidden;
     img{
@@ -674,6 +675,16 @@ align-items: center;
   margin-top: 2rem;
   padding: 0 15px;
   color: gray;
+  display: flex;
+  justify-content:space-between;
+  align-items: center;
+  .ico{
+    .i{
+      margin-right: 1.5rem;
+      font-size: 1.6rem;
+    }
+  }
+
   .read{
     color: #222222;
     text-transform: uppercase;
@@ -1219,6 +1230,54 @@ flex-direction: column;
     &:hover{
       color: green;
       cursor: pointer;
+    }
+  }
+}
+
+
+.read-more-poll{
+  display: flex;
+  justify-content: space-between;
+  .ico{
+    font-size: 1.5rem;
+    .i{
+      margin-right: 1rem;
+    }
+  }
+}
+
+.cur{
+  cursor: pointer;
+}
+
+.pol-res{
+  .sel{
+    margin-bottom: 1.5rem;
+  }
+  .chck{
+    display: block;
+    margin-bottom: 1.5rem;
+  }
+}
+
+.comment{
+  display: flex;
+  align-items: center;
+  border: 1px solid #f5f5f5;
+  padding: 1rem;
+  img{
+    align-self: flex-start;
+    border-radius: 50%;
+    margin-right: 2rem;
+  }
+  .det{
+    .bot{
+   
+      span{
+        margin-right: 1.5rem;
+        font-size: 1.2rem;
+        color: grey;
+      }
     }
   }
 }

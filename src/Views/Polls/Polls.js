@@ -78,6 +78,21 @@ const Polls = ({english:{english}}) => {
     return minDiff;
   };
 
+  const checkLength=(data,type)=>{
+
+    let useData=[]
+    if(type==='polls'){
+    useData =
+    Object.keys(data).length>0 &&
+    data.payload.payload.filter((p) => {
+      return getExpiryString(p.lifeSpan) > 0;
+    });
+  console.log(useData);
+  return useData.length;
+  }
+
+  }
+
   const PollView = (data, type, type2) => {
     let useData;
     if (type === 'active') {
@@ -123,7 +138,7 @@ const Polls = ({english:{english}}) => {
             checkChecked={checkChecked}
             cats={cats}
           />
-          <Tabs onChange={callback} type='card'>
+          <Tabs defaultActiveKey={checkLength(pollsBasedOnCategory,'polls')===0?'1':'2'} onChange={callback} type='card'>
             <TabPane tab='Active' key='1'>
               {PollView(pollsBasedOnCategory, 'active', 'polls')}
             </TabPane>

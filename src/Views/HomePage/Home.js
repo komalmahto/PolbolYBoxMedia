@@ -14,13 +14,15 @@ import NewsCard from '../../Components/News/NewsCard';
 import NewsTrendingCard from '../../Components/News/NewsTrendingCard';
 import {Link} from 'react-router-dom'
 
-const Home = ({ fetchNews, news: { news },english:{english}}) => {
+const Home = ({ fetchNews, news: { news },english:{english},history}) => {
   const [selectedTags, setSelectedTags] = useState([]);
   const [newsBasedOnCategory, setNewsBasedOnCategory] = useState({});
+  const [trending,setTrending]=useState([])
 
   useEffect(() => {
     fetchNews(english);
     fetchNewsSelected();
+    getTrending()
   }, [english]);
 
   useEffect(() => {
@@ -59,6 +61,12 @@ const Home = ({ fetchNews, news: { news },english:{english}}) => {
       };
     }
   };
+  const getTrending=async()=>{
+    await axios.get(`notification/latest?language=${english?'english':'hindi'}`).then((res)=>{
+      console.log(res.data.payload,"trend")
+     setTrending(res.data.payload.payload)
+    })
+  }
   const responsive = {
     superLargeDesktop: {
       // the naming can be any, depends on you.
@@ -97,7 +105,7 @@ const Home = ({ fetchNews, news: { news },english:{english}}) => {
               onChange={onChange}
             >
               {cats.map((p) => (
-                <label style={checkChecked(p)}>
+                <label className="cur" style={checkChecked(p)}>
                   {p}
                   <Checkbox style={{ display: 'none' }} value={p}></Checkbox>
                 </label>
@@ -120,13 +128,13 @@ const Home = ({ fetchNews, news: { news },english:{english}}) => {
             <Link className="viewAll" to="/news">View all</Link>
           </div>
           <div className='trending-news' style={{overflowY:'scroll'}}>
-            {news &&
-              news.payload.length > 0 &&
-              news.payload
-                .filter((f) => {
-                  return f.trending === true;
-                })
-                .map((k) => <NewsTrendingCard k={k} />)}
+            {
+              trending
+                .map((k) => 
+                <div onClick={() => history.push(`/news/${k.targetId}`)}>
+                <NewsTrendingCard   k={k} />
+                </div>
+                )}
           </div>
         </div>
       </section>
