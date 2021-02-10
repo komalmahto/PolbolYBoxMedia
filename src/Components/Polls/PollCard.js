@@ -8,6 +8,7 @@ import { Modal, Button } from 'antd';
 import moment from 'moment'
 import Stars from 'react-stars-display'
 import StarRatings from 'react-star-ratings';
+import ShareModal from '../Modal/ShareModal'
 
 
 const PollCard = ({
@@ -20,10 +21,13 @@ const PollCard = ({
   setType3Data,
   english
 }) => {
+  const [isShareModalVisible,setIsShareModalVisible]=useState(false)
+
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [id, setId] = useState('');
   const history=useHistory()
   const [isCommentModal,setIsCommentModal]=useState(false);
+  const [shareUrl,setShareUrl]=useState("")
   const showModal = (id) => {
     setIsModalVisible(true);
     setId(id);
@@ -52,6 +56,11 @@ axios.get(`/common/polls/comments?poll=${id}`)
   setIsCommentModal(true)
 })
   }
+  const share=(url)=>{
+    setShareUrl(url)
+    setIsShareModalVisible(true)
+
+  }
 
   const awardPath=()=>{
     if(type2 === 'awards' && p.hasCategories){
@@ -73,6 +82,7 @@ return `/award/subcat/${p._id}`
         setIsModalVisible={setIsModalVisible}
         id={id}
     />*/}
+    <ShareModal shareUrl={shareUrl} isShareModalVisible={isShareModalVisible} setIsShareModalVisible={setIsShareModalVisible}/>
     <Bar key={p._id} id={id} isModalVisible={isModalVisible} setIsModalVisible={setIsModalVisible} />
     <Modal title="Comments" visible={isCommentModal} onOk={handleOk} onCancel={handleCancel}>
     {
@@ -189,7 +199,7 @@ return `/award/subcat/${p._id}`
           {type2==='polls'&&<div className="ico">
       <span className="i"><span style={{marginRight:'0.3rem'}}><HeartOutlined /></span>{p.likesCount}</span>
       <span style={{ cursor: 'pointer' }} className="i" onClick={()=>getComments(p._id)}><span style={{marginRight:'0.3rem'}}><CommentOutlined /></span>{p.commentCount}</span>
-      <span className="i"><span><ShareAltOutlined /></span></span>
+      <span style={{cursor:'pointer'}} onClick={()=>share(p.url)} className="i"><span><ShareAltOutlined /></span></span>
       </div>}
           {type2==='polls'&&(            <Link style={{textAlign:'right'}} onClick={()=>english?window.open(`${p.url}`):window.open(`${p.url_hindi}`)}>Read more</Link>
             )}

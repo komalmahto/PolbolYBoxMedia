@@ -124,12 +124,18 @@ const Home = ({ fetchNews, news: { news },english:{english},history}) => {
         </div>
         <div className='section-news-right'>
           <div className='trending-head'>
-            <span>Trending</span>
+            <span>Trending News</span>
             <Link className="viewAll" to="/news">View all</Link>
           </div>
           <div className='trending-news' style={{overflowY:'scroll'}}>
             {
               trending
+              .filter((p)=>{
+if(selectedTags.length >0){
+                return selectedTags.includes(p.icon)
+}
+else return p
+              })
                 .map((k) => 
                 <div onClick={() => history.push(`/news/${k.targetId}`)}>
                 <NewsTrendingCard   k={k} />

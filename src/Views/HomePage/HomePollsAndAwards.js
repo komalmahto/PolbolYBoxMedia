@@ -90,7 +90,13 @@ const fetchExpiredAwards = async (page) => {
       return {
         backgroundColor: '#a62844',
         color: 'white',
+        fontSize: "1rem"
       };
+    }
+    else{
+      return{
+        fontSize:'1rem',
+      }
     }
   };
   const checkChecked1 = (item) => {
@@ -101,7 +107,13 @@ const fetchExpiredAwards = async (page) => {
       return {
         backgroundColor: '#a62844',
         color: 'white',
+        fontSize:'1rem'
       };
+    }
+    else{
+      return{
+        fontSize:'1rem',
+      }
     }
   };
   const getExpiryString = (expiryTime) => {
@@ -238,12 +250,12 @@ if(type2==='polls'){
         </div>
         <div style={{overflowY:'scroll'}}>
           <div className="top">
-            <span>
+         {/*   <span>
               {useData && useData.length}{' '}
               {data && data.length===0&& "0"}{" "}
               {type === 'active' ? 'active' : 'expired'} {type2==='polls'?'polls':'Awards'}
-            </span>
-            <span onClick={()=>{type2==='polls'?history.push('/polls'):history.push("/awards")}}  className="viewAll">View all</span>
+         </span>
+            <span onClick={()=>{type2==='polls'?history.push('/polls'):history.push("/awards")}}  className="viewAll">View all</span>*/}
           </div>
           <div className="grid-2" >
             {useData &&
@@ -254,6 +266,10 @@ if(type2==='polls'){
                <PollCard english={english} type={type} icons={icons} type2={type2} p={p} getExpiryString1={getExpiryString1}/>
                </div>
               ))}
+              
+          </div>
+          <div style={{display:'flex',justifyContent:'flex-end'}} className="top">
+          <span onClick={()=>{type2==='polls'?history.push('/polls'):history.push("/awards")}}  className="viewAll">View all</span>
           </div>
         </div>
       </div>
@@ -294,7 +310,7 @@ if(type2==='polls'){
     <div className='card-container'>
     <Modal   title={type3Data&& Object.keys(type3Data).length>0 && type3Data.heading} visible={type3} onOk={handleOk} onCancel={handleCancel}>
    {/* <h3>{type3Data&& Object.keys(type3Data).length>0 && type3Data.heading}</h3>*/}
-    <Tabs onChange={callback} type="card">
+    <Tabs  size={'small'} onChange={callback} type="card">
     <TabPane tab="Nominees" key="1">
     <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(200px,1fr))',justifyItems:'center',gridGap:'1.5rem'}}>
       {type3Data&& Object.keys(type3Data).length>0 && type3Data.nominations.map((p)=>(
@@ -316,8 +332,8 @@ if(type2==='polls'){
   </Tabs>
     
     </Modal>
-      <Tabs type='card'>
-        <TabPane tab={english?'Polls':'मतदान'} key='1'>
+      <Tabs size={'large'}  type='card'>
+        <TabPane className="cat" id="cat"  tab={english?'Polls':'मतदान'} key='1'>
           <Tabs defaultActiveKey={checkLength(pollsBasedOnCategory,'polls')===0?'1':'2'} onChange={callback}>
             <TabPane tab='Active' key='1'>
               {grid(pollsBasedOnCategory, 'active','polls')}

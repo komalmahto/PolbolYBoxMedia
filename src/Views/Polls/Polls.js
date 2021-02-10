@@ -8,9 +8,12 @@ import PollCard from '../../Components/Polls/PollCard';
 import { icons } from '../../Components/icons/Icons';
 import {connect} from 'react-redux';
 
+
 const Polls = ({english:{english}}) => {
   const [selectedTags, setSelectedTags] = useState([]);
   const [pollsBasedOnCategory, setPollsBasedOnCategory] = useState({});
+  const [page,setPage]=useState(1)
+
 
   const { TabPane } = Tabs;
   useEffect(() => {
@@ -114,24 +117,29 @@ const Polls = ({english:{english}}) => {
     return (
       <>
         <div style={{ margin: '1.5rem 0' }}>
-          <span>{useData.length + ' ' + type + ' ' + type2}</span>
-        </div>
+{  /*        <span>{useData.length + ' ' + type + ' ' + type2}</span>
+    */}        </div>
         <div className='pollCont'>
           {useData &&
-            useData.map(
+            useData.slice(0,10*page).map(
               (p) =>
                 p.hidden === false && (
                   <PollCard english={english} icons={icons} type2={type2} p={p} type={type}/>
                 )
             )}
         </div>
+        
+        {useData && useData.length>page*10&&<center><button className="loadmore" onClick={changePage}>Load more</button></center>}
       </>
     );
   };
+  const changePage=()=>{
+    setPage(page+1)
+  }
   return (
     <div className='poll-box'>
       <div>
-        <h1>Polls</h1>
+        {/*<h1>Polls</h1>*/}
         <div>
           <CategoryBar
             onChange={onChange}

@@ -11,6 +11,7 @@ import { icons } from '../../Components/icons/Icons';
 import {Link} from 'react-router-dom'
 import Modal from '../../Components/Modal/Modal'
 import {HeartOutlined,CommentOutlined,ShareAltOutlined,ArrowRightOutlined,CopyOutlined,RightOutlined} from '@ant-design/icons'
+import ShareModal from '../../Components/Modal/ShareModal'
 
 const News = ({ fetchNews, news: { news },english:{english}, match, history }) => {
   const [selectedTags, setSelectedTags] = useState([]);
@@ -21,6 +22,9 @@ const News = ({ fetchNews, news: { news },english:{english}, match, history }) =
   const [copySuccess, setCopySuccess] = useState('');
   const [trending,setTrending]=useState([])
   const [isModalVisible,setIsModalVisible]=useState(false)
+  const [isShareModalVisible,setIsShareModalVisible]=useState(false)
+  const [page,setPage]=useState(1)
+  const [y,setY]=useState(0)
 
 useEffect(() => {
   window.scrollTo(0,0)
@@ -52,7 +56,16 @@ useEffect(() => {
     getTrending()
    
   }, [english]);
-
+  const loadMorePage=()=>{
+    let pos=window.scrollY
+    console.log(pos,"poss")
+    setY(pos)
+    setPage(page+1)
+    console.log("len")
+    const len=newsBasedOnCategory.payload.data.length;
+    let pageLen=page*12
+    
+  }
 
   const getTrending=async()=>{
     await axios.get(`notification/latest?language=${english?'english':'hindi'}`).then((res)=>{
@@ -64,6 +77,13 @@ useEffect(() => {
   useEffect(() => {
     fetchNewsSelected(1);
   }, [selectedTags,english]);
+  
+  useEffect(() => {
+    if(page!==1){
+      window.scrollTo(0,y)
+    }
+
+  },[page])
 
   const fetchNewsSelected = async (page) => {
     const queryParam = selectedTags.join(',');
@@ -115,10 +135,11 @@ useEffect(() => {
     axios.get(`news/shortUrl/${id}`)
     .then((res) =>{
      setCopy(res.data.payload)
+     setIsShareModalVisible(true)
     } )
 
   }
-
+ 
 
   function copyToClipboard(e) {
     textAreaRef.current.select();
@@ -132,13 +153,14 @@ useEffect(() => {
   const setMod=()=>{
     setIsModalVisible(true)
   }
+  
   return (
     <div className='news'>
     <Modal   isModalVisible={isModalVisible}
     setIsModalVisible={setIsModalVisible}/>
       <div className='news-head'>
-        <h1>{english?'NEWS':'समाचार'}</h1>
-      </div>
+{    /*    <h1>{english?'NEWS':'समाचार'}</h1>
+  */}      </div>
       <CategoryBar
         onChange={onChange}
         cats={cats}
@@ -161,12 +183,12 @@ useEffect(() => {
 
               <div>
                 <span>
-                  News on{' '}
-                  {data &&data.categories&& data.categories.length > 0 && data.categories[0]}
+                 
+                  {data &&data.categories&& data.categories.length > 0 ? data.categories[0]==='Social'? `${data.categories[0]} News`:`News on ${data.categories[0]}`:data.icon==='Social'? `${data.icon} News`:`News on ${data.icon}`}
                   {data && data.icon}
                 </span>
-                {data.user &&<p>
-                  By {data.user&&data.user.firstName&&data.user.firstName} {data.user&&data.user.lastName&&data.user.lastName}
+                {data.user &&<p style={{ fontSize:'0.8rem'}}>
+                  Image courtesy {data.user&&data.user.firstName&&data.user.firstName} {data.user&&data.user.lastName&&data.user.lastName}
                 </p>}
               </div>
             </div>
@@ -194,7 +216,7 @@ useEffect(() => {
             </div>
            
             <div className="read">
-            <Link onClick={()=>window.open(`${data.source}`)} target="_blank" className="readmore">Read more <span><RightOutlined /></span></Link>
+            <Link onClick={()=>window.open(`${data.source}`)} target="_blank" className="readmore">Read more on publisher <span><RightOutlined /></span></Link>
             </div>
 
             </div>
@@ -207,18 +229,25 @@ useEffect(() => {
             <span onClick={copyToClipboard}>{copySuccess?copySuccess:<CopyOutlined />}</span>            
           </form>}
           </div>
+          <ShareModal shareUrl={copy} isShareModalVisible={isShareModalVisible} setIsShareModalVisible={setIsShareModalVisible} />
+
 
           </div>
         )}
         <div className='spotlight'>
           <div className='spotlight-head'>
-            <span>Trending</span>
+            <span>Trending News</span>
             {/* <span>View all</span>*/}
           </div>
           <div className='trending-news'>
             {trending &&
               trending.length >0&&
-              trending
+              trending.filter((p)=>{
+if(selectedTags.length >0){
+                return selectedTags.includes(p.icon)
+}
+else return p
+              })
                 .map((k) => 
                 
                 <NewsTrendingCard k={k} setIt={setIt}/>
@@ -233,7 +262,7 @@ useEffect(() => {
           {Object.keys(newsBasedOnCategory).length > 0 &&
             newsBasedOnCategory.payload.data.length > 0 &&
             newsBasedOnCategory.payload.data[0]!==null&&
-            newsBasedOnCategory.payload.data.map((p) => (
+            newsBasedOnCategory.payload.data.slice(0,page*12).map((p) => (
     
               <NewsCard data={data} setIt={setIt} p={p} />
             
@@ -241,7 +270,11 @@ useEffect(() => {
             ))}
            
         </div>
+        {<div style={{display:'flex',justifyContent:'center'}}>
+        {Object.keys(newsBasedOnCategory).length > 0 && newsBasedOnCategory.payload.data.length > page*12&&<button className="loadmore" onClick={loadMorePage}>Load more</button>}
+        </div>}
       </section>
+
     </div>
   );
 };

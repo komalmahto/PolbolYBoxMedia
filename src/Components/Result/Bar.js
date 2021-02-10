@@ -145,7 +145,7 @@ const Bar = ({ id, isModalVisible, setIsModalVisible }) => {
                         labels: Object.values(data.options),
                         responsive: [
                           {
-                            breakpoint: 1280,
+                            breakpoint: 1800,
                             options: {
                               chart: {
                                 width: '100%',
@@ -154,7 +154,9 @@ const Bar = ({ id, isModalVisible, setIsModalVisible }) => {
                                 position: 'bottom',
                               },
                             },
+                            
                           },
+                          
                         ],
                       }}
                     />
@@ -253,7 +255,7 @@ const Bar = ({ id, isModalVisible, setIsModalVisible }) => {
                       labels: Object.values(data.options),
                       responsive: [
                         {
-                          breakpoint: 1280,
+                          breakpoint: 1800,
                           options: {
                             chart: {
                               width: '100%',
@@ -372,7 +374,7 @@ const Bar = ({ id, isModalVisible, setIsModalVisible }) => {
                       labels: Object.values(data.options),
                       responsive: [
                         {
-                          breakpoint: 1280,
+                          breakpoint: 1800,
                           options: {
                             chart: {
                               width: '100%',
@@ -489,7 +491,7 @@ const Bar = ({ id, isModalVisible, setIsModalVisible }) => {
                       labels: Object.values(data.options),
                       responsive: [
                         {
-                          breakpoint: 1280,
+                          breakpoint: 1800,
                           options: {
                             chart: {
                               width: '100%',

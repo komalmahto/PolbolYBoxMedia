@@ -111,6 +111,8 @@ if(play._id === id){
     border:"4px solid red",
     padding:"0.5rem",
     cursor:'pointer',
+    boxShadow: '5px 10px 18px #888888'
+
   
 
   }
@@ -123,6 +125,8 @@ else {
     marginRight:'15px',
     marginBottom:'1.5rem',
     cursor:'pointer',
+    boxShadow: '5px 10px 18px #888888'
+
   }
 }
 }
@@ -142,7 +146,8 @@ else {
     
     </div>
     <div>
-    {Object.keys(play).length>0 && <ReactPlayer width="100%" controls={true} url={play.link} />
+    {Object.keys(play).length>0 && <ReactPlayer volume={0}
+    muted={true} playing={true} width="100%" controls={true} url={play.link} />
   }
   <div style={{display:"flex",justifyContent:"space-between",padding:'1rem'}}><span style={{fontWeight:"bold"}}>{Object.keys(play).length>0 && play.name}</span><span><span>Hindi</span><Switch style={{margin:'0 1rem'}} defaultChecked onChange={onChange} /><span>English</span></span></div>
     </div>
@@ -150,7 +155,7 @@ else {
     </div>
     <div className='spotlight'>
       <div className='spotlight-head'>
-        <span>Trending</span>
+        <span>Trending News</span>
         <span>View all</span>
       </div>
       <div className='trending-news'>
