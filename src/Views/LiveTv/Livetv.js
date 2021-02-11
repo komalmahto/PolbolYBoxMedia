@@ -146,8 +146,7 @@ else {
     
     </div>
     <div>
-    {Object.keys(play).length>0 && <ReactPlayer volume={0}
-    muted={true} playing={true} width="100%" controls={true} url={play.link} />
+    {Object.keys(play).length>0 && <ReactPlayer  playing={true} width="100%" controls={true} url={play.link} />
   }
   <div style={{display:"flex",justifyContent:"space-between",padding:'1rem'}}><span style={{fontWeight:"bold"}}>{Object.keys(play).length>0 && play.name}</span><span><span>Hindi</span><Switch style={{margin:'0 1rem'}} defaultChecked onChange={onChange} /><span>English</span></span></div>
     </div>

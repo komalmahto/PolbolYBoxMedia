@@ -220,25 +220,30 @@ const QuizPlay = ({ match, history,english:{english} }) => {
   }
 
   const getHint=async (id) =>{
-    if(!hint.taken && hint.value>0 &&timer.time>0 && Object.keys(result).length ===0){
+    if(hint===0){
+      console.log("buy hint")
+    }
+    if(display.options.length>1&& hint.value>0 &&timer.time>0 && Object.keys(result).length ===0){
   await axios.get(`http://52.66.203.244:2113/api/v1/quiz/hint/guest?quesId=${id}&cost=1`)
   .then((res)=>{
     setHintRes(res.data.payload)
     console.log(res.data.payload)
-    const ind=display.options.map((ind,val)=>{
-      if(val._id===res.data.payload){
+    let index;
+    let ind=display.options.map((val,ind)=>{
+      if(val._id===res.data.payload.answer){
+        index=ind
         return ind
       }
     })
-    console.log(ind)
+    console.log(index)
     
     function generateRandom(min, max) {
       var num = Math.floor(Math.random() * (max - min + 1)) + min;
-      return (num === ind) ? generateRandom(min, max) : num;
+      console.log(num)
+      return (num === index) ? generateRandom(min, max) : num;
   }
-  display.options.splice(generateRandom(0,3),1)
-
-  
+  console.log(generateRandom(0,display.options.length-1),"random");
+  display.options.splice(generateRandom(0,display.options.length-1),1)
     setHint({value:hint.value-1,taken:true})
 
   })

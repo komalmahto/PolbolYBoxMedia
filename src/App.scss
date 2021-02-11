@@ -43,8 +43,7 @@ body {
   background: #f3d8e2;
 
 }
-scrollbar-width: thin !important;          /* "auto" or "thin" */
-scrollbar-color: blue orange !important; 
+
 }
 
 
@@ -289,6 +288,7 @@ height: 480px;    overflow-y: scroll;
 .card-container > .ant-tabs-card > .ant-tabs-nav::before {
   display: none;
 }
+
 .card-container > .ant-tabs-card .ant-tabs-tab,
 [data-theme='compact'] .card-container > .ant-tabs-card .ant-tabs-tab {
   border-color: transparent;
@@ -331,7 +331,7 @@ height: 480px;    overflow-y: scroll;
     // height: 360px;
     display: flex;
 flex-direction: column;  
-height: 700px; 
+max-height: 820px; 
     @media only screen and (max-width: 1250px) {
 display: flex;
 flex-direction: column;  
@@ -377,11 +377,14 @@ height: 700px;
     display: grid;
     grid-template-columns: repeat(2,1fr);
     grid-column-gap:1rem;
-    @media only screen and (max-width: 1250px) {
-      grid-template-columns: repeat(auto-fit,minmax(320px,1fr));
+    @media only screen and (max-width: 800px) {
+      grid-template-columns: repeat(auto-fit,minmax(500px,1fr));
            }
-  
-  
+         
+           @media only screen and (max-width: 500px) {
+            grid-template-columns: repeat(auto-fit,minmax(320px,1fr));
+                 }
+               
  
 }
 }
@@ -405,6 +408,8 @@ height: 700px;
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      box-shadow: 5px 10px 18px #888888;
+
       padding: 2rem;
       img{
         margin-bottom: 1rem;
@@ -429,6 +434,8 @@ height: 700px;
   .news-section1{
     display: grid;
     grid-template-columns: 70% 30%;
+    margin-bottom: 2rem;
+
     @media only screen and (max-width: 1250px) {
       display: flex;
       flex-direction: column;
@@ -438,6 +445,7 @@ height: 700px;
       background-color: white;
       border: 2px solid #f5f5f5;
       border-radius: 10px;
+      margin: 0rem 1rem;
 
       @media only screen and (max-width: 1250px) {
        margin-top: 2rem;
@@ -463,6 +471,8 @@ height: 700px;
       border: 1px solid #f5f5f5;
       padding: 1rem;
       border-radius: 10px;
+      box-shadow: 5px 10px 18px #888888;
+
       .left-head{
         display: grid;
         grid-template-columns: 80% 20%;
@@ -685,12 +695,7 @@ align-items: center;
   display: flex;
   justify-content:space-between;
   align-items: center;
-  .ico{
-    .i{
-      margin-right: 1.5rem;
-      font-size: 1.6rem;
-    }
-  }
+ 
 
   .read{
     color: #222222;
@@ -778,7 +783,11 @@ align-items: center;
 
 .pollCont{
  display: grid;
- grid-template-columns: repeat(auto-fit,minmax(400px,1fr));
+ grid-template-columns: repeat(auto-fit,minmax(500px,1fr));
+ @media screen and (max-width: 510px) {
+  grid-template-columns: repeat(auto-fit,minmax(320px,1fr));
+
+}
  grid-gap:1rem;
  
 }
@@ -942,7 +951,8 @@ color: black;
     grid-template-columns:  1fr 1fr;
     .meta{
       display: flex;
-      flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
     }
   }
 }
@@ -1305,6 +1315,61 @@ flex-direction: column;
   }
 }
 
-#cat{
-  
+.quiz-cat-con{
+  padding: 2rem 15%;
+  // style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(155px,1fr))',gridGap:'2rem'}}
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  grid-gap: 2rem;
+}
+
+
+.ico{
+  .i{
+    margin-right: 1.5rem;
+    font-size: 1.6rem;
+  }
+}
+
+.poll-but{
+
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    @media screen and (max-width: 520px) {
+      display: flex;
+      flex-direction: column;    
+      justify-content: flex-start;
+      align-items: flex-start;      
+              }
+}
+
+.share{
+  display: flex;
+  justify-content: space-between;
+
+}
+.share-head{
+  font-weight: bold;
+}
+
+.age-div,.gender-div,.region-div{
+  margin: 1rem 0;
+  padding: 1rem;
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  grid-row-gap:5rem;
+  grid-column-gap:1rem;
+  border:2px solid #f5f5f5;
+  border-radius: 10px;
+  box-shadow: 5px 10px 18px #888888;
+  @media screen and (max-width: 1350px) {
+  display: block;  
+  }
+  .age{
+    border: 1px solid #f5f5f5;
+    padding: 0.5rem;
+    border-radius: 10px;
+  }
 }

@@ -222,7 +222,7 @@ if(type2==='polls'){
 
     return (
       <div className='grid-46'>
-        <div style={{ backgroundColor: '#ffff' }}>
+        <div style={{ backgroundColor: '#ffff',textAlign:'center' }}>
           {type2==='polls'&&<Checkbox.Group
             className='tags'
             style={{ width: '100%' }}
@@ -259,7 +259,7 @@ if(type2==='polls'){
           </div>
           <div className="grid-2" >
             {useData &&
-              useData.map((p) => (
+              useData.slice(0,6).map((p) => (
 
               p.hidden===false&& 
               <div onClick={()=>setIt(p)}>

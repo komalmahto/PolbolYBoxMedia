@@ -68,6 +68,7 @@ const Bar = ({ id, isModalVisible, setIsModalVisible }) => {
           onCancel={handleCancel}
           title='Poll result'
           visible={isModalVisible}
+          width="80%"
         >
           <span  className="chck">
             Overall <Switch defaultChecked onChange={onChangeOverall} />
@@ -225,22 +226,30 @@ const Bar = ({ id, isModalVisible, setIsModalVisible }) => {
             </div>
           )}
 
-          <div className='age-div'>
+         { age.length>0&&<div className='age-div'>
+
             {data &&
               Object.keys(data).length > 0 &&
               data.poll.type === 'pie' &&
               age.length > 0 &&
               age.map((a) => (
-                <div>
+                <div className="age">
                   <span>Age {a}</span>
                   {console.log(
                     Object.values(
-                      Object.keys(data.age[a]).map((key, ind) => {
-                        return data.age[a][key];
+                      Object.keys(data.age[a]).filter((key, ind) => {
+                        return data.age[a][key]!==0;
                       })
-                    )
+                    ),
+                    "pie-data"
                   )}
-                  <ReactApexChart
+
+                 {Object.values(
+                  Object.keys(data.age[a]).filter((key, ind) => {
+                    return data.age[a][key]!==0;
+                  })
+                ).length>0? <ReactApexChart
+                
                     type='pie'
                     series={Object.values(
                       Object.keys(data.age[a]).map((key, ind) => {
@@ -267,7 +276,8 @@ const Bar = ({ id, isModalVisible, setIsModalVisible }) => {
                         },
                       ],
                     }}
-                  />
+                  />:<center >
+                  No votes for this filter</center>}
                 </div>
               ))}
 
@@ -276,7 +286,7 @@ const Bar = ({ id, isModalVisible, setIsModalVisible }) => {
               data.poll.type === 'bar' &&
               age.length > 0 &&
               age.map((a) => (
-                <div>
+                <div className="age">
                   <span>Age {a}</span>
                   <p><span style={{marginRight:'1rem'}}>Total votes :{data.age[a].totalVotes}</span><span>Average Rating:{data.age[a].averageRating}</span></p>
 
@@ -342,15 +352,15 @@ const Bar = ({ id, isModalVisible, setIsModalVisible }) => {
                   />
                 </div>
               ))}
-          </div>
+          </div>}
 
-          <div className='gender-div'>
+        { gender.length>0&& <div className='gender-div'>
             {data &&
               Object.keys(data).length > 0 &&
               data.poll.type === 'pie' &&
               gender.length > 0 &&
               gender.map((a) => (
-                <div>
+                <div className="age">
                   <span>Gender {a}</span>
                   {console.log(
                     Object.values(
@@ -359,6 +369,13 @@ const Bar = ({ id, isModalVisible, setIsModalVisible }) => {
                       })
                     )
                   )}
+
+
+                  {Object.values(
+                    Object.keys(data.gender[a]).filter((key, ind) => {
+                      return data.gender[a][key]!==0;
+                    })
+                  ).length>0?
                   <ReactApexChart
                     type='pie'
                     series={Object.values(
@@ -386,7 +403,7 @@ const Bar = ({ id, isModalVisible, setIsModalVisible }) => {
                         },
                       ],
                     }}
-                  />
+                  />:<center>This filter does not have votes</center>}
                 </div>
               ))}
 
@@ -395,7 +412,7 @@ const Bar = ({ id, isModalVisible, setIsModalVisible }) => {
               data.poll.type === 'bar' &&
               gender.length > 0 &&
               gender.map((a) => (
-                <div>
+                <div className="age">
                   <span>Gender {a}</span>
                   <p><span style={{marginRight:'1rem'}}>Total votes :{data.gender[a].totalVotes}</span><span>Average Rating:{data.gender[a].averageRating}</span></p>
                   {console.log(
@@ -460,14 +477,15 @@ const Bar = ({ id, isModalVisible, setIsModalVisible }) => {
                   />
                 </div>
               ))}
-          </div>
-          <div className='region-div'>
+          </div>}
+        { region.length>0 && <div className='region-div'>
+
             {data &&
               Object.keys(data).length > 0 &&
               data.poll.type === 'pie' &&
               region.length > 0 &&
               region.map((a) => (
-                <div>
+                <div className="age">
                   <span>Region {a}</span>
                   {console.log(
                     Object.values(
@@ -476,7 +494,11 @@ const Bar = ({ id, isModalVisible, setIsModalVisible }) => {
                       })
                     )
                   )}
-                  <ReactApexChart
+                  {Object.values(
+                    Object.keys(data.region[a]).filter((key, ind) => {
+                      return data.region[a][key]!==0;
+                    })
+                  ).length>0?<ReactApexChart
                     type='pie'
                     series={Object.values(
                       Object.keys(data.region[a]).map((key, ind) => {
@@ -503,7 +525,7 @@ const Bar = ({ id, isModalVisible, setIsModalVisible }) => {
                         },
                       ],
                     }}
-                  />
+                  />:<center>This filter does not have any votes</center>}
                 </div>
               ))}
 
@@ -512,7 +534,7 @@ const Bar = ({ id, isModalVisible, setIsModalVisible }) => {
               data.poll.type === 'bar' &&
               region.length > 0 &&
               region.map((a) => (
-                <div>
+                <div className="age">
                   <span>Region {a}</span>
                   <p><span style={{marginRight:'1rem'}}>Total votes :{data.region[a].totalVotes}</span><span>Average Rating:{data.region[a].averageRating}</span></p>
                   {console.log(
@@ -577,7 +599,7 @@ const Bar = ({ id, isModalVisible, setIsModalVisible }) => {
                   />
                 </div>
               ))}
-          </div>
+          </div>}
         </Modal>
       )}
     </>

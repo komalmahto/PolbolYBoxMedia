@@ -216,7 +216,7 @@ useEffect(() => {
             </div>
            
             <div className="read">
-            <Link onClick={()=>window.open(`${data.source}`)} target="_blank" className="readmore">Read more on publisher <span><RightOutlined /></span></Link>
+            <Link onClick={()=>window.open(`${data.source}`)} target="_blank" className="readmore">{english?`Read more`:'और पढ़ें'} {data.publisher?` ${data.publisher}`:''} <span><RightOutlined /></span></Link>
             </div>
 
             </div>
@@ -263,10 +263,7 @@ else return p
             newsBasedOnCategory.payload.data.length > 0 &&
             newsBasedOnCategory.payload.data[0]!==null&&
             newsBasedOnCategory.payload.data.slice(0,page*12).map((p) => (
-    
               <NewsCard data={data} setIt={setIt} p={p} />
-            
-      
             ))}
            
         </div>

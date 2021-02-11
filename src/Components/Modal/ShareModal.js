@@ -44,13 +44,15 @@ const ShareModal = ({isShareModalVisible,setIsShareModalVisible,shareUrl}) => {
     onCancel={handleCancel}
   >
   <div>
-  <p>Share on</p>
+  <p className="share-head"> Share on</p>
   </div>
+  <div className="share">
   <FacebookShareButton style={{cursor:'pointer'}} url={shareUrl}><FacebookIcon/></FacebookShareButton>
   <TwitterShareButton style={{cursor:'pointer'}} url={shareUrl}><TwitterIcon/></TwitterShareButton>
   <WhatsappShareButton style={{cursor:'pointer'}} url={shareUrl}><WhatsappIcon/></WhatsappShareButton>
   <EmailShareButton style={{cursor:'pointer'}} url={shareUrl}><EmailIcon/></EmailShareButton>
   <TelegramShareButton style={{cursor:'pointer'}} url={shareUrl}><TelegramIcon/></TelegramShareButton>
+  </div>
   </Modal>
   )
 }
