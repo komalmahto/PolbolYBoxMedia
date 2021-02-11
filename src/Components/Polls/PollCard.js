@@ -138,12 +138,13 @@ const PollCard = ({
       <div
         // to={awardPath()}
         onClick={() => type2 === 'awards' && history.push(awardPath())}
-        className={
-          type2 === 'polls'
-            ? 'long-card long-card-hor'
-            : 'long-card long-card-ver'
-        }
+       className="po"
       >
+      <div  className={
+        type2 === 'polls'
+          ? 'long-card long-card-hor'
+          : 'long-card long-card-ver'
+      }>
         <div className='lef'>
           {' '}
           <span className='heading'>
@@ -215,67 +216,65 @@ const PollCard = ({
             )}
             <p>{english ? p.question : p.question_hindi}</p>
           </div>
-          <div
-            
-          >
-         
-            <div className="poll-but"> {type2 === 'polls' && (
-            
-             <div className='ico'>
-            <span className='i'>
-              <span style={{ marginRight: '0.3rem' }}>
-                <HeartOutlined />
-              </span>
-              {p.likesCount}
-            </span>
-            <span
-              style={{ cursor: 'pointer' }}
-              className='i'
-              onClick={() => getComments(p._id)}
-            >
-              <span style={{ marginRight: '0.3rem' }}>
-                <CommentOutlined />
-              </span>
-              {p.commentCount}
-            </span>
-            <span
-              style={{ cursor: 'pointer' }}
-              onClick={() => share(p.url)}
-              className='i'
-            >
-              <span>
-                <ShareAltOutlined />
-              </span>
-            </span>
-          </div> )} 
-            {type2 === 'polls' && type && type === 'expired' && (
-
-              <span
-                style={{ cursor: 'pointer' }}
-                onClick={() => showModal(p._id)}
-              >
-                {english ? 'Result' : 'परिणाम'} <PieChartOutlined />
-              </span>
-            )}
-            <div className='read-more-poll'>
-            
-            {type2 === 'polls' && (
-              <Link
-                style={{ textAlign: 'right' }}
-                onClick={() =>
-                  english
-                    ? window.open(`${p.url}`)
-                    : window.open(`${p.url_hindi}`)
-                }
-              >
-                Read more
-              </Link>
-            )}
-          </div>
+          
+        </div>
+        </div>
+        <div>
+            <div className='poll-but'>
+              {' '}
+              {type2 === 'polls' && (
+                <div className='ico'>
+                  <span className='i'>
+                    <span style={{ marginRight: '0.3rem' }}>
+                      <HeartOutlined />
+                    </span>
+                    {p.likesCount}
+                  </span>
+                  <span
+                    style={{ cursor: 'pointer' }}
+                    className='i'
+                    onClick={() => getComments(p._id)}
+                  >
+                    <span style={{ marginRight: '0.3rem' }}>
+                      <CommentOutlined />
+                    </span>
+                    {p.commentCount}
+                  </span>
+                  <span
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => share(p.url)}
+                    className='i'
+                  >
+                    <span>
+                      <ShareAltOutlined />
+                    </span>
+                  </span>
+                </div>
+              )}
+              {type2 === 'polls' && type && type === 'expired' && (
+                <span
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => showModal(p._id)}
+                >
+                  {english ? 'Result' : 'परिणाम'} <PieChartOutlined />
+                </span>
+              )}
+              <div className='read-more-poll'>
+                {type2 === 'polls' && (
+                  <Link
+                    style={{ textAlign: 'right' }}
+                    onClick={() =>
+                      english
+                        ? window.open(`${p.url}`)
+                        : window.open(`${p.url_hindi}`)
+                    }
+                  >
+                    Read more
+                  </Link>
+                )}
+              </div>
             </div>
           </div>
-        
-        </div>
       </div>
     </>
   );

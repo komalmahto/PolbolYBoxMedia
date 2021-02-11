@@ -216,7 +216,7 @@ useEffect(() => {
             </div>
            
             <div className="read">
-            <Link onClick={()=>window.open(`${data.source}`)} target="_blank" className="readmore">{english?`Read more`:'और पढ़ें'} {data.publisher?` ${data.publisher}`:''} <span><RightOutlined /></span></Link>
+            <Link onClick={()=>window.open(`${data.source}`)} target="_blank" className="readmore">{data.publisher?` ${data.publisher}`:''}{' '}{english?`Read more`:'पर और पढ़े '}  <span><RightOutlined /></span></Link>
             </div>
 
             </div>

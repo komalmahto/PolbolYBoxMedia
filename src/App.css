@@ -771,11 +771,6 @@ body::-webkit-scrollbar-thumb:hover {
 .long-card {
   display: grid;
   grid-template-columns: 20rem 1fr;
-  background-color: white;
-  border: 2px solid #f5f5f5;
-  border-radius: 10px;
-  margin-bottom: 1.5rem;
-  padding: 1rem;
 }
 
 .long-card .lef {
@@ -1397,15 +1392,6 @@ body::-webkit-scrollbar-thumb:hover {
   margin-bottom: 1rem;
 }
 
-@media screen and (max-width: 520px) {
-  .poll-but {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-  }
-}
-
 .share {
   display: flex;
   justify-content: space-between;
@@ -1437,5 +1423,13 @@ body::-webkit-scrollbar-thumb:hover {
   border: 1px solid #f5f5f5;
   padding: 0.5rem;
   border-radius: 10px;
+}
+
+.po {
+  background-color: white;
+  border: 2px solid #f5f5f5;
+  border-radius: 10px;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
 }
 /*# sourceMappingURL=App.css.map */
