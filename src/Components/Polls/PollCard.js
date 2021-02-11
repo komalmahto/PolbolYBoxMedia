@@ -240,7 +240,7 @@ const PollCard = ({
                     </span>
                     {p.commentCount}
                   </span>
-                  <span
+                  {type==='active'&&<span
                     style={{ cursor: 'pointer' }}
                     onClick={() => share(p.url)}
                     className='i'
@@ -248,7 +248,7 @@ const PollCard = ({
                     <span>
                       <ShareAltOutlined />
                     </span>
-                  </span>
+                  </span>}
                 </div>
               )}
               {type2 === 'polls' && type && type === 'expired' && (
