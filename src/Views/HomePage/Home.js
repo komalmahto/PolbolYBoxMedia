@@ -67,22 +67,32 @@ const Home = ({ fetchNews, news: { news },english:{english},history}) => {
      setTrending(res.data.payload.payload)
     })
   }
+
+  const CustomButtonGroupAsArrows = ({ next, previous, goToSlide, ...rest }) => {
+    const { carouselState: { currentSlide } } = rest;
+    return (
+      <div className="carousel-button-group"> 
+        <button className={currentSlide === 0 ? 'disable' : ''} onClick={() => previous()} >previous</button>
+        <button onClick={() => next()} >next</button>
+      </div>
+    );
+  };
   const responsive = {
     superLargeDesktop: {
       // the naming can be any, depends on you.
       breakpoint: { max: 4000, min: 3000 },
-      items: 5,
+      items: 4,
     },
     desktop: {
-      breakpoint: { max: 3000, min: 1200 },
+      breakpoint: { max: 3000, min: 1100 },
       items: 3,
     },
     tablet: {
-      breakpoint: { max: 1200, min: 464 },
-      items: 3,
+      breakpoint: { max: 1100, min: 670 },
+      items: 2,
     },
     mobile: {
-      breakpoint: { max: 500, min: 0 },
+      breakpoint: { max: 670, min: 0 },
       items: 1,
     },
   };
@@ -112,15 +122,19 @@ const Home = ({ fetchNews, news: { news },english:{english},history}) => {
               ))}
             </Checkbox.Group>
           </div>
-          <div
-            style={{ overflowX: 'scroll' }}
+          <Carousel
+          sliderClass="class-slide"
+          itemClass="class-slide"
+          customButtonGroup={<CustomButtonGroupAsArrows />}
+          renderButtonGroupOutside={true}
+            style={{ overflowX: 'scroll',display:'flex',justifyContent:'space-evenly' }}
             className='card-container'
             responsive={responsive}
           >
             {Object.keys(newsBasedOnCategory).length > 0 &&
               newsBasedOnCategory.payload.data.length > 0 &&
               newsBasedOnCategory.payload.data.map((p) => <NewsCard p={p} />)}
-          </div>
+          </Carousel>
         </div>
         <div className='section-news-right'>
           <div className='trending-head'>

@@ -621,7 +621,7 @@ align-items: center;
   box-shadow: 10px 10px 8px #f5f5f5;
 
   margin-right: 1.5rem;
-  width: 300px;
+  width: 280px;
   height: 385px;
   padding-bottom: 1rem;
   background-color: white;
@@ -632,7 +632,7 @@ align-items: center;
     height: 200px;
     border-radius: 10px 10px 0 0 ;
 
-    width: 300px;
+    width: 280px;
     overflow: hidden;
     background-position: center;
     background-size: cover;
@@ -1371,4 +1371,31 @@ flex-direction: column;
   border-radius: 10px;
   margin-bottom: 1.5rem;
   padding: 1rem;
+}
+.class-slide{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.carousel-button-group{
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  button{
+    margin-right: 2rem;
+    border: none;
+    width: 100px;
+    padding: 0.5rem;
+    background-color: #a62844;
+    color: white;
+    border-radius: 15px;
+    transition: all 0.3s;
+    cursor: pointer;
+    outline: none;
+    &:hover{
+      background-color: lighten($color: #a62844, $amount: 20);
+    }
+
+  }
 }

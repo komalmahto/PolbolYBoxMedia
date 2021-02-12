@@ -256,7 +256,7 @@ const PollCard = ({
                   style={{ cursor: 'pointer' }}
                   onClick={() => showModal(p._id)}
                 >
-                  {english ? 'Result' : 'परिणाम'} <PieChartOutlined />
+                  {english ? 'View Result' : 'परिणाम'} <PieChartOutlined />
                 </span>
               )}
               <div className='read-more-poll'>
