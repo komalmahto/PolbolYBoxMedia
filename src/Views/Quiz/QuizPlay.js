@@ -10,6 +10,8 @@ import { ExclamationCircleOutlined } from '@ant-design/icons';
 import light from '../../assets/light-bulb-1.png'
 import { FieldTimeOutlined, LogoutOutlined } from '@ant-design/icons';
 import {connect} from 'react-redux'
+import lose from '../../assets/lose.png'
+import win from '../../assets/Win.png'
 const { confirm } = Modal;
 
 const QuizPlay = ({ match, history,english:{english} }) => {
@@ -270,9 +272,10 @@ const QuizPlay = ({ match, history,english:{english} }) => {
         onOk={handleOk}
         onCancel={handleCancel}
         footer={null}
+        width='400px'
       >
         {Object.keys(final).length > 0 && (
-          <div className='quiz-result' >
+          <div className='quiz-result' style={{backgroundImage:`url(${final.score<400 ?lose:win})`}} >
           <div className="total-score">
             <p >Total Score: {final.score}/{final.outOf}</p>
             </div>

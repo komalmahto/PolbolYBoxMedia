@@ -1132,11 +1132,16 @@ flex-direction: column;
 .quiz-result{
   font-size: 1.3rem;
   font-weight: bold;
-  height: 400px;
+  height: 530px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  background-image: url(./assets/Win.png);
+  background-position: bottom;
+  background-size: cover;
+  background-repeat: no-repeat;
   .bottom{
+    margin-bottom: 1rem;
     display: flex;
     justify-content: center;
     color: white;
@@ -1167,6 +1172,7 @@ flex-direction: column;
   .total-score{
     display: flex;
     justify-content: center;
+    margin-top: 4rem;
 
     p{
       background-color: #a62844;

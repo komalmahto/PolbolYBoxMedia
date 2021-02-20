@@ -162,7 +162,7 @@ else {
           trending.length>0&&
           trending
             .map((k) => 
-            <div onClick={()=>history.push(`/news/${k._id}`)}>
+            <div onClick={() => history.push(`/news/${k.targetId}`)}>
             <NewsTrendingCard k={k} />
             </div>
             )}
