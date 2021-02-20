@@ -65,7 +65,26 @@ export const cats=[ 'Social',
  'Health',
   'Movies',
  'Fashion',
+
+]
+
+export const catspa=[ 'Social Issues',
+  "Auto",
+"Tech",
+ 'Legal',
+  'Crime',
+ 'Media',
+  'International',
+ 'Lifestyle',
+ 'Entertainment' ,
+ 'Sports',
+ 'Business',
+ 'Indian Politics',
+ 'Elections',
+ 'Education',
+ 'Economy', 
+ 'Health',
+ 'Fashion',
 'Bollywood',
-"Social Issues",
 "Politics"
 ]

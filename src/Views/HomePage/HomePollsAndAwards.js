@@ -5,7 +5,7 @@ import { fetchPolls } from '../../Actions/PollsAction';
 import { fetchAwards } from '../../Actions/AwardsAction';
 import { connect } from 'react-redux';
 import moment from 'moment';
-import {icons,cats} from '../../Components/icons/Icons'
+import {icons,cats,catspa} from '../../Components/icons/Icons'
 import PollCard from '../../Components/Polls/PollCard'
 import axios from '../../axios'
 import {useHistory} from 'react-router-dom'
@@ -22,6 +22,7 @@ const HomePollsAndAwards = ({ fetchPolls,fetchAwards, polls: { polls },awards:{a
   const [expiredAwards,setExpiredAwards]=useState({})
   const [type3Data,setType3Data]=useState({});
   const [type3,setType3]=useState(false)
+  const [comm,setComm]=useState([])
 
 const history=useHistory();
   const types=[
@@ -136,6 +137,19 @@ const fetchExpiredAwards = async (page) => {
     return minDiff;
   };
 
+  const fetchComments = async () => {
+    await axios
+      .get(`award/audienceComments?id=${type3Data && type3Data._id}`)
+      .then((res) => {
+        console.log(res, 'COMMENTS');
+        setComm(res.data.payload);
+      });
+  };
+  useEffect(()=>{
+fetchComments()
+  },[type3Data])
+  
+
   const getExpiryString1 = (expiryTime) => {
     const lifeEndTime = moment(expiryTime);
     const now = moment();
@@ -194,10 +208,11 @@ if(type2==='polls'){
       console.log(useData);
       }
     } else if (type === 'expired') {
+      console.log(expiredAwards.payload,'exp aw');
       if(selectedTagsAwards.length>0){
         useData =
         data &&data.length>0 &&
-        data.filter((l)=>{return selectedTagsAwards.includes(l.type[0])}).filter((p) => {
+        data.filter((l)=>{return selectedTagsAwards.includes(l.categories[0])}).filter((p) => {
           return getExpiryString(p.lifeSpan) < 0;
         });
       }
@@ -218,7 +233,9 @@ if(type2==='polls'){
       setType3Data(p)
     }
   }
-  
+
+
+ 
 
     return (
       <div className='grid-46'>
@@ -228,7 +245,7 @@ if(type2==='polls'){
             style={{ width: '100%' }}
             onChange={onChange}
           >
-          {type2==='polls'&&cats.map((p)=>(
+          {type2==='polls'&&catspa.map((p)=>(
             <label className="cur" style={checkChecked(p)}>
               {p}
               <Checkbox style={{ display: 'none' }} value={p}></Checkbox>
@@ -240,7 +257,7 @@ if(type2==='polls'){
           style={{ width: '100%' }}
           onChange={onChangeSel}
         >
-        {type2==='awards'&&cats.map((p)=>(
+        {type2==='awards'&&catspa.map((p)=>(
           <label className="cur" style={checkChecked1(p)}>
             {p}
             <Checkbox style={{ display: 'none' }} value={p}></Checkbox>
@@ -286,29 +303,34 @@ if(type2==='polls'){
   };
   const checkLength=(data,type)=>{
 
-    let useData=[]
+    let useData1=[]
     if(type==='polls'){
-    useData =
+    
+    useData1 =
     Object.keys(data).length>0 &&
     data.payload.payload.filter((p) => {
       return getExpiryString(p.lifeSpan) > 0;
     });
-  console.log(useData);
-  return useData.length;
+  console.log(useData1);
+  return useData1.length;
   }
   if(type==='awards'){
-    useData =
-        data &&data.length>0 &&
-        data.filter((l)=>{return selectedTagsAwards.includes(l.type[0])}).filter((p) => {
-          return getExpiryString(p.lifeSpan) > 0;
-        });
-    return useData.length;
+    console.log(data,"datata")
+   if( data && data.length > 0){
+     return 1
+   }
+   else {
+     return 0
+   }
+      
+
   }
+
   }
 
   return (
     <div className='card-container'>
-    <Modal   title={type3Data&& Object.keys(type3Data).length>0 && type3Data.heading} visible={type3} onOk={handleOk} onCancel={handleCancel}>
+    <Modal footer={null}   title={type3Data&& Object.keys(type3Data).length>0 && type3Data.heading} visible={type3} onOk={handleOk} onCancel={handleCancel}>
    {/* <h3>{type3Data&& Object.keys(type3Data).length>0 && type3Data.heading}</h3>*/}
     <Tabs  size={'small'} onChange={callback} type="card">
     <TabPane tab="Nominees" key="1">
@@ -329,12 +351,32 @@ if(type2==='polls'){
     <TabPane tab="Results" key="3">
     <AwardResult id={type3Data&& Object.keys(type3Data).length>0 && type3Data._id} />
   </TabPane>
+
+  <TabPane tab='Comments' key='4'>
+  {comm.length > 0 &&
+    comm.map((m) => (
+      <div className="comm-cont">
+        <div>
+          <img style={{ width: '50px' }} src={m.user.avatar} alt='' />
+        </div>
+        <div>
+        <p>
+          @{m.user.userName} Voted{' '}
+          <span style={{ textTransform: 'capitalize' }}>
+            {m.award.nominations.name}
+          </span>
+        </p>
+        <p className="comment-1">{m.comment}</p>
+        </div>
+      </div>
+    ))}
+</TabPane>
   </Tabs>
     
     </Modal>
-      <Tabs size={'large'}  type='card'>
+      <Tabs  className={'tabsStyl'} size={'large'}  type='card'>
         <TabPane className="cat" id="cat"  tab={english?'Polls':'मतदान'} key='1'>
-          <Tabs defaultActiveKey={checkLength(pollsBasedOnCategory,'polls')===0?'1':'2'} onChange={callback}>
+          <Tabs  defaultActiveKey={checkLength(pollsBasedOnCategory,'polls')===0?'1':'2'} onChange={callback}>
             <TabPane tab='Active' key='1'>
               {grid(pollsBasedOnCategory, 'active','polls')}
             </TabPane>
@@ -344,7 +386,7 @@ if(type2==='polls'){
           </Tabs>
         </TabPane>
         <TabPane tab={english?'Awards':'अवार्डस'} key='2'>
-          <Tabs defaultActiveKey={checkLength(pollsBasedOnCategory,'awards')===0?'1':'2'} onChange={callback}>
+          <Tabs  defaultActiveKey={checkLength(awards,'awards')===0?'2':'1'} onChange={callback}>
             <TabPane tab='Active' key='1'>
               {grid(awards,'active','awards')}
             </TabPane>

@@ -16,7 +16,8 @@ const footer = () => {
                 <Col xs={0} sm={0} md={2} lg={3}/>
                 <Col xs={24} sm={24} md={14} style={{padding: "10px"}}>
                     <img alt={'Logo'} src={Logo} style={{height: "70px"}}/>
-                    <p style={{marginTop: "10px", fontSize: "15px"}}>All rghts Reserved</p>
+                    
+                    <p style={{marginTop: "20px", fontSize: "12px",color:'white',width:'230px'}}>Copyright © 2021 All rights reserved | This template is made by <a style={{color:'white'}} href='http://www.yboxmedia.com/' target="_blank">YBox Media Technologies</a></p>
                     <div>
                         <br/>
                         <a target='_blank' rel='noreferrer noopener' href={'https://www.facebook.com/polbol.media/'}

@@ -1,5 +1,10 @@
 import React, { useEffect } from 'react';
-import { RightOutlined,HeartOutlined,CommentOutlined,ShareAltOutlined } from '@ant-design/icons';
+import {
+  RightOutlined,
+  HeartOutlined,
+  CommentOutlined,
+  ShareAltOutlined,
+} from '@ant-design/icons';
 import { icons } from '../icons/Icons';
 import { Link } from 'react-router-dom';
 
@@ -11,8 +16,15 @@ const NewsCard = ({ p, setIt, data }) => {
       }
     }
   };
+
+ 
   return (
-    <div style={setBord()} className='card'>
+    <Link
+to={`/news/${p._id}`}
+      onClick={() => setIt && setIt(p)}
+      style={{ cursor: 'pointer' }}
+      className='card'
+    >
       <div
         className='card-img'
         style={{ backgroundImage: `url(${p.images[0]})` }}
@@ -26,10 +38,11 @@ const NewsCard = ({ p, setIt, data }) => {
           />
           {p.categories[0]} News
         </span>
-{ /*       <p>{p.short_headline}</p>
-  */}      </div>
-      <div style={{fontWeight:'bold'}} className='description'>
-      <p>{p.headline}</p>
+        {/*       <p>{p.short_headline}</p>
+         */}{' '}
+      </div>
+      <div style={{ fontWeight: 'bold' }} className='description'>
+        <p>{p.headline}</p>
       </div>
       <div className='description'>
         <p>{p.description.substr(0, 80) + '...'}.</p>
@@ -47,30 +60,32 @@ const NewsCard = ({ p, setIt, data }) => {
         </div>
   </div>*/}
 
- 
- 
       <div className='read-more'>
-      {/*<div className="ico">
+        {/*<div className="ico">
       <span className="i"><span style={{marginRight:'0.3rem'}}><HeartOutlined /></span>{p.likesCount}</span>
       <span className="i"><span style={{marginRight:'0.3rem'}}><CommentOutlined /></span>{p.commentCount}</span>
       <span className="i"><span><ShareAltOutlined /></span></span>
 </div>*/}
         {setIt ? (
-          <span className="read" style={{ cursor: 'pointer' }} onClick={() => setIt && setIt(p)}>
+          <span
+            className='read'
+            style={{ cursor: 'pointer' }}
+            onClick={() => setIt && setIt(p)}
+          >
             Read more <RightOutlined />
           </span>
         ) : (
           <Link
-          className="read"
+            className='read'
             to={`/news/${p._id}`}
-            style={{ cursor: 'pointer',color:'#1890ff' }}
+            style={{ cursor: 'pointer', color: '#1890ff' }}
             onClick={() => setIt && setIt(p)}
           >
             Read more <RightOutlined />
           </Link>
         )}
       </div>
-    </div>
+    </Link>
   );
 };
 

@@ -69,6 +69,7 @@ const Bar = ({ id, isModalVisible, setIsModalVisible }) => {
           title='Poll result'
           visible={isModalVisible}
           width="80%"
+          footer={null}
         >
           <span  className="chck">
             Overall <Switch defaultChecked onChange={onChangeOverall} />

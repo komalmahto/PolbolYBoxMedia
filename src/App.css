@@ -5,6 +5,14 @@
   color: #222222;
 }
 
+h1, h2, h3, h4, p {
+  text-transform: lowercase;
+}
+
+h1:first-letter, h2:first-letter, h3:first-letter, h4:first-letter, p:first-letter {
+  text-transform: uppercase;
+}
+
 html {
   font-size: 62.5%;
   box-sizing: border-box;
@@ -44,7 +52,7 @@ body::-webkit-scrollbar-thumb:hover {
   height: 2.2rem;
   overflow: hidden;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   padding: 0 3rem;
 }
 
@@ -256,7 +264,13 @@ body::-webkit-scrollbar-thumb:hover {
   font-size: 1.8rem;
 }
 
-.section-news-right .trending-head .viewAll {
+.section-news-right .trending-head-1 {
+  padding: 2rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.section-news-right .viewAll {
   background-color: #a62844;
   padding: 0.8rem;
   color: white;
@@ -264,12 +278,12 @@ body::-webkit-scrollbar-thumb:hover {
   transition: all 0.3s;
 }
 
-.section-news-right .trending-head .viewAll:hover {
+.section-news-right .viewAll:hover {
   background-color: #f3d8e2;
   color: #222222;
 }
 
-.section-news-right .trending-head .viewAll a {
+.section-news-right .viewAll a {
   color: white;
 }
 
@@ -668,7 +682,6 @@ body::-webkit-scrollbar-thumb:hover {
   box-sizing: content-box;
   border: 2px solid #f5f5f5;
   box-shadow: 10px 10px 8px #f5f5f5;
-  margin-right: 1.5rem;
   width: 280px;
   height: 385px;
   padding-bottom: 1rem;
@@ -1445,6 +1458,12 @@ body::-webkit-scrollbar-thumb:hover {
   justify-content: center;
 }
 
+.carousel-button-group .ppp {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
 .carousel-button-group button {
   margin-right: 2rem;
   border: none;
@@ -1460,5 +1479,55 @@ body::-webkit-scrollbar-thumb:hover {
 
 .carousel-button-group button:hover {
   background-color: #d85c78;
+}
+
+.carousel-button-group .view {
+  justify-self: flex-end;
+}
+
+.carousel-button-group .view a {
+  color: white;
+}
+
+.nom-div {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 200px);
+  grid-gap: 1.5rem;
+  justify-content: space-evenly;
+  grid-template-rows: repeat(2, 300px);
+}
+
+.tabsStyl {
+  font-family: Inter;
+  font-style: normal;
+  line-height: 24px;
+  text-align: center;
+}
+
+.react-multiple-carousel__arrow--right {
+  top: 50%;
+  right: 0 !important;
+}
+
+.react-multiple-carousel__arrow--left {
+  top: 50%;
+  left: 0 !important;
+}
+
+.comm-cont {
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  grid-gap: 2rem;
+  margin-bottom: 2rem;
+  border: 2px solid #f5f5f5;
+  padding: 1rem;
+}
+
+.comm-cont img {
+  border-radius: 50%;
+}
+
+.comm-cont .comment-1 {
+  color: grey;
 }
 /*# sourceMappingURL=App.css.map */

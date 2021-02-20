@@ -28,7 +28,7 @@ fetchLevels();
 
   return (
     <div className="box">
-    <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(300px,1fr))',gridGap:'2rem'}}>
+    <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(250px,1fr))',gridGap:'2rem'}}>
     
     {
       levels && levels.length >0&& levels.map((level)=>(

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import CategoryBar from '../../Components/CategoryBar/CategoryBar';
-import { cats } from '../../Components/icons/Icons';
+import { cats,catspa } from '../../Components/icons/Icons';
 import { Tabs } from 'antd';
 import axios from '../../axios';
 import moment from 'moment';
@@ -13,11 +13,12 @@ import NomineeCard from '../../Components/Cards/NomineeCard';
 import JuryCard from '../../Components/Cards/JuryCard';
 import AwardResult from '../../Components/Result/AwardResult';
 
-const Awards = ({ fetchAwards, awards: { awards } }) => {
+const Awards = ({ fetchAwards, awards: { awards },english:{english} } ) => {
   const [selectedTags, setSelectedTags] = useState([]);
   const [expiredAwards, setExpiredAwards] = useState({});
   const [type3, setType3] = useState(false);
   const [type3Data, setType3Data] = useState({});
+  const[comm,setComm]=useState([])
 
   const { TabPane } = Tabs;
   useEffect(() => {
@@ -118,6 +119,9 @@ const Awards = ({ fetchAwards, awards: { awards } }) => {
       setType3Data(p);
     }
   };
+  useEffect(()=>{
+    fetchComments()
+  },[type3Data])
   const checkLength = (data, type) => {
     let useData = [];
 
@@ -134,9 +138,26 @@ const Awards = ({ fetchAwards, awards: { awards } }) => {
               return getExpiryString(p.lifeSpan) > 0;
             });
       }
-      console.log(useData, 'uuu');
-      return useData.length;
+      else {
+        useData =
+        data &&
+        data.length > 0 &&
+        data.filter((p) => {
+          return getExpiryString(p.lifeSpan) > 0;
+        });
+      }
+     
+      return useData && useData.length;
     }
+  };
+
+  const fetchComments = async () => {
+    await axios
+      .get(`award/audienceComments?id=${type3Data && type3Data._id}`)
+      .then((res) => {
+        console.log(res, 'COMMENTS');
+        setComm(res.data.payload);
+      });
   };
   const PollView = (data, type, type2) => {
     let useData = [];
@@ -187,6 +208,7 @@ const Awards = ({ fetchAwards, awards: { awards } }) => {
         }
       }
       console.log(useData, 'usedata');
+      console.log(awards,'awwwwww');
     }
 
     return (
@@ -206,6 +228,7 @@ const Awards = ({ fetchAwards, awards: { awards } }) => {
                       setType3={setType3}
                       icons={icons}
                       type2={type2}
+                      english={english}
                       p={p}
                       getExpiryString1={getExpiryString1}
                     />
@@ -222,6 +245,7 @@ const Awards = ({ fetchAwards, awards: { awards } }) => {
         title={
           type3Data && Object.keys(type3Data).length > 0 && type3Data.heading
         }
+        footer={null}  
         visible={type3}
         onOk={handleOk}
         onCancel={handleCancel}
@@ -264,6 +288,25 @@ const Awards = ({ fetchAwards, awards: { awards } }) => {
               }
             />
           </TabPane>
+          <TabPane tab='Comments' key='4'>
+          {comm.length > 0 &&
+            comm.map((m) => (
+              <div className="comm-cont">
+                <div>
+                  <img style={{ width: '50px' }} src={m.user.avatar} alt='' />
+                </div>
+                <div>
+                <p>
+                  @{m.user.userName} Voted{' '}
+                  <span style={{ textTransform: 'capitalize' }}>
+                    {m.award.nominations.name}
+                  </span>
+                </p>
+                <p className="comment-1">{m.comment}</p>
+                </div>
+              </div>
+            ))}
+        </TabPane>
         </Tabs>
       </Modal>
       <div>
@@ -272,15 +315,16 @@ const Awards = ({ fetchAwards, awards: { awards } }) => {
           <CategoryBar
             onChange={onChange}
             checkChecked={checkChecked}
-            cats={cats}
+            cats={catspa}
           />
           <Tabs
+          size={'large'}
             defaultActiveKey={checkLength(awards, 'awards') === 0 ? '2' : '1'}
             onChange={callback}
             type='card'
           >
             <TabPane tab='Active' key='1'>
-              {PollView(awards, 'active', 'awards')}
+              {PollView(awards,'active','awards')}
             </TabPane>
             <TabPane tab='Expired' key='2'>
               {PollView(expiredAwards.payload, 'expired', 'awards')}
@@ -295,6 +339,7 @@ const Awards = ({ fetchAwards, awards: { awards } }) => {
 const mapStateToProps = (state) => ({
   polls: state.polls,
   awards: state.awards,
+  english:state.english
 });
 
 export default connect(mapStateToProps, {

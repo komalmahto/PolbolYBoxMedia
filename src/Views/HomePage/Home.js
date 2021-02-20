@@ -72,8 +72,16 @@ const Home = ({ fetchNews, news: { news },english:{english},history}) => {
     const { carouselState: { currentSlide } } = rest;
     return (
       <div className="carousel-button-group"> 
-        <button className={currentSlide === 0 ? 'disable' : ''} onClick={() => previous()} >previous</button>
-        <button onClick={() => next()} >next</button>
+      <div className="ppp">
+        <button className={currentSlide === 0 ? 'disable' : ''} onClick={() => previous()} >Previous</button>
+        <button onClick={() => next()} >Next</button>
+        <button className="view" ><Link  to="/news">
+        View all
+       
+      </Link>
+      </button>
+        </div>
+       
       </div>
     );
   };
@@ -103,10 +111,7 @@ const Home = ({ fetchNews, news: { news },english:{english},history}) => {
         <div className='section-news-left'>
           <div className='section-news-left--head'>
             <span className="news-head">{english?'NEWS':'समाचार'}</span>
-            <Link className="viewAll"  to="/news">
-              View all
-              <span></span>
-            </Link>
+           
           </div>
           <div className='section-news-left--tags'>
             <Checkbox.Group
@@ -137,10 +142,9 @@ const Home = ({ fetchNews, news: { news },english:{english},history}) => {
           </Carousel>
         </div>
         <div className='section-news-right'>
-          <div className='trending-head'>
-            <span>Trending News</span>
-            <Link className="viewAll" to="/news">View all</Link>
-          </div>
+        <div className='trending-head'>
+        <span>Trending News</span>
+      </div>
           <div className='trending-news' style={{overflowY:'scroll'}}>
             {
               trending
@@ -155,6 +159,9 @@ else return p
                 <NewsTrendingCard   k={k} />
                 </div>
                 )}
+          </div>
+          <div className='trending-head-1'>
+            <Link className="viewAll" to="/news">View all</Link>
           </div>
         </div>
       </section>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import CategoryBar from '../../Components/CategoryBar/CategoryBar';
-import { cats } from '../../Components/icons/Icons';
+import { cats,catspa } from '../../Components/icons/Icons';
 import { Tabs } from 'antd';
 import axios from '../../axios';
 import moment from 'moment';
@@ -144,9 +144,9 @@ const Polls = ({english:{english}}) => {
           <CategoryBar
             onChange={onChange}
             checkChecked={checkChecked}
-            cats={cats}
+            cats={catspa}
           />
-          <Tabs defaultActiveKey={checkLength(pollsBasedOnCategory,'polls')===0?'1':'2'} onChange={callback} type='card'>
+          <Tabs size={'large'} defaultActiveKey={checkLength(pollsBasedOnCategory,'polls')===0?'1':'2'} onChange={callback} type='card'>
             <TabPane tab='Active' key='1'>
               {PollView(pollsBasedOnCategory, 'active', 'polls')}
             </TabPane>

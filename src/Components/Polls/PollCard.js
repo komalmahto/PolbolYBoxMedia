@@ -100,6 +100,7 @@ const PollCard = ({
         visible={isCommentModal}
         onOk={handleOk}
         onCancel={handleCancel}
+        footer={null}
       >
         {comments &&
           comments.length > 0 &&
@@ -161,6 +162,7 @@ const PollCard = ({
               : `${getExpiryString1 && getExpiryString1(p.lifeSpan)}`}
           </span>
           {english && (
+         
             <div
               className='long-card-img'
               style={{

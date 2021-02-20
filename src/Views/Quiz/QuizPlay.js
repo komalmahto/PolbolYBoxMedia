@@ -265,7 +265,7 @@ const QuizPlay = ({ match, history,english:{english} }) => {
     <div className='box'>
    
       <Modal
-        title='Quiz Result'
+        title='Result'
         visible={isModalVisible}
         onOk={handleOk}
         onCancel={handleCancel}

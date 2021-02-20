@@ -20,6 +20,7 @@ const Modal1 = ({ isModalVisible, setIsModalVisible }) => {
       visible={isModalVisible}
       onOk={handleOk}
       onCancel={handleCancel}
+      footer={null}
     >
     <div className="mod">
     <p>Find out latest updates with people's views on different issues </p>
