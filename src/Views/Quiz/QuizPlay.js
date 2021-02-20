@@ -269,9 +269,10 @@ const QuizPlay = ({ match, history,english:{english} }) => {
         visible={isModalVisible}
         onOk={handleOk}
         onCancel={handleCancel}
+        footer={null}
       >
         {Object.keys(final).length > 0 && (
-          <div className='quiz-result'>
+          <div className='quiz-result' >
           <div className="total-score">
             <p >Total Score: {final.score}/{final.outOf}</p>
             </div>

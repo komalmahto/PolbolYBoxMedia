@@ -68,6 +68,7 @@ const Award = ({ match }) => {
     }
     return minDiff < 0 ? true : false;
   };
+
   return (
     <div className='box'>
     <Modal isModalVisible={sh} setIsModalVisible={setSh}/>
@@ -76,7 +77,7 @@ const Award = ({ match }) => {
       </h2>
       <Tabs onChange={callback} type='card'>
         <TabPane tab='Nominees' key='1'>
-          <div className='nom-div'>
+          <div className='nom-div' style={{padding:'5rem 10rem'}}>
             {award() &&
               award().length > 0 &&
               award()[0].nominations.map((p) => <NomineeCard p={p} />)}

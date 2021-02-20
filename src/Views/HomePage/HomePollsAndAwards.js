@@ -375,8 +375,8 @@ if(type2==='polls'){
     
     </Modal>
       <Tabs  className={'tabsStyl'} size={'large'}  type='card'>
-        <TabPane className="cat" id="cat"  tab={english?'Polls':'मतदान'} key='1'>
-          <Tabs  defaultActiveKey={checkLength(pollsBasedOnCategory,'polls')===0?'1':'2'} onChange={callback}>
+        <TabPane  className="cat" id="cat"  tab={english?'Polls':'मतदान'} key='1'>
+          <Tabs className={'pp'} size={'small'}  defaultActiveKey={checkLength(pollsBasedOnCategory,'polls')===0?'1':'2'} onChange={callback}>
             <TabPane tab='Active' key='1'>
               {grid(pollsBasedOnCategory, 'active','polls')}
             </TabPane>
@@ -386,7 +386,7 @@ if(type2==='polls'){
           </Tabs>
         </TabPane>
         <TabPane tab={english?'Awards':'अवार्डस'} key='2'>
-          <Tabs  defaultActiveKey={checkLength(awards,'awards')===0?'2':'1'} onChange={callback}>
+          <Tabs className={'pp'} size={'small'}  defaultActiveKey={checkLength(awards,'awards')===0?'2':'1'} onChange={callback}>
             <TabPane tab='Active' key='1'>
               {grid(awards,'active','awards')}
             </TabPane>

@@ -5,11 +5,11 @@
   color: #222222;
 }
 
-h1, h2, h3, h4, p {
+h1, h3, h4, p {
   text-transform: lowercase;
 }
 
-h1:first-letter, h2:first-letter, h3:first-letter, h4:first-letter, p:first-letter {
+h1:first-letter, h3:first-letter, h4:first-letter, p:first-letter {
   text-transform: uppercase;
 }
 
@@ -1504,14 +1504,29 @@ body::-webkit-scrollbar-thumb:hover {
   text-align: center;
 }
 
+.tabsStyl .ant-tabs-tab.ant-tabs-tab {
+  font-weight: bold;
+  font-size: 2rem !important;
+}
+
+.tabsStyl .pp .ant-tabs-tab.ant-tabs-tab {
+  font-weight: 200 !important;
+  font-size: 1.3rem !important;
+}
+
+.tabsStyl .pp .ant-tabs-tab.ant-tabs-tab-active {
+  font-weight: 200 !important;
+  font-size: 1.3rem !important;
+}
+
 .react-multiple-carousel__arrow--right {
   top: 50%;
-  right: 0 !important;
+  right: -20px !important;
 }
 
 .react-multiple-carousel__arrow--left {
   top: 50%;
-  left: 0 !important;
+  left: 0px !important;
 }
 
 .comm-cont {
@@ -1529,5 +1544,9 @@ body::-webkit-scrollbar-thumb:hover {
 
 .comm-cont .comment-1 {
   color: grey;
+}
+
+.modal-video-movie-wrap {
+  padding-bottom: 0 !important;
 }
 /*# sourceMappingURL=App.css.map */

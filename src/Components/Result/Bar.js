@@ -68,7 +68,6 @@ const Bar = ({ id, isModalVisible, setIsModalVisible }) => {
           onCancel={handleCancel}
           title='Poll result'
           visible={isModalVisible}
-          width="80%"
           footer={null}
         >
           <span  className="chck">

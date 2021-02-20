@@ -130,11 +130,13 @@ const Home = ({ fetchNews, news: { news },english:{english},history}) => {
           <Carousel
           sliderClass="class-slide"
           itemClass="class-slide"
+          arrows={false}
           customButtonGroup={<CustomButtonGroupAsArrows />}
           renderButtonGroupOutside={true}
-            style={{ overflowX: 'scroll',display:'flex',justifyContent:'space-evenly' }}
+            style={{ display:'flex',justifyContent:'space-evenly' }}
             className='card-container'
             responsive={responsive}
+            slidesToSlide={3}
           >
             {Object.keys(newsBasedOnCategory).length > 0 &&
               newsBasedOnCategory.payload.data.length > 0 &&
