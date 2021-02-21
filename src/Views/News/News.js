@@ -307,7 +307,7 @@ const News = ({
             newsBasedOnCategory.payload.data[0] !== null &&
             newsBasedOnCategory.payload.data
               .slice(0, page * 12)
-              .filter((k)=>{return data &&Object.keys(data).length>0 && k._id===data._id})
+              .filter((k)=>{return data &&Object.keys(data).length>0 && k._id!==data._id})
               .map((p) => <NewsCard data={data} setIt={setIt} p={p} />)}
         </div>
         {
