@@ -8,6 +8,7 @@ import {
   HeartOutlined,
   CommentOutlined,
   ShareAltOutlined,
+  HeartTwoTone 
 } from '@ant-design/icons';
 import { Link, useHistory } from 'react-router-dom';
 import axios from '../../axios';
@@ -228,9 +229,9 @@ const PollCard = ({
                 <div className='ico'>
                   <span className='i'>
                     <span style={{ marginRight: '0.3rem' }}>
-                      <HeartOutlined />
+                    <HeartTwoTone  twoToneColor="red"/>
                     </span>
-                    {p.likesCount}
+                  {p.likesCount}
                   </span>
                   <span
                     style={{ cursor: 'pointer' }}

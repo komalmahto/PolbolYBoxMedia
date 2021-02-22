@@ -32,7 +32,7 @@ const Graph = ({ match, id, isModalVisible, setIsModalVisible }) => {
         },
       },
       dataLabels: {
-        enabled: true,
+        enabled:false,
         offsetX: -6,
         style: {
           fontSize: '12px',

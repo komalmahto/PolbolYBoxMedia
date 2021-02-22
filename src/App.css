@@ -789,6 +789,7 @@ body::-webkit-scrollbar-thumb:hover {
 .long-card .lef {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
 }
 
 .long-card-img {
@@ -1299,7 +1300,7 @@ body::-webkit-scrollbar-thumb:hover {
 
 .news-bot .ico span {
   margin-right: 1rem;
-  font-size: 2rem;
+  font-size: 1.4rem;
 }
 
 .mod {

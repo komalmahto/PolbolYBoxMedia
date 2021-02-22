@@ -17,6 +17,8 @@ import {
   ArrowRightOutlined,
   CopyOutlined,
   RightOutlined,
+  HeartTwoTone 
+
 } from '@ant-design/icons';
 import ShareModal from '../../Components/Modal/ShareModal';
 
@@ -55,10 +57,8 @@ const News = ({
       setData(lol[0]);
     }
     if (news && news.payload.length > 0 && !ne) {
-      const lol = news.payload.filter((f) => {
-        return f.trending === true;
-      });
-      setData(lol[0]);
+     
+      setData(news.payload[0]);
     }
   }, [news, history.location.pathname]);
   console.log(history.location.pathname.split('/')[2], 'his');
@@ -201,9 +201,9 @@ const News = ({
                 </span>
                 {data.user && (
                   <p style={{ fontSize: '0.8rem' }}>
-                    Image courtesy{' '}
-                    {data.user && data.user.firstName && data.user.firstName}{' '}
-                    {data.user && data.user.lastName && data.user.lastName}
+                  <p style={{textTransform:'capitalize'}}>{data.user&& `${english?'by':'द्वारा'} ${data.user.firstName&&data.user.firstName+" "+data.user.lastName}`}</p>
+                   <span style={{textTransform:'capitalize'}}>{data&& data.credit &&`${data.credit}`}</span>
+                   
                   </p>
                 )}
               </div>
@@ -234,8 +234,8 @@ const News = ({
             <div className='news-bot'>
               <div className='ico'>
                 <span>
-                  <HeartOutlined />
-                  {data.likesCount}
+                <HeartTwoTone  twoToneColor="red"/>
+                {data.likesCount}
                 </span>
                 <span>
                   <CommentOutlined onClick={setMod} />

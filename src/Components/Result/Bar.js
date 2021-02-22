@@ -143,6 +143,14 @@ const Bar = ({ id, isModalVisible, setIsModalVisible }) => {
                           width: '100%',
                           type: 'pie',
                         },
+                        dataLabels: {
+                          enabled: false,
+                          offsetX: -6,
+                          style: {
+                            fontSize: '12px',
+                            colors: ['#fff'],
+                          },
+                        },
                         labels: Object.values(data.options),
                         responsive: [
                           {
@@ -194,7 +202,7 @@ const Bar = ({ id, isModalVisible, setIsModalVisible }) => {
                           },
                         },
                         dataLabels: {
-                          enabled: true,
+                          enabled: false,
                           offsetX: -6,
                           style: {
                             fontSize: '12px',
@@ -234,7 +242,7 @@ const Bar = ({ id, isModalVisible, setIsModalVisible }) => {
               age.length > 0 &&
               age.map((a) => (
                 <div className="age">
-                  <span>Age {a}</span>
+                  <span style={{textTransform:"capitalize"}}>{a}</span>
                   {console.log(
                     Object.values(
                       Object.keys(data.age[a]).filter((key, ind) => {
@@ -260,6 +268,14 @@ const Bar = ({ id, isModalVisible, setIsModalVisible }) => {
                       chart: {
                         width: '100%',
                         type: 'pie',
+                      },
+                      dataLabels: {
+                        enabled: false,
+                        offsetX: -6,
+                        style: {
+                          fontSize: '12px',
+                          colors: ['#fff'],
+                        },
                       },
                       labels: Object.values(data.options),
                       responsive: [
@@ -287,7 +303,7 @@ const Bar = ({ id, isModalVisible, setIsModalVisible }) => {
               age.length > 0 &&
               age.map((a) => (
                 <div className="age">
-                  <span>Age {a}</span>
+                  <span style={{textTransform:"capitalize"}}>{a}</span>
                   <p><span style={{marginRight:'1rem'}}>Total votes :{data.age[a].totalVotes}</span><span>Average Rating:{data.age[a].averageRating}</span></p>
 
                   {console.log(
@@ -323,7 +339,7 @@ const Bar = ({ id, isModalVisible, setIsModalVisible }) => {
                         },
                       },
                       dataLabels: {
-                        enabled: true,
+                        enabled: false,
                         offsetX: -6,
                         style: {
                           fontSize: '12px',
@@ -361,7 +377,7 @@ const Bar = ({ id, isModalVisible, setIsModalVisible }) => {
               gender.length > 0 &&
               gender.map((a) => (
                 <div className="age">
-                  <span>Gender {a}</span>
+                  <span style={{textTransform:"capitalize"}}>{a}</span>
                   {console.log(
                     Object.values(
                       Object.keys(data.gender[a]).map((key, ind) => {
@@ -388,6 +404,14 @@ const Bar = ({ id, isModalVisible, setIsModalVisible }) => {
                         width: '100%',
                         type: 'pie',
                       },
+                      dataLabels: {
+                        enabled: false,
+                        offsetX: -6,
+                        style: {
+                          fontSize: '12px',
+                          colors: ['#fff'],
+                        },
+                      },
                       labels: Object.values(data.options),
                       responsive: [
                         {
@@ -413,7 +437,7 @@ const Bar = ({ id, isModalVisible, setIsModalVisible }) => {
               gender.length > 0 &&
               gender.map((a) => (
                 <div className="age">
-                  <span>Gender {a}</span>
+                  <span style={{textTransform:"capitalize"}}>{a}</span>
                   <p><span style={{marginRight:'1rem'}}>Total votes :{data.gender[a].totalVotes}</span><span>Average Rating:{data.gender[a].averageRating}</span></p>
                   {console.log(
                     data.gender[a].chartData.map((p) => {
@@ -448,7 +472,7 @@ const Bar = ({ id, isModalVisible, setIsModalVisible }) => {
                         },
                       },
                       dataLabels: {
-                        enabled: true,
+                        enabled: false,
                         offsetX: -6,
                         style: {
                           fontSize: '12px',
@@ -486,7 +510,7 @@ const Bar = ({ id, isModalVisible, setIsModalVisible }) => {
               region.length > 0 &&
               region.map((a) => (
                 <div className="age">
-                  <span>Region {a}</span>
+                  <span style={{textTransform:"capitalize"}}>{a}</span>
                   {console.log(
                     Object.values(
                       Object.keys(data.region[a]).map((key, ind) => {
@@ -509,6 +533,14 @@ const Bar = ({ id, isModalVisible, setIsModalVisible }) => {
                       chart: {
                         width: '100%',
                         type: 'pie',
+                      },
+                      dataLabels: {
+                        enabled: false,
+                        offsetX: -6,
+                        style: {
+                          fontSize: '12px',
+                          colors: ['#fff'],
+                        },
                       },
                       labels: Object.values(data.options),
                       responsive: [
@@ -535,7 +567,7 @@ const Bar = ({ id, isModalVisible, setIsModalVisible }) => {
               region.length > 0 &&
               region.map((a) => (
                 <div className="age">
-                  <span>Region {a}</span>
+                  <span style={{textTransform:"capitalize"}}>{a}</span>
                   <p><span style={{marginRight:'1rem'}}>Total votes :{data.region[a].totalVotes}</span><span>Average Rating:{data.region[a].averageRating}</span></p>
                   {console.log(
                     data.region[a].chartData.map((p) => {
@@ -570,7 +602,7 @@ const Bar = ({ id, isModalVisible, setIsModalVisible }) => {
                         },
                       },
                       dataLabels: {
-                        enabled: true,
+                        enabled: false,
                         offsetX: -6,
                         style: {
                           fontSize: '12px',

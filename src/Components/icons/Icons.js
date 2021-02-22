@@ -47,7 +47,7 @@ Bollywood:Movies,
 }
 
 
-export const cats=[ 'Social',
+export const cats=[ 'Social Issues',
   "Auto",
 "Tech",
  'Legal',
@@ -79,12 +79,11 @@ export const catspa=[ 'Social Issues',
  'Entertainment' ,
  'Sports',
  'Business',
- 'Indian Politics',
  'Elections',
  'Education',
  'Economy', 
  'Health',
  'Fashion',
 'Bollywood',
-"Politics"
+"Indian Politics"
 ]
