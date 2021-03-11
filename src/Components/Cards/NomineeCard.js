@@ -5,6 +5,8 @@ import {ArrowRightOutlined ,PlayCircleOutlined}from '@ant-design/icons'
 import ModalVideo from 'react-modal-video'
 import {Modal} from 'antd';
 
+import ReactPlayer from "react-player";
+
 
 const NomineeCard = ({ p }) => {
    const [isModalVisible,setIsModalVisible]=useState(false)
@@ -17,10 +19,17 @@ const NomineeCard = ({ p }) => {
   return (
     <>
     <Modal1 isModalVisible={isModalVisible} setIsModalVisible={setIsModalVisible}/>
-    <Modal footer={null} visible={isOpen} onCancel={()=>setOpen(false)}>
-    <ModalVideo channel='youtube' autoplay isOpen={isOpen} videoId={p.ytlink} onClose={() => setOpen(false)} />
+    {/*<Modal style={{height:'100%'}} width="100%" height="100%" footer={null} visible={isOpen} onCancel={()=>setOpen(false)}>
+   
 
-    </Modal>
+    <ReactPlayer
+    
+    width="100%"
+    url={`https://www.youtube.com/watch?v=${p.ytlink}`}
+  />
+  
+
+  </Modal>*/}
     <div className='nominee-card'>
       <div
         className='img'
@@ -32,7 +41,7 @@ const NomineeCard = ({ p }) => {
         }}
       ></div>
       <div style={{textAlign:'center',fontWeight:'bold',marginTop:'1rem'}}>{p.name}</div>
-      <div style={{display:'flex',justifyContent:'space-evenly',marginTop:'1rem',alignItems:'center'}}>{<span onClick={()=> setOpen(true)} style={{fontSize:'2rem'}}><PlayCircleOutlined /></span>}{<span style={{cursor:'pointer'}} onClick={vote}>Vote Now</span>} {<Link style={{fontSize:'2rem'}} target='_blank' rel={'external'} to={p.weblink}><ArrowRightOutlined /></Link>}</div>
+      <div style={{display:'flex',justifyContent:'space-evenly',marginTop:'1rem',alignItems:'center'}}>{<Link to={`/yt/${p.ytlink}` } style={{fontSize:'2rem'}}><PlayCircleOutlined /></Link>}{<span style={{cursor:'pointer'}} onClick={vote}>Vote Now</span>} {<Link style={{fontSize:'2rem'}} target='_blank' rel={'external'} to={p.weblink}><ArrowRightOutlined /></Link>}</div>
     </div>
     </>
   );
