@@ -16,9 +16,12 @@ import Quiz from '../../Views/Quiz/Quiz'
 import QuizLevels from '../../Views/Quiz/QuizLevels'
 import QuizPlay from '../../Views/Quiz/QuizPlay'
 import Youtube from '../../Views/Awards/Youtube'
+import {useLocation} from 'react-router-dom'
 
 
 const MainView = () => {
+  const location=useLocation();
+  console.log(location,"loc")
   return (
     <>
     <div>
@@ -34,14 +37,15 @@ const MainView = () => {
     <Route exact path="/categories/subcat/:showId/:catId" component={AwardSubCategories}/>
     <Route exact path="/categories/subcat/award/:showId/:catId/:awardId" component={Award}/>
     <Route exact path="/categories/subcat/award/:showId/:awardId" component={AwardT2}/>
-    <Route exact path="/yt/:ytlink" component={Youtube}/>
     <Route exact path="/quiz" component={Quiz}/>
+            <Route exact path="/yt/:ytlink" component={Youtube}/>
+
     <Route exact path="/quiz/levels/:catId" component={QuizLevels}/>
     <Route exact path="/quiz/level/:catId/:quizId" component={QuizPlay}/>
-
     </Switch>
     </div>
-    <Footer/>
+  {location.pathname!=="/yt/undefined"&& <Footer/>}
+
    
     </>
   )
