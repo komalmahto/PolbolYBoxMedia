@@ -23,6 +23,8 @@ import {useLocation} from 'react-router-dom'
 const MainView = () => {
   const location=useLocation();
   console.log(location,"loc")
+    const pat=location.pathname.split('/')
+
   return (
     <>
     <div>
@@ -46,7 +48,7 @@ const MainView = () => {
     <Route exact path="/quiz/level/:catId/:quizId" component={QuizPlay}/>
     </Switch>
     </div>
-  {location.pathname!=="/yt/undefined"&& <Footer/>}
+  {pat[1]!=="yt"&& <Footer/>}
 
    
     </>
