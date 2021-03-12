@@ -13,6 +13,7 @@ import Award from '../../Views/Awards/Award'
 import AwardT2 from '../../Views/Awards/AwardT2'
 import AwardSubCat from '../../Views/Awards/AwardSubCat'
 import Quiz from '../../Views/Quiz/Quiz'
+import Add from '../../Views/app-ads.txt'
 import QuizLevels from '../../Views/Quiz/QuizLevels'
 import QuizPlay from '../../Views/Quiz/QuizPlay'
 import Youtube from '../../Views/Awards/Youtube'
@@ -27,6 +28,7 @@ const MainView = () => {
     <div>
     <Switch>
     <Route exact path="/" component={Home}/>
+    <Route exact path="/app-ads.txt" component={Add}/>
     <Route path="/news" component={News}/>
     <Route exact path="/polls" component={Polls}/>
     <Route exact path="/awards" component={Awards}/>
