@@ -75,7 +75,7 @@ const Home = ({ fetchNews, news: { news },english:{english},history}) => {
       <div className="ppp">
         <button className={currentSlide === 0 ? 'disable' : ''} onClick={() => previous()} >Previous</button>
         <button onClick={() => next()} >Next</button>
-        <button  style={{backgroundColor:'#56a7ff'}}  className="view" ><Link  to="/news">
+        <button    className="view" ><Link  to="/news">
         View all
        
       </Link>
@@ -163,7 +163,7 @@ else return p
                 )}
           </div>
          <div className='trending-head-1'>
-            <Link style={{backgroundColor:'#56a7ff'}} className="viewAll" to="/news">View all</Link>
+            <Link  className="viewAll" to="/news">View all</Link>
           </div>
         </div>
       </section>

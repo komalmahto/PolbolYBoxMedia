@@ -286,7 +286,7 @@ if(type2==='polls'){
               
           </div>
           <div style={{display:'flex',justifyContent:'center'}} className="top">
-          <span  style={{backgroundColor:'#56a7ff'}} onClick={()=>{type2==='polls'?history.push('/polls'):history.push("/awards")}}  className="viewAll">View all</span>
+          <span   onClick={()=>{type2==='polls'?history.push('/polls'):history.push("/awards")}}  className="viewAll">View all</span>
           </div>
         </div>
       </div>

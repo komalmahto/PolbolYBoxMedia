@@ -258,8 +258,10 @@ const PollCard = ({
                 <span
                   style={{ cursor: 'pointer' }}
                   onClick={() => showModal(p._id)}
+                  style={{color:'#56a7ff',cursor:'pointer'}}
                 >
-                  {english ? 'View Result' : 'परिणाम'} <PieChartOutlined />
+                  {english ? 'View Result' : 'परिणाम'} <i                   style={{color:'#56a7ff'}}
+                  className="fas fa-chart-pie"></i>
                 </span>
               )}
               <div className='read-more-poll'>
