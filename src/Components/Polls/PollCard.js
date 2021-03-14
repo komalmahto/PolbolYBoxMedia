@@ -6,6 +6,7 @@ import {
   ArrowRightOutlined,
   LikeOutlined,
   HeartOutlined,
+  HeartFilled,
   CommentOutlined,
   ShareAltOutlined,
   HeartTwoTone 
@@ -229,8 +230,7 @@ const PollCard = ({
                 <div className='ico'>
                   <span className='i'>
                     <span style={{ marginRight: '0.3rem' }}>
-                    <HeartTwoTone  twoToneColor="red"/>
-                    </span>
+                    <i style={{color:'red'}} className="fas fa-heart"></i>                 </span>
                   {p.likesCount}
                   </span>
                   <span

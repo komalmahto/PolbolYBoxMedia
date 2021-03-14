@@ -19,8 +19,8 @@ const HomeSection3 = () => {
         <p>
         Polbol provides exercises for your mind in form of quizzes to test your intelligence and for your entertainment.
         </p>
-        <Button onClick={()=>history.push('/quiz')} type='primary' shape='round' ghost>
-          Play quiz
+        <Button onClick={()=>history.push('/quiz')}  type='primary' danger shape='round' >
+          <span style={{color:'white'}}>Play quiz</span>
         </Button>
       </div>
       <div className='disp' style={{ backgroundColor: 'white' }}>
@@ -34,8 +34,8 @@ const HomeSection3 = () => {
         <p>
         Never miss any important update with Polbol, catch all the news from top-rated news channel at once place.
         </p>
-        <Button onClick={()=>history.push('/livetv')}  shape='round' type='primary' ghost>
-          Watch live
+        <Button onClick={()=>history.push('/livetv')}  shape='round' type='primary' danger >
+          <span style={{color:'white'}}>Watch Live Tv</span>
         </Button>
       </div>
     </div>

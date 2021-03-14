@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import axios from '../../axios';
 import useSound from 'use-sound';
 import boopSfx from '../../assets/Blop-Mark_DiAngelo-79054334.mp3';
 import correctSound from '../../assets/state-change_confirm-up.wav';
@@ -56,7 +56,7 @@ const QuizPlay = ({ match, history,english:{english} }) => {
   const fetchQuiz = async () => {
     await axios
       .get(
-        `http://52.66.203.244:2113/api/v1/quiz/start/guest?quizId=${match.params.quizId}`
+        `api/v1/quiz/start/guest?quizId=${match.params.quizId}`
       )
       .then((res) => {
         console.log(res.data);
@@ -84,7 +84,7 @@ const QuizPlay = ({ match, history,english:{english} }) => {
         const timeOut = async () => {
           await axios
             .get(
-              `http://52.66.203.244:2113/api/v1/quiz/timedOut/guest?quesId=${display._id}&resultId=${questions.resultId}`
+              `api/v1/quiz/timedOut/guest?quesId=${display._id}&resultId=${questions.resultId}`
             )
             .then((res) => {
               setResult(res.data.payload);
@@ -118,7 +118,7 @@ const QuizPlay = ({ match, history,english:{english} }) => {
       // play()
       await axios
         .get(
-          `http://52.66.203.244:2113/api/v1/quiz/submitAnswer/guest?resultId=${questions.resultId}&quesId=${display._id}&answer=${answerId}`
+          `api/v1/quiz/submitAnswer/guest?resultId=${questions.resultId}&quesId=${display._id}&answer=${answerId}`
         )
         .then((res) => {
           console.log(res.data.payload);
@@ -133,7 +133,7 @@ const QuizPlay = ({ match, history,english:{english} }) => {
     if (index + 1 === questions.questions.length) {
       await axios
         .get(
-          `http://52.66.203.244:2113/api/v1/quiz/end/guest?resultId=${questions.resultId}`
+          `api/v1/quiz/end/guest?resultId=${questions.resultId}`
         )
         .then((res) => {
           console.log(res.data);

@@ -147,6 +147,50 @@ body::-webkit-scrollbar-thumb:hover {
   border-bottom: 4px solid white;
 }
 
+.header .header-nav .nav-left-a {
+  margin-left: 3rem;
+  height: 100%;
+  display: none;
+  align-items: center;
+}
+
+@media only screen and (max-width: 800px) {
+  .header .header-nav .nav-left-a {
+    display: flex;
+  }
+}
+
+.header .header-nav .nav-left-a ul {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0;
+}
+
+.header .header-nav .nav-left-a ul li {
+  list-style-type: none;
+  padding: 0 1rem;
+  color: #ffff;
+  margin-left: 2rem;
+  height: 6rem;
+  display: flex;
+  align-items: center;
+  border-bottom: 4px solid transparent;
+}
+
+@media only screen and (max-width: 800px) {
+  .header .header-nav .nav-left-a ul li {
+    display: flex;
+  }
+}
+
+.header .header-nav .nav-left-a ul li a {
+  color: #fff;
+}
+
+.header .header-nav .nav-left-a ul .active-link {
+  border-bottom: 4px solid white;
+}
+
 .box {
   padding: 2rem 5rem;
   background-color: white;
@@ -267,7 +311,7 @@ body::-webkit-scrollbar-thumb:hover {
 .section-news-right .trending-head-1 {
   padding: 2rem;
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
 }
 
 .section-news-right .viewAll {
@@ -1555,5 +1599,17 @@ body::-webkit-scrollbar-thumb:hover {
 
 .modal-video-movie-wrap {
   padding-bottom: 0 !important;
+}
+
+.ant-select-selection {
+  color: white;
+}
+
+.ant-select-selection-item {
+  color: white !important;
+}
+
+.ant-select-selection-item span {
+  color: white !important;
 }
 /*# sourceMappingURL=App.css.map */

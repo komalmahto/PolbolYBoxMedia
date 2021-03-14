@@ -1,15 +1,24 @@
-import React from 'react';
+import React,{useState} from 'react';
 import {Col, Row} from 'antd';
 import {Link} from 'react-router-dom';
 
 import Logo from '../../assets/logo.png';
+import Modal from '../Modal/Modal'
+const Footer = () => {
+    const [isModalVisible,setIsModalVisible]=useState(false)
 
-const footer = () => {
     return (
         <div style={{
             marginTop: "100px",
             background: `linear-gradient(179.62305952040288deg,#27383f .8071748878923769%,#10161b 68.96860986547085%)`,
         }}>
+
+<Modal
+        isModalVisible={isModalVisible}
+        setIsModalVisible={setIsModalVisible}
+      />
+
+
             <br></br>
             <br/>
             <Row style={{color: "white"}}>
@@ -42,10 +51,10 @@ const footer = () => {
                 <Col xs={24} sm={24} md={4} style={{padding: "10px"}}>
                     <div>
                         <br/>
-                        <Link to="" style={{color: "white"}}>
+                        <Link to="/" style={{color: "white"}}>
                             <h3 style={{color: "white"}}>Home</h3>
                         </Link>
-                        <Link to="" style={{color: "white"}}>
+                        <Link to="" onClick={()=>setIsModalVisible(true)} style={{color: "white"}}>
                             <h3 style={{color: "white"}}>Download App</h3>
                         </Link>
                         <Link to="" style={{color: "white"}}>
@@ -68,4 +77,4 @@ const footer = () => {
 
 };
 
-export default footer;
+export default Footer;

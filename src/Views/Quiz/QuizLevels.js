@@ -11,7 +11,7 @@ fetchLevels();
 
 
   const fetchLevels=async()=>{
-    await axios.get(`http://52.66.203.244:2113/api/v1/quiz/fetchQuiz/guest?categoryId=${match.params.catId}`)
+    await axios.get(`api/v1/quiz/fetchQuiz/guest?categoryId=${match.params.catId}`)
     .then((res)=>{
       console.log(res.data)
       setLevels(res.data.payload.quizzes)

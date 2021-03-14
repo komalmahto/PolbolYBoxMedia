@@ -1,5 +1,5 @@
 import React,{useEffect,useState} from 'react'
-import axios from 'axios'
+import axios from '../../axios'
 import QuizCategoryCard from '../../Components/Cards/QuizCategoryCard'
 import {connect} from 'react-redux'
 const QuizCategories = ({english:{english}}) => {
@@ -8,7 +8,7 @@ const QuizCategories = ({english:{english}}) => {
     fetchQuizCategories();
   },[])
   const fetchQuizCategories=async()=>{
-await axios.get('http://52.66.203.244:2113/api/v1/quiz/fetchAllCategories')
+await axios.get('api/v1/quiz/fetchAllCategories')
 .then((res)=>{
   console.log(res.data)
   setCategories(res.data.payload)

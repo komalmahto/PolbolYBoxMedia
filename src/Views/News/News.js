@@ -234,21 +234,20 @@ const News = ({
             <div className='news-bot'>
               <div className='ico'>
                 <span>
-                <HeartTwoTone  twoToneColor="red"/>
-                {data.likesCount}
+                <i style={{color:'red'}} className="fas fa-heart"></i>                  {data.likesCount}
                 </span>
                 <span>
                   <CommentOutlined onClick={setMod} />
                   {data.commentCount}
                 </span>
-                <span
+              {/*  <span
                   style={{ cursor: 'pointer' }}
                   onClick={() =>
                     copyToClip(data && data.targetId ? data.targetId : data._id)
                   }
                 >
                   <ShareAltOutlined />
-                </span>
+                </span>*/}
               </div>
 
               <div className='read'>

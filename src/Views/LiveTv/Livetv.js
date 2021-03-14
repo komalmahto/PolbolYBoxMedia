@@ -155,7 +155,7 @@ else {
     <div className='spotlight'>
       <div className='spotlight-head'>
         <span>Trending News</span>
-        <span>View all</span>
+        <span style={{color:'#56a7ff'}}>View all</span>
       </div>
       <div className='trending-news'>
         {trending&&
