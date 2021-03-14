@@ -10,6 +10,11 @@ const AwardCategories = ({match}) => {
 
   },[])
 
+
+  const hello=()=>{
+    console.log("hello world");
+
+  }
   const fetchCat=async()=>{
     await axios.get(`award/awardCategoryList?id=${match.params.id}`)
     .then((res)=>{
