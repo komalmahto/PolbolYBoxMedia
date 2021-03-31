@@ -13,13 +13,24 @@ const Award = ({ match }) => {
   const [subCat, setSubCat] = useState([]);
   const [comm, setComm] = useState([]);
   const [sh,setSh]=useState(false)
+  const [showInfo,setShowInfo] = useState([]);
   useEffect(() => {
     fetchAward();
     fetchComments();
+    fetchShowInfo();
     window.scrollTo(0, 0);
   }, []);
 
   const fetchAward = async () => {
+    await axios
+      .get(`award/awardList?categoryId=${match.params.catId}`)
+      .then((res) => {
+        console.log(res.data);
+        setSubCat(res.data.payload);
+      });
+  };
+
+  const fetchShow = async () => {
     await axios
       .get(`award/awardList?categoryId=${match.params.catId}`)
       .then((res) => {
@@ -47,6 +58,24 @@ const Award = ({ match }) => {
     return arr;
   };
   console.log(award(), 'aww');
+
+  const fetchShowInfo = async () => {
+    await axios
+      .get(`/award/fetchAwardsAndCategories`)
+      .then((res) => {
+        console.log('fetchShowInfo Called');
+        setShowInfo(res.data.payload);
+      });
+  };
+
+  const show = () => {
+    const arr = showInfo.filter((c) => {
+      return c._id === match.params.showId && c.isAward === true;
+    });
+    return arr;
+  }
+
+  console.log(show()[0],'show info');
 
   const getExpiryString1 = (expiryTime) => {
     const lifeEndTime = moment(expiryTime);
@@ -92,19 +121,24 @@ const Award = ({ match }) => {
               gridGap: '1.5rem',
             }}
           >
-            {award() &&
+            {show() && show().length > 0 ? getExpiryString1(show()[0].lifeSpan) ? award() &&
               award().length > 0 &&
-              award()[0].jurys.map((p) => <JuryCard p={p} />)}
+              award()[0].jurys.map((p) => <JuryCard p={p} />) : <div>Jury Comments will be disclosed on {moment(show()[0].lifeSpan).format('MMMM Do YYYY')}.</div> : null }
           </div>
         </TabPane>
 
         {award() &&
-          award().length > 0 &&
-          getExpiryString1(award()[0].lifeSpan) && (
+          award().length > 0 && (
             <TabPane tab='Results' key='3'>
-              <AwardResult
-                id={award() && award().length > 0 && award()[0]._id}
-              />
+              {show() && show().length > 0 ? getExpiryString1(show()[0].lifeSpan) ?
+                <AwardResult
+                  id={award() && award().length > 0 && award()[0]._id}
+                /> : <div style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fit,minmax(320px,1fr))',
+                  justifyItems: 'center',
+                  gridGap: '1.5rem',
+                }} >Results will be declared on {moment(show()[0].lifeSpan).format('MMMM Do YYYY')}.</div> : null}
             </TabPane>
           )}
 
