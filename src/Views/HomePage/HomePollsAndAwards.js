@@ -138,16 +138,21 @@ const fetchExpiredAwards = async (page) => {
   };
 
   const fetchComments = async () => {
-    await axios
-      .get(`award/audienceComments?id=${type3Data && type3Data._id}`)
-      .then((res) => {
-        console.log(res, 'COMMENTS');
-        setComm(res.data.payload);
-      });
+    if (type3Data && type3Data._id) {
+      await axios
+        .get(`award/audienceComments?id=${type3Data && type3Data._id}`)
+        .then((res) => {
+          console.log(res, 'COMMENTS');
+          setComm(res.data.payload);
+        }).catch(err => {
+          console.log('hi', err);
+        })
+    }
   };
-  useEffect(()=>{
-fetchComments()
-  },[type3Data])
+
+  useEffect(() => {
+    fetchComments()
+  }, [type3Data])
   
 
   const getExpiryString1 = (expiryTime) => {
@@ -227,7 +232,7 @@ if(type2==='polls'){
     }
   }
   const setIt=(p)=>{
-    console.log(p)
+    console.log('setIt called',p)
     if(p.isSubcategory){
       setType3(true)
       setType3Data(p)

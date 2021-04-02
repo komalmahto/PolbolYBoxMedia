@@ -15,6 +15,7 @@ const Bar = ({ id, isModalVisible, setIsModalVisible }) => {
 
   useEffect(() => {
     if (id) {
+      // console.log('hi in bar.js')
       fetchResult();
     }
   }, [id]);

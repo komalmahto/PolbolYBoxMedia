@@ -45,6 +45,8 @@ const Award = ({ match }) => {
       .then((res) => {
         console.log(res, 'COMMENTS');
         setComm(res.data.payload);
+      }).catch(err=>{
+        console.log(err,'Error in award');
       });
   };
 

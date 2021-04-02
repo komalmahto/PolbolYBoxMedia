@@ -978,6 +978,7 @@ body::-webkit-scrollbar-thumb:hover {
   background-color: white;
   border-radius: 10px;
   overflow: hidden;
+  margin-bottom: 10px;
 }
 
 .award-categories-card .img {

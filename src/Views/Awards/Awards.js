@@ -157,7 +157,9 @@ const Awards = ({ fetchAwards, awards: { awards },english:{english} } ) => {
       .then((res) => {
         console.log(res, 'COMMENTS');
         setComm(res.data.payload);
-      });
+      }).catch(err => {
+        console.log(err,'error in comments')
+      })
   };
   const PollView = (data, type, type2) => {
     let useData = [];
