@@ -8,7 +8,7 @@ const QuizCategories = ({english:{english}}) => {
     fetchQuizCategories();
   },[])
   const fetchQuizCategories=async()=>{
-await axios.get('api/v1/quiz/fetchAllCategories')
+await axios.get('/quiz/fetchAllCategories')
 .then((res)=>{
   console.log(res.data)
   setCategories(res.data.payload)

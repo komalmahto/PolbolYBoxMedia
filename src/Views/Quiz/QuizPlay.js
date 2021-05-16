@@ -56,7 +56,7 @@ const QuizPlay = ({ match, history,english:{english} }) => {
   const fetchQuiz = async () => {
     await axios
       .get(
-        `api/v1/quiz/start/guest?quizId=${match.params.quizId}`
+        `/quiz/start/guest?quizId=${match.params.quizId}`
       )
       .then((res) => {
         console.log(res.data);
@@ -84,7 +84,7 @@ const QuizPlay = ({ match, history,english:{english} }) => {
         const timeOut = async () => {
           await axios
             .get(
-              `api/v1/quiz/timedOut/guest?quesId=${display._id}&resultId=${questions.resultId}`
+              `/quiz/timedOut/guest?quesId=${display._id}&resultId=${questions.resultId}`
             )
             .then((res) => {
               setResult(res.data.payload);
@@ -118,7 +118,7 @@ const QuizPlay = ({ match, history,english:{english} }) => {
       // play()
       await axios
         .get(
-          `api/v1/quiz/submitAnswer/guest?resultId=${questions.resultId}&quesId=${display._id}&answer=${answerId}`
+          `/quiz/submitAnswer/guest?resultId=${questions.resultId}&quesId=${display._id}&answer=${answerId}`
         )
         .then((res) => {
           console.log(res.data.payload);
@@ -133,7 +133,7 @@ const QuizPlay = ({ match, history,english:{english} }) => {
     if (index + 1 === questions.questions.length) {
       await axios
         .get(
-          `api/v1/quiz/end/guest?resultId=${questions.resultId}`
+          `/quiz/end/guest?resultId=${questions.resultId}`
         )
         .then((res) => {
           console.log(res.data);
@@ -226,7 +226,7 @@ const QuizPlay = ({ match, history,english:{english} }) => {
       console.log("buy hint")
     }
     if(display.options.length>1&& hint.value>0 &&timer.time>0 && Object.keys(result).length ===0){
-  await axios.get(`http://52.66.203.244:2113/api/v1/quiz/hint/guest?quesId=${id}&cost=1`)
+  await axios.get(`http://52.66.203.244:2113//quiz/hint/guest?quesId=${id}&cost=1`)
   .then((res)=>{
     setHintRes(res.data.payload)
     console.log(res.data.payload)
