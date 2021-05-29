@@ -233,6 +233,7 @@ const Awards = ({ fetchAwards, awards: { awards },english:{english} } ) => {
                       english={english}
                       p={p}
                       getExpiryString1={getExpiryString1}
+                      isAward={true}
                     />
                   </div>
                 )

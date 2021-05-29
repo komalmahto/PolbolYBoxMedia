@@ -221,10 +221,9 @@ const News = ({
               </div>
               <div className='description'>
                 <div className='left-head'>
-                  <p>{data && data.headline ? data.headline : data.title}</p>
+                  <p style={{textTransform:'none'}}>{data && data.headline ? data.headline : data.title}</p>
                 </div>
-
-                <p style={{wordBreak:'break-word'}}>{data && data.description}</p>
+                <p style={{wordBreak:'break-word',textTransform:'none'}}>{data && data.description}</p>
                 {/*<div className="download">
         <p>To enjoy the full experience of PolBol,download the PolBol App</p>
         <span>Download PolBol App</span>

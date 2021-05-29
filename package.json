@@ -1,5 +1,6 @@
 {
   "name": "polbol-v2",
+  "homepage": "https://polbol.in",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

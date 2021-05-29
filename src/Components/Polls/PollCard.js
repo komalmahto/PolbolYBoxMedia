@@ -11,6 +11,7 @@ import {
   ShareAltOutlined,
   HeartTwoTone
 } from '@ant-design/icons';
+import { Rate , Radio, Input, Space } from 'antd';
 import { Link, useHistory } from 'react-router-dom';
 import axios from '../../axios';
 import { Modal, Button } from 'antd';
@@ -18,6 +19,8 @@ import moment from 'moment';
 import Stars from 'react-stars-display';
 import StarRatings from 'react-star-ratings';
 import ShareModal from '../Modal/ShareModal';
+
+const { TextArea } = Input;
 
 const PollCard = ({
   type2,
@@ -28,6 +31,7 @@ const PollCard = ({
   setType3,
   setType3Data,
   english,
+  isAward
 }) => {
   const [isShareModalVisible, setIsShareModalVisible] = useState(false);
 
@@ -36,6 +40,10 @@ const PollCard = ({
   const history = useHistory();
   const [isCommentModal, setIsCommentModal] = useState(false);
   const [shareUrl, setShareUrl] = useState('');
+  const [isVoteModal, setIsVoteModal] = useState(false);
+  const [answer,setAnswer]= useState({key:0,comment:''});
+  const [voteModalData, setVoteModalData] = useState({});
+
   const showModal = (id) => {
     setIsModalVisible(true);
     setId(id);
@@ -78,6 +86,48 @@ const PollCard = ({
     //   return ``
     // }
   };
+
+  const answerSubmitHandler = (id) => {
+    const authToken = localStorage.getItem("authToken").split(" ")[1];
+    const config = {
+      headers: { Authorization: `Bearer ${authToken}` },
+    };
+
+    const bodyParameters = {
+      poll: id,
+      answer: answer.key,
+      comment: answer.comment,
+    };
+
+    if (answer.comment === '') { delete bodyParameters.comment }
+
+    axios
+      .post(
+        "/post/add-answer",
+        bodyParameters,
+        config
+      )
+      .then((res) => {
+        setIsVoteModal(false);
+        setVoteModalData({});
+      })
+      .catch((err) => console.log(err));
+  }
+
+  const Options = () => {
+    return (
+      <Radio.Group onChange={(e) => { setAnswer({ ...answer, key: e.target.value }) }} value={answer.key}>
+        <Space direction="vertical">
+          {
+            voteModalData.options.map((option) => {
+              return <Radio value={option.key}>{english ? option.name : option.name_hindi}</Radio>
+            })
+          }
+        </Space>
+      </Radio.Group>
+    );
+  }
+
   return (
     <>
       {/*  <Graph
@@ -103,6 +153,9 @@ const PollCard = ({
         onOk={handleOk}
         onCancel={handleCancel}
         footer={null}
+        style={{
+          padding:'10px'
+        }}
       >
         {comments &&
           comments.length > 0 &&
@@ -138,10 +191,39 @@ const PollCard = ({
             </div>
           ))}
       </Modal>
+
+
+      <Modal
+        visible={isVoteModal}
+        onOk={() => { setIsVoteModal(false); setAnswer({ ...answer, key: 0 }); setVoteModalData({}) }}
+        onCancel={() => { setIsVoteModal(false); setAnswer({ ...answer, key: 0 }); setVoteModalData({}) }}
+        footer={null}>
+        <h4>{voteModalData.question}</h4>
+        {voteModalData.type === 'bar' ?
+          <div>
+            <Rate count={10} value={answer.key} onChange={(value) => { setAnswer({ ...answer, key: value }) }} />
+          </div> : <span><Options /></span>
+        }
+        <div style={{ marginTop: '5px' }}>
+          <TextArea
+            value={answer.comment}
+            onChange={({ target: { value } }) => {
+              setAnswer({ ...answer, comment: value })
+            }}
+            placeholder={english ? "Comment (optional)" : "टिप्पणी (वैकल्पिक)"}
+            autoSize={{ minRows: 3, maxRows: 5 }}
+          />
+        </div>
+        <div style={{ marginTop: '10px' }}>
+          <Button type="primary" onClick={() => { answerSubmitHandler(voteModalData.id) }}>Submit</Button>
+        </div>
+      </Modal>
+
+
       <div
         // to={awardPath()}
         onClick={() => type2 === 'awards' && history.push(awardPath())}
-        className="po"
+        className = { isAward  ? "award-po" : "po"}
       >
         <div className={
           type2 === 'polls'
@@ -251,6 +333,22 @@ const PollCard = ({
                   </span>
                 </span>}
               </div>
+            )}
+            {type2 === 'polls' && type && type === 'active' && (
+              <span
+                style={{ cursor: 'pointer' }}
+                onClick={() => {
+                  setIsVoteModal(true); setVoteModalData({
+                    type: p.type,
+                    question: english ? p.question : p.question_hindi,
+                    id: p._id,
+                    options: p.options
+                  })
+                }}
+                style={{ color: '#56a7ff', cursor: 'pointer' }}
+              >
+                {english ? 'Vote Now' : 'मतदान करें'}
+              </span>
             )}
             {type2 === 'polls' && type && type === 'expired' && (
               <span
