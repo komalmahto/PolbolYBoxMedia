@@ -110,8 +110,10 @@ const PollCard = ({
       .then((res) => {
         setIsVoteModal(false);
         setVoteModalData({});
+        setAnswer({key:0,comment:''});
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {console.log(err);setIsVoteModal(false);
+      setVoteModalData({});setAnswer({key:0,comment:''});});
   }
 
   const Options = () => {
@@ -201,7 +203,7 @@ const PollCard = ({
         <h4>{voteModalData.question}</h4>
         {voteModalData.type === 'bar' ?
           <div>
-            <Rate count={10} value={answer.key} onChange={(value) => { setAnswer({ ...answer, key: value }) }} />
+            <Rate count={10} value={answer.key + 1} onChange={(value) => { setAnswer({ ...answer, key: value - 1 }) }} />
           </div> : <span><Options /></span>
         }
         <div style={{ marginTop: '5px' }}>
