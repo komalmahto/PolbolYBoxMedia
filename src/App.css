@@ -2,7 +2,6 @@
   margin: 0;
   padding: 0;
   font-family: 'Open Sans', sans-serif;
-  /* color: #222222; */
 }
 
 h1, h3, h4, p {
@@ -199,14 +198,6 @@ body::-webkit-scrollbar-thumb:hover {
 @media only screen and (max-width: 1250px) {
   .box {
     padding: 2rem 0.8rem;
-  }
-  .po {
-    width: 100% !important;
-    max-width: 100% !important;
-  }
-  .award-po {
-    width: 100% !important;
-    max-width: 100% !important;
   }
 }
 
@@ -986,7 +977,6 @@ body::-webkit-scrollbar-thumb:hover {
   background-color: white;
   border-radius: 10px;
   overflow: hidden;
-  margin-bottom: 10px;
 }
 
 .award-categories-card .img {
@@ -1506,15 +1496,6 @@ body::-webkit-scrollbar-thumb:hover {
   padding: 1rem;
 }
 
-.award-po {
-  background-color: white;
-  border: 2px solid #f5f5f5;
-  border-radius: 10px;
-  margin-bottom: 1.5rem;
-  padding: 1rem;
-  max-width: 50%;
-}
-
 .class-slide {
   display: flex;
   justify-content: center;
@@ -1631,7 +1612,173 @@ body::-webkit-scrollbar-thumb:hover {
   color: white !important;
 }
 
-.ant-radio-wrapper {
-  white-space: normal !important;
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.signin-form-container {
+  font-family: 'Josefin Sans', sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+@media only screen and (max-width: 1120px) {
+  .signin-form-container {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.signin-form-container-box {
+  padding: 2rem;
+  width: 300px;
+  align-self: center;
+  justify-self: center;
+  height: max-content;
+}
+
+.signin-form-container-box .head {
+  margin-bottom: 3.5rem;
+}
+
+.signin-form-container-box .head h2 {
+  text-align: center;
+  font-weight: 900;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  font-size: 2.7rem;
+}
+
+.signin-form-container-box .input-box {
+  position: relative;
+}
+
+.signin-form-container-box .input-box .label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: none;
+  visibility: hidden;
+  color: grey;
+}
+
+.signin-form-container-box .input-box input {
+  border: none;
+  border-bottom: 2px solid grey;
+  width: 100%;
+  padding-bottom: 0.5rem;
+  outline: none;
+}
+
+.signin-form-container-box .input-box input::placeholder {
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+.signin-form-container-box .input-box input:not(:placeholder-shown) ~ .label {
+  display: block;
+  visibility: visible;
+  animation: animateInput 0.2s linear forwards;
+}
+
+.signin-form-container-box .actions {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.signin-form-container-box .actions .get-otp-btn {
+  background-color: #c00d8c;
+  color: white;
+  border: none;
+  outline: none;
+  padding: 0.5rem;
+  font-size: 16px;
+}
+
+.invalid {
+  color: red;
+  margin-top: 2rem;
+}
+
+@keyframes animateInput {
+  0% {
+    top: 0;
+  }
+  100% {
+    top: -25px;
+  }
+}
+
+.container-style {
+  width: 100% !important;
+  display: flex !important;
+  justify-content: space-evenly !important;
+  color: black !important;
+}
+
+.input-style {
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 50%;
+  border: 2px solid grey;
+  color: black !important;
+  outline: none !important;
+}
+
+.invalid-style {
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 50%;
+  border: 2px solid red;
+  color: black !important;
+  outline: none !important;
+}
+
+.otp-box {
+  margin-top: 2rem;
+}
+
+.otp-box p {
+  text-align: center;
+}
+
+.profile-form {
+  margin-top: 2rem;
+}
+
+.profile-form label {
+  display: block;
+  margin-bottom: 1rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+}
+
+.profile-form select, .profile-form .react-date-picker__wrapper {
+  height: 4rem;
+  border: 1px solid grey;
+  border-radius: 10px;
+  padding-left: 1rem;
+}
+
+.profile-form input[type="submit"] {
+  padding: 1rem;
+  border: none;
+  background-color: #a62844;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.profile-form input[type="submit"]:hover {
+  background-color: #ce3356;
 }
 /*# sourceMappingURL=App.css.map */

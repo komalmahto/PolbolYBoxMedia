@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import Graph from '../Result/Graph';
 import Bar from '../Result/Bar';
+import { connect } from "react-redux";
+
 import {
   PieChartOutlined,
   ArrowRightOutlined,
@@ -19,10 +21,13 @@ import moment from 'moment';
 import Stars from 'react-stars-display';
 import StarRatings from 'react-star-ratings';
 import ShareModal from '../Modal/ShareModal';
+import ModalLogin from '../Modal/ModalLogin'
 
 const { TextArea } = Input;
 
 const PollCard = ({
+  auth: { token, user },
+
   type2,
   p,
   icons,
@@ -43,6 +48,8 @@ const PollCard = ({
   const [isVoteModal, setIsVoteModal] = useState(false);
   const [answer,setAnswer]= useState({key:0,comment:''});
   const [voteModalData, setVoteModalData] = useState({});
+
+  const [loginModal,setLoginModal]=useState(false)
 
   const showModal = (id) => {
     setIsModalVisible(true);
@@ -86,6 +93,7 @@ const PollCard = ({
     //   return ``
     // }
   };
+
 
   const answerSubmitHandler = (id) => {
     const authToken = localStorage.getItem("authToken").split(" ")[1];
@@ -138,6 +146,7 @@ const PollCard = ({
         setIsModalVisible={setIsModalVisible}
         id={id}
     />*/}
+    <ModalLogin isModalVisible={loginModal} setIsModalVisible={setLoginModal}/>
       <ShareModal
         shareUrl={shareUrl}
         isShareModalVisible={isShareModalVisible}
@@ -340,12 +349,21 @@ const PollCard = ({
               <span
                 style={{ cursor: 'pointer' }}
                 onClick={() => {
-                  setIsVoteModal(true); setVoteModalData({
+                  if(!token){
+                    setLoginModal(true)
+                  }
+                  else if(token && !user.gender){
+                    setLoginModal(true)
+                  }
+                  else{
+                  setIsVoteModal(true); 
+                  setVoteModalData({
                     type: p.type,
                     question: english ? p.question : p.question_hindi,
                     id: p._id,
                     options: p.options
                   })
+                }
                 }}
                 style={{ color: '#56a7ff', cursor: 'pointer' }}
               >
@@ -383,4 +401,8 @@ const PollCard = ({
   );
 };
 
-export default PollCard;
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps)(PollCard);

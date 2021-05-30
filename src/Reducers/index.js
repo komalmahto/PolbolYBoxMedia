@@ -4,11 +4,13 @@ import news from './NewsReducer'
 import polls from './PollsReducer'
 import awards from './AwardsReducer'
 import english from './LanguageReducer'
+import auth from './AuthReducer'
 export default combineReducers(produce,{
   news,
   polls,
   awards,
-  english
+  english,
+  auth
 
 })
 

@@ -5,14 +5,15 @@ import { DownOutlined, UserOutlined, MessageOutlined } from '@ant-design/icons';
 import logo from '../../assets/2160 4K.gif';
 import { Link, useLocation } from 'react-router-dom';
 import { Navbar } from 'react-bootstrap';
-import Modal from '../Modal/Modal';
+import Modal from '../Modal/ModalLogin';
 import { fetchLanguage } from '../../Actions/LanguageAction';
 import { connect } from 'react-redux';
 import Icon from '@ant-design/icons';
+import {logout} from '../../Actions/AuthActions'
 
 const { Option } = Select;
 
-const Nav = ({ fetchLanguage, english: { english } }) => {
+const Nav = ({ fetchLanguage,logout, english: { english },auth:{token,user} }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const location = useLocation();
   const handleChange = (e) => {
@@ -32,9 +33,11 @@ const Nav = ({ fetchLanguage, english: { english } }) => {
 
   const menu = (
     <Menu>
-      <Menu.Item onClick={onClick} danger>
+      {!token?<Menu.Item onClick={onClick} danger>
         Login/Register
-      </Menu.Item>
+      </Menu.Item>:<Menu.Item onClick={logout} danger>
+       Logout
+      </Menu.Item>}
     </Menu>
   );
 
@@ -130,7 +133,7 @@ const Nav = ({ fetchLanguage, english: { english } }) => {
                   style={{color:'white'}}
                 >
                   <span  style={{color:'white'}}>
-                    <i style={{color:'white'}} className="far fa-user"></i> Guest
+                    <i style={{color:'white'}} className="far fa-user"></i> {!token?"Guest":user&&user.userName&&user.userName}
                   </span>{' '}
                   <span>
                     {' '}
@@ -230,8 +233,9 @@ const Nav = ({ fetchLanguage, english: { english } }) => {
 
 const mapStateToProps = (state) => ({
   english: state.english,
+  auth:state.auth
 });
 
 export default connect(mapStateToProps, {
-  fetchLanguage,
+  fetchLanguage,logout
 })(Nav);
