@@ -165,14 +165,14 @@ const Polls = ({english:{english},auth:{token}}) => {
             useData.slice(0,10*page).map(
               (p) =>
                 p.hidden === false  && (
-                  <PollCard english={english} icons={icons} type2={type2} p={p} type={type}/>
+                  <PollCard setVote={setVote} vote={vote} english={english} icons={icons} type2={type2} p={p} type={type}/>
                 )
             )}
              {token&&useData &&
             useData.slice(0,10*page).map(
               (p) =>
                 (
-                  <PollCard english={english} icons={icons} type2={type2} p={p} type={type}/>
+                  <PollCard setVote={setVote} vote={vote} english={english} icons={icons} type2={type2} p={p} type={type}/>
                 )
             )}
         </div>
