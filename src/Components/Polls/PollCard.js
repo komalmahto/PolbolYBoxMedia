@@ -345,7 +345,7 @@ const PollCard = ({
                 </span>}
               </div>
             )}
-            {type2 === 'polls' && type && type === 'active' && (
+            {type2 === 'polls' && type && type === 'active' && !p.userVote&& (
               <span
                 style={{ cursor: 'pointer' }}
                 onClick={() => {
@@ -368,6 +368,16 @@ const PollCard = ({
                 style={{ color: '#56a7ff', cursor: 'pointer' }}
               >
                 {english ? 'Vote Now' : 'मतदान करें'}
+              </span>
+            )}
+            {type2 === 'polls' && type && type === 'active' && p.userVote&& (
+              <span
+                style={{ cursor: 'pointer' }}
+                onClick={() => showModal(p._id)}
+                style={{ color: '#56a7ff', cursor: 'pointer' }}
+              >
+                {english ? 'View Result' : 'परिणाम'} <i style={{ color: '#56a7ff' }}
+                  className="fas fa-chart-pie"></i>
               </span>
             )}
             {type2 === 'polls' && type && type === 'expired' && (

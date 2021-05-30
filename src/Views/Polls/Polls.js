@@ -9,7 +9,7 @@ import { icons } from '../../Components/icons/Icons';
 import {connect} from 'react-redux';
 
 
-const Polls = ({english:{english}}) => {
+const Polls = ({english:{english},auth:{token}}) => {
   const [selectedTags, setSelectedTags] = useState([]);
   const [pollsBasedOnCategory, setPollsBasedOnCategory] = useState({});
   const [page,setPage]=useState(1)
@@ -18,7 +18,7 @@ const Polls = ({english:{english}}) => {
   const { TabPane } = Tabs;
   useEffect(() => {
     fetchPollsSelected();
-  }, [english]);
+  }, [english,token]);
 
   useEffect(() => {
     fetchPollsSelected();
@@ -27,7 +27,45 @@ const Polls = ({english:{english}}) => {
   const fetchPollsSelected = async (page) => {
     const queryParam = selectedTags.join(',');
     try {
-      const response = await axios.get(`/common/polls?hindi=${!english}`, {
+      if(token){
+      const response = await axios.get(`/polls?hindi=${!english}&mode=active`,{
+        headers: {
+            Authorization: {
+              toString() {
+                return `Bearer `+JSON.parse(token);
+              }
+            }
+        }},{
+        params: {
+          page,
+          categories: selectedTags.length > 0 ? queryParam : undefined,
+        },
+      });
+      const response1 = await axios.get(`/polls?hindi=${!english}&mode=expired`,{
+        headers: {
+            Authorization: {
+              toString() {
+                return `Bearer `+JSON.parse(token);
+              }
+            }
+        }},{
+        params: {
+          page,
+          categories: selectedTags.length > 0 ? queryParam : undefined,
+        },
+      });
+      console.log(response1)
+      console.log(response.data.payload.payload.concat(response1.data.payload.payload))
+      const final=response.data.payload.payload.concat(response1.data.payload.payload)
+      console.log(final)
+      response.data.payload.payload=final
+      const responseJSON = response.data;
+      setPollsBasedOnCategory(responseJSON);
+
+      console.log(responseJSON, 'selected news');
+    }
+    else{
+      const response = await axios.get(`/common/polls?hindi=${!english}`,{
         params: {
           page,
           categories: selectedTags.length > 0 ? queryParam : undefined,
@@ -37,6 +75,8 @@ const Polls = ({english:{english}}) => {
       setPollsBasedOnCategory(responseJSON);
 
       console.log(responseJSON, 'selected news');
+    }
+    
     } catch (err) {
       console.log(err);
     }
@@ -120,10 +160,17 @@ const Polls = ({english:{english}}) => {
 {  /*        <span>{useData.length + ' ' + type + ' ' + type2}</span>
     */}        </div>
         <div className='pollCont'>
-          {useData &&
+          {!token&&useData &&
             useData.slice(0,10*page).map(
               (p) =>
-                p.hidden === false && (
+                p.hidden === false  && (
+                  <PollCard english={english} icons={icons} type2={type2} p={p} type={type}/>
+                )
+            )}
+             {token&&useData &&
+            useData.slice(0,10*page).map(
+              (p) =>
+                (
                   <PollCard english={english} icons={icons} type2={type2} p={p} type={type}/>
                 )
             )}
@@ -161,7 +208,8 @@ const Polls = ({english:{english}}) => {
 };
 
 const mapStateToProps = (state) => ({
-  english:state.english
+  english:state.english,
+  auth:state.auth
 });
 
 export default connect(mapStateToProps)(Polls);
