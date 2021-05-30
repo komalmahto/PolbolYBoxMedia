@@ -41,7 +41,7 @@ const HomePollsAndAwards = ({ fetchPolls, fetchAwards, polls: { polls }, awards:
   useEffect(() => {
     fetchPollsSelected();
 
-  }, [selectedTagsPolls,vote])
+  }, [selectedTagsPolls,vote,token])
 
   const fetchExpiredAwards = async (page) => {
     try {
@@ -333,7 +333,7 @@ const HomePollsAndAwards = ({ fetchPolls, fetchAwards, polls: { polls }, awards:
 
               
                 <div onClick={() => setIt(p)}>
-                  <PollCard english={english} type={type} icons={icons} type2={type2} p={p} getExpiryString1={getExpiryString1} />
+                  <PollCard setVote={setVote} english={english} type={type} icons={icons} type2={type2} p={p} getExpiryString1={getExpiryString1} />
                 </div>
               ))}
 

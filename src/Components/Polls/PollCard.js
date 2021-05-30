@@ -228,7 +228,8 @@ const PollCard = ({
           />
         </div>
         <div style={{ marginTop: '10px' }}>
-          <Button type="primary" onClick={() => { answerSubmitHandler(voteModalData.id) }}>Submit</Button>
+          <Button type="primary" onClick={() => {                  setVote(!vote);
+ answerSubmitHandler(voteModalData.id) }}>Submit</Button>
         </div>
       </Modal>
 
@@ -359,7 +360,6 @@ const PollCard = ({
                   }
                   else{
                   setIsVoteModal(true); 
-                  setVote(!vote)
                   setVoteModalData({
                     type: p.type,
                     question: english ? p.question : p.question_hindi,
