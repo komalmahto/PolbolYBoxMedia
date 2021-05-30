@@ -15,7 +15,7 @@ import JuryCard from '../../Components/Cards/JuryCard'
 import AwardResult from '../../Components/Result/AwardResult'
 const { TabPane } = Tabs;
 
-const HomePollsAndAwards = ({ fetchPolls, fetchAwards, polls: { polls }, awards: { awards }, english: { english } }) => {
+const HomePollsAndAwards = ({ fetchPolls, fetchAwards, polls: { polls }, awards: { awards }, english: { english },auth:{token} }) => {
   const [selectedTagsPolls, setSelectedTagsPolls] = useState([]);
   const [selectedTagsAwards, setSelectedTagsAwards] = useState([])
   const [pollsBasedOnCategory, setPollsBasedOnCategory] = useState({})
@@ -23,6 +23,7 @@ const HomePollsAndAwards = ({ fetchPolls, fetchAwards, polls: { polls }, awards:
   const [type3Data, setType3Data] = useState({});
   const [type3, setType3] = useState(false)
   const [comm, setComm] = useState([])
+  const [vote,setVote]=useState(false)
 
   const history = useHistory();
   const types = [
@@ -40,7 +41,7 @@ const HomePollsAndAwards = ({ fetchPolls, fetchAwards, polls: { polls }, awards:
   useEffect(() => {
     fetchPollsSelected();
 
-  }, [selectedTagsPolls])
+  }, [selectedTagsPolls,vote])
 
   const fetchExpiredAwards = async (page) => {
     try {
@@ -56,6 +57,44 @@ const HomePollsAndAwards = ({ fetchPolls, fetchAwards, polls: { polls }, awards:
   const fetchPollsSelected = async (page) => {
     const queryParam = selectedTagsPolls.join(',');
     try {
+      if(token){
+      const response = await axios.get(`/polls?mode=active`,{
+        headers: {
+            Authorization: {
+              toString() {
+                return `Bearer `+JSON.parse(token);
+              }
+            }
+        }, 
+        params: {
+          page,
+          categories: selectedTagsPolls.length > 0 ? queryParam : undefined
+        }
+      });
+      const response1 = await axios.get(`/polls?mode=expired`,{
+        headers: {
+            Authorization: {
+              toString() {
+                return `Bearer `+JSON.parse(token);
+              }
+            }
+        }, 
+        params: {
+          page,
+          categories: selectedTagsPolls.length > 0 ? queryParam : undefined
+        }
+      });
+      console.log(response1)
+      console.log(response.data.payload.payload.concat(response1.data.payload.payload))
+      const final=response.data.payload.payload.concat(response1.data.payload.payload)
+      console.log(final)
+      response.data.payload.payload=final
+      const responseJSON = response.data;
+      setPollsBasedOnCategory(responseJSON);
+
+      console.log(responseJSON, "selected news");
+    }
+    else{
       const response = await axios.get(`/common/polls`, {
         params: {
           page,
@@ -67,6 +106,7 @@ const HomePollsAndAwards = ({ fetchPolls, fetchAwards, polls: { polls }, awards:
 
       console.log(responseJSON, "selected news");
 
+    }
     } catch (err) {
       console.log(err);
     }
@@ -280,10 +320,18 @@ const HomePollsAndAwards = ({ fetchPolls, fetchAwards, polls: { polls }, awards:
             <span onClick={()=>{type2==='polls'?history.push('/polls'):history.push("/awards")}}  className="viewAll">View all</span>*/}
           </div>
           <div className="grid-2" >
-            {useData &&
+            {!token&&useData &&
               useData.slice(0, 6).map((p) => (
 
                 p.hidden === false &&
+                <div onClick={() => setIt(p)}>
+                  <PollCard setVote={setVote} vote={vote} english={english} type={type} icons={icons} type2={type2} p={p} getExpiryString1={getExpiryString1} />
+                </div>
+              ))}
+               {token&&useData &&
+              useData.slice(0, 6).map((p) => (
+
+              
                 <div onClick={() => setIt(p)}>
                   <PollCard english={english} type={type} icons={icons} type2={type2} p={p} getExpiryString1={getExpiryString1} />
                 </div>
@@ -408,7 +456,8 @@ const HomePollsAndAwards = ({ fetchPolls, fetchAwards, polls: { polls }, awards:
 const mapStateToProps = (state) => ({
   polls: state.polls,
   awards: state.awards,
-  english: state.english
+  english: state.english,
+  auth:state.auth
 });
 
 export default connect(mapStateToProps, {
