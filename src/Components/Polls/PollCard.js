@@ -96,7 +96,7 @@ const PollCard = ({
 
 
   const answerSubmitHandler = (id) => {
-    const authToken = localStorage.getItem("authToken").split(" ")[1];
+    const authToken = JSON.parse(JSON.parse(localStorage.getItem("authToken")));
     const config = {
       headers: { Authorization: `Bearer ${authToken}` },
     };
@@ -111,7 +111,7 @@ const PollCard = ({
 
     axios
       .post(
-        "/post/add-answer",
+        "/poll/add-answer",
         bodyParameters,
         config
       )

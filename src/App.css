@@ -1781,4 +1781,10 @@ input[type=number] {
 .profile-form input[type="submit"]:hover {
   background-color: #ce3356;
 }
+
+
+.ant-radio-wrapper {
+  white-space:normal !important
+}
+
 /*# sourceMappingURL=App.css.map */
