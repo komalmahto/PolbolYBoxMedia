@@ -730,6 +730,8 @@ body::-webkit-scrollbar-thumb:hover {
   padding-bottom: 1rem;
   background-color: white;
   border-radius: 10px;
+  color: black;
+  color: black;
 }
 
 .card-img {
@@ -1780,5 +1782,9 @@ input[type=number] {
 
 .profile-form input[type="submit"]:hover {
   background-color: #ce3356;
+}
+
+.ant-radio-wrapper {
+  white-space: normal !important;
 }
 /*# sourceMappingURL=App.css.map */

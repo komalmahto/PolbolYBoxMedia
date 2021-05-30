@@ -686,6 +686,7 @@ align-items: center;
   background-color: white;
   
   border-radius: 10px;
+  color: black;
 
   &-img{
     height: 200px;
@@ -709,6 +710,7 @@ align-items: center;
   }
   
 }
+color: black;
 .news-headlines{
   margin-top: 1.5rem;
   padding:0 15px;
@@ -1719,4 +1721,8 @@ font-size:16px;
       background-color: lighten($color: #a62844, $amount: 10);
     }
   }
+}
+
+.ant-radio-wrapper {
+  white-space:normal !important
 }

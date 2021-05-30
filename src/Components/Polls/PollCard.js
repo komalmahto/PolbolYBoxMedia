@@ -36,7 +36,9 @@ const PollCard = ({
   setType3,
   setType3Data,
   english,
-  isAward
+  isAward,
+  setVote,
+  vote
 }) => {
   const [isShareModalVisible, setIsShareModalVisible] = useState(false);
 
@@ -96,7 +98,7 @@ const PollCard = ({
 
 
   const answerSubmitHandler = (id) => {
-    const authToken = localStorage.getItem("authToken").split(" ")[1];
+    const authToken = JSON.parse(JSON.parse(localStorage.getItem("authToken")));
     const config = {
       headers: { Authorization: `Bearer ${authToken}` },
     };
@@ -111,7 +113,7 @@ const PollCard = ({
 
     axios
       .post(
-        "/post/add-answer",
+        "/poll/add-answer",
         bodyParameters,
         config
       )
@@ -357,6 +359,7 @@ const PollCard = ({
                   }
                   else{
                   setIsVoteModal(true); 
+                  setVote(!vote)
                   setVoteModalData({
                     type: p.type,
                     question: english ? p.question : p.question_hindi,

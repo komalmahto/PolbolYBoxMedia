@@ -13,12 +13,13 @@ const Polls = ({english:{english},auth:{token}}) => {
   const [selectedTags, setSelectedTags] = useState([]);
   const [pollsBasedOnCategory, setPollsBasedOnCategory] = useState({});
   const [page,setPage]=useState(1)
+  const [vote,setVote]=useState(false)
 
 
   const { TabPane } = Tabs;
   useEffect(() => {
     fetchPollsSelected();
-  }, [english,token]);
+  }, [english,token,vote]);
 
   useEffect(() => {
     fetchPollsSelected();
@@ -35,7 +36,7 @@ const Polls = ({english:{english},auth:{token}}) => {
                 return `Bearer `+JSON.parse(token);
               }
             }
-        }},{
+        },
         params: {
           page,
           categories: selectedTags.length > 0 ? queryParam : undefined,
@@ -48,7 +49,7 @@ const Polls = ({english:{english},auth:{token}}) => {
                 return `Bearer `+JSON.parse(token);
               }
             }
-        }},{
+        },
         params: {
           page,
           categories: selectedTags.length > 0 ? queryParam : undefined,
