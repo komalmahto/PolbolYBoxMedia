@@ -9,11 +9,11 @@ import Modal from '../Modal/ModalLogin';
 import { fetchLanguage } from '../../Actions/LanguageAction';
 import { connect } from 'react-redux';
 import Icon from '@ant-design/icons';
-import {logout} from '../../Actions/AuthActions'
+import { logout } from '../../Actions/AuthActions'
 
 const { Option } = Select;
 
-const Nav = ({ fetchLanguage,logout, english: { english },auth:{token,user} }) => {
+const Nav = ({ fetchLanguage, logout, english: { english }, auth: { token, user } }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const location = useLocation();
   const handleChange = (e) => {
@@ -33,10 +33,10 @@ const Nav = ({ fetchLanguage,logout, english: { english },auth:{token,user} }) =
 
   const menu = (
     <Menu>
-      {!token?<Menu.Item onClick={onClick} danger>
+      {!token ? <Menu.Item onClick={onClick} danger>
         Login/Register
-      </Menu.Item>:<Menu.Item onClick={logout} danger>
-       Logout
+      </Menu.Item> : <Menu.Item onClick={logout} danger>
+        Logout
       </Menu.Item>}
     </Menu>
   );
@@ -125,23 +125,23 @@ const Nav = ({ fetchLanguage,logout, english: { english },auth:{token,user} }) =
             >
               <Link to='/quiz'>{english ? 'QUIZ' : 'क्विज़'}</Link>
             </li>
-            <li>
+            <li style={{ position: 'absolute', right: '110px' }}>
               <Dropdown className='guest' overlay={menu}>
                 <a
                   className='ant-dropdown-link guest-item'
-                  onClick={(e) => e.preventDefault()}
-                  style={{color:'white'}}
+                  onClick={(e) => {e.preventDefault()}}
+                  style={{ color: 'white' }}
                 >
-                  <span  style={{color:'white'}}>
-                    <i style={{color:'white'}} className="far fa-user"></i> {!token?"Guest":user&&user.userName&&user.userName}
+                  <span style={{ color: 'white' }}>
+                    <i style={{ color: 'white' }} className="far fa-user"></i> {!token ? "Guest" : user && user.userName && user.userName}
                   </span>{' '}
                   <span>
                     {' '}
-<i style={{color:'white'}} className="fas fa-chevron-down"></i>                  </span>
+                    <i style={{ color: 'white' }} className="fas fa-chevron-down"></i>                  </span>
                 </a>
               </Dropdown>
             </li>
-            <li>
+            <li style={{ position: 'absolute', right: '0px' }}>
               <Select
                 bordered={false}
                 className='language'
@@ -154,7 +154,7 @@ const Nav = ({ fetchLanguage,logout, english: { english },auth:{token,user} }) =
               >
                 <Option
                   className='language-option'
-                  style={{ height: '22px', color: 'white' }}
+                  style={{ height: '22px' }}
                   value='english'
                 >
                   <span> {english ? 'English' : 'अंग्रेज़ी'}</span>
@@ -167,9 +167,9 @@ const Nav = ({ fetchLanguage,logout, english: { english },auth:{token,user} }) =
           </ul>
         </div>
 
-       
 
-        
+
+
         <div className='nav-right'>
           <span
             className='side'
@@ -194,6 +194,44 @@ const Nav = ({ fetchLanguage,logout, english: { english },auth:{token,user} }) =
           className={location.pathname === '/' ? 'active-link' : null}
         >
           <Link to='/'>HOME</Link>
+        </li>
+        <li>
+          <Dropdown className='guest' overlay={menu} trigger={['click']}>
+            <a
+              className='ant-dropdown-link guest-item'
+              onClick={(e) => e.preventDefault()}
+              style={{ color: 'white' , fontSize:'1.5rem' }}
+            >
+              <span style={{ color: 'white' }}>
+                <i style={{ color: 'white' }} className="far fa-user"></i> {!token ? "Guest" : user && user.userName && user.userName}
+              </span>{' '}
+              <span>
+                {' '}
+                <i style={{ color: 'white' }} className="fas fa-chevron-down"></i>                  </span>
+            </a>
+          </Dropdown>
+        </li>
+        <li style={{marginLeft:'20px'}}>
+          <Select
+            bordered={false}
+            className='language'
+            defaultValue={english ? 'english' : 'hindi'}
+            onChange={handleChange}
+            theme='dark'
+            className="ant-select-selection"
+
+          >
+            <Option
+              className='language-option'
+              style={{ height: '22px', color: 'black' }}
+              value='english'
+            >
+              <span> {english ? 'English' : 'अंग्रेज़ी'}</span>
+            </Option>
+            <Option className='language-option' value='hindi'>
+              <span>{english ? 'Hindi' : 'हिंदी '}</span>
+            </Option>
+          </Select>
         </li>
         <li
           onClick={closeNav}
@@ -225,7 +263,7 @@ const Nav = ({ fetchLanguage,logout, english: { english },auth:{token,user} }) =
         >
           <Link to='/quiz'>QUIZ</Link>
         </li>
-       
+
       </div>
     </div>
   );
@@ -233,9 +271,9 @@ const Nav = ({ fetchLanguage,logout, english: { english },auth:{token,user} }) =
 
 const mapStateToProps = (state) => ({
   english: state.english,
-  auth:state.auth
+  auth: state.auth
 });
 
 export default connect(mapStateToProps, {
-  fetchLanguage,logout
+  fetchLanguage, logout
 })(Nav);

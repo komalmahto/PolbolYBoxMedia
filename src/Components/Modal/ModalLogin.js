@@ -7,7 +7,7 @@ import Play from "../../assets/play_store.png";
 import logo from "../../assets/logo.png";
 import OtpInput from "react-otp-input";
 import axios from "../../axios";
-import { fetchToken,updateUser } from "../../Actions/AuthActions";
+import { fetchToken, updateUser } from "../../Actions/AuthActions";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
@@ -30,6 +30,7 @@ const ModalLogin = ({
     time: 30,
     isSet: false,
   });
+  const [loginSuccessModal,setLoginSuccessModal] = useState(false);
   const [regionData, setRegionData] = useState([]);
   const [profile, setProfile] = useState(false);
   const [profileData, setProfileData] = useState({
@@ -100,6 +101,7 @@ const ModalLogin = ({
           if (!res.data.payload.gender) {
             setProfile(true);
           } else {
+            setLoginSuccessModal(true);
             setIsModalVisible(false);
           }
         })
@@ -182,195 +184,206 @@ const ModalLogin = ({
     await axios
       .patch(`/user/${user._id}`, profileData, {
         headers: {
-            Authorization: {
-              toString() {
-                return `Bearer `+JSON.parse(token);
-              }
+          Authorization: {
+            toString() {
+              return `Bearer ` + JSON.parse(token);
             }
-        }})
+          }
+        }
+      })
       .then((res) => {
         console.log(res.data.payload);
         updateUser(res.data.payload)
-        toast.success("Profile updated!")
+        toast.success("Profile updated!");
+        setLoginSuccessModal(true);
         setIsModalVisible(false)
       });
   };
 
   return (
-    <Modal
-      visible={isModalVisible}
-      onOk={handleOk}
-      onCancel={handleCancel}
-      footer={null}
-    >
-      {!token && (
-        <div className="signin-form-container">
-          <center>
-            {" "}
-            <img width={100} src={logo} alt="" />
-          </center>
+    <React.Fragment>
+      <Modal
+        visible={loginSuccessModal}
+        onOk={()=>setLoginSuccessModal(false)}
+        onCancel={()=>{setLoginSuccessModal(false)}}
+        footer={null}
+      >
+        <h3>Logged in succesfully</h3>
+      </Modal>
+      <Modal
+        visible={isModalVisible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        footer={null}
+      >
+        {!token && (
+          <div className="signin-form-container">
+            <center>
+              {" "}
+              <img width={100} src={logo} alt="" />
+            </center>
 
-          <div className="signin-form-container-box">
-            <div className="head">
-              <h2>SIGNIN</h2>
-            </div>
-            <div>
-              <div className="input-box">
-                <input
-                  value={phone}
-                  onChange={changePhone}
-                  type="number"
-                  placeholder="Phone number"
-                />
-                <label className="label">Phone number</label>
+            <div className="signin-form-container-box">
+              <div className="head">
+                <h2>SIGNIN</h2>
               </div>
-              {Object.keys(resData).length > 0 && (
-                <div className="otp-box">
-                  <p>Please enter otp</p>
-                  <OtpInput
-                    value={otp}
-                    onChange={handleOtpChange}
-                    numInputs={4}
-                    containerStyle={"container-style"}
-                    inputStyle={
-                      valid ? "input-style" : "input-style invalid-style"
-                    }
-                    isInputNum={true}
+              <div>
+                <div className="input-box">
+                  <input
+                    value={phone}
+                    onChange={changePhone}
+                    type="number"
+                    placeholder="Phone number"
                   />
-                  {!valid && <p className="invalid">Invalid otp</p>}
+                  <label className="label">Phone number</label>
                 </div>
-              )}
-              <div className="actions">
-                <button
-                  onClick={getOtp}
-                  onKeyPress={(e) => console.log(e)}
-                  type="submit"
-                  className="get-otp-btn"
-                  disabled={
-                    phone.length < 10 || (timer.isSet && timer.time > 0)
-                  }
-                  style={
-                    phone.length < 10 || (timer.isSet && timer.time > 0)
-                      ? { cursor: "no-drop" }
-                      : { cursor: "pointer" }
-                  }
-                >
-                  {Object.keys(resData).length > 0 && resData._id
-                    ? `Resend Otp ${
-                        timer.time > 0 ? `in ${timer.time} s` : ""
+                {Object.keys(resData).length > 0 && (
+                  <div className="otp-box">
+                    <p>Please enter otp</p>
+                    <OtpInput
+                      value={otp}
+                      onChange={handleOtpChange}
+                      numInputs={4}
+                      containerStyle={"container-style"}
+                      inputStyle={
+                        valid ? "input-style" : "input-style invalid-style"
+                      }
+                      isInputNum={true}
+                    />
+                    {!valid && <p className="invalid">Invalid otp</p>}
+                  </div>
+                )}
+                <div className="actions">
+                  <button
+                    onClick={getOtp}
+                    onKeyPress={(e) => console.log(e)}
+                    type="submit"
+                    className="get-otp-btn"
+                    disabled={
+                      phone.length < 10 || (timer.isSet && timer.time > 0)
+                    }
+                    style={
+                      phone.length < 10 || (timer.isSet && timer.time > 0)
+                        ? { cursor: "no-drop" }
+                        : { cursor: "pointer" }
+                    }
+                  >
+                    {Object.keys(resData).length > 0 && resData._id
+                      ? `Resend Otp ${timer.time > 0 ? `in ${timer.time} s` : ""
                       } `
-                    : "Get otp"}
-                </button>{" "}
+                      : "Get otp"}
+                  </button>{" "}
+                </div>
               </div>
             </div>
+            <center><p style={{ fontSize: '1.1rem', color: 'grey' }}>By registering on Polbol you accept the following <a href="https://polbol-media.s3.ap-south-1.amazonaws.com/ToS.pdf">Terms and Conditions.</a></p></center>
+
           </div>
-          <center><p style={{fontSize:'1.1rem',color:'grey'}}>By registering on Polbol you accept the following <a href="https://polbol-media.s3.ap-south-1.amazonaws.com/ToS.pdf">Terms and Conditions.</a></p></center>
+        )}
+        {token && profile && (
+          <div>
+            <center>
+              {" "}
+              <h3>Update Profile</h3>
+            </center>
 
-        </div>
-      )}
-      {token && profile && (
-        <div>
-          <center>
-            {" "}
-            <h3>Update Profile</h3>
-          </center>
-
-          <form className="profile-form" onSubmit={handleProfileUpdate}>
-            <label htmlFor="gender">
-              Gender
+            <form className="profile-form" onSubmit={handleProfileUpdate}>
+              <label htmlFor="gender">
+                Gender
               <select
-                value={profileData.gender}
-                onChange={(e) =>
-                  setProfileData((prev) => ({
-                    ...prev,
-                    gender: e.target.value,
-                  }))
-                }
-              >
-                <option value="">Select Gender</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-              </select>
-            </label>
-            <br />
-            <label htmlFor="">
-              Date of Birth
-              <DatePicker
-                onChange={(value) =>
-                  setProfileData((prev) => ({ ...prev, dateOfBirth: value }))
-                }
-                value={profileData.dateOfBirth}
-              />
-            </label>
-            <br />
-            <label htmlFor="religion">
-              Religion
-              <select
-                value={profileData.religion}
-                onChange={(e) =>
-                  setProfileData((prev) => ({
-                    ...prev,
-                    religion: e.target.value,
-                  }))
-                }
-              >
-                <option value="">Select Religion</option>
-                {religionData &&
-                  religionData.map((rel) => (
-                    <option value={rel}>{rel.toUpperCase()}</option>
-                  ))}
-              </select>
-            </label>
-            <br />
-            <label htmlFor="state">
-              State
-              <select
-                value={profileData.state}
-                onChange={(e) =>
-                  setProfileData((prev) => ({ ...prev, state: e.target.value }))
-                }
-              >
-                <option value="">Select State</option>
-                {regionData &&
-                  regionData.length > 0 &&
-                  regionData.map((rel) => (
-                    <option value={rel.name}>{rel.name.toUpperCase()}</option>
-                  ))}
-              </select>
-            </label>
-            <br />
-            {profileData.state && (
-              <label htmlFor="city">
-                City
-                <select
-                  value={profileData.city}
+                  value={profileData.gender}
                   onChange={(e) =>
                     setProfileData((prev) => ({
                       ...prev,
-                      city: e.target.value,
+                      gender: e.target.value,
                     }))
                   }
                 >
-                  <option value="">Select City</option>
-                  {regionData &&
-                    regionData.length > 0 &&
-                    regionData
-                      .filter((p) => p.name === profileData.state)[0]
-                      .subRegions.map((rel) => (
-                        <option value={rel}>{rel}</option>
-                      ))}
+                  <option value="">Select Gender</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
                 </select>
               </label>
-            )}
+              <br />
+              <label htmlFor="">
+                Date of Birth
+              <DatePicker
+                  onChange={(value) =>
+                    setProfileData((prev) => ({ ...prev, dateOfBirth: value }))
+                  }
+                  value={profileData.dateOfBirth}
+                />
+              </label>
+              <br />
+              <label htmlFor="religion">
+                Religion
+              <select
+                  value={profileData.religion}
+                  onChange={(e) =>
+                    setProfileData((prev) => ({
+                      ...prev,
+                      religion: e.target.value,
+                    }))
+                  }
+                >
+                  <option value="">Select Religion</option>
+                  {religionData &&
+                    religionData.map((rel) => (
+                      <option value={rel}>{rel.toUpperCase()}</option>
+                    ))}
+                </select>
+              </label>
+              <br />
+              <label htmlFor="state">
+                State
+              <select
+                  value={profileData.state}
+                  onChange={(e) =>
+                    setProfileData((prev) => ({ ...prev, state: e.target.value }))
+                  }
+                >
+                  <option value="">Select State</option>
+                  {regionData &&
+                    regionData.length > 0 &&
+                    regionData.map((rel) => (
+                      <option value={rel.name}>{rel.name.toUpperCase()}</option>
+                    ))}
+                </select>
+              </label>
+              <br />
+              {profileData.state && (
+                <label htmlFor="city">
+                  City
+                  <select
+                    value={profileData.city}
+                    onChange={(e) =>
+                      setProfileData((prev) => ({
+                        ...prev,
+                        city: e.target.value,
+                      }))
+                    }
+                  >
+                    <option value="">Select City</option>
+                    {regionData &&
+                      regionData.length > 0 &&
+                      regionData
+                        .filter((p) => p.name === profileData.state)[0]
+                        .subRegions.map((rel) => (
+                          <option value={rel}>{rel}</option>
+                        ))}
+                  </select>
+                </label>
+              )}
 
-            <center>
-              <input type="submit" value="Update Profile" />
-            </center>
-          </form>
-        </div>
-      )}
-      <ToastContainer />
-    </Modal>
+              <center>
+                <input type="submit" value="Update Profile" />
+              </center>
+            </form>
+          </div>
+        )}
+        <ToastContainer />
+      </Modal>
+    </React.Fragment>
   );
 };
 
@@ -378,4 +391,4 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, { fetchToken,updateUser })(ModalLogin);
+export default connect(mapStateToProps, { fetchToken, updateUser })(ModalLogin);

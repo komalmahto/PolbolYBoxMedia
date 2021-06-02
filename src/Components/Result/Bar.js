@@ -4,6 +4,7 @@ import { Select } from 'antd';
 import axios from '../../axios';
 import ReactApexChart from 'react-apexcharts';
 import { Switch } from 'antd';
+import DownloadModal from '../Modal/Modal'
 
 const Bar = ({ id, isModalVisible, setIsModalVisible }) => {
   console.log(id, 'id');
@@ -12,7 +13,7 @@ const Bar = ({ id, isModalVisible, setIsModalVisible }) => {
   const [gender, setGender] = useState([]);
   const [region, setRegion] = useState([]);
   const [overall, setOverall] = useState(true);
-
+  const [isDownloadModalVisible , setIsDownloadModalVisible] = useState(false);
   useEffect(() => {
     if (id) {
       // console.log('hi in bar.js')
@@ -24,15 +25,18 @@ const Bar = ({ id, isModalVisible, setIsModalVisible }) => {
 
   function handleAgeChange(value) {
     console.log(`selected ${value}`);
-    setAge(value);
+    setIsDownloadModalVisible(true);
+    // setAge(value);
   }
   function handleGenderChange(value) {
     console.log(`selected ${value}`);
-    setGender(value);
+    setIsDownloadModalVisible(true);
+    //setGender(value);
   }
   function handleRegionChange(value) {
     console.log(`selected ${value}`);
-    setRegion(value);
+    setIsDownloadModalVisible(true);
+    //setRegion(value);
   }
   const fetchResult = async () => {
     if (id) {
@@ -62,6 +66,7 @@ const Bar = ({ id, isModalVisible, setIsModalVisible }) => {
   };
   return (
     <>
+      <DownloadModal isModalVisible={isDownloadModalVisible} setIsModalVisible={setIsDownloadModalVisible} text={'To get detailed analysis of the results download our app.'} />
       {Object.keys(data).length > 0 && (
         <Modal
         className="pol-res"

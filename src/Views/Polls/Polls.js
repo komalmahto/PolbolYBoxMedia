@@ -194,7 +194,7 @@ const Polls = ({english:{english},auth:{token}}) => {
             checkChecked={checkChecked}
             cats={catspa}
           />
-          <Tabs size={'large'} defaultActiveKey={checkLength(pollsBasedOnCategory,'polls')===0?'1':'2'} onChange={callback} type='card'>
+          <Tabs size={'large'} defaultActiveKey={checkLength(pollsBasedOnCategory,'polls')===0?'2':'1'} onChange={callback} type='card'>
             <TabPane tab='Active' key='1'>
               {PollView(pollsBasedOnCategory, 'active', 'polls')}
             </TabPane>

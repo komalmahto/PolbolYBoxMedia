@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { Modal, Button } from 'antd';
 import Apple from '../../assets/apple.svg';
 import Play from '../../assets/play_store.png';
-
-const Modal1 = ({ isModalVisible, setIsModalVisible }) => {
+const Modal1 = ({ isModalVisible, setIsModalVisible , text}) => {
   const showModal = () => {
     setIsModalVisible(true);
   };
@@ -23,7 +22,7 @@ const Modal1 = ({ isModalVisible, setIsModalVisible }) => {
       footer={null}
     >
     <div className="mod">
-    <p>Find out latest updates with people's views on different issues </p>
+        {text ? <p>{text}</p> : <p>Find out latest updates with people's views on different issues </p>}
     <div className="down">
     <a style={{display: "inline-block"}}
     href="https://apps.apple.com/pa/app/polbol/id1476395002?l=en">

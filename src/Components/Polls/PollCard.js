@@ -121,6 +121,7 @@ const PollCard = ({
         setIsVoteModal(false);
         setVoteModalData({});
         setAnswer({key:0,comment:''});
+        setVote(!vote);
       })
       .catch((err) => {console.log(err);setIsVoteModal(false);
       setVoteModalData({});setAnswer({key:0,comment:''});});
@@ -228,7 +229,7 @@ const PollCard = ({
           />
         </div>
         <div style={{ marginTop: '10px' }}>
-          <Button type="primary" onClick={() => {                  setVote(!vote);
+          <Button type="primary" onClick={() => { 
  answerSubmitHandler(voteModalData.id) }}>Submit</Button>
         </div>
       </Modal>
