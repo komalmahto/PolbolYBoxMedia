@@ -76,38 +76,31 @@ const Chart = ({ id, isModalVisible, setIsModalVisible }) => {
       })
 
       config = {
-        appendPadding: 20,
+        appendPadding: 10,
         data: chartData,
         angleField: 'value',
         colorField: 'type',
-        radius: 1,
-        innerRadius: 0.6,
+        radius: 0.8,
         label: {
           type: 'inner',
-          offset: '-50%',
           content: function content(_ref) {
             var percent = _ref.percent;
             return ''.concat(Math.floor(percent * 100), '%');
           },
           style: {
-            textAlign: 'center',
             fontSize: 14,
+            textAlign: 'center',
+          },
+        },
+        state: {
+          active: {
+            style: {
+              lineWidth: 0,
+              fillOpacity: 0.65,
+            },
           },
         },
         interactions: [{ type: 'element-selected' }, { type: 'element-active' }],
-        statistic: {
-          title: false,
-          content: {
-            style: {
-              whiteSpace: 'pre-wrap',
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-            },
-            formatter: function formatter() {
-              return 'Overall';
-            },
-          },
-        },
       };
     }
     if (data.poll.type === 'bar') {

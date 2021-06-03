@@ -4,12 +4,12 @@ import { fetchNews } from '../../Actions/NewsAction';
 import NewsTrendingCard from '../../Components/News/NewsTrendingCard';
 import NewsCard from '../../Components/News/NewsCard';
 import { cats } from '../../Components/icons/Icons';
-import { Checkbox , Button} from 'antd';
+import {Modal , Button} from 'antd';
 import axios from '../../axios';
 import CategoryBar from '../../Components/CategoryBar/CategoryBar';
 import { icons } from '../../Components/icons/Icons';
 import { Link } from 'react-router-dom';
-import Modal from '../../Components/Modal/Modal';
+import DownloadModal from '../../Components/Modal/Modal';
 
 import {
   HeartOutlined,
@@ -132,23 +132,24 @@ const News = ({
 
   const commentHandler = async (id) => {
     try {
-      const res = await axios.post(`/like-unlike`, {
-        headers: {
-          Authorization: {
-            toString() {
-              return `Bearer ` + JSON.parse(token);
-            }
-          }
-        },
-        body: {
-          commentBody: comment,
-          parentType: "news",
-          parentId: id,
-          ancestorType: "news",
-          ancestorId: id
-        }
-      })
+      const authToken = JSON.parse(JSON.parse(localStorage.getItem("authToken")));
+      const config = {
+        headers: { Authorization: `Bearer ${authToken}` },
+      };
+  
+      const bodyParameters =  {
+        commentBody: comment,
+        parentType: "news",
+        parentId: id,
+        ancestorType: "news",
+        ancestorId: id
+      }
+      await axios.post(`/comment`,        
+      bodyParameters,
+      config)
+      
       setComment('');
+      setCommentModal(true);
     } catch (err) {
       console.log(err);
     }
@@ -247,6 +248,14 @@ const News = ({
   return (
     <div className='news'>
       <Modal
+        visible={commentModal}
+        onOk={()=>setCommentModal(false)}
+        onCancel={()=>{setCommentModal(false)}}
+        footer={null}
+      >
+        <h3>Your comment has been recorded.</h3>
+      </Modal>
+      <DownloadModal
         isModalVisible={isModalVisible}
         setIsModalVisible={setIsModalVisible}
       />
@@ -313,11 +322,11 @@ const News = ({
                   token ? <p><TextArea
                     value={comment}
                     onChange={({ target: { value } }) => {
-                      setComment({ comment })
+                      setComment(value)
                     }}
                     placeholder={english ? "Comment (optional)" : "टिप्पणी (वैकल्पिक)"}
                     autoSize={{ minRows: 3, maxRows: 5 }}
-                  /> <Button type="primary" style={{marginTop:'5px'}} onClick={() => { commentHandler();
+                  /> <Button type="primary" style={{marginTop:'5px'}} onClick={() => { commentHandler(data._id);
                   }}>Submit</Button></p> : null
                 }
                 {/*<div className="download">
