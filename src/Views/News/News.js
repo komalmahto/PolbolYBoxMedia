@@ -4,12 +4,13 @@ import { fetchNews } from '../../Actions/NewsAction';
 import NewsTrendingCard from '../../Components/News/NewsTrendingCard';
 import NewsCard from '../../Components/News/NewsCard';
 import { cats } from '../../Components/icons/Icons';
-import { Checkbox } from 'antd';
+import { Checkbox , Button} from 'antd';
 import axios from '../../axios';
 import CategoryBar from '../../Components/CategoryBar/CategoryBar';
 import { icons } from '../../Components/icons/Icons';
 import { Link } from 'react-router-dom';
 import Modal from '../../Components/Modal/Modal';
+
 import {
   HeartOutlined,
   CommentOutlined,
@@ -22,12 +23,15 @@ import {
 } from '@ant-design/icons';
 import ShareModal from '../../Components/Modal/ShareModal';
 
+import { Input } from 'antd';
+const { TextArea } = Input;
+
 const News = ({
-  fetchNews,
   news: { news },
   english: { english },
   match,
   history,
+  auth:{token}
 }) => {
   const [selectedTags, setSelectedTags] = useState([]);
   const [newsBasedOnCategory, setNewsBasedOnCategory] = useState({});
@@ -40,10 +44,14 @@ const News = ({
   const [isShareModalVisible, setIsShareModalVisible] = useState(false);
   const [page, setPage] = useState(1);
   const [y, setY] = useState(0);
+  const [like,setLike] = useState(false);
+  const [comment, setComment] = useState(false);
+  const [commentModal, setCommentModal] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
   useEffect(() => {
     console.log(match);
     const ne = history.location.pathname.split('/')[2];
@@ -61,12 +69,15 @@ const News = ({
       setData(news.payload[0]);
     }
   }, [news, history.location.pathname]);
+
   console.log(history.location.pathname.split('/')[2], 'his');
+  
   useEffect(() => {
     fetchNews(english);
     fetchNewsSelected(1);
     getTrending();
   }, [english]);
+
   const loadMorePage = () => {
     let pos = window.scrollY;
     console.log(pos, 'poss');
@@ -88,7 +99,7 @@ const News = ({
 
   useEffect(() => {
     fetchNewsSelected(1);
-  }, [selectedTags, english]);
+  }, [selectedTags, english,token]);
 
   useEffect(() => {
     if (page !== 1) {
@@ -96,23 +107,97 @@ const News = ({
     }
   }, [page]);
 
+
+  const likeUnlike = async (id) => {
+    try {
+      const res = await axios.post(`/like-unlike`, {
+        headers: {
+          Authorization: {
+            toString() {
+              return `Bearer ` + JSON.parse(token);
+            }
+          }
+        },
+        body: {
+          parentId: id,
+          parentType: 'news',
+          status: like,
+        }
+      })
+      setLike(!like); 
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  const commentHandler = async (id) => {
+    try {
+      const res = await axios.post(`/like-unlike`, {
+        headers: {
+          Authorization: {
+            toString() {
+              return `Bearer ` + JSON.parse(token);
+            }
+          }
+        },
+        body: {
+          commentBody: comment,
+          parentType: "news",
+          parentId: id,
+          ancestorType: "news",
+          ancestorId: id
+        }
+      })
+      setComment('');
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   const fetchNewsSelected = async (page) => {
     const queryParam = selectedTags.join(',');
     try {
-      const response = await axios.get(`/common/news?hindi=${!english}`, {
-        params: {
-          page,
-          categories: selectedTags.length > 0 ? queryParam : undefined,
-        },
-      });
-      const responseJSON = response.data;
-      if (responseJSON.payload.data === null) {
-        setNewsBasedOnCategory([]);
+      if (token) {
+        const response = await axios.get(`/news?hindi=${!english}`, {
+          headers: {
+            Authorization: {
+              toString() {
+                return `Bearer ` + JSON.parse(token);
+              }
+            }
+          },
+          params: {
+            page,
+            categories: selectedTags.length > 0 ? queryParam : undefined,
+          },
+        })
+        const responseJSON = response.data;
+        responseJSON.payload.data = [...responseJSON.payload.payload]
+        console.log(responseJSON)
+        if (responseJSON.payload.data === null) {
+          setNewsBasedOnCategory([]);
+        } else {
+          console.log(responseJSON,'hi')
+          setNewsBasedOnCategory(responseJSON);
+        }
+        console.log(responseJSON, 'selected news');
       } else {
-        setNewsBasedOnCategory(responseJSON);
-      }
+        const response = await axios.get(`/common/news?hindi=${!english}`, {
+          params: {
+            page,
+            categories: selectedTags.length > 0 ? queryParam : undefined,
+          },
+        });
+        const responseJSON = response.data;
+        if (responseJSON.payload.data === null) {
+          setNewsBasedOnCategory([]);
+        } else {
+          console.log(responseJSON)
+          setNewsBasedOnCategory(responseJSON);
+        }
 
-      console.log(responseJSON, 'selected news');
+        console.log(responseJSON, 'selected news');
+      }
     } catch (err) {
       console.log(err);
     }
@@ -224,6 +309,17 @@ const News = ({
                   <p style={{textTransform:'none'}}>{data && data.headline ? data.headline : data.title}</p>
                 </div>
                 <p style={{wordBreak:'break-word',textTransform:'none'}}>{data && data.description}</p>
+                {
+                  token ? <p><TextArea
+                    value={comment}
+                    onChange={({ target: { value } }) => {
+                      setComment({ comment })
+                    }}
+                    placeholder={english ? "Comment (optional)" : "टिप्पणी (वैकल्पिक)"}
+                    autoSize={{ minRows: 3, maxRows: 5 }}
+                  /> <Button type="primary" style={{marginTop:'5px'}} onClick={() => { commentHandler();
+                  }}>Submit</Button></p> : null
+                }
                 {/*<div className="download">
         <p>To enjoy the full experience of PolBol,download the PolBol App</p>
         <span>Download PolBol App</span>
@@ -272,11 +368,11 @@ const News = ({
                 </form>
               )}
             </div>
-            <ShareModal
+            {/* <ShareModal
               shareUrl={copy}
               isShareModalVisible={isShareModalVisible}
               setIsShareModalVisible={setIsShareModalVisible}
-            />
+            /> */}
           </div>
         )}
         <div className='spotlight'>
@@ -326,6 +422,7 @@ const News = ({
 const mapStateToProps = (state) => ({
   news: state.news,
   english: state.english,
+  auth:state.auth
 });
 
 export default connect(mapStateToProps, {

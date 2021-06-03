@@ -5,8 +5,9 @@ import axios from '../../axios';
 import ReactApexChart from 'react-apexcharts';
 import { Switch } from 'antd';
 import DownloadModal from '../Modal/Modal'
+import { Pie , Bar } from '@ant-design/charts'
 
-const Bar = ({ id, isModalVisible, setIsModalVisible }) => {
+const Chart = ({ id, isModalVisible, setIsModalVisible }) => {
   console.log(id, 'id');
   const [data, setData] = useState([]);
   const [age, setAge] = useState([]);
@@ -64,6 +65,64 @@ const Bar = ({ id, isModalVisible, setIsModalVisible }) => {
   const onChangeOverall = (checked) => {
     setOverall(checked);
   };
+
+  let chartData = [];
+  let config = {};
+
+  if (data && Object.keys(data).length > 0) {
+    if (data.poll.type === 'pie') {
+      chartData = Object.keys(data.global).map((key, ind) => {
+        return { type: data.options[key], value: data.global[key] };
+      })
+
+      config = {
+        appendPadding: 20,
+        data: chartData,
+        angleField: 'value',
+        colorField: 'type',
+        radius: 1,
+        innerRadius: 0.6,
+        label: {
+          type: 'inner',
+          offset: '-50%',
+          content: function content(_ref) {
+            var percent = _ref.percent;
+            return ''.concat(Math.floor(percent * 100), '%');
+          },
+          style: {
+            textAlign: 'center',
+            fontSize: 14,
+          },
+        },
+        interactions: [{ type: 'element-selected' }, { type: 'element-active' }],
+        statistic: {
+          title: false,
+          content: {
+            style: {
+              whiteSpace: 'pre-wrap',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+            },
+            formatter: function formatter() {
+              return 'Overall';
+            },
+          },
+        },
+      };
+    }
+    if (data.poll.type === 'bar') {
+      chartData = data.global.chartData.map((p) => {
+        return { rating: `${p.rating}`, Percentage: p.perc };
+      })
+      config = {
+        data: chartData,
+        xField: 'Percentage',
+        yField: 'rating',
+      };
+    }
+
+  }
+
   return (
     <>
       <DownloadModal isModalVisible={isDownloadModalVisible} setIsModalVisible={setIsDownloadModalVisible} text={'To get detailed analysis of the results download our app.'} />
@@ -132,7 +191,7 @@ const Bar = ({ id, isModalVisible, setIsModalVisible }) => {
 
           {overall && (
             <div className='overall-div'>
-              {data &&
+              {/* {data &&
                 Object.keys(data).length > 0 &&
                 data.poll.type === 'pie' && (
                   <div>
@@ -176,9 +235,28 @@ const Bar = ({ id, isModalVisible, setIsModalVisible }) => {
                       }}
                     />
                   </div>
-                )}
+                )} */}
 
-              {data &&
+              {data && Object.keys(data).length > 0 &&
+                data.poll.type === 'pie' && (
+                  <div>
+                    <Pie {...config} />
+                  </div>
+                )
+
+              }
+
+              
+              {data && Object.keys(data).length > 0 &&
+                data.poll.type === 'bar' && (
+                  <div>
+                    <Bar {...config} />
+                  </div>
+                )
+
+              }
+
+              {/* {data &&
                 Object.keys(data).length > 0 &&
                 data.poll.type === 'bar' && (
                   <div>
@@ -236,7 +314,7 @@ const Bar = ({ id, isModalVisible, setIsModalVisible }) => {
                       }}
                     />
                   </div>
-                )}
+                )} */}
             </div>
           )}
 
@@ -644,4 +722,4 @@ const Bar = ({ id, isModalVisible, setIsModalVisible }) => {
   );
 };
 
-export default Bar;
+export default Chart;

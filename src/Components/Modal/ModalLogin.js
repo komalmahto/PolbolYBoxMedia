@@ -177,7 +177,7 @@ const ModalLogin = ({
   const handleProfileUpdate = async (e) => {
     const { gender, religion, dateOfBirth, state, city } = profileData;
     e.preventDefault();
-    if (!gender || !religion || !dateOfBirth || !state || !city) {
+    if (!gender || !dateOfBirth || !state || !city) {
       toast.error("Fill all fields!");
       return;
     }
