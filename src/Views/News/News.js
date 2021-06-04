@@ -10,6 +10,8 @@ import CategoryBar from '../../Components/CategoryBar/CategoryBar';
 import { icons } from '../../Components/icons/Icons';
 import { Link } from 'react-router-dom';
 import DownloadModal from '../../Components/Modal/Modal';
+import moment from 'moment';
+import StarRatings from 'react-star-ratings';
 
 import {
   HeartOutlined,
@@ -21,7 +23,6 @@ import {
   HeartTwoTone 
 
 } from '@ant-design/icons';
-import ShareModal from '../../Components/Modal/ShareModal';
 
 import { Input } from 'antd';
 const { TextArea } = Input;
@@ -47,6 +48,8 @@ const News = ({
   const [like,setLike] = useState(false);
   const [comment, setComment] = useState(false);
   const [commentModal, setCommentModal] = useState(false);
+  const [comments , setComments] = useState([]);
+  const [commentsModal , setCommentsModal] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -95,6 +98,13 @@ const News = ({
         console.log(res.data.payload, 'trend');
         setTrending(res.data.payload.payload);
       });
+  };
+
+  const getComments = (id) => {
+    axios.get(`/common/comments?parentId=${id}&parentType=news`).then((res) => {
+      setComments(res.data.payload.data);
+      setCommentsModal(true);
+    });
   };
 
   useEffect(() => {
@@ -147,7 +157,7 @@ const News = ({
       await axios.post(`/comment`,        
       bodyParameters,
       config)
-      
+
       setComment('');
       setCommentModal(true);
     } catch (err) {
@@ -247,6 +257,32 @@ const News = ({
 
   return (
     <div className='news'>
+
+      <Modal
+        title='Comments'
+        visible={commentsModal}
+        onOk={()=>{setCommentsModal(false)}}
+        onCancel={()=>{setCommentsModal(false)}}
+        footer={null}
+        style={{
+          padding: '10px'
+        }}
+      >
+        {comments &&
+          comments.length > 0 &&
+          comments.map((c) => (
+            <div className='comment'>
+              <img style={{ width: '30px' }} src={c.user.avatar} alt='' />
+              <div className='det'>
+                <span>
+                  @{c.user.userName} <br/>
+                    {c.commentBody}
+                </span>
+              </div>
+            </div>
+          ))}
+      </Modal>
+
       <Modal
         visible={commentModal}
         onOk={()=>setCommentModal(false)}
@@ -338,10 +374,10 @@ const News = ({
             <div className='news-bot'>
               <div className='ico'>
                 <span>
-                <i style={{color:'red'}} className="fas fa-heart"></i>                  {data.likesCount}
+                <i style={{color:'red',fontSize:'2rem'}} className="fas fa-heart"></i> {data.likesCount}
                 </span>
                 <span>
-                  <CommentOutlined onClick={setMod} />
+                  <CommentOutlined onClick={() => getComments(data._id)} style={{fontSize:'2rem'}} />
                   {data.commentCount}
                 </span>
               {/*  <span

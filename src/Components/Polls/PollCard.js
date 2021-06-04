@@ -13,7 +13,7 @@ import {
   ShareAltOutlined,
   HeartTwoTone
 } from '@ant-design/icons';
-import { Rate , Radio, Input, Space } from 'antd';
+import { Rate, Radio, Input, Space } from 'antd';
 import { Link, useHistory } from 'react-router-dom';
 import axios from '../../axios';
 import { Modal, Button } from 'antd';
@@ -26,7 +26,7 @@ import ModalLogin from '../Modal/ModalLogin'
 const { TextArea } = Input;
 
 const PollCard = ({
-  auth: { token, user },
+  auth: { token, user},
 
   type2,
   p,
@@ -48,10 +48,10 @@ const PollCard = ({
   const [isCommentModal, setIsCommentModal] = useState(false);
   const [shareUrl, setShareUrl] = useState('');
   const [isVoteModal, setIsVoteModal] = useState(false);
-  const [answer,setAnswer]= useState({key:0,comment:''});
+  const [answer, setAnswer] = useState({ key: 0, comment: '' });
   const [voteModalData, setVoteModalData] = useState({});
 
-  const [loginModal,setLoginModal]=useState(false)
+  const [loginModal, setLoginModal] = useState(false)
 
   const showModal = (id) => {
     setIsModalVisible(true);
@@ -120,11 +120,13 @@ const PollCard = ({
       .then((res) => {
         setIsVoteModal(false);
         setVoteModalData({});
-        setAnswer({key:0,comment:''});
+        setAnswer({ key: 0, comment: '' });
         setVote(!vote);
       })
-      .catch((err) => {console.log(err);setIsVoteModal(false);
-      setVoteModalData({});setAnswer({key:0,comment:''});});
+      .catch((err) => {
+        console.log(err); setIsVoteModal(false);
+        setVoteModalData({}); setAnswer({ key: 0, comment: '' });
+      });
   }
 
   const Options = () => {
@@ -149,7 +151,7 @@ const PollCard = ({
         setIsModalVisible={setIsModalVisible}
         id={id}
     />*/}
-    <ModalLogin isModalVisible={loginModal} setIsModalVisible={setLoginModal}/>
+      <ModalLogin isModalVisible={loginModal} setIsModalVisible={setLoginModal} />
       <ShareModal
         shareUrl={shareUrl}
         isShareModalVisible={isShareModalVisible}
@@ -168,7 +170,7 @@ const PollCard = ({
         onCancel={handleCancel}
         footer={null}
         style={{
-          padding:'10px'
+          padding: '10px'
         }}
       >
         {comments &&
@@ -179,7 +181,7 @@ const PollCard = ({
               <div className='det'>
                 <span>
                   @{c.user.userName} Voted{' '}
-                  {typeof c.answer === 'number' ? (
+                  {p.type === 'bar' ? (
                     <StarRatings
                       rating={c.answer}
                       starRatedColor='brown'
@@ -189,7 +191,11 @@ const PollCard = ({
                       name='rating'
                     />
                   ) : (
-                    `${c.answer}`
+                    `${english ? p.options.filter((option) => {
+                      return option.key === c.answer
+                    })[0].name : p.options.filter((option) => {
+                      return option.key === c.answer
+                    })[0].name_hindi}`
                   )}{' '}
                 </span>
                 <p>{c.comment}</p>
@@ -229,8 +235,9 @@ const PollCard = ({
           />
         </div>
         <div style={{ marginTop: '10px' }}>
-          <Button type="primary" onClick={() => { 
- answerSubmitHandler(voteModalData.id) }}>Submit</Button>
+          <Button type="primary" onClick={() => {
+            answerSubmitHandler(voteModalData.id)
+          }}>Submit</Button>
         </div>
       </Modal>
 
@@ -238,7 +245,7 @@ const PollCard = ({
       <div
         // to={awardPath()}
         onClick={() => type2 === 'awards' && history.push(awardPath())}
-        className = { isAward  ? "award-po" : "po"}
+        className={isAward ? "award-po" : "po"}
       >
         <div className={
           type2 === 'polls'
@@ -275,10 +282,10 @@ const PollCard = ({
                 className='long-card-img'
                 style={{
                   backgroundImage: `url(${type2 === 'polls'
-                      ? p.image_hindi
-                      : p.icon_hindi
-                        ? p.icon_hindi
-                        : p.image
+                    ? p.image_hindi
+                    : p.icon_hindi
+                      ? p.icon_hindi
+                      : p.image
                     })`,
                 }}
               ></div>
@@ -349,35 +356,35 @@ const PollCard = ({
                 </span>} */}
               </div>
             )}
-            {type2 === 'polls' && type && type === 'active' && !p.userVote&& (
+            {type2 === 'polls' && type && type === 'active' && !p.userVote && (
               <span
                 style={{ cursor: 'pointer' }}
                 onClick={() => {
-                  if(!token){
+                  if (!token) {
                     setLoginModal(true)
                   }
-                  else if(token && !user.gender){
+                  else if (token && !user.gender) {
                     setLoginModal(true)
                   }
-                  else{
-                  setIsVoteModal(true); 
-                  setVoteModalData({
-                    type: p.type,
-                    question: english ? p.question : p.question_hindi,
-                    id: p._id,
-                    options: p.options
-                  })
-                }
+                  else {
+                    setIsVoteModal(true);
+                    setVoteModalData({
+                      type: p.type,
+                      question: english ? p.question : p.question_hindi,
+                      id: p._id,
+                      options: p.options
+                    })
+                  }
                 }}
                 style={{ color: '#56a7ff', cursor: 'pointer' }}
               >
                 {english ? 'Vote Now' : 'मतदान करें'}
               </span>
             )}
-            {type2 === 'polls' && type && type === 'active' && p.userVote&& (
+            {type2 === 'polls' && type && type === 'active' && p.userVote && (
               <span
                 style={{ cursor: 'pointer' }}
-                onClick={() => showModal(p._id)}
+                onClick={() => {showModal(p._id);}}
                 style={{ color: '#56a7ff', cursor: 'pointer' }}
               >
                 {english ? 'View Result' : 'परिणाम'} <i style={{ color: '#56a7ff' }}

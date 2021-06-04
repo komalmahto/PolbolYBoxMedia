@@ -32,7 +32,6 @@ const ModalLogin = ({
   });
   const [loginSuccessModal,setLoginSuccessModal] = useState(false);
   const [regionData, setRegionData] = useState([]);
-  const [profile, setProfile] = useState(false);
   const [profileData, setProfileData] = useState({
     gender: "",
     dateOfBirth: new Date(),
@@ -98,12 +97,14 @@ const ModalLogin = ({
             isSet: false,
           });
           setValid(true);
-          if (!res.data.payload.gender) {
-            setProfile(true);
-          } else {
-            setLoginSuccessModal(true);
-            setIsModalVisible(false);
-          }
+          // if (!res.data.payload.gender) {
+          //   setProfile(true);
+          // } else {
+            if (res.data.payload.gender) {
+              setLoginSuccessModal(true);
+              setIsModalVisible(false);
+            }
+          //}
         })
         .catch((err) => {
           console.log("invalid otp");
@@ -154,28 +155,9 @@ const ModalLogin = ({
     setValid(true);
 
   };
-  function handleChange(value) {
-    console.log(`selected ${value}`);
-  }
-
-  function onChange(value) {
-    console.log(`selected ${value}`);
-  }
-
-  function onBlur() {
-    console.log("blur");
-  }
-
-  function onFocus() {
-    console.log("focus");
-  }
-
-  function onSearch(val) {
-    console.log("search:", val);
-  }
 
   const handleProfileUpdate = async (e) => {
-    const { gender, religion, dateOfBirth, state, city } = profileData;
+    const { gender, dateOfBirth, state, city } = profileData;
     e.preventDefault();
     if (!gender || !dateOfBirth || !state || !city) {
       toast.error("Fill all fields!");
@@ -192,10 +174,8 @@ const ModalLogin = ({
         }
       })
       .then((res) => {
-        console.log(res.data.payload);
-        updateUser(res.data.payload)
         toast.success("Profile updated!");
-        setLoginSuccessModal(true);
+        updateUser(res.data.payload)
         setIsModalVisible(false)
       });
   };
@@ -280,7 +260,7 @@ const ModalLogin = ({
 
           </div>
         )}
-        {token && profile && (
+        {token && !user.gender && (
           <div>
             <center>
               {" "}
