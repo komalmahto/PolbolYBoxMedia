@@ -132,11 +132,12 @@ const Chart = ({ id, isModalVisible, setIsModalVisible }) => {
             Overall <Switch defaultChecked onChange={onChangeOverall} />
           </span>
           <Select
-          className="sel"
+            className="sel"
             mode='multiple'
             style={{ width: '100%' }}
             placeholder='select Age group'
             defaultValue={[]}
+            onClick={handleAgeChange}
             onChange={handleAgeChange}
             optionLabelProp='label'
           >
@@ -153,6 +154,7 @@ const Chart = ({ id, isModalVisible, setIsModalVisible }) => {
             style={{ width: '100%' }}
             placeholder='select Gender'
             defaultValue={[]}
+            onClick={handleGenderChange}
             onChange={handleGenderChange}
             optionLabelProp='label'
           >
@@ -169,6 +171,7 @@ const Chart = ({ id, isModalVisible, setIsModalVisible }) => {
             style={{ width: '100%' }}
             placeholder='select Regions'
             defaultValue={[]}
+            onClick={handleRegionChange}
             onChange={handleRegionChange}
             optionLabelProp='label'
           >

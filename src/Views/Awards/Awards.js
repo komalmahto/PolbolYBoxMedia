@@ -206,11 +206,11 @@ const Awards = ({ fetchAwards, awards: { awards },english:{english} } ) => {
             data.filter((p) => {
               return getExpiryString(p.lifeSpan) < 0;
             });
-          console.log(useData);
+          // console.log(useData);
         }
       }
-      console.log(useData, 'usedata');
-      console.log(awards,'awwwwww');
+      // console.log(useData, 'usedata');
+      // console.log(awards,'awwwwww');
     }
 
     return (

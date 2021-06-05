@@ -188,7 +188,7 @@ const News = ({
         if (responseJSON.payload.data === null) {
           setNewsBasedOnCategory([]);
         } else {
-          console.log(responseJSON,'hi')
+          setData(responseJSON.payload.payload[0])
           setNewsBasedOnCategory(responseJSON);
         }
         console.log(responseJSON, 'selected news');
@@ -204,6 +204,7 @@ const News = ({
           setNewsBasedOnCategory([]);
         } else {
           console.log(responseJSON)
+          setData(responseJSON.payload.data[0])
           setNewsBasedOnCategory(responseJSON);
         }
 
@@ -281,6 +282,10 @@ const News = ({
               </div>
             </div>
           ))}
+        {
+          comments &&
+          comments.length === 0 && (<h4>No comments to display</h4>)
+        }
       </Modal>
 
       <Modal
@@ -373,8 +378,10 @@ const News = ({
             </div>
             <div className='news-bot'>
               <div className='ico'>
-                <span>
-                <i style={{color:'red',fontSize:'2rem'}} className="fas fa-heart"></i> {data.likesCount}
+              <span className='i'>
+                  <span style={{ marginRight: '0.3rem' , fontSize:'2rem'}}>
+                   {token?data.likedByme?<i style={{ color: 'red' }} className="fas fa-heart"></i>:<i class="far fa-heart" ></i>:<i style={{ color: 'red' }} className="fas fa-heart"></i>  }</span>
+                  {data.likesCount}
                 </span>
                 <span>
                   <CommentOutlined onClick={() => getComments(data._id)} style={{fontSize:'2rem'}} />
@@ -391,16 +398,15 @@ const News = ({
               </div>
 
               <div className='read'>
-                <Link
-                  onClick={() => window.open(`${data.source}`)}
-                  target='_blank'
-                  className='readmore'
+                <a
+                  href={`${data.source}`}
+                  target="_blank"
                 >
                   {english ? `Read more ${data.publisher?`on ${data.publisher}`:``}` : `${data.publisher?data.publisher:``} पर और पढ़े`}{' '}
                   <span>
                     <RightOutlined />
                   </span>
-                </Link>
+                </a>
               </div>
             </div>
             <div className='copy'>

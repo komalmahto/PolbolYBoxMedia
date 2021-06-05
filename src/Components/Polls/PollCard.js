@@ -26,7 +26,7 @@ import ModalLogin from '../Modal/ModalLogin'
 const { TextArea } = Input;
 
 const PollCard = ({
-  auth: { token, user},
+  auth: { token, user },
 
   type2,
   p,
@@ -210,6 +210,10 @@ const PollCard = ({
               </div>
             </div>
           ))}
+        {
+          comments &&
+          comments.length === 0 && (<h2>No comments to display</h2>)
+        }
       </Modal>
 
 
@@ -332,7 +336,7 @@ const PollCard = ({
               <div className='ico'>
                 <span className='i'>
                   <span style={{ marginRight: '0.3rem' }}>
-                    <i style={{ color: 'red' }} className="fas fa-heart"></i>                 </span>
+                    {token ? p.likedByme ? <i style={{ color: 'red' }} className="fas fa-heart"></i> : <i class="far fa-heart"></i> : <i style={{ color: 'red' }} className="fas fa-heart"></i>}</span>
                   {p.likesCount}
                 </span>
                 <span
@@ -384,7 +388,7 @@ const PollCard = ({
             {type2 === 'polls' && type && type === 'active' && p.userVote && (
               <span
                 style={{ cursor: 'pointer' }}
-                onClick={() => {showModal(p._id);}}
+                onClick={() => { showModal(p._id); }}
                 style={{ color: '#56a7ff', cursor: 'pointer' }}
               >
                 {english ? 'View Result' : 'परिणाम'} <i style={{ color: '#56a7ff' }}

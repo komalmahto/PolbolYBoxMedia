@@ -17,10 +17,10 @@ const NewsCard = ({ p, setIt, data }) => {
     }
   };
 
- 
+
   return (
     <Link
-to={`/news/${p._id}`}
+      to={`/news/${p._id}`}
       onClick={() => setIt && setIt(p)}
       style={{ cursor: 'pointer' }}
       className='card'
@@ -84,6 +84,16 @@ to={`/news/${p._id}`}
             Read more <RightOutlined />
           </Link>
         )}
+        <span className='i'>
+          <span style={{ marginRight: '0.3rem' }}>
+            <i class="far fa-heart" ></i>
+            {p.likesCount}
+          </span>
+          <span style={{ marginRight: '0.3rem' }}>
+            <CommentOutlined />
+          </span>
+          {p.commentCount}
+        </span>
       </div>
     </Link>
   );
