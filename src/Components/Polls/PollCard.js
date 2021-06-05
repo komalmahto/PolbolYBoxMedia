@@ -336,7 +336,7 @@ const PollCard = ({
               <div className='ico'>
                 <span className='i'>
                   <span style={{ marginRight: '0.3rem' }}>
-                    {token ? p.likedByme ? <i style={{ color: 'red' }} className="fas fa-heart"></i> : <i class="far fa-heart"></i> : <i style={{ color: 'red' }} className="fas fa-heart"></i>}</span>
+                    {token ? p.likedByMe ? <i style={{ color: 'red' }} className="fas fa-heart"></i> : <i class="far fa-heart"></i> : <i style={{ color: 'red' }} className="fas fa-heart"></i>}</span>
                   {p.likesCount}
                 </span>
                 <span

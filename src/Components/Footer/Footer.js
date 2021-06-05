@@ -53,16 +53,13 @@ const Footer = () => {
                         <br/>
                         <Link to="/" style={{color: "white"}}>
                             <h3 style={{color: "white"}}>Home</h3>
-                        </Link>
-                        <Link to="" onClick={()=>setIsModalVisible(true)} style={{color: "white"}}>
+                        </Link>                       
+                        <a href="https://apps.apple.com/pa/app/polbol/id1476395002?l=en" style={{color: "white"}} target="_blank">
                             <h3 style={{color: "white"}}>Download App</h3>
-                        </Link>
-                        <Link to="" style={{color: "white"}}>
-                            <h3 style={{color: "white"}}>Privacy Policy</h3>
-                        </Link>
-                        <Link to="" style={{color: "white"}}>
+                        </a>
+                        <a href="https://polbol-media.s3.ap-south-1.amazonaws.com/ToS.pdf" style={{color: "white"}} target="_blank">
                             <h3 style={{color: "white"}}>Terms and Conditions</h3>
-                        </Link>
+                        </a>
                         <Link to="" style={{color: "white"}}>
                             <h3 style={{color: "white"}}>About Developer</h3>
                         </Link>

@@ -50,15 +50,15 @@ const News = ({
   const [commentModal, setCommentModal] = useState(false);
   const [comments , setComments] = useState([]);
   const [commentsModal , setCommentsModal] = useState(false);
+  const initialRender1 = useRef(true);
+  const initialRender2 = useRef(true);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
   useEffect(() => {
-    console.log(match);
     const ne = history.location.pathname.split('/')[2];
-    console.log(ne);
     if (news && news.payload.length > 0) {
       const lol = news.payload.filter((f) => {
         return f._id === history.location.pathname.split('/')[2];
@@ -68,17 +68,32 @@ const News = ({
       setData(lol[0]);
     }
     if (news && news.payload.length > 0 && !ne) {
-     
+      console.log(news.payload);
       setData(news.payload[0]);
     }
+    setNewsBasedOnCategory({payload:{data:[...news.payload]}});
+    fetchNews(english);
+    getTrending();
   }, [news, history.location.pathname]);
 
   console.log(history.location.pathname.split('/')[2], 'his');
   
   useEffect(() => {
+    if(!initialRender1.current){
+    fetchNewsSelected(1);
+    }else{
+      initialRender1.current = false;
+    }
+  }, [selectedTags, english,token]);
+
+  useEffect(() => {
+    if(!initialRender2.current){
     fetchNews(english);
     fetchNewsSelected(1);
     getTrending();
+    }else{
+      initialRender2.current = false;
+    }
   }, [english]);
 
   const loadMorePage = () => {
@@ -107,9 +122,7 @@ const News = ({
     });
   };
 
-  useEffect(() => {
-    fetchNewsSelected(1);
-  }, [selectedTags, english,token]);
+
 
   useEffect(() => {
     if (page !== 1) {
@@ -165,11 +178,21 @@ const News = ({
     }
   }
 
+  const buildTemplate = (raw)=>{
+    let data = raw.payload.data;
+    news = data.filter((el)=>{
+      return el.type==='news'
+    });
+    return news.map((element)=>{
+      return {...element.payload}
+    })
+}
+
   const fetchNewsSelected = async (page) => {
     const queryParam = selectedTags.join(',');
     try {
       if (token) {
-        const response = await axios.get(`/news?hindi=${!english}`, {
+        const response = await axios.get(`/feed/timeline?hindi=${!english}`, {
           headers: {
             Authorization: {
               toString() {
@@ -183,12 +206,11 @@ const News = ({
           },
         })
         const responseJSON = response.data;
-        responseJSON.payload.data = [...responseJSON.payload.payload]
-        console.log(responseJSON)
         if (responseJSON.payload.data === null) {
           setNewsBasedOnCategory([]);
         } else {
-          setData(responseJSON.payload.payload[0])
+          responseJSON.payload.data = [...buildTemplate(responseJSON)];
+          setData(responseJSON.payload.data[0])
           setNewsBasedOnCategory(responseJSON);
         }
         console.log(responseJSON, 'selected news');
@@ -380,7 +402,7 @@ const News = ({
               <div className='ico'>
               <span className='i'>
                   <span style={{ marginRight: '0.3rem' , fontSize:'2rem'}}>
-                   {token?data.likedByme?<i style={{ color: 'red' }} className="fas fa-heart"></i>:<i class="far fa-heart" ></i>:<i style={{ color: 'red' }} className="fas fa-heart"></i>  }</span>
+                   {token?data.likedByMe?<i style={{ color: 'red' }} className="fas fa-heart"></i>:<i class="far fa-heart" ></i>:<i style={{ color: 'red' }} className="fas fa-heart"></i>  }</span>
                   {data.likesCount}
                 </span>
                 <span>

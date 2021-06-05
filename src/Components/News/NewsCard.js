@@ -7,8 +7,9 @@ import {
 } from '@ant-design/icons';
 import { icons } from '../icons/Icons';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-const NewsCard = ({ p, setIt, data }) => {
+const NewsCard = ({ auth: { token, user }, p, setIt, data }) => {
   const setBord = () => {
     if (data) {
       if (p._id === data._id) {
@@ -86,7 +87,7 @@ const NewsCard = ({ p, setIt, data }) => {
         )}
         <span className='i'>
           <span style={{ marginRight: '0.3rem' }}>
-            <i class="far fa-heart" ></i>
+            {token ? p.likedByMe ? <i style={{ color: 'red' }} className="fas fa-heart"></i> : <i class="far fa-heart" ></i> : <i class="far fa-heart" ></i>}
             {p.likesCount}
           </span>
           <span style={{ marginRight: '0.3rem' }}>
@@ -99,4 +100,10 @@ const NewsCard = ({ p, setIt, data }) => {
   );
 };
 
-export default NewsCard;
+const mapStateToProps = (state) => ({
+  auth: state.auth
+});
+
+export default connect(mapStateToProps)(NewsCard);
+
+

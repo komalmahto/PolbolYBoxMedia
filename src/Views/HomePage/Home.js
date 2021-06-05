@@ -14,7 +14,8 @@ import NewsCard from '../../Components/News/NewsCard';
 import NewsTrendingCard from '../../Components/News/NewsTrendingCard';
 import {Link} from 'react-router-dom'
 
-const Home = ({ fetchNews, news: { news },english:{english},history}) => {
+const Home = ({ auth: { token, user },
+  fetchNews, news: { news },english:{english},history}) => {
   const [selectedTags, setSelectedTags] = useState([]);
   const [newsBasedOnCategory, setNewsBasedOnCategory] = useState({});
   const [trending,setTrending]=useState([])
@@ -29,18 +30,58 @@ const Home = ({ fetchNews, news: { news },english:{english},history}) => {
     fetchNewsSelected();
   }, [selectedTags]);
 
+  const buildTemplate = (raw)=>{
+      let data = raw.payload.data;
+      news = data.filter((el)=>{
+        return el.type==='news'
+      });
+      return news.map((element)=>{
+        return {...element.payload}
+      })
+  }
+
   const fetchNewsSelected = async (page) => {
     const queryParam = selectedTags.join(',');
     try {
-      const response = await axios.get(`/common/news?hindi=${!english}`, {
-        params: {
-          page,
-          categories: selectedTags.length > 0 ? queryParam : undefined,
-        },
-      });
-      const responseJSON = response.data;
-      setNewsBasedOnCategory(responseJSON);
-      console.log(responseJSON, 'selected news');
+      if (token) {
+        const response = await axios.get(`/feed/timeline?hindi=${!english}`, {
+          headers: {
+            Authorization: {
+              toString() {
+                return `Bearer ` + JSON.parse(token);
+              }
+            }
+          },
+          params: {
+            page,
+            categories: selectedTags.length > 0 ? queryParam : undefined,
+          },
+        })
+        const responseJSON = response.data;
+        if (responseJSON.payload.data === null) {
+          setNewsBasedOnCategory([]);
+        } else {
+          responseJSON.payload.data = [...buildTemplate(responseJSON)];
+          setNewsBasedOnCategory(responseJSON);
+        }
+        console.log(responseJSON, 'selected news');
+      } else {
+        const response = await axios.get(`/common/news?hindi=${!english}`, {
+          params: {
+            page,
+            categories: selectedTags.length > 0 ? queryParam : undefined,
+          },
+        });
+        const responseJSON = response.data;
+        if (responseJSON.payload.data === null) {
+          setNewsBasedOnCategory([]);
+        } else {
+          console.log(responseJSON)
+          setNewsBasedOnCategory(responseJSON);
+        }
+
+        console.log(responseJSON, 'selected news');
+      }
     } catch (err) {
       console.log(err);
     }
@@ -178,7 +219,8 @@ else return p
 };
 const mapStateToProps = (state) => ({
   news: state.news,
-  english:state.english
+  english:state.english,
+  auth:state.auth
 });
 
 export default connect(mapStateToProps, {
