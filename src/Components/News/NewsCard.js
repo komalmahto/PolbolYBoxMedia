@@ -85,7 +85,7 @@ const NewsCard = ({ auth: { token, user }, p, setIt, data }) => {
             Read more <RightOutlined />
           </Link>
         )}
-        <span className='i'>
+        {/* <span className='i'>
           <span style={{ marginRight: '0.3rem' }}>
             {token ? p.likedByMe ? <i style={{ color: 'red' }} className="fas fa-heart"></i> : <i class="far fa-heart" ></i> : <i class="far fa-heart" ></i>}
             {p.likesCount}
@@ -94,7 +94,7 @@ const NewsCard = ({ auth: { token, user }, p, setIt, data }) => {
             <CommentOutlined />
           </span>
           {p.commentCount}
-        </span>
+        </span> */}
       </div>
     </Link>
   );

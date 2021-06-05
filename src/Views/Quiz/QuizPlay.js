@@ -12,6 +12,7 @@ import { FieldTimeOutlined, LogoutOutlined } from '@ant-design/icons';
 import {connect} from 'react-redux'
 import lose from '../../assets/lose.png'
 import win from '../../assets/Win.png'
+import DownloadModal from '../../Components/Modal/Modal';
 const { confirm } = Modal;
 
 const QuizPlay = ({ match, history,english:{english} }) => {
@@ -35,7 +36,8 @@ const QuizPlay = ({ match, history,english:{english} }) => {
     taken:false
   })
   const [hintRes,setHintRes]=useState({});
-  const [alert,setAlert]=useState(false)
+  const [alert,setAlert]=useState(false);
+  const [isDownloadModalVisible, setIsDownloadModalVisible] = useState(false);
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -265,7 +267,11 @@ const QuizPlay = ({ match, history,english:{english} }) => {
 
   return (
     <div className='box'>
-   
+      <DownloadModal
+        isModalVisible={isDownloadModalVisible}
+        setIsModalVisible={setIsDownloadModalVisible}
+        text={"To enjoy the complete experience of quiz download our app."}
+      />
       <Modal
         title='Result'
         visible={isModalVisible}
@@ -292,7 +298,7 @@ const QuizPlay = ({ match, history,english:{english} }) => {
       <div className='quiz-box'>
       
         <div className='quiz-head'>
-        <div className="hint"><span>{hint.value}</span><img style={{height:'35px'}} src={light}></img></div>
+        {/* <div className="hint"><span>{hint.value}</span><img style={{height:'35px'}} src={light}></img></div> */}
           <span className='level'>{english?'Level':'स्तर'} 1 </span>
           <span className='timer'>
             <FieldTimeOutlined className='timer-logo' />
@@ -330,7 +336,7 @@ const QuizPlay = ({ match, history,english:{english} }) => {
                   </span>
                 ))}
               </div>
-              <div className="hint-btn"><span style={{cursor:'pointer'}} onClick={()=>getHint(display._id)}><img style={{height:'25px'}} src={light}></img>{english?'Hint':'हिंट'}</span> </div>
+              <div className="hint-btn"><span style={{cursor:'pointer'}} onClick={()=>{setIsDownloadModalVisible(true)}}><img style={{height:'25px'}} src={light}></img>{english?'Hint':'हिंट'}</span> </div>
               
                 <div className='buttons'>
                 {Object.keys(result).length > 0 && (

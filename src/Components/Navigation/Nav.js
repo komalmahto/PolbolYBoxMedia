@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Select } from 'antd';
+import { Select , Switch  } from 'antd';
 import { Menu, Dropdown } from 'antd';
 import { DownOutlined, UserOutlined, MessageOutlined } from '@ant-design/icons';
 import logo from '../../assets/2160 4K.gif';
@@ -16,13 +16,12 @@ const { Option } = Select;
 const Nav = ({ fetchLanguage, logout, english: { english }, auth: { token, user } }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const location = useLocation();
-  const handleChange = (e) => {
-    console.log(e);
-    if (e === 'english') {
+  const handleChange = (checked) => {
+    if (checked) {
       fetchLanguage(true);
       localStorage.setItem('language', JSON.stringify(true));
     }
-    if (e === 'hindi') {
+    if (!checked) {
       fetchLanguage(false);
       localStorage.setItem('language', JSON.stringify(false));
     }
@@ -125,7 +124,7 @@ const Nav = ({ fetchLanguage, logout, english: { english }, auth: { token, user 
             >
               <Link to='/quiz'>{english ? 'QUIZ' : 'क्विज़'}</Link>
             </li>
-            <li style={{ position: 'absolute', right: '110px' }}>
+            <li style={{ position: 'absolute', right: '175px' }}>
               <Dropdown className='guest' overlay={menu}>
                 <a
                   className='ant-dropdown-link guest-item'
@@ -142,7 +141,8 @@ const Nav = ({ fetchLanguage, logout, english: { english }, auth: { token, user 
               </Dropdown>
             </li>
             <li style={{ position: 'absolute', right: '0px' }}>
-              <Select
+            <span>हिंदी</span><Switch style={{margin:'0 1rem'}} defaultChecked={english ? true:false } onChange={handleChange} /><span>English</span>
+              {/* <Select
                 bordered={false}
                 className='language'
                 style={{ width: 100, color: 'white' }}
@@ -162,7 +162,7 @@ const Nav = ({ fetchLanguage, logout, english: { english }, auth: { token, user 
                 <Option className='language-option' value='hindi'>
                   <span>{english ? 'Hindi' : 'हिंदी '}</span>
                 </Option>
-              </Select>
+              </Select> */}
             </li>
           </ul>
         </div>

@@ -42,10 +42,12 @@ const NomineeCard = ({ p }) => {
             height: '200px',
             width: '200px',
             backgroundImage: `url(${p.image})`,
+            cursor:'pointer'
           }}
+          onClick={() => { setOpen(true); setYtlink(p.ytlink) }}
         ></div>
         <div style={{ textAlign: 'center', fontWeight: 'bold', marginTop: '1rem' }}>{p.name}</div>
-        <div style={{ display: 'flex', justifyContent: 'space-evenly', marginTop: '1rem', alignItems: 'center' }}>{<PlayCircleOutlined onClick={() => { setOpen(true); setYtlink(p.ytlink) }} />}{<Button style={{ cursor: 'pointer', backgroundColor: 'rgb(172, 7, 75)', color: 'white' }} onClick={vote}>Vote Now</Button>} {<a style={{ fontSize: '2rem' }} target='_blank' rel={'external'} href={p.weblink}><ArrowRightOutlined /></a>}</div>
+        <div style={{ display: 'flex', justifyContent: 'space-evenly', marginTop: '1rem', alignItems: 'center' }}>{<PlayCircleOutlined onClick={() => { setOpen(true); setYtlink(p.ytlink) }} />}{<Button style={{ cursor: 'pointer', backgroundColor: 'rgb(172, 7, 75)', color: 'white' }} onClick={vote}>Vote Now</Button>} {<a style={{ fontSize: '1.5rem' ,color:'black' }} target='_blank' rel={'external'} href={p.weblink}><ArrowRightOutlined /></a>}</div>
       </div>
     </>
   );

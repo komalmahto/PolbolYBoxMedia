@@ -100,10 +100,8 @@ const ModalLogin = ({
           // if (!res.data.payload.gender) {
           //   setProfile(true);
           // } else {
-            if (res.data.payload.gender) {
-              setLoginSuccessModal(true);
-              setIsModalVisible(false);
-            }
+            setLoginSuccessModal(true);
+            setIsModalVisible(false);
           //}
         })
         .catch((err) => {
@@ -187,8 +185,12 @@ const ModalLogin = ({
         onOk={()=>setLoginSuccessModal(false)}
         onCancel={()=>{setLoginSuccessModal(false)}}
         footer={null}
+        style={{maxWidth:'max-content'}}
       >
-        <h3>Logged in succesfully</h3>
+        <div>
+        <h3 style={{textAlign:"center",padding:'20px'}}>Logged in succesfully</h3>
+        <Button onClick={()=>{setLoginSuccessModal(false)}} type="primary" style={{position:'absolute',right:'20px',bottom:'10px'}}>OK</Button>
+        </div>
       </Modal>
       <Modal
         visible={isModalVisible}

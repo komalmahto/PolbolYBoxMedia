@@ -46,7 +46,7 @@ const News = ({
   const [page, setPage] = useState(1);
   const [y, setY] = useState(0);
   const [like,setLike] = useState(false);
-  const [comment, setComment] = useState(false);
+  const [comment, setComment] = useState(null);
   const [commentModal, setCommentModal] = useState(false);
   const [comments , setComments] = useState([]);
   const [commentsModal , setCommentsModal] = useState(false);
@@ -171,7 +171,7 @@ const News = ({
       bodyParameters,
       config)
 
-      setComment('');
+      setComment(null);
       setCommentModal(true);
     } catch (err) {
       console.log(err);
@@ -389,8 +389,11 @@ const News = ({
                     }}
                     placeholder={english ? "Comment (optional)" : "टिप्पणी (वैकल्पिक)"}
                     autoSize={{ minRows: 3, maxRows: 5 }}
-                  /> <Button type="primary" style={{marginTop:'5px'}} onClick={() => { commentHandler(data._id);
-                  }}>Submit</Button></p> : null
+                  /> </p> : null
+                }
+                {
+                  token && comment && (<p><Button type="primary" style={{marginTop:'5px'}} onClick={() => { commentHandler(data._id);
+                  }}>Submit</Button></p>)
                 }
                 {/*<div className="download">
         <p>To enjoy the full experience of PolBol,download the PolBol App</p>
@@ -403,11 +406,11 @@ const News = ({
               <span className='i'>
                   <span style={{ marginRight: '0.3rem' , fontSize:'2rem'}}>
                    {token?data.likedByMe?<i style={{ color: 'red' }} className="fas fa-heart"></i>:<i class="far fa-heart" ></i>:<i style={{ color: 'red' }} className="fas fa-heart"></i>  }</span>
-                  {data.likesCount}
+                  {/* {data.likesCount} */}
                 </span>
                 <span>
                   <CommentOutlined onClick={() => getComments(data._id)} style={{fontSize:'2rem'}} />
-                  {data.commentCount}
+                  {/* {data.commentCount} */}
                 </span>
               {/*  <span
                   style={{ cursor: 'pointer' }}

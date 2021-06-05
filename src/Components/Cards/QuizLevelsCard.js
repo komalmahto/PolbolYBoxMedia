@@ -3,7 +3,7 @@ import { PlayCircleOutlined, LockOutlined } from '@ant-design/icons'
 
 const QuizLevelsCard = ({ level, english }) => {
   return (
-    <div className="level-card" >
+    <div className="level-card" style={{cursor:'pointer'}} >
       <div className="left">
         <img style={{ width: '70px' }} src={level.icon} alt='' />
         <div className="meta">
