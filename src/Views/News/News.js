@@ -381,7 +381,7 @@ const News = ({
                   <p style={{textTransform:'none'}}>{data && data.headline ? data.headline : data.title}</p>
                 </div>
                 <p style={{wordBreak:'break-word',textTransform:'none'}}>{data && data.description}</p>
-                {
+                {/* {
                   token ? <p><TextArea
                     value={comment}
                     onChange={({ target: { value } }) => {
@@ -394,7 +394,7 @@ const News = ({
                 {
                   token && comment && (<p><Button type="primary" style={{marginTop:'5px'}} onClick={() => { commentHandler(data._id);
                   }}>Submit</Button></p>)
-                }
+                } */}
                 {/*<div className="download">
         <p>To enjoy the full experience of PolBol,download the PolBol App</p>
         <span>Download PolBol App</span>

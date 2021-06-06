@@ -11,7 +11,7 @@ const HomeSection3 = () => {
       <div className='disp' style={{ backgroundColor: 'white' }}>
         <div>
           <img
-            style={{ width: '50px', width: '100px', borderRadius: '50px' }}
+            style={{ width: '150px', borderRadius: '50px' }}
             src={im}
             alt=''
           />
@@ -26,7 +26,7 @@ const HomeSection3 = () => {
       <div className='disp' style={{ backgroundColor: 'white' }}>
         <div>
           <img
-            style={{ width: '50px', width: '100px', borderRadius: '50px' }}
+            style={{ width: '150px', borderRadius: '50px' }}
             src={il}
             alt=''
           />

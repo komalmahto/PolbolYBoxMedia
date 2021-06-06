@@ -1508,7 +1508,7 @@ body::-webkit-scrollbar-thumb:hover {
   border-radius: 10px;
   margin-bottom: 1.5rem;
   padding: 1rem;
-  max-width: 50%;
+  max-width: 25%;
 }
 
 .class-slide {

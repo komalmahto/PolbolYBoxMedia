@@ -13,7 +13,7 @@ import {
   ShareAltOutlined,
   HeartTwoTone
 } from '@ant-design/icons';
-import { Rate, Radio, Input, Space } from 'antd';
+import { Rate, Radio, Input, Space} from 'antd';
 import { Link, useHistory } from 'react-router-dom';
 import axios from '../../axios';
 import { Modal, Button } from 'antd';
@@ -258,7 +258,7 @@ const PollCard = ({
         }>
           <div className='lef'>
             {' '}
-            <span className='heading'>
+            <span className='heading' style={{minWidth:'max-content'}}>
               {type2 === 'polls' && (
                 <img
                   style={{ height: '25px', width: '25px', marginRight: '1rem' }}
@@ -270,7 +270,9 @@ const PollCard = ({
               {type2 === 'polls'
                 ? `Poll on ${p.categories[0]}`
                 : `${getExpiryString1 && getExpiryString1(p.lifeSpan)}`}
+              {type2 === 'polls' ? <span style={{fontSize:'1.2rem'}}> . Expires in {moment(p.lifeSpan).diff(moment(),'days')} days </span> : null}
             </span>
+          
             {english && (
 
               <div
@@ -278,6 +280,7 @@ const PollCard = ({
                 style={{
                   backgroundImage: `url(${type2 === 'polls' ? p.image : p.icon ? p.icon : p.image
                     })`,
+                  width:'100%'
                 }}
               ></div>
             )}
@@ -361,8 +364,8 @@ const PollCard = ({
               </div>
             )}
             {type2 === 'polls' && type && type === 'active' && !p.userVote && (
-              <span
-                style={{ cursor: 'pointer' }}
+              <Button
+                style={{ cursor: 'pointer' , backgroundColor:'#a62844' , color:'white' }}
                 onClick={() => {
                   if (!token) {
                     setLoginModal(true)
@@ -380,18 +383,16 @@ const PollCard = ({
                     })
                   }
                 }}
-                style={{ color: '#56a7ff', cursor: 'pointer' }}
               >
                 {english ? 'Vote Now' : 'मतदान करें'}
-              </span>
+              </Button>
             )}
             {type2 === 'polls' && type && type === 'active' && p.userVote && (
               <span
-                style={{ cursor: 'pointer' }}
+                style={{ cursor: 'pointer', color:'#a62844' }}
                 onClick={() => { showModal(p._id); }}
-                style={{ color: '#56a7ff', cursor: 'pointer' }}
               >
-                {english ? 'View Result' : 'परिणाम'} <i style={{ color: '#56a7ff' }}
+                {english ? 'View Result' : 'परिणाम'} <i style={{color:'#a62844' }}
                   className="fas fa-chart-pie"></i>
               </span>
             )}
@@ -408,7 +409,7 @@ const PollCard = ({
             <div className='read-more-poll'>
               {type2 === 'polls' && (
                 <Link
-                  style={{ textAlign: 'right' }}
+                  style={{ textAlign: 'right' , color:'#a62844'}}
                   onClick={() =>
                     english
                       ? window.open(`${p.url}`)

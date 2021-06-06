@@ -186,10 +186,15 @@ const ModalLogin = ({
         onCancel={()=>{setLoginSuccessModal(false)}}
         footer={null}
         style={{maxWidth:'max-content'}}
+        closable={false}
       >
-        <div>
+        <div style={{alignItems:'center' , display:'flex', flexDirection:'column'}}>
+          <div>
         <h3 style={{textAlign:"center",padding:'20px'}}>Logged in succesfully</h3>
-        <Button onClick={()=>{setLoginSuccessModal(false)}} type="primary" style={{position:'absolute',right:'20px',bottom:'10px'}}>OK</Button>
+        </div>
+        <div>
+        <Button onClick={()=>{setLoginSuccessModal(false)}} type="primary">OK</Button>
+        </div>
         </div>
       </Modal>
       <Modal

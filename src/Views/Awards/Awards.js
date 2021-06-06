@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import CategoryBar from '../../Components/CategoryBar/CategoryBar';
-import { cats,catspa } from '../../Components/icons/Icons';
+import { cats,catsAward} from '../../Components/icons/Icons';
 import { Tabs } from 'antd';
 import axios from '../../axios';
 import moment from 'moment';
@@ -91,7 +91,6 @@ const Awards = ({ fetchAwards, awards: { awards },english:{english} } ) => {
     let difference = Math.floor(duration.asDays());
     let minDiff = Math.floor(duration.asMinutes());
     console.log(minDiff, 'diff');
-
     let unit = 'days';
     if (difference < 1) {
       difference = Math.floor(duration.asHours());
@@ -103,7 +102,7 @@ const Awards = ({ fetchAwards, awards: { awards },english:{english} } ) => {
     }
     return minDiff < 0
       ? 'show has expired'
-      : `${duration._data.hours} hours ${duration._data.minutes} minutes left!!`;
+      : `${duration._data.days} Days ${duration._data.hours} hours ${duration._data.minutes} minutes left!!`;
   };
   const handleOk = () => {
     setType3(false);
@@ -318,7 +317,7 @@ const Awards = ({ fetchAwards, awards: { awards },english:{english} } ) => {
           <CategoryBar
             onChange={onChange}
             checkChecked={checkChecked}
-            cats={catspa}
+            cats={catsAward}
           />
           <Tabs
           size={'large'}

@@ -17,16 +17,19 @@ const AwardSubCategories = ({ match }) => {
       })
   }
   return (
-    <div className="box" style={{ backgroundColor: '#f5f5f5' }}>
-      {/* <div style={{ marginBottom: '2rem' }}>
+    <React.Fragment>
+      <Link to={`/award/categories/${match.params.showId}`}><span style={{ fontSize: '1.7rem'}}><i class="fas fa-arrow-left"></i> &nbsp; Back</span></Link>
+      <div className="box" style={{ backgroundColor: '#f5f5f5' }}>
+        {/* <div style={{ marginBottom: '2rem' }}>
         <h2></h2>
         <span style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>Sub Categories</span></div> */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(300px,1fr))', justifyItems: 'center' }}>
-        {subCat.map((c) => (<Link to={`/categories/subcat/award/${match.params.showId}/${match.params.catId}/${c._id}`}><AwardCategoriesCard c={c} type={"sub"} /></Link>
-        ))
-        }
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(300px,1fr))', justifyItems: 'center' }}>
+          {subCat.map((c) => (<Link to={`/categories/subcat/award/${match.params.showId}/${match.params.catId}/${c._id}`}><AwardCategoriesCard c={c} type={"sub"} /></Link>
+          ))
+          }
+        </div>
       </div>
-    </div>
+    </React.Fragment>
   )
 }
 

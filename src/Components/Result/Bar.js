@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Modal, Button } from 'antd';
+import { Modal, Button , Input} from 'antd';
 import { Select } from 'antd';
 import axios from '../../axios';
 import ReactApexChart from 'react-apexcharts';
@@ -101,16 +101,36 @@ const Chart = ({ id, isModalVisible, setIsModalVisible }) => {
           },
         },
         interactions: [{ type: 'element-selected' }, { type: 'element-active' }],
+        legend: {
+          layout: 'vertical',
+          position: 'bottom',
+          flipPage:false
+        }
       };
     }
     if (data.poll.type === 'bar') {
       chartData = data.global.chartData.map((p) => {
-        return { rating: `${p.rating}`, Percentage: p.perc };
+        return { rating: `${p.rating}`, Percentage: p.perc};
       })
+      chartData.reverse()
       config = {
         data: chartData,
         xField: 'Percentage',
         yField: 'rating',
+        label: {
+          position: 'middle',
+          layout: [
+            { type: 'interval-adjust-position' },
+            { type: 'interval-hide-overlap' },
+            { type: 'adjust-color' },
+          ],
+          content:function content(_ref) {
+            var percent = _ref.Percentage;
+            console.log(_ref);
+            return ''.concat(" ",percent, '%');
+          }
+        },
+        color:'#ac074b'
       };
     }
 
@@ -128,10 +148,11 @@ const Chart = ({ id, isModalVisible, setIsModalVisible }) => {
           visible={isModalVisible}
           footer={null}
         >
-          <span  className="chck">
+          {/* <span  className="chck">
             Overall <Switch defaultChecked onChange={onChangeOverall} />
-          </span>
-          <Select
+          </span> */}
+          <Input style={{marginTop:'10px',marginBottom:'5px'}}  readOnly placeholder="Age" onClick={handleAgeChange}/>
+          {/* <Select
             className="sel"
             mode='multiple'
             style={{ width: '100%' }}
@@ -147,8 +168,9 @@ const Chart = ({ id, isModalVisible, setIsModalVisible }) => {
                   {key}
                 </Option>
               ))}
-          </Select>
-          <Select
+          </Select> */}
+          <Input style={{marginTop:'5px',marginBottom:'5px'}}  readOnly placeholder="Gender" onClick={handleGenderChange}/>
+          {/* <Select
           className="sel"
             mode='multiple'
             style={{ width: '100%' }}
@@ -164,8 +186,9 @@ const Chart = ({ id, isModalVisible, setIsModalVisible }) => {
                   {key}
                 </Option>
               ))}
-          </Select>
-          <Select
+          </Select> */}
+          <Input style={{marginTop:'5px',marginBottom:'10px'}}  readOnly placeholder="Regions" onClick={handleRegionChange}/>
+          {/* <Select
           className="sel"
             mode='multiple'
             style={{ width: '100%' }}
@@ -181,7 +204,7 @@ const Chart = ({ id, isModalVisible, setIsModalVisible }) => {
                   {key}
                 </Option>
               ))}
-          </Select>
+          </Select> */}
 
           <p>{data.poll.question}</p>
 
@@ -245,7 +268,8 @@ const Chart = ({ id, isModalVisible, setIsModalVisible }) => {
               
               {data && Object.keys(data).length > 0 &&
                 data.poll.type === 'bar' && (
-                  <div>
+                  <div >
+                    <p style={{textAlign:'center' , fontWeight:'bold'}}><p style={{ marginRight: '1rem', textTransform:'none' }}>Total votes : {data.global.totalVotes}</p><p>Average Rating: {data.global.averageRating}</p></p>
                     <Bar {...config} />
                   </div>
                 )

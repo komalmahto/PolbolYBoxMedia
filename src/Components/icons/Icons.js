@@ -79,11 +79,27 @@ export const catspa=[ 'Social Issues',
  'Entertainment' ,
  'Sports',
  'Business',
- 'Elections',
+ 'Election',
  'Education',
  'Economy', 
  'Health',
  'Fashion',
 'Bollywood',
 "Indian Politics"
+]
+
+export const catsAward=[ 'Social Issues',
+"Tech",
+ 'Legal',
+ 'Media',
+ 'Entertainment' ,
+ 'Sports',
+ 'Business',
+ 'Election',
+ 'Education',
+ 'Economy', 
+ 'Health',
+ 'Fashion',
+'Bollywood',
+"Politics"
 ]
