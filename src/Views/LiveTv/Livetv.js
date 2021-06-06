@@ -8,12 +8,12 @@ import { Switch } from 'antd';
 
 
 
-const Livetv = ({fetchNews,news:{news},history}) => {
+const Livetv = ({english: { english },fetchNews,news:{news},history}) => {
   const [channels,setChannels]=useState([])
-  const [english,setEnglish]=useState(true)
+  const [englishLan,setEnglishLan]=useState(true)
   const [trending,setTrending]=useState([])
 
-  const [play,setPlay]=useState(english? {
+  const [play,setPlay]=useState(englishLan? {
     "language": "english",
     "priority": 90,
     "hidden": false,
@@ -40,7 +40,7 @@ const Livetv = ({fetchNews,news:{news},history}) => {
     fetchNews();
     fetchChannels();
     getTrending();
-  },[])
+  },[english])
   const getTrending=async()=>{
     await axios.get(`notification/latest?language=${english?'english':'hindi'}`).then((res)=>{
       console.log(res.data.payload,"trend")
@@ -49,7 +49,7 @@ const Livetv = ({fetchNews,news:{news},history}) => {
   }
 
   useEffect(()=>{
-    if(english){
+    if(englishLan){
       setPlay({
         "language": "english",
         "priority": 90,
@@ -78,7 +78,7 @@ const Livetv = ({fetchNews,news:{news},history}) => {
       })
     }
 
-  },[english])
+  },[englishLan])
 const fetchChannels=async()=>{
   await axios.get("channels")
   .then((res)=>{
@@ -97,7 +97,7 @@ setPlay(c)
 }
 function onChange(checked) {
   console.log(`switch to ${checked}`);
-  setEnglish(checked)
+  setEnglishLan(checked)
 }
 const checkPlaying=(id)=>{
   console.log(play._id,id)
@@ -140,7 +140,7 @@ else {
   <section  className='news-section1'>
     <div className="left">
     <div style={{marginBottom:'2rem'}}>
-    {channels.filter((h)=>{return h.hidden===false}).filter((p)=>{return english?p.language==='english':p.language==="hindi" }).map((c)=>(
+    {channels.filter((h)=>{return h.hidden===false}).filter((p)=>{return englishLan?p.language==='english':p.language==="hindi" }).map((c)=>(
       <img style={checkPlaying(c._id)} onClick={()=>playTv(c)}  src={c.image} alt=""/>
     ))}
     
@@ -154,7 +154,7 @@ else {
     </div>
     <div className='spotlight'>
       <div className='spotlight-head'>
-        <span>Trending News</span>
+        <span>{english ? 'Trending News' : 'ट्रेंडिंग समाचार' }</span>
         <span style={{color:'#56a7ff'}}>View all</span>
       </div>
       <div className='trending-news'>
@@ -176,6 +176,7 @@ else {
 
 const mapStateToProps = (state) => ({
   news: state.news,
+  english:state.english
 });
 
 export default connect(mapStateToProps, {

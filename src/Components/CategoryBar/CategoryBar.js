@@ -1,7 +1,15 @@
 import React from 'react'
 import {Checkbox} from 'antd'
+import {hindiTranslate} from '../icons/Icons'
+import { connect } from 'react-redux';
 
-const CategoryBar = ({cats,onChange,checkChecked}) => {
+const convertToHindi = (string)=>{
+  let p = string.charAt(0).toLowerCase() + string.slice(1);
+  let ans=  p.split(' ').join('');
+  return ans;
+}
+
+const CategoryBar = ({english:{english},cats,onChange,checkChecked}) => {
   return (
     <div className='section-news-left--tags  news-tags'>
     <Checkbox.Group
@@ -11,7 +19,7 @@ const CategoryBar = ({cats,onChange,checkChecked}) => {
   >
     {cats.map((p) => (
       <label className="cat cur" style={checkChecked(p)}>
-        {p}
+        {english ? p : hindiTranslate[convertToHindi(p)] }
         <Checkbox style={{ display: 'none' }} value={p}></Checkbox>
       </label>
     ))}
@@ -20,4 +28,9 @@ const CategoryBar = ({cats,onChange,checkChecked}) => {
   )
 }
 
-export default CategoryBar
+const mapStateToProps = (state) => ({
+  english:state.english
+});
+
+
+export default connect(mapStateToProps)(CategoryBar);

@@ -7,7 +7,7 @@ import { cats } from '../../Components/icons/Icons';
 import {Modal , Button} from 'antd';
 import axios from '../../axios';
 import CategoryBar from '../../Components/CategoryBar/CategoryBar';
-import { icons } from '../../Components/icons/Icons';
+import { icons , hindiTranslate } from '../../Components/icons/Icons';
 import { Link } from 'react-router-dom';
 import DownloadModal from '../../Components/Modal/Modal';
 import moment from 'moment';
@@ -122,7 +122,12 @@ const News = ({
     });
   };
 
-
+  const convertToHindi = (string)=>{
+    let p = string.charAt(0).toLowerCase() + string.slice(1);
+    let ans=  p.split(' ').join('');
+    return ans;
+  }
+  
 
   useEffect(() => {
     if (page !== 1) {
@@ -349,11 +354,11 @@ const News = ({
                 <span>
                   {data && data.categories && data.categories.length > 0
                     ? data.categories[0] === 'Social'
-                      ? `${data.categories[0]} News`
-                      : `News on ${data.categories[0]}`
+                      ? english ? `${data.categories[0]} News` : `${hindiTranslate[convertToHindi(data.categories[0])]} समाचार`
+                      : english ? `News on ${data.categories[0]}` : `${hindiTranslate[convertToHindi(data.categories[0])]} समाचार`
                     : data.icon === 'Social'
                     ? `${data.icon} News`
-                    : `News on ${data.icon}`}
+                    : english ? `News on ${data.icon}` : `${hindiTranslate[convertToHindi(data.categories[0])]} समाचार`}
                 
                 </span>
                 {data.user && (
@@ -453,7 +458,7 @@ const News = ({
         )}
         <div className='spotlight'>
           <div className='spotlight-head'>
-            <span>Trending News</span>
+            <span> {english ? 'Trending News' : 'ट्रेंडिंग समाचार' }</span>
             {/* <span>View all</span>*/}
           </div>
           <div className='trending-news'>

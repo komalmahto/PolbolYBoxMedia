@@ -5,7 +5,7 @@ import { fetchPolls } from '../../Actions/PollsAction';
 import { fetchAwards } from '../../Actions/AwardsAction';
 import { connect } from 'react-redux';
 import moment from 'moment';
-import { icons, cats, catspa } from '../../Components/icons/Icons'
+import { icons, cats, catspa , hindiTranslate } from '../../Components/icons/Icons'
 import PollCard from '../../Components/Polls/PollCard'
 import axios from '../../axios'
 import { useHistory } from 'react-router-dom'
@@ -279,8 +279,11 @@ const HomePollsAndAwards = ({ fetchPolls, fetchAwards, polls: { polls }, awards:
       }
     }
 
-
-
+    const convertToHindi = (string)=>{
+      let p = string.charAt(0).toLowerCase() + string.slice(1);
+      let ans=  p.split(' ').join('');
+      return ans;
+    }
 
     return (
       <div className='grid-46'>
@@ -292,7 +295,7 @@ const HomePollsAndAwards = ({ fetchPolls, fetchAwards, polls: { polls }, awards:
           >
             {type2 === 'polls' && catspa.map((p) => (
               <label className="cur" style={checkChecked(p)}>
-                {p}
+                {english ? p : hindiTranslate[convertToHindi(p)] }
                 <Checkbox style={{ display: 'none' }} value={p}></Checkbox>
               </label>
             ))}

@@ -5,11 +5,17 @@ import {
   CommentOutlined,
   ShareAltOutlined,
 } from '@ant-design/icons';
-import { icons } from '../icons/Icons';
+import { icons , hindiTranslate } from '../icons/Icons';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-const NewsCard = ({ auth: { token, user }, p, setIt, data }) => {
+const convertToHindi = (string)=>{
+  let p = string.charAt(0).toLowerCase() + string.slice(1);
+  let ans=  p.split(' ').join('');
+  return ans;
+}
+
+const NewsCard = ({ auth: { token, user },english:{english}, p, setIt, data }) => {
   const setBord = () => {
     if (data) {
       if (p._id === data._id) {
@@ -37,7 +43,7 @@ const NewsCard = ({ auth: { token, user }, p, setIt, data }) => {
             style={{ height: '25px', width: '25px', marginRight: '1rem' }}
             src={icons[p.categories[0]]}
           />
-          {p.categories[0]} News
+          {english ? p.categories[0] : hindiTranslate[convertToHindi(p.categories[0])]} {english ? 'News' : 'समाचार'}
         </span>
         {/*       <p>{p.short_headline}</p>
          */}{' '}
@@ -73,7 +79,7 @@ const NewsCard = ({ auth: { token, user }, p, setIt, data }) => {
             style={{ cursor: 'pointer' }}
             onClick={() => setIt && setIt(p)}
           >
-            Read more <RightOutlined />
+           {english ? 'Read more':'अधिक पढ़ें'} <RightOutlined />
           </span>
         ) : (
           <Link
@@ -101,7 +107,8 @@ const NewsCard = ({ auth: { token, user }, p, setIt, data }) => {
 };
 
 const mapStateToProps = (state) => ({
-  auth: state.auth
+  auth: state.auth,
+  english:state.english
 });
 
 export default connect(mapStateToProps)(NewsCard);

@@ -303,7 +303,7 @@ const ModalLogin = ({
               </label>
               <br />
               <label htmlFor="religion">
-                Religion
+                Religion (optional)
               <select
                   value={profileData.religion}
                   onChange={(e) =>

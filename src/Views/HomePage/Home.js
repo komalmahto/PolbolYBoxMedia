@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import HomePollsAndAwards from './HomePollsAndAwards';
 import HomeSection3 from './HomeSection3';
 import { Card} from 'antd';
-import {cats} from '../../Components/icons/Icons';
+import {cats , hindiTranslate} from '../../Components/icons/Icons';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import { Checkbox} from 'antd';
@@ -146,6 +146,12 @@ const Home = ({ auth: { token, user },
     },
   };
 
+  const convertToHindi = (string)=>{
+    let p = string.charAt(0).toLowerCase() + string.slice(1);
+    let ans=  p.split(' ').join('');
+    return ans;
+  }
+
   return (
     <div className='box'>
       <section className='section-news'>
@@ -162,7 +168,7 @@ const Home = ({ auth: { token, user },
             >
               {cats.map((p) => (
                 <label className="cur" style={checkChecked(p)}>
-                  {p}
+                  {english ? p : hindiTranslate[convertToHindi(p)] }
                   <Checkbox style={{ display: 'none' }} value={p}></Checkbox>
                 </label>
               ))}

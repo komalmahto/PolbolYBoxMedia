@@ -273,23 +273,23 @@ const QuizPlay = ({ match, history,english:{english} }) => {
         text={"To enjoy the complete experience of quiz download our app."}
       />
       <Modal
-        title='Result'
         visible={isModalVisible}
         onOk={handleOk}
         onCancel={handleCancel}
         footer={null}
         width='400px'
       >
+        <h2 style={{fontWeight:'bold', textAlign:'center'}}>Result</h2>
         {Object.keys(final).length > 0 && (
-          <div className='quiz-result' style={{backgroundImage:`url(${final.score<400 ?lose:win})`}} >
+          <div className='quiz-result' style={{backgroundImage:`url(${final.score<400 ?lose:win})`, textTransform:'none'}} >
           <div className="total-score">
-            <p >Total Score: {final.score}/{final.outOf}</p>
+            <p style={{ textTransform:'none'}}>Total Score: {final.score}/{final.outOf}</p>
             </div>
             <div className="bottom">
-            <div className="cont">
-            <p><span>Correct Answers :</span><span>{final.countCorrect}/{final.maxQuestions}</span> </p>
-            <p><span>No of Attempts :</span><span>{final.attempts}</span> </p>
-            <p><span>Accuracy :</span><span> {final.accuracy} %</span></p>
+            <div className="cont" style={{ textTransform:'none'}}>
+            <p style={{ textTransform:'none'}}><span>Correct answers :</span><span>{final.countCorrect}/{final.maxQuestions}</span> </p>
+            <p style={{ textTransform:'none'}}><span>No of Attempts :</span><span>{final.attempts}</span> </p>
+            <p style={{ textTransform:'none'}}><span>Accuracy :</span><span> {final.accuracy} %</span></p>
             </div>
             </div>
           </div>
