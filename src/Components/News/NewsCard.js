@@ -88,7 +88,7 @@ const NewsCard = ({ auth: { token, user },english:{english}, p, setIt, data }) =
             style={{ cursor: 'pointer', color: '#1890ff' }}
             onClick={() => setIt && setIt(p)}
           >
-            Read more <RightOutlined />
+            {english ? 'Read more':'अधिक पढ़ें'} <RightOutlined />
           </Link>
         )}
         {/* <span className='i'>

@@ -192,7 +192,7 @@ const Home = ({ auth: { token, user },
         </div>
         <div className='section-news-right'>
         <div className='trending-head'>
-        <span>Trending News</span>
+        <span>{english ? 'Trending News' : 'ट्रेंडिंग समाचार' }</span>
       </div>
           <div className='trending-news' style={{overflowY:'scroll'}}>
             {

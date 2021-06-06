@@ -6,8 +6,9 @@ import ReactApexChart from 'react-apexcharts';
 import { Switch } from 'antd';
 import DownloadModal from '../Modal/Modal'
 import { Pie , Bar } from '@ant-design/charts'
+import { connect } from 'react-redux';
 
-const Chart = ({ id, isModalVisible, setIsModalVisible }) => {
+const Chart = ({ english:{english}, id, isModalVisible, setIsModalVisible }) => {
   console.log(id, 'id');
   const [data, setData] = useState([]);
   const [age, setAge] = useState([]);
@@ -72,7 +73,7 @@ const Chart = ({ id, isModalVisible, setIsModalVisible }) => {
   if (data && Object.keys(data).length > 0) {
     if (data.poll.type === 'pie') {
       chartData = Object.keys(data.global).map((key, ind) => {
-        return { type: data.options[key], value: data.global[key] };
+        return{ type: data.options[key], value: data.global[key] }
       })
 
       config = {
@@ -126,7 +127,9 @@ const Chart = ({ id, isModalVisible, setIsModalVisible }) => {
           ],
           content:function content(_ref) {
             var percent = _ref.Percentage;
-            console.log(_ref);
+            if(percent===0){
+              return ''
+            }
             return ''.concat(" ",percent, '%');
           }
         },
@@ -144,13 +147,13 @@ const Chart = ({ id, isModalVisible, setIsModalVisible }) => {
         className="pol-res"
           onOk={handleOk}
           onCancel={handleCancel}
-          title='Poll result'
           visible={isModalVisible}
           footer={null}
         >
           {/* <span  className="chck">
             Overall <Switch defaultChecked onChange={onChangeOverall} />
           </span> */}
+          <h2 style={{fontWeight:'bold', textAlign:'center'}}>Result</h2>
           <Input style={{marginTop:'10px',marginBottom:'5px'}}  readOnly placeholder="Age" onClick={handleAgeChange}/>
           {/* <Select
             className="sel"
@@ -206,7 +209,7 @@ const Chart = ({ id, isModalVisible, setIsModalVisible }) => {
               ))}
           </Select> */}
 
-          <p>{data.poll.question}</p>
+          <p>{english?data.poll.question:data.poll.question_hindi}</p>
 
           {overall && (
             <div className='overall-div'>
@@ -269,7 +272,7 @@ const Chart = ({ id, isModalVisible, setIsModalVisible }) => {
               {data && Object.keys(data).length > 0 &&
                 data.poll.type === 'bar' && (
                   <div >
-                    <p style={{textAlign:'center' , fontWeight:'bold'}}><p style={{ marginRight: '1rem', textTransform:'none' }}>Total votes : {data.global.totalVotes}</p><p>Average Rating: {data.global.averageRating}</p></p>
+                    <p style={{textAlign:'center' , fontWeight:'bold'}}><p style={{ marginRight: '1rem', textTransform:'none' }}>Total votes : {data.global.totalVotes}</p><p>Average Rating: {data.global.averageRating}/10</p></p>
                     <Bar {...config} />
                   </div>
                 )
@@ -742,4 +745,8 @@ const Chart = ({ id, isModalVisible, setIsModalVisible }) => {
   );
 };
 
-export default Chart;
+const mapStateToProps = (state) => ({
+  english: state.english,
+});
+
+export default connect(mapStateToProps)(Chart);

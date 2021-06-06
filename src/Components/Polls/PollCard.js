@@ -288,12 +288,8 @@ const PollCard = ({
               <div
                 className='long-card-img'
                 style={{
-                  backgroundImage: `url(${type2 === 'polls'
-                    ? p.image_hindi
-                    : p.icon_hindi
-                      ? p.icon_hindi
-                      : p.image
-                    })`,
+                  backgroundImage: `url(${type2 === 'polls' ? p.image : p.icon ? p.icon : p.image
+                })`,
                 }}
               ></div>
             )}
@@ -388,23 +384,22 @@ const PollCard = ({
               </Button>
             )}
             {type2 === 'polls' && type && type === 'active' && p.userVote && (
-              <span
-                style={{ cursor: 'pointer', color:'#a62844' }}
+              <Button
+              style={{ cursor: 'pointer' , backgroundColor:'#a62844' , color:'white' }}
                 onClick={() => { showModal(p._id); }}
               >
-                {english ? 'View Result' : 'परिणाम'} <i style={{color:'#a62844' }}
+                {english ? 'View Result' : 'परिणाम'}&nbsp;<i style={{color:'white' }}
                   className="fas fa-chart-pie"></i>
-              </span>
+              </Button>
             )}
             {type2 === 'polls' && type && type === 'expired' && (
-              <span
-                style={{ cursor: 'pointer' }}
-                onClick={() => showModal(p._id)}
-                style={{ color: '#56a7ff', cursor: 'pointer' }}
+              <Button
+              style={{ cursor: 'pointer' , backgroundColor:'#a62844' , color:'white' }}
+                onClick={() => { showModal(p._id); }}
               >
-                {english ? 'View Result' : 'परिणाम'} <i style={{ color: '#56a7ff' }}
+                {english ? 'View Result' : 'परिणाम'}&nbsp;<i style={{color:'white' }}
                   className="fas fa-chart-pie"></i>
-              </span>
+              </Button>
             )}
             <div className='read-more-poll'>
               {type2 === 'polls' && (
@@ -416,7 +411,7 @@ const PollCard = ({
                       : window.open(`${p.url_hindi}`)
                   }
                 >
-                  Read more
+                  {english ? 'Read more':'अधिक पढ़ें'}
                 </Link>
               )}
             </div>
