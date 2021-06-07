@@ -22,7 +22,7 @@ const Modal1 = ({ isModalVisible, setIsModalVisible , text}) => {
       footer={null}
     >
     <div className="mod">
-        {text ? <p>{text}</p> : <p>Find out latest updates with people's views on different issues </p>}
+        {text ? <p style={{textTransform:'none'}}>{text}</p> : <p>Find out latest updates with people's views on different issues </p>}
     <div className="down">
     <a style={{display: "inline-block"}}
     href="https://apps.apple.com/pa/app/polbol/id1476395002?l=en">

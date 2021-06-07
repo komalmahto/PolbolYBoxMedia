@@ -431,6 +431,7 @@ const News = ({
                 <a
                   href={`${data.source}`}
                   target="_blank"
+                  style={{color: '#ce3356'}}
                 >
                   {english ? `Read more ${data.publisher?`on ${data.publisher}`:``}` : `${data.publisher?data.publisher:``} पर और पढ़े`}{' '}
                   <span>

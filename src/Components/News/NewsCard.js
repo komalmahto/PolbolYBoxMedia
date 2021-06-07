@@ -85,7 +85,7 @@ const NewsCard = ({ auth: { token, user },english:{english}, p, setIt, data }) =
           <Link
             className='read'
             to={`/news/${p._id}`}
-            style={{ cursor: 'pointer', color: '#1890ff' }}
+            style={{ cursor: 'pointer', color: '#ce3356' }}
             onClick={() => setIt && setIt(p)}
           >
             {english ? 'Read more':'अधिक पढ़ें'} <RightOutlined />

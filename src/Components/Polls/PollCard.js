@@ -221,7 +221,13 @@ const PollCard = ({
         visible={isVoteModal}
         onOk={() => { setIsVoteModal(false); setAnswer({ ...answer, key: 0 }); setVoteModalData({}) }}
         onCancel={() => { setIsVoteModal(false); setAnswer({ ...answer, key: 0 }); setVoteModalData({}) }}
-        footer={null}>
+        closable={false}
+        footer={[
+          <Button key="cancel" onClick={() => { setIsVoteModal(false); setAnswer({ ...answer, key: 0 }); setVoteModalData({})}}>
+            Cancel
+          </Button>,
+        ]}
+        >
         <h4>{voteModalData.question}</h4>
         {voteModalData.type === 'bar' ?
           <div>
@@ -241,7 +247,7 @@ const PollCard = ({
         <div style={{ marginTop: '10px' }}>
           <Button type="primary" onClick={() => {
             answerSubmitHandler(voteModalData.id)
-          }}>Submit</Button>
+          }} style={{background: '#ce3356',color:'white',borderColor:'#ce3356'}}>Submit</Button>
         </div>
       </Modal>
 

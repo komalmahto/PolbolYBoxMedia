@@ -193,7 +193,7 @@ const ModalLogin = ({
         <h3 style={{textAlign:"center",padding:'20px'}}>Logged in succesfully</h3>
         </div>
         <div>
-        <Button onClick={()=>{setLoginSuccessModal(false)}} type="primary">OK</Button>
+        <Button style={{background: '#ce3356',color:'white',borderColor:'#ce3356'}} onClick={()=>{setLoginSuccessModal(false)}} type="primary">OK</Button>
         </div>
         </div>
       </Modal>

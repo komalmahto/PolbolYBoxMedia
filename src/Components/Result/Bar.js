@@ -73,7 +73,7 @@ const Chart = ({ english:{english}, id, isModalVisible, setIsModalVisible }) => 
   if (data && Object.keys(data).length > 0) {
     if (data.poll.type === 'pie') {
       chartData = Object.keys(data.global).map((key, ind) => {
-        return{ type: data.options[key], value: data.global[key] }
+        return{ type: english ? data.options[key] : data.poll.options.filter(option=>{return key == option.key})[0].name_hindi, value: data.global[key] }
       })
 
       config = {
@@ -141,7 +141,7 @@ const Chart = ({ english:{english}, id, isModalVisible, setIsModalVisible }) => 
 
   return (
     <>
-      <DownloadModal isModalVisible={isDownloadModalVisible} setIsModalVisible={setIsDownloadModalVisible} text={'To get detailed analysis of the results download our app.'} />
+      <DownloadModal isModalVisible={isDownloadModalVisible} setIsModalVisible={setIsDownloadModalVisible} text={'To get detailed analysis of the results download PolBol app.'} />
       {Object.keys(data).length > 0 && (
         <Modal
         className="pol-res"
@@ -262,6 +262,7 @@ const Chart = ({ english:{english}, id, isModalVisible, setIsModalVisible }) => 
               {data && Object.keys(data).length > 0 &&
                 data.poll.type === 'pie' && (
                   <div>
+                      <p style={{textAlign:'center' , fontWeight:'bold'}}><p style={{ marginRight: '1rem', textTransform:'none' }}>{english ? 'Total votes':'संपूर्ण वोट'} :  {Object.values(data.global).reduce((prev,curr)=>{return curr+prev},0)}</p></p>
                     <Pie {...config} />
                   </div>
                 )
@@ -272,7 +273,7 @@ const Chart = ({ english:{english}, id, isModalVisible, setIsModalVisible }) => 
               {data && Object.keys(data).length > 0 &&
                 data.poll.type === 'bar' && (
                   <div >
-                    <p style={{textAlign:'center' , fontWeight:'bold'}}><p style={{ marginRight: '1rem', textTransform:'none' }}>Total votes : {data.global.totalVotes}</p><p>Average Rating: {data.global.averageRating}/10</p></p>
+                    <p style={{textAlign:'center' , fontWeight:'bold'}}><p style={{ marginRight: '1rem', textTransform:'none' }}>{english ? 'Total votes':'संपूर्ण वोट'} : {data.global.totalVotes}</p><p>{english ? 'Average Rating':'औसत रेटिंग'} : {data.global.averageRating}/10</p></p>
                     <Bar {...config} />
                   </div>
                 )

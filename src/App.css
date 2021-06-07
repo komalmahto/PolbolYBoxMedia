@@ -1800,4 +1800,16 @@ input[type=number] {
 .ant-radio-wrapper {
   white-space: normal !important;
 }
+
+.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn{
+  color:#ce3356 !important
+}
+
+.ant-tabs-tab:hover {
+  color: #ce3356 !important
+}
+
+.ant-tabs-ink-bar{
+  background: #ce3356 !important
+}
 /*# sourceMappingURL=App.css.map */
