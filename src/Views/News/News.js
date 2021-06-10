@@ -32,7 +32,8 @@ const News = ({
   english: { english },
   match,
   history,
-  auth:{token}
+  auth:{token},
+  fetchNews
 }) => {
   const [selectedTags, setSelectedTags] = useState([]);
   const [newsBasedOnCategory, setNewsBasedOnCategory] = useState({});
@@ -71,12 +72,12 @@ const News = ({
       console.log(news.payload);
       setData(news.payload[0]);
     }
-    setNewsBasedOnCategory({payload:{data:[...news.payload]}});
-    fetchNews(english);
+    if(!news || news.length === 0)fetchNews(english);
+    if(news && news.payload.length >0){
+      setNewsBasedOnCategory({payload:{data:[...news.payload]}});
+    }
     getTrending();
   }, [news, history.location.pathname]);
-
-  console.log(history.location.pathname.split('/')[2], 'his');
   
   useEffect(() => {
     if(!initialRender1.current){
@@ -194,6 +195,7 @@ const News = ({
 }
 
   const fetchNewsSelected = async (page) => {
+    if(selectedTags.length === 0) return;
     const queryParam = selectedTags.join(',');
     try {
       if (token) {
@@ -408,23 +410,23 @@ const News = ({
             </div>
             <div className='news-bot'>
               <div className='ico'>
-              <span className='i'>
+              {/* <span className='i'>
                   <span style={{ marginRight: '0.3rem' , fontSize:'2rem'}}>
                    {token?data.likedByMe?<i style={{ color: 'red' }} className="fas fa-heart"></i>:<i class="far fa-heart" ></i>:<i style={{ color: 'red' }} className="fas fa-heart"></i>  }</span>
-                  {/* {data.likesCount} */}
+                   {data.likesCount} 
                 </span>
                 <span>
                   <CommentOutlined onClick={() => getComments(data._id)} style={{fontSize:'2rem'}} />
-                  {/* {data.commentCount} */}
+                   {data.commentCount} 
                 </span>
-              {/*  <span
+                <span
                   style={{ cursor: 'pointer' }}
                   onClick={() =>
                     copyToClip(data && data.targetId ? data.targetId : data._id)
                   }
                 >
                   <ShareAltOutlined />
-                </span>*/}
+                </span> */}
               </div>
 
               <div className='read'>

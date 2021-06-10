@@ -17,8 +17,9 @@ const HomeSection3 = () => {
           />
         </div>
         <p>
-        Polbol provides exercises for your mind in form of quizzes to test your intelligence and for your entertainment.
+        Now it's Time to Test your Intelligence.
         </p>
+        <p>PolBol brings you an exercise for your brain in form of exciting quizzes in 8 different Categories.</p>
         <Button onClick={()=>history.push('/quiz')}  type='primary' danger shape='round' >
           <span style={{color:'white'}}>Play quiz</span>
         </Button>
@@ -32,8 +33,9 @@ const HomeSection3 = () => {
           />
         </div>
         <p>
-        Never miss any important update with Polbol, catch all the news from top-rated news channel at once place.
+        Never miss any important update with PolBol.
         </p>
+        <p>Catch the Live News from top-rated news channel at once place.</p>
         <Button onClick={()=>history.push('/livetv')}  shape='round' type='primary' danger >
           <span style={{color:'white'}}>Watch Live Tv</span>
         </Button>

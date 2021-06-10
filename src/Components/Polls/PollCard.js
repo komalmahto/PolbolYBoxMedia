@@ -276,7 +276,7 @@ const PollCard = ({
               {type2 === 'polls'
                 ? `Poll on ${p.categories[0]}`
                 : `${getExpiryString1 && getExpiryString1(p.lifeSpan)}`}
-              {type2 === 'polls' ? <span style={{fontSize:'1.2rem'}}> . Expires in {moment(p.lifeSpan).diff(moment(),'days')} days </span> : null}
+              {type2 === 'polls' && type === 'active' ? <span style={{fontSize:'1.2rem'}}> . Expires in {moment(p.lifeSpan).diff(moment(),'days')} days </span> : null}
             </span>
           
             {english && (

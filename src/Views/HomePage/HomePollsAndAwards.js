@@ -48,7 +48,7 @@ const HomePollsAndAwards = ({ fetchPolls, fetchAwards, polls: { polls }, awards:
       const response = await axios.get(`/award/fetchAwardsAndCategories?mode=expired&hindi=${!english}`);
       const responseJSON = response.data;
       setExpiredAwards(responseJSON);
-      console.log(responseJSON, 'expired awards');
+      // console.log(responseJSON, 'expired awards');
     } catch (err) {
       console.log(err);
     }
@@ -84,15 +84,15 @@ const HomePollsAndAwards = ({ fetchPolls, fetchAwards, polls: { polls }, awards:
           categories: selectedTagsPolls.length > 0 ? queryParam : undefined
         }
       });
-      console.log(response1)
-      console.log(response.data.payload.payload.concat(response1.data.payload.payload))
+      // console.log(response1)
+      // console.log(response.data.payload.payload.concat(response1.data.payload.payload))
       const final=response.data.payload.payload.concat(response1.data.payload.payload)
-      console.log(final)
+      // console.log(final)
       response.data.payload.payload=final
       const responseJSON = response.data;
       setPollsBasedOnCategory(responseJSON);
 
-      console.log(responseJSON, "selected news");
+      // console.log(responseJSON, "selected news");
     }
     else{
       const response = await axios.get(`/common/polls`, {
@@ -104,7 +104,7 @@ const HomePollsAndAwards = ({ fetchPolls, fetchAwards, polls: { polls }, awards:
       const responseJSON = response.data;
       setPollsBasedOnCategory(responseJSON)
 
-      console.log(responseJSON, "selected news");
+      // console.log(responseJSON, "selected news");
 
     }
     } catch (err) {
@@ -120,13 +120,13 @@ const HomePollsAndAwards = ({ fetchPolls, fetchAwards, polls: { polls }, awards:
   }
 
   function onChangeSel(checkedValues) {
-    console.log('checked = ', checkedValues);
+    // console.log('checked = ', checkedValues);
     setSelectedTagsAwards(checkedValues);
   }
   const checkChecked = (item) => {
-    console.log(selectedTagsPolls);
+    // console.log(selectedTagsPolls);
     const bool = selectedTagsPolls.indexOf(item);
-    console.log(bool);
+    // console.log(bool);
     if (bool !== -1) {
       return {
         backgroundColor: '#a62844',
@@ -141,9 +141,9 @@ const HomePollsAndAwards = ({ fetchPolls, fetchAwards, polls: { polls }, awards:
     }
   };
   const checkChecked1 = (item) => {
-    console.log(selectedTagsAwards);
+    // console.log(selectedTagsAwards);
     const bool = selectedTagsAwards.indexOf(item);
-    console.log(bool);
+    // console.log(bool);
     if (bool !== -1) {
       return {
         backgroundColor: '#a62844',
@@ -163,7 +163,7 @@ const HomePollsAndAwards = ({ fetchPolls, fetchAwards, polls: { polls }, awards:
     let duration = moment.duration(lifeEndTime.diff(now));
     let difference = Math.floor(duration.asDays());
     let minDiff = Math.floor(duration.asMinutes());
-    console.log(minDiff, 'diff');
+    // console.log(minDiff, 'diff');
 
     let unit = 'days';
     if (difference < 1) {
@@ -182,7 +182,7 @@ const HomePollsAndAwards = ({ fetchPolls, fetchAwards, polls: { polls }, awards:
       await axios
         .get(`award/audienceComments?id=${type3Data && type3Data._id}`)
         .then((res) => {
-          console.log(res, 'COMMENTS');
+          // console.log(res, 'COMMENTS');
           setComm(res.data.payload);
         }).catch(err => {
           console.log('hi', err);
@@ -199,10 +199,10 @@ const HomePollsAndAwards = ({ fetchPolls, fetchAwards, polls: { polls }, awards:
     const lifeEndTime = moment(expiryTime);
     const now = moment();
     let duration = moment.duration(lifeEndTime.diff(now));
-    console.log(duration, "duration")
+    // console.log(duration, "duration")
     let difference = Math.floor(duration.asDays());
     let minDiff = Math.floor(duration.asMinutes());
-    console.log(minDiff, 'diff');
+    // console.log(minDiff, 'diff');
 
     let unit = 'days';
     if (difference < 1) {
@@ -213,10 +213,10 @@ const HomePollsAndAwards = ({ fetchPolls, fetchAwards, polls: { polls }, awards:
       difference = Math.floor(duration.asMinutes());
       unit = 'minutes';
     }
-    return minDiff < 0 ? 'show has expired' : `${duration._data.hours} hours ${duration._data.minutes} minutes left!!`;
+    return minDiff < 0 ? 'show has expired' : `${duration._data.days} Days ${duration._data.hours} hours ${duration._data.minutes} minutes left!!`;
   };
   const grid = (data, type, type2) => {
-    console.log(data, 'data');
+    // console.log(data, 'data');
     let useData;
     if (type2 === 'polls') {
       if (type === 'active') {
@@ -225,14 +225,14 @@ const HomePollsAndAwards = ({ fetchPolls, fetchAwards, polls: { polls }, awards:
           data.payload.payload.filter((p) => {
             return getExpiryString(p.lifeSpan) > 0;
           });
-        console.log(useData);
+        // console.log(useData);
       } else if (type === 'expired') {
         useData =
           Object.keys(data).length > 0 &&
           data.payload.payload.filter((p) => {
             return getExpiryString(p.lifeSpan) < 0;
           });
-        console.log(useData);
+        // console.log(useData);
       }
     }
     if (type2 === 'awards') {
@@ -250,10 +250,10 @@ const HomePollsAndAwards = ({ fetchPolls, fetchAwards, polls: { polls }, awards:
             data.filter((p) => {
               return getExpiryString(p.lifeSpan) > 0;
             });
-          console.log(useData);
+          // console.log(useData);
         }
       } else if (type === 'expired') {
-        console.log(expiredAwards.payload, 'exp aw');
+        // console.log(expiredAwards.payload, 'exp aw');
         if (selectedTagsAwards.length > 0) {
           useData =
             data && data.length > 0 &&
@@ -267,12 +267,12 @@ const HomePollsAndAwards = ({ fetchPolls, fetchAwards, polls: { polls }, awards:
             data.filter((p) => {
               return getExpiryString(p.lifeSpan) < 0;
             });
-          console.log(useData);
+          // console.log(useData);
         }
       }
     }
     const setIt = (p) => {
-      console.log('setIt called', p)
+      // console.log('setIt called', p)
       if (p.isSubcategory) {
         setType3(true)
         setType3Data(p)
@@ -327,16 +327,16 @@ const HomePollsAndAwards = ({ fetchPolls, fetchAwards, polls: { polls }, awards:
               useData.slice(0, 6).map((p) => (
 
                 p.hidden === false &&
-                <div onClick={() => setIt(p)}>
-                  <PollCard setVote={setVote} vote={vote} english={english} type={type} icons={icons} type2={type2} p={p} getExpiryString1={getExpiryString1} />
+                <div onClick={() => setIt(p)} className={type2==='awards'?'home-award-po':null} >
+                  <PollCard setVote={setVote} vote={vote} english={english}  type={type} icons={icons} type2={type2} p={p} getExpiryString1={getExpiryString1} />
                 </div>
               ))}
                {token&&useData &&
               useData.slice(0, 6).map((p) => (
 
               
-                <div onClick={() => setIt(p)}>
-                  <PollCard setVote={setVote} english={english} type={type} icons={icons} type2={type2} p={p} getExpiryString1={getExpiryString1} />
+                <div onClick={() => setIt(p)} className={type2==='awards'?'home-award-po':null} >
+                  <PollCard setVote={setVote} english={english}  type={type} icons={icons} type2={type2} p={p} getExpiryString1={getExpiryString1} />
                 </div>
               ))}
 
@@ -367,11 +367,11 @@ const HomePollsAndAwards = ({ fetchPolls, fetchAwards, polls: { polls }, awards:
         data.payload.payload.filter((p) => {
           return getExpiryString(p.lifeSpan) > 0;
         });
-      console.log(useData1);
+      // console.log(useData1);
       return useData1.length;
     }
     if (type === 'awards') {
-      console.log(data, "datata")
+      // console.log(data, "datata")
       if (data && data.length > 0) {
         return 1
       }

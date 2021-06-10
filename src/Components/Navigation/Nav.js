@@ -26,6 +26,18 @@ const Nav = ({ fetchLanguage, logout, english: { english }, auth: { token, user 
       localStorage.setItem('language', JSON.stringify(false));
     }
   };
+  
+  const handleChangeDropDown = (value) => {
+    if (value==='english') {
+      fetchLanguage(true);
+      localStorage.setItem('language', JSON.stringify(true));
+    }
+    if (value === 'hindi') {
+      fetchLanguage(false);
+      localStorage.setItem('language', JSON.stringify(false));
+    }
+  };
+
   const onClick = () => {
     setIsModalVisible(true);
   };
@@ -216,7 +228,7 @@ const Nav = ({ fetchLanguage, logout, english: { english }, auth: { token, user 
             bordered={false}
             className='language'
             defaultValue={english ? 'english' : 'hindi'}
-            onChange={handleChange}
+            onChange={handleChangeDropDown}
             theme='dark'
             className="ant-select-selection"
 

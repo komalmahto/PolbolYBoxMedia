@@ -5,7 +5,7 @@
 }
 
 h1, h3, h4, p {
-  text-transform: lowercase;
+  text-transform: none;
 }
 
 h1:first-letter, h3:first-letter, h4:first-letter, p:first-letter {
@@ -828,6 +828,10 @@ body::-webkit-scrollbar-thumb:hover {
   .award-po{
     max-width: 100% !important;
   }
+
+  .home-award-po{
+    max-width: 100% !important;
+  }
 }
 
 .long-card {
@@ -1509,6 +1513,10 @@ body::-webkit-scrollbar-thumb:hover {
   margin-bottom: 1.5rem;
   padding: 1rem;
   max-width: 25%;
+}
+
+.home-award-po{
+  max-width: 50%;
 }
 
 .class-slide {

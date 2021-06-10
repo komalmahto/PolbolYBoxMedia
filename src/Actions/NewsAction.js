@@ -3,6 +3,7 @@ import axios from '../axios';
 
 export const fetchNews = (english) => async (dispatch) => {
   try {
+    console.log('fetchNews Called')
     axios.get(`/news?hindi=${!english}`)
     .then((res) => {
       console.log(res.data)
