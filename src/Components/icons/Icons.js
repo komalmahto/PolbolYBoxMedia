@@ -85,7 +85,8 @@ export const catspa = ['Social Issues',
   'Health',
   'Fashion',
   'Bollywood',
-  "Indian Politics"
+  "Indian Politics",
+  "Politics"
 ]
 
 export const catsAward = ['Social Issues',

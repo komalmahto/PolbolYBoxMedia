@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect , useRef } from 'react';
 import { Tabs } from 'antd';
-import { Checkbox, Row, Col } from 'antd';
+import { Checkbox, Carousel } from 'antd';
 import { fetchPolls } from '../../Actions/PollsAction';
 import { fetchAwards } from '../../Actions/AwardsAction';
 import { connect } from 'react-redux';
@@ -13,7 +13,47 @@ import { Modal, Button } from 'antd';
 import NomineeCard from '../../Components/Cards/NomineeCard'
 import JuryCard from '../../Components/Cards/JuryCard'
 import AwardResult from '../../Components/Result/AwardResult'
+import 'react-multi-carousel/lib/styles.css';
 const { TabPane } = Tabs;
+
+const responsive = {
+  superLargeDesktop: {
+    // the naming can be any, depends on you.
+    breakpoint: { max: 4000, min: 3000 },
+    items: 4,
+  },
+  desktop: {
+    breakpoint: { max: 3000, min: 1100 },
+    items: 3,
+  },
+  tablet: {
+    breakpoint: { max: 1100, min: 670 },
+    items: 2,
+  },
+  mobile: {
+    breakpoint: { max: 670, min: 0 },
+    items: 1,
+  },
+};
+
+// const CustomButtonGroupAsArrows = ({ next, previous }) => {
+//   // const { carouselState: { currentSlide } } = rest;
+//   //className={currentSlide === 0 ? 'disable' : ''}
+//   return (
+//     <div className="carousel-button-group"> 
+//     <div className="ppp">
+//       <button  onClick={() => previous()} >Previous</button>
+//       <button onClick={() => next()} >Next</button>
+//       {/* <button    className="view" ><Link  to="/news">
+//       View all
+     
+//     </Link>
+//     </button> */}
+//       </div>
+     
+//     </div>
+//   );
+// };
 
 const HomePollsAndAwards = ({ fetchPolls, fetchAwards, polls: { polls }, awards: { awards }, english: { english },auth:{token} }) => {
   const [selectedTagsPolls, setSelectedTagsPolls] = useState([]);
@@ -24,6 +64,7 @@ const HomePollsAndAwards = ({ fetchPolls, fetchAwards, polls: { polls }, awards:
   const [type3, setType3] = useState(false)
   const [comm, setComm] = useState([])
   const [vote,setVote]=useState(false)
+  // const carousel = useRef(null);
 
   const history = useHistory();
   const types = [
@@ -313,7 +354,7 @@ const HomePollsAndAwards = ({ fetchPolls, fetchAwards, polls: { polls }, awards:
             ))}
           </Checkbox.Group>}
         </div>
-        <div style={{ overflowY: 'scroll' }}>
+        <div class="poll-awards">
           <div className="top">
             {/*   <span>
               {useData && useData.length}{' '}
@@ -324,24 +365,48 @@ const HomePollsAndAwards = ({ fetchPolls, fetchAwards, polls: { polls }, awards:
           </div>
           <div className="grid-2" >
             {!token&&useData &&
-              useData.slice(0, 6).map((p) => (
-
-                p.hidden === false &&
-                <div onClick={() => setIt(p)} className={type2==='awards'?'home-award-po':null} >
-                  <PollCard setVote={setVote} vote={vote} english={english}  type={type} icons={icons} type2={type2} p={p} getExpiryString1={getExpiryString1} />
-                </div>
-              ))}
-               {token&&useData &&
-              useData.slice(0, 6).map((p) => (
-
-              
+              useData.slice(0, 6).map((p) =>{return !p.hidden  ? (
                 <div onClick={() => setIt(p)} className={type2==='awards'?'home-award-po':null} >
                   <PollCard setVote={setVote} english={english}  type={type} icons={icons} type2={type2} p={p} getExpiryString1={getExpiryString1} />
                 </div>
-              ))}
-
+              ):null}
+              )}
+               {token&&useData &&
+              useData.slice(0, 6).map((p) => {return !p.hidden  ? (
+                <div onClick={() => setIt(p)} className={type2==='awards'?'home-award-po':null} >
+                  <PollCard setVote={setVote} english={english}  type={type} icons={icons} type2={type2} p={p} getExpiryString1={getExpiryString1} />
+                </div>
+              ):null}
+              )}
           </div>
+          <div className="grid-2-small" >
           <div style={{ display: 'flex', justifyContent: 'center' }} className="top">
+            <span style={{color:'rgb(166, 40, 68)'}}><i class="fa fa-hand-o-left" aria-hidden="true"></i> Swipe</span>
+          </div>
+            {!token&&useData &&
+              useData.slice(0, 6).map((p) =>{return !p.hidden  ? (
+                <div onClick={() => setIt(p)} className={type2==='awards'?'home-award-po':null} >
+                  <PollCard setVote={setVote} english={english}  type={type} icons={icons} type2={type2} p={p} getExpiryString1={getExpiryString1} />
+                </div>
+              ):null}
+              )}
+               {token&&useData &&
+              <Carousel
+                dots={false}
+                arrows={true}
+              >
+                {useData.slice(0, 6).map((p) => {
+                  return !p.hidden ? (
+                    <div onClick={() => setIt(p)} className={type2 === 'awards' ? 'home-award-po' : null} >
+                      <PollCard setVote={setVote} english={english} type={type} icons={icons} type2={type2} p={p} getExpiryString1={getExpiryString1} />
+                    </div>
+                  ) : null
+                })}
+              </Carousel>
+            }
+            {/* {  carousel.current ? <CustomButtonGroupAsArrows next={carousel.current.next()} prev={carousel.current.prev()}/> : null} */}
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'center' , marginTop:'-10px' }} className="top">
             <span onClick={() => { type2 === 'polls' ? history.push('/polls') : history.push("/awards") }} className="viewAll">View all</span>
           </div>
         </div>

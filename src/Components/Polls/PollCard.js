@@ -264,19 +264,23 @@ const PollCard = ({
         }>
           <div className='lef'>
             {' '}
-            <span className='heading' style={{minWidth:'max-content'}}>
-              {type2 === 'polls' && (
-                <img
-                  style={{ height: '25px', width: '25px', marginRight: '1rem' }}
-                  src={
-                    type2 === 'polls' ? icons[p.categories[0]] : icons[p.type[0]]
-                  }
-                />
-              )}
-              {type2 === 'polls'
-                ? `Poll on ${p.categories[0]}`
-                : `${getExpiryString1 && getExpiryString1(p.lifeSpan)}`}
-              {type2 === 'polls' && type === 'active' ? <span style={{fontSize:'1.2rem'}}> . Expires in {moment(p.lifeSpan).diff(moment(),'days')} days </span> : null}
+            <span className='heading' style={{ display: 'table' }}>
+              <span style={{ display: 'table-cell', whiteSpace: 'nowrap' }}>
+                {type2 === 'polls' && (
+                  <img
+                    style={{ height: '25px', width: '25px', marginRight: '1rem' }}
+                    src={
+                      type2 === 'polls' ? icons[p.categories[0]] : icons[p.type[0]]
+                    }
+                  />
+                )}
+              </span>
+              <span style={{ display: 'table-cell', verticalAlign: 'top', whiteSpace: 'nowrap' }} >
+                {type2 === 'polls'
+                  ? `Poll on ${p.categories[0]}`
+                  : `${getExpiryString1 && getExpiryString1(p.lifeSpan)}`}
+              </span>
+              {type2 === 'polls' && type === 'active' ? <span style={{ fontSize: '1.2rem', display: 'table-cell', verticalAlign: 'top', whiteSpace: 'nowrap' }}> . Expires in {moment(p.lifeSpan).diff(moment(), 'days')} days </span> : null}
             </span>
           
             {english && (
