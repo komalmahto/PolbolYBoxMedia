@@ -10,10 +10,11 @@ import { fetchLanguage } from '../../Actions/LanguageAction';
 import { connect } from 'react-redux';
 import Icon from '@ant-design/icons';
 import { logout } from '../../Actions/AuthActions'
+import onClickOutside from "react-onclickoutside";
 
 const { Option } = Select;
 
-const Nav = ({ fetchLanguage, logout, english: { english }, auth: { token, user } }) => {
+const Nav = function ({ fetchLanguage, logout, english: { english }, auth: { token, user } }){
   const [isModalVisible, setIsModalVisible] = useState(false);
   const location = useLocation();
   const handleChange = (checked) => {
@@ -59,6 +60,8 @@ const Nav = ({ fetchLanguage, logout, english: { english }, auth: { token, user 
   function closeNav() {
     document.getElementById('mySidenav').style.width = '0';
   }
+
+  Nav.handleClickOutside = () => closeNav();
 
   return (
     <div className='header'>
@@ -287,6 +290,11 @@ const mapStateToProps = (state) => ({
   auth: state.auth
 });
 
+const clickOutsideConfig = {
+  handleClickOutside: () => Nav.handleClickOutside
+};
+
+
 export default connect(mapStateToProps, {
   fetchLanguage, logout
-})(Nav);
+})(onClickOutside(Nav, clickOutsideConfig));

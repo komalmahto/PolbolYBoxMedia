@@ -265,7 +265,7 @@ const PollCard = ({
           <div className='lef'>
             {' '}
             <span className='heading' style={{ display: 'table' }}>
-              <span style={{ display: 'table-cell', whiteSpace: 'nowrap' }}>
+              <span style={{ display: 'table-cell', whiteSpace: 'nowrap', verticalAlign: 'middle' }}>
                 {type2 === 'polls' && (
                   <img
                     style={{ height: '25px', width: '25px', marginRight: '1rem' }}
@@ -275,12 +275,12 @@ const PollCard = ({
                   />
                 )}
               </span>
-              <span style={{ display: 'table-cell', verticalAlign: 'top', whiteSpace: 'nowrap' }} >
+              <span style={{ display: 'table-cell', verticalAlign: 'middle', whiteSpace: 'nowrap' ,padding:'5px'}} >
                 {type2 === 'polls'
                   ? `Poll on ${p.categories[0]}`
                   : `${getExpiryString1 && getExpiryString1(p.lifeSpan)}`}
               </span>
-              {type2 === 'polls' && type === 'active' ? <span style={{ fontSize: '1.2rem', display: 'table-cell', verticalAlign: 'top', whiteSpace: 'nowrap' }}> . Expires in {moment(p.lifeSpan).diff(moment(), 'days')} days </span> : null}
+              {type2 === 'polls' && type === 'active' ? <span style={{ fontSize: '1.2rem', display: 'table-cell', whiteSpace: 'nowrap',verticalAlign:'middle' }}> . Expires in {moment(p.lifeSpan).diff(moment(), 'days')} days </span> : null}
             </span>
 
             {english && (
@@ -291,6 +291,7 @@ const PollCard = ({
                   backgroundImage: `url(${type2 === 'polls' ? p.image : p.icon ? p.icon : p.image
                     })`,
                   width: '100%',
+                  backgroundSize:'cover'
                 }}
               ></div>
             )}
@@ -338,7 +339,7 @@ const PollCard = ({
 
           </div>
         </div>
-        <div style={{marginTop:'15px'}}>
+        <div>
           <div className='poll-but'>
             {' '}
             {type2 === 'polls' && (

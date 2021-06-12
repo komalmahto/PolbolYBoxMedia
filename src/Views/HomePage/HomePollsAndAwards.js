@@ -331,7 +331,8 @@ const HomePollsAndAwards = ({ fetchPolls, fetchAwards, polls: { polls }, awards:
     return (
       <div className='grid-46'>
         <div style={{ backgroundColor: '#ffff', textAlign: 'center' }}>
-          {type2 === 'polls' && <Checkbox.Group
+          {type2 === 'polls' &&
+          <Checkbox.Group
             className='tags'
             style={{ width: '100%' }}
             onChange={onChange}
@@ -342,7 +343,8 @@ const HomePollsAndAwards = ({ fetchPolls, fetchAwards, polls: { polls }, awards:
                 <Checkbox style={{ display: 'none' }} value={p}></Checkbox>
               </label>
             ))}
-          </Checkbox.Group>}
+          </Checkbox.Group>
+          }
           {type2 === 'awards' && <Checkbox.Group
             className='tags'
             style={{ width: '100%' }}

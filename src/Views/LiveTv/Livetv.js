@@ -131,13 +131,12 @@ else {
 }
 }
 
-
   return (
     <div className="news">
     <div className='news-head'>
 { /*   <h1>Live Tv</h1>
 */}  </div>
-  <section  className='news-section1'>
+  <section  className='news-section1' style={{gridAutoColumns:'none'}}>
     <div className="left">
     <div style={{marginBottom:'2rem'}}>
     {channels.filter((h)=>{return h.hidden===false}).filter((p)=>{return englishLan?p.language==='english':p.language==="hindi" }).map((c)=>(
@@ -152,12 +151,13 @@ else {
     </div>
    
     </div>
-    <div className='spotlight'>
+    {/* <div className='spotlight'>
       <div className='spotlight-head'>
         <span>{english ? 'Trending News' : 'ट्रेंडिंग समाचार' }</span>
         <span style={{color:'#56a7ff'}}>View all</span>
       </div>
-      <div className='trending-news'>
+
+      { <div className='trending-news'>
         {trending&&
           trending.length>0&&
           trending
@@ -166,8 +166,8 @@ else {
             <NewsTrendingCard k={k} />
             </div>
             )}
-      </div>
-    </div>
+      </div> }
+    </div> */}
   </section>
 
     </div>
