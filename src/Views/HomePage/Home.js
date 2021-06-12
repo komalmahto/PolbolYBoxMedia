@@ -20,6 +20,8 @@ const Home = ({ auth: { token, user },
   const [newsBasedOnCategory, setNewsBasedOnCategory] = useState({});
   const [trending,setTrending]=useState([])
 
+  let screenWidth = window.innerWidth;
+
   useEffect(() => {
     fetchNews(english);
     fetchNewsSelected();
@@ -178,12 +180,12 @@ const Home = ({ auth: { token, user },
           sliderClass="class-slide"
           itemClass="class-slide"
           arrows={false}
-          customButtonGroup={<CustomButtonGroupAsArrows />}
+          customButtonGroup={ screenWidth > 786 ? <CustomButtonGroupAsArrows /> : null}
           renderButtonGroupOutside={true}
             style={{ display:'flex',justifyContent:'space-evenly' }}
             className='card-container'
             responsive={responsive}
-            slidesToSlide={3}
+            slidesToSlide={screenWidth > 768 ? 3 : 1}
           >
             {Object.keys(newsBasedOnCategory).length > 0 &&
               newsBasedOnCategory.payload.data.length > 0 &&

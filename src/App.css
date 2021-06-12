@@ -477,12 +477,17 @@ body::-webkit-scrollbar-thumb:hover {
   }
 
   .long-card{
-    display: block !important;
+    grid-auto-rows: 100% 1fr;
+    grid-template-columns:none !important;
   }
 
   .poll-awards{
     overflow-y: hidden;
     overflow-x: hidden;
+  }
+
+  .quiz-cat-con {
+    grid-template-columns: repeat(1, 1fr) !important;
   }
 
   .section-news-right{
@@ -983,7 +988,7 @@ body::-webkit-scrollbar-thumb:hover {
 .sidenav a {
   padding: 8px 8px 8px 32px;
   text-decoration: none;
-  font-size: 25px;
+  font-size: 1.8rem;
   color: #818181;
   display: block;
   transition: 0.3s;

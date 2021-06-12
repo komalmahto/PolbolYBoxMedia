@@ -13,7 +13,7 @@ import {
   ShareAltOutlined,
   HeartTwoTone
 } from '@ant-design/icons';
-import { Rate, Radio, Input, Space} from 'antd';
+import { Rate, Radio, Input, Space } from 'antd';
 import { Link, useHistory } from 'react-router-dom';
 import axios from '../../axios';
 import { Modal, Button } from 'antd';
@@ -223,11 +223,11 @@ const PollCard = ({
         onCancel={() => { setIsVoteModal(false); setAnswer({ ...answer, key: 0 }); setVoteModalData({}) }}
         closable={false}
         footer={[
-          <Button key="cancel" onClick={() => { setIsVoteModal(false); setAnswer({ ...answer, key: 0 }); setVoteModalData({})}}>
+          <Button key="cancel" onClick={() => { setIsVoteModal(false); setAnswer({ ...answer, key: 0 }); setVoteModalData({}) }}>
             Cancel
           </Button>,
         ]}
-        >
+      >
         <h4>{voteModalData.question}</h4>
         {voteModalData.type === 'bar' ?
           <div>
@@ -247,7 +247,7 @@ const PollCard = ({
         <div style={{ marginTop: '10px' }}>
           <Button type="primary" onClick={() => {
             answerSubmitHandler(voteModalData.id)
-          }} style={{background: '#ce3356',color:'white',borderColor:'#ce3356'}}>Submit</Button>
+          }} style={{ background: '#ce3356', color: 'white', borderColor: '#ce3356' }}>Submit</Button>
         </div>
       </Modal>
 
@@ -282,7 +282,7 @@ const PollCard = ({
               </span>
               {type2 === 'polls' && type === 'active' ? <span style={{ fontSize: '1.2rem', display: 'table-cell', verticalAlign: 'top', whiteSpace: 'nowrap' }}> . Expires in {moment(p.lifeSpan).diff(moment(), 'days')} days </span> : null}
             </span>
-          
+
             {english && (
 
               <div
@@ -290,7 +290,7 @@ const PollCard = ({
                 style={{
                   backgroundImage: `url(${type2 === 'polls' ? p.image : p.icon ? p.icon : p.image
                     })`,
-                  width:'100%'
+                  width: '100%',
                 }}
               ></div>
             )}
@@ -299,7 +299,7 @@ const PollCard = ({
                 className='long-card-img'
                 style={{
                   backgroundImage: `url(${type2 === 'polls' ? p.image : p.icon ? p.icon : p.image
-                })`,
+                    })`,
                 }}
               ></div>
             )}
@@ -338,7 +338,7 @@ const PollCard = ({
 
           </div>
         </div>
-        <div>
+        <div style={{marginTop:'15px'}}>
           <div className='poll-but'>
             {' '}
             {type2 === 'polls' && (
@@ -371,7 +371,7 @@ const PollCard = ({
             )}
             {type2 === 'polls' && type && type === 'active' && !p.userVote && (
               <Button
-                style={{ cursor: 'pointer' , backgroundColor:'#a62844' , color:'white' }}
+                style={{ cursor: 'pointer', backgroundColor: '#a62844', color: 'white' }}
                 onClick={() => {
                   if (!token) {
                     setLoginModal(true)
@@ -395,33 +395,33 @@ const PollCard = ({
             )}
             {type2 === 'polls' && type && type === 'active' && p.userVote && (
               <Button
-              style={{ cursor: 'pointer' , backgroundColor:'#a62844' , color:'white' }}
+                style={{ cursor: 'pointer', backgroundColor: '#a62844', color: 'white' }}
                 onClick={() => { showModal(p._id); }}
               >
-                {english ? 'View Result' : 'परिणाम'}&nbsp;<i style={{color:'white' }}
+                {english ? 'View Result' : 'परिणाम'}&nbsp;<i style={{ color: 'white' }}
                   className="fas fa-chart-pie"></i>
               </Button>
             )}
             {type2 === 'polls' && type && type === 'expired' && (
               <Button
-              style={{ cursor: 'pointer' , backgroundColor:'#a62844' , color:'white' }}
+                style={{ cursor: 'pointer', backgroundColor: '#a62844', color: 'white' }}
                 onClick={() => { showModal(p._id); }}
               >
-                {english ? 'View Result' : 'परिणाम'}&nbsp;<i style={{color:'white' }}
+                {english ? 'View Result' : 'परिणाम'}&nbsp;<i style={{ color: 'white' }}
                   className="fas fa-chart-pie"></i>
               </Button>
             )}
             <div className='read-more-poll'>
               {type2 === 'polls' && (
                 <Link
-                  style={{ textAlign: 'right' , color:'#a62844'}}
+                  style={{ textAlign: 'right', color: '#a62844' }}
                   onClick={() =>
                     english
                       ? window.open(`${p.url}`)
                       : window.open(`${p.url_hindi}`)
                   }
                 >
-                  {english ? 'Read more':'अधिक पढ़ें'}
+                  {english ? 'Read more' : 'अधिक पढ़ें'}
                 </Link>
               )}
             </div>

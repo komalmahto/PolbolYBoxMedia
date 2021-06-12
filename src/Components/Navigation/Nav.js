@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Select , Switch  } from 'antd';
+import { Select, Switch } from 'antd';
 import { Menu, Dropdown } from 'antd';
 import { DownOutlined, UserOutlined, MessageOutlined } from '@ant-design/icons';
 import logo from '../../assets/2160 4K.gif';
@@ -26,9 +26,9 @@ const Nav = ({ fetchLanguage, logout, english: { english }, auth: { token, user 
       localStorage.setItem('language', JSON.stringify(false));
     }
   };
-  
+
   const handleChangeDropDown = (value) => {
-    if (value==='english') {
+    if (value === 'english') {
       fetchLanguage(true);
       localStorage.setItem('language', JSON.stringify(true));
     }
@@ -140,7 +140,7 @@ const Nav = ({ fetchLanguage, logout, english: { english }, auth: { token, user 
               <Dropdown className='guest' overlay={menu}>
                 <a
                   className='ant-dropdown-link guest-item'
-                  onClick={(e) => {e.preventDefault()}}
+                  onClick={(e) => { e.preventDefault() }}
                   style={{ color: 'white' }}
                 >
                   <span style={{ color: 'white' }}>
@@ -153,7 +153,7 @@ const Nav = ({ fetchLanguage, logout, english: { english }, auth: { token, user 
               </Dropdown>
             </li>
             <li style={{ position: 'absolute', right: '0px' }}>
-            <span>हिंदी</span><Switch style={{margin:'0 1rem'}} defaultChecked={english ? true:false } onChange={handleChange} /><span>English</span>
+              <span>हिंदी</span><Switch style={{ margin: '0 1rem' }} defaultChecked={english ? true : false} onChange={handleChange} /><span>English</span>
               {/* <Select
                 bordered={false}
                 className='language'
@@ -201,18 +201,12 @@ const Nav = ({ fetchLanguage, logout, english: { english }, auth: { token, user 
         <a href='javascript:void(0)' className='closebtn' onClick={closeNav}>
           &times;
         </a>
-        <li
-          onClick={closeNav}
-          className={location.pathname === '/' ? 'active-link' : null}
-        >
-          <Link to='/'>HOME</Link>
-        </li>
         <li>
           <Dropdown className='guest' overlay={menu} trigger={['click']}>
             <a
               className='ant-dropdown-link guest-item'
               onClick={(e) => e.preventDefault()}
-              style={{ color: 'white' , fontSize:'1.5rem' }}
+              style={{ color: 'white', fontSize: '1.5rem' }}
             >
               <span style={{ color: 'white' }}>
                 <i style={{ color: 'white' }} className="far fa-user"></i> {!token ? "Guest" : user && user.userName && user.userName}
@@ -223,8 +217,8 @@ const Nav = ({ fetchLanguage, logout, english: { english }, auth: { token, user 
             </a>
           </Dropdown>
         </li>
-        <li style={{marginLeft:'20px'}}>
-          <Select
+        <li style={{ marginLeft: '35px' }}>
+          {/* <Select
             bordered={false}
             className='language'
             defaultValue={english ? 'english' : 'hindi'}
@@ -243,7 +237,14 @@ const Nav = ({ fetchLanguage, logout, english: { english }, auth: { token, user 
             <Option className='language-option' value='hindi'>
               <span>{english ? 'Hindi' : 'हिंदी '}</span>
             </Option>
-          </Select>
+          </Select> */}
+          <span style={{color:'white'}}>हिंदी</span><Switch style={{ margin: '0 1rem' }} defaultChecked={english ? true : false} onChange={handleChange} /><span  style={{color:'white'}}>English</span>
+        </li>
+        <li
+          onClick={closeNav}
+          className={location.pathname === '/' ? 'active-link' : null}
+        >
+          <Link to='/'>HOME</Link>
         </li>
         <li
           onClick={closeNav}

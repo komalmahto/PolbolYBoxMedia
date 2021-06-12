@@ -4,10 +4,10 @@ import { fetchNews } from '../../Actions/NewsAction';
 import NewsTrendingCard from '../../Components/News/NewsTrendingCard';
 import NewsCard from '../../Components/News/NewsCard';
 import { cats } from '../../Components/icons/Icons';
-import {Modal , Button} from 'antd';
+import { Modal, Button, Carousel } from 'antd';
 import axios from '../../axios';
 import CategoryBar from '../../Components/CategoryBar/CategoryBar';
-import { icons , hindiTranslate } from '../../Components/icons/Icons';
+import { icons, hindiTranslate } from '../../Components/icons/Icons';
 import { Link } from 'react-router-dom';
 import DownloadModal from '../../Components/Modal/Modal';
 import moment from 'moment';
@@ -20,7 +20,7 @@ import {
   ArrowRightOutlined,
   CopyOutlined,
   RightOutlined,
-  HeartTwoTone 
+  HeartTwoTone
 
 } from '@ant-design/icons';
 
@@ -32,7 +32,7 @@ const News = ({
   english: { english },
   match,
   history,
-  auth:{token},
+  auth: { token },
   fetchNews
 }) => {
   const [selectedTags, setSelectedTags] = useState([]);
@@ -46,11 +46,11 @@ const News = ({
   const [isShareModalVisible, setIsShareModalVisible] = useState(false);
   const [page, setPage] = useState(1);
   const [y, setY] = useState(0);
-  const [like,setLike] = useState(false);
+  const [like, setLike] = useState(false);
   const [comment, setComment] = useState(null);
   const [commentModal, setCommentModal] = useState(false);
-  const [comments , setComments] = useState([]);
-  const [commentsModal , setCommentsModal] = useState(false);
+  const [comments, setComments] = useState([]);
+  const [commentsModal, setCommentsModal] = useState(false);
   const initialRender1 = useRef(true);
   const initialRender2 = useRef(true);
 
@@ -72,27 +72,27 @@ const News = ({
       console.log(news.payload);
       setData(news.payload[0]);
     }
-    if(!news || news.length === 0)fetchNews(english);
-    if(news && news.payload.length >0){
-      setNewsBasedOnCategory({payload:{data:[...news.payload]}});
+    if (!news || news.length === 0) fetchNews(english);
+    if (news && news.payload.length > 0) {
+      setNewsBasedOnCategory({ payload: { data: [...news.payload] } });
     }
     getTrending();
   }, [news, history.location.pathname]);
-  
-  useEffect(() => {
-    if(!initialRender1.current){
-    fetchNewsSelected(1);
-    }else{
-      initialRender1.current = false;
-    }
-  }, [selectedTags, english,token]);
 
   useEffect(() => {
-    if(!initialRender2.current){
-    fetchNews(english);
-    fetchNewsSelected(1);
-    getTrending();
-    }else{
+    if (!initialRender1.current) {
+      fetchNewsSelected(1);
+    } else {
+      initialRender1.current = false;
+    }
+  }, [selectedTags, english, token]);
+
+  useEffect(() => {
+    if (!initialRender2.current) {
+      fetchNews(english);
+      fetchNewsSelected(1);
+      getTrending();
+    } else {
       initialRender2.current = false;
     }
   }, [english]);
@@ -123,12 +123,12 @@ const News = ({
     });
   };
 
-  const convertToHindi = (string)=>{
+  const convertToHindi = (string) => {
     let p = string.charAt(0).toLowerCase() + string.slice(1);
-    let ans=  p.split(' ').join('');
+    let ans = p.split(' ').join('');
     return ans;
   }
-  
+
 
   useEffect(() => {
     if (page !== 1) {
@@ -153,7 +153,7 @@ const News = ({
           status: like,
         }
       })
-      setLike(!like); 
+      setLike(!like);
     } catch (err) {
       console.log(err);
     }
@@ -165,17 +165,17 @@ const News = ({
       const config = {
         headers: { Authorization: `Bearer ${authToken}` },
       };
-  
-      const bodyParameters =  {
+
+      const bodyParameters = {
         commentBody: comment,
         parentType: "news",
         parentId: id,
         ancestorType: "news",
         ancestorId: id
       }
-      await axios.post(`/comment`,        
-      bodyParameters,
-      config)
+      await axios.post(`/comment`,
+        bodyParameters,
+        config)
 
       setComment(null);
       setCommentModal(true);
@@ -184,18 +184,18 @@ const News = ({
     }
   }
 
-  const buildTemplate = (raw)=>{
+  const buildTemplate = (raw) => {
     let data = raw.payload.data;
-    news = data.filter((el)=>{
-      return el.type==='news'
+    news = data.filter((el) => {
+      return el.type === 'news'
     });
-    return news.map((element)=>{
-      return {...element.payload}
+    return news.map((element) => {
+      return { ...element.payload }
     })
-}
+  }
 
   const fetchNewsSelected = async (page) => {
-    if(selectedTags.length === 0) return;
+    if (selectedTags.length === 0) return;
     const queryParam = selectedTags.join(',');
     try {
       if (token) {
@@ -285,14 +285,16 @@ const News = ({
     setIsModalVisible(true);
   };
 
-  return (
+  let screenWidth = window.innerWidth;
+
+  return screenWidth > 768 ? (
     <div className='news'>
 
       <Modal
         title='Comments'
         visible={commentsModal}
-        onOk={()=>{setCommentsModal(false)}}
-        onCancel={()=>{setCommentsModal(false)}}
+        onOk={() => { setCommentsModal(false) }}
+        onCancel={() => { setCommentsModal(false) }}
         footer={null}
         style={{
           padding: '10px'
@@ -305,8 +307,8 @@ const News = ({
               <img style={{ width: '30px' }} src={c.user.avatar} alt='' />
               <div className='det'>
                 <span>
-                  @{c.user.userName} <br/>
-                    {c.commentBody}
+                  @{c.user.userName} <br />
+                  {c.commentBody}
                 </span>
               </div>
             </div>
@@ -319,8 +321,8 @@ const News = ({
 
       <Modal
         visible={commentModal}
-        onOk={()=>setCommentModal(false)}
-        onCancel={()=>{setCommentModal(false)}}
+        onOk={() => setCommentModal(false)}
+        onCancel={() => { setCommentModal(false) }}
         footer={null}
       >
         <h3>Your comment has been recorded.</h3>
@@ -359,15 +361,15 @@ const News = ({
                       ? english ? `${data.categories[0]} News` : `${hindiTranslate[convertToHindi(data.categories[0])]} समाचार`
                       : english ? `News on ${data.categories[0]}` : `${hindiTranslate[convertToHindi(data.categories[0])]} समाचार`
                     : data.icon === 'Social'
-                    ? `${data.icon} News`
-                    : english ? `News on ${data.icon}` : `${hindiTranslate[convertToHindi(data.categories[0])]} समाचार`}
-                
+                      ? `${data.icon} News`
+                      : english ? `News on ${data.icon}` : `${hindiTranslate[convertToHindi(data.categories[0])]} समाचार`}
+
                 </span>
                 {data.user && (
                   <p style={{ fontSize: '0.8rem' }}>
-                  <p style={{textTransform:'capitalize'}}>{data.user&& `${english?'by':'द्वारा'} ${data.user.firstName&&data.user.firstName+" "+data.user.lastName}`}</p>
-                   <span style={{textTransform:'capitalize'}}>{data&& data.credit &&`${data.credit}`}</span>
-                   
+                    <p style={{ textTransform: 'capitalize' }}>{data.user && `${english ? 'by' : 'द्वारा'} ${data.user.firstName && data.user.firstName + " " + data.user.lastName}`}</p>
+                    <span style={{ textTransform: 'capitalize' }}>{data && data.credit && `${data.credit}`}</span>
+
                   </p>
                 )}
               </div>
@@ -385,9 +387,9 @@ const News = ({
               </div>
               <div className='description'>
                 <div className='left-head'>
-                  <p style={{textTransform:'none'}}>{data && data.headline ? data.headline : data.title}</p>
+                  <p style={{ textTransform: 'none' }}>{data && data.headline ? data.headline : data.title}</p>
                 </div>
-                <p style={{wordBreak:'break-word',textTransform:'none'}}>{data && data.description}</p>
+                <p style={{ wordBreak: 'break-word', textTransform: 'none' }}>{data && data.description}</p>
                 {/* {
                   token ? <p><TextArea
                     value={comment}
@@ -410,7 +412,7 @@ const News = ({
             </div>
             <div className='news-bot'>
               <div className='ico'>
-              {/* <span className='i'>
+                {/* <span className='i'>
                   <span style={{ marginRight: '0.3rem' , fontSize:'2rem'}}>
                    {token?data.likedByMe?<i style={{ color: 'red' }} className="fas fa-heart"></i>:<i class="far fa-heart" ></i>:<i style={{ color: 'red' }} className="fas fa-heart"></i>  }</span>
                    {data.likesCount} 
@@ -433,9 +435,9 @@ const News = ({
                 <a
                   href={`${data.source}`}
                   target="_blank"
-                  style={{color: '#ce3356'}}
+                  style={{ color: '#ce3356' }}
                 >
-                  {english ? `Read more ${data.publisher?`on ${data.publisher}`:``}` : `${data.publisher?data.publisher:``} पर और पढ़े`}{' '}
+                  {english ? `Read more ${data.publisher ? `on ${data.publisher}` : ``}` : `${data.publisher ? data.publisher : ``} पर और पढ़े`}{' '}
                   <span>
                     <RightOutlined />
                   </span>
@@ -461,7 +463,7 @@ const News = ({
         )}
         <div className='spotlight'>
           <div className='spotlight-head'>
-            <span> {english ? 'Trending News' : 'ट्रेंडिंग समाचार' }</span>
+            <span> {english ? 'Trending News' : 'ट्रेंडिंग समाचार'}</span>
             {/* <span>View all</span>*/}
           </div>
           <div className='trending-news'>
@@ -485,7 +487,7 @@ const News = ({
             newsBasedOnCategory.payload.data[0] !== null &&
             newsBasedOnCategory.payload.data
               .slice(0, page * 12)
-              .filter((k)=>{return data &&Object.keys(data).length>0 && k._id!==data._id})
+              .filter((k) => { return data && Object.keys(data).length > 0 && k._id !== data._id })
               .map((p) => <NewsCard data={data} setIt={setIt} p={p} />)}
         </div>
         {
@@ -500,13 +502,190 @@ const News = ({
         }
       </section>
     </div>
+  ) : (
+    <React.Fragment>
+      <CategoryBar
+        onChange={onChange}
+        cats={cats}
+        checkChecked={checkChecked}
+      />
+      
+      <p style={{color:'rgb(166, 40, 68)' , textAlign:'center'}}><i class="fa fa-hand-o-left" aria-hidden="true"></i> Swipe</p>
+      <Carousel
+        dots={false}
+      >
+        {data && Object.keys(data).length > 0 ? (
+          <div className='news'>
+            <section className='news-section1'>
+              <div className='left'>
+                <div className='grid-222'>
+                  <img
+                    style={{ height: '40px', width: '40px', marginRight: '1rem' }}
+                    src={
+                      data && data.categories && data.categories.length > 0
+                        ? icons[data.categories[0]]
+                        : icons[data.icon]
+                    }
+                  />
+
+                  <div>
+                    <span>
+                      {data && data.categories && data.categories.length > 0
+                        ? data.categories[0] === 'Social'
+                          ? english ? `${data.categories[0]} News` : `${hindiTranslate[convertToHindi(data.categories[0])]} समाचार`
+                          : english ? `News on ${data.categories[0]}` : `${hindiTranslate[convertToHindi(data.categories[0])]} समाचार`
+                        : data.icon === 'Social'
+                          ? `${data.icon} News`
+                          : english ? `News on ${data.icon}` : `${hindiTranslate[convertToHindi(data.categories[0])]} समाचार`}
+
+                    </span>
+                    {data.user && (
+                      <p style={{ fontSize: '0.8rem' }}>
+                        <p style={{ textTransform: 'capitalize' }}>{data.user && `${english ? 'by' : 'द्वारा'} ${data.user.firstName && data.user.firstName + " " + data.user.lastName}`}</p>
+                        <span style={{ textTransform: 'capitalize' }}>{data && data.credit && `${data.credit}`}</span>
+
+                      </p>
+                    )}
+                  </div>
+                </div>
+                <div className='left-body'>
+                  <div className='image'>
+                    <img
+                      src={
+                        data && data.images && data.images[0]
+                          ? data.images[0]
+                          : data.news.images[0]
+                      }
+                      alt=''
+                    />
+                  </div>
+                  <div className='description'>
+                    <div className='left-head'>
+                      <p style={{ textTransform: 'none' }}>{data && data.headline ? data.headline : data.title}</p>
+                    </div>
+                    <p style={{ wordBreak: 'break-word', textTransform: 'none' }}>{data && data.description}</p>
+
+                  </div>
+                </div>
+                <div className='news-bot'>
+                  <div className='ico'>
+
+                  </div>
+
+                  <div className='read'>
+                    <a
+                      href={`${data.source}`}
+                      target="_blank"
+                      style={{ color: '#ce3356' }}
+                    >
+                      {english ? `Read more ${data.publisher ? `on ${data.publisher}` : ``}` : `${data.publisher ? data.publisher : ``} पर और पढ़े`}{' '}
+                      <span>
+                        <RightOutlined />
+                      </span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+        ) : null}
+        {
+          (Object.keys(newsBasedOnCategory).length > 0 &&
+            newsBasedOnCategory.payload.data.length > 0 &&
+            newsBasedOnCategory.payload.data[0] !== null) ?
+
+            (newsBasedOnCategory.payload.data
+              .slice(0, page * 12)
+              .filter((k) => { return data && Object.keys(data).length > 0 && k._id !== data._id })
+              .map((data) => {
+                return (
+                  <div className='news'>
+                    <section className='news-section1'>
+                      <div className='left'>
+                        <div className='grid-222'>
+                          <img
+                            style={{ height: '40px', width: '40px', marginRight: '1rem' }}
+                            src={
+                              data && data.categories && data.categories.length > 0
+                                ? icons[data.categories[0]]
+                                : icons[data.icon]
+                            }
+                          />
+
+                          <div>
+                            <span>
+                              {data && data.categories && data.categories.length > 0
+                                ? data.categories[0] === 'Social'
+                                  ? english ? `${data.categories[0]} News` : `${hindiTranslate[convertToHindi(data.categories[0])]} समाचार`
+                                  : english ? `News on ${data.categories[0]}` : `${hindiTranslate[convertToHindi(data.categories[0])]} समाचार`
+                                : data.icon === 'Social'
+                                  ? `${data.icon} News`
+                                  : english ? `News on ${data.icon}` : `${hindiTranslate[convertToHindi(data.categories[0])]} समाचार`}
+
+                            </span>
+                            {data.user && (
+                              <p style={{ fontSize: '0.8rem' }}>
+                                <p style={{ textTransform: 'capitalize' }}>{data.user && `${english ? 'by' : 'द्वारा'} ${data.user.firstName && data.user.firstName + " " + data.user.lastName}`}</p>
+                                <span style={{ textTransform: 'capitalize' }}>{data && data.credit && `${data.credit}`}</span>
+
+                              </p>
+                            )}
+                          </div>
+                        </div>
+                        <div className='left-body'>
+                          <div className='image'>
+                            <img
+                              src={
+                                data && data.images && data.images[0]
+                                  ? data.images[0]
+                                  : data.news.images[0]
+                              }
+                              alt=''
+                            />
+                          </div>
+                          <div className='description'>
+                            <div className='left-head'>
+                              <p style={{ textTransform: 'none' }}>{data && data.headline ? data.headline : data.title}</p>
+                            </div>
+                            <p style={{ wordBreak: 'break-word', textTransform: 'none' }}>{data && data.description}</p>
+
+                          </div>
+                        </div>
+                        <div className='news-bot'>
+                          <div className='ico'>
+
+                          </div>
+
+                          <div className='read'>
+                            <a
+                              href={`${data.source}`}
+                              target="_blank"
+                              style={{ color: '#ce3356' }}
+                            >
+                              {english ? `Read more ${data.publisher ? `on ${data.publisher}` : ``}` : `${data.publisher ? data.publisher : ``} पर और पढ़े`}{' '}
+                              <span>
+                                <RightOutlined />
+                              </span>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                )
+              })
+            )
+            : null
+        }
+      </Carousel>
+    </React.Fragment>
   );
 };
 
 const mapStateToProps = (state) => ({
   news: state.news,
   english: state.english,
-  auth:state.auth
+  auth: state.auth
 });
 
 export default connect(mapStateToProps, {

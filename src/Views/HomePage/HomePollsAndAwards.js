@@ -66,6 +66,8 @@ const HomePollsAndAwards = ({ fetchPolls, fetchAwards, polls: { polls }, awards:
   const [vote,setVote]=useState(false)
   // const carousel = useRef(null);
 
+  let screenWidth = window.innerWidth;
+
   const history = useHistory();
   const types = [
     "Bollywood",
@@ -383,14 +385,23 @@ const HomePollsAndAwards = ({ fetchPolls, fetchAwards, polls: { polls }, awards:
           <div style={{ display: 'flex', justifyContent: 'center' }} className="top">
             <span style={{color:'rgb(166, 40, 68)'}}><i class="fa fa-hand-o-left" aria-hidden="true"></i> Swipe</span>
           </div>
-            {!token&&useData &&
-              useData.slice(0, 6).map((p) =>{return !p.hidden  ? (
-                <div onClick={() => setIt(p)} className={type2==='awards'?'home-award-po':null} >
-                  <PollCard setVote={setVote} english={english}  type={type} icons={icons} type2={type2} p={p} getExpiryString1={getExpiryString1} />
-                </div>
-              ):null}
-              )}
-               {token&&useData &&
+            {!token && useData &&
+              <Carousel
+                dots={false}
+                arrows={true}
+              >
+                {useData.slice(0, 6).map((p) => {
+                  return !p.hidden ? (
+                    <div onClick={() => setIt(p)} className={type2 === 'awards' ? 'home-award-po' : null} >
+                      <PollCard setVote={setVote} english={english} type={type} icons={icons} type2={type2} p={p} getExpiryString1={getExpiryString1} />
+                    </div>
+
+                  ) : null
+                })
+                }
+              </Carousel>
+            }
+            {token&&useData &&
               <Carousel
                 dots={false}
                 arrows={true}
@@ -406,9 +417,11 @@ const HomePollsAndAwards = ({ fetchPolls, fetchAwards, polls: { polls }, awards:
             }
             {/* {  carousel.current ? <CustomButtonGroupAsArrows next={carousel.current.next()} prev={carousel.current.prev()}/> : null} */}
           </div>
-          <div style={{ display: 'flex', justifyContent: 'center' , marginTop:'-10px' }} className="top">
-            <span onClick={() => { type2 === 'polls' ? history.push('/polls') : history.push("/awards") }} className="viewAll">View all</span>
-          </div>
+          {
+            screenWidth > 786 ? <div style={{ display: 'flex', justifyContent: 'center', marginTop: '-10px' }} className="top">
+              <span onClick={() => { type2 === 'polls' ? history.push('/polls') : history.push("/awards") }} className="viewAll">View all</span>
+            </div> : null
+          }
         </div>
       </div>
     );

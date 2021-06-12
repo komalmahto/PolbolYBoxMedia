@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import CategoryBar from '../../Components/CategoryBar/CategoryBar';
 import { cats, catspa } from '../../Components/icons/Icons';
-import { Tabs } from 'antd';
+import { Tabs, Carousel } from 'antd';
 import axios from '../../axios';
 import moment from 'moment';
 import PollCard from '../../Components/Polls/PollCard';
@@ -155,7 +155,9 @@ const Polls = ({ english: { english }, auth: { token } }) => {
       console.log(useData);
     }
 
-    return (
+    let screenWidth = window.innerWidth;
+
+    return screenWidth > 768 ? (
       <>
         <div style={{ margin: '1.5rem 0' }}>
           {  /*        <span>{useData.length + ' ' + type + ' ' + type2}</span>
@@ -179,6 +181,39 @@ const Polls = ({ english: { english }, auth: { token } }) => {
 
         {useData && useData.length > page * 10 && <center><button className="loadmore" onClick={changePage}>Load more</button></center>}
       </>
+    ) : (
+      <React.Fragment>
+        <div className='pollCont'>
+        <p style={{color:'rgb(166, 40, 68)' , textAlign:'center'}}><i class="fa fa-hand-o-left" aria-hidden="true"></i> Swipe</p>
+          {!token && useData &&
+            <Carousel
+              dots={false}
+            >
+              {useData.map(
+                (p) => {
+                  return !p.hidden ? (
+                    <PollCard setVote={setVote} vote={vote} english={english} icons={icons} type2={type2} p={p} type={type} />
+                  ) : null
+                }
+              )}
+            </Carousel>
+          }
+          {token && useData &&
+            <Carousel
+              dots={false}
+            >
+              {useData.map(
+                (p) => {
+                  return !p.hidden ? (
+                    <PollCard setVote={setVote} vote={vote} english={english} icons={icons} type2={type2} p={p} type={type} />
+                  ) : null
+                }
+              )
+              }
+            </Carousel>
+          }
+        </div>
+      </React.Fragment>
     );
   };
   const changePage = () => {
