@@ -8,7 +8,7 @@ const HomeSection3 = () => {
   const history=useHistory();
   return (
     <div className='base'>
-      <div className='disp' style={{ backgroundColor: 'white' }}>
+      <div className='disp' style={{ backgroundColor: 'white' , textAlign:'center' }}>
         <div>
           <img
             style={{ width: '150px', borderRadius: '50px' }}
@@ -17,14 +17,14 @@ const HomeSection3 = () => {
           />
         </div>
         <p>
-        Now it's Time to Test your Intelligence.
+        Now it's Time to Test your Intelligence
         </p>
-        <p>PolBol brings you an exercise for your brain in form of exciting quizzes in 8 different Categories.</p>
+        <p>PolBol brings you an exercise for your brain in form of exciting quizzes in 8 different Categories</p>
         <Button onClick={()=>history.push('/quiz')}  type='primary' danger shape='round' >
           <span style={{color:'white'}}>Play quiz</span>
         </Button>
       </div>
-      <div className='disp' style={{ backgroundColor: 'white' }}>
+      <div className='disp' style={{ backgroundColor: 'white' , textAlign:'center' }}>
         <div>
           <img
             style={{ width: '150px', borderRadius: '50px' }}
@@ -33,9 +33,9 @@ const HomeSection3 = () => {
           />
         </div>
         <p>
-        Never miss any important update with PolBol.
+        Never miss any important update with PolBol
         </p>
-        <p>Catch the Live News from top-rated news channel at once place.</p>
+        <p>Catch the Live News from top-rated news channel at once place</p>
         <Button onClick={()=>history.push('/livetv')}  shape='round' type='primary' danger >
           <span style={{color:'white'}}>Watch Live Tv</span>
         </Button>

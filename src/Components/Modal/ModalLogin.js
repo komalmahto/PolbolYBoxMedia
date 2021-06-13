@@ -54,8 +54,10 @@ const ModalLogin = ({
     });
   };
   useEffect(() => {
+    if(isModalVisible){
     fetchRegions();
-  }, []);
+    }
+  }, [isModalVisible]);
   useEffect(() => {
     // setIsModalVisible(true);
     if (timer.time > 0 && timer.isSet) {

@@ -256,7 +256,7 @@ const HomePollsAndAwards = ({ fetchPolls, fetchAwards, polls: { polls }, awards:
       difference = Math.floor(duration.asMinutes());
       unit = 'minutes';
     }
-    return minDiff < 0 ? 'show has expired' : `${duration._data.days} Days ${duration._data.hours} hours ${duration._data.minutes} minutes left!!`;
+    return minDiff < 0 ? 'show has expired' : `Expiring on ${moment(expiryTime).format('DD MMMM, YYYY')}`;
   };
   const grid = (data, type, type2) => {
     // console.log(data, 'data');
@@ -334,7 +334,7 @@ const HomePollsAndAwards = ({ fetchPolls, fetchAwards, polls: { polls }, awards:
           {type2 === 'polls' &&
           <Checkbox.Group
             className='tags'
-            style={{ width: '100%' }}
+            style={{ width: '100%' , display:'flex' , flexWrap:'wrap' }}
             onChange={onChange}
           >
             {type2 === 'polls' && catspa.map((p) => (

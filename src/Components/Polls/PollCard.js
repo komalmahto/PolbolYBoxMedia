@@ -264,7 +264,7 @@ const PollCard = ({
         }>
           <div className='lef'>
             {' '}
-            <span className='heading' style={{ display: 'table' }}>
+            <span className='heading' style={{ display: 'table' , marginBottom:'2rem'}}>
               <span style={{ display: 'table-cell', whiteSpace: 'nowrap', verticalAlign: 'middle' }}>
                 {type2 === 'polls' && (
                   <img
@@ -315,10 +315,10 @@ const PollCard = ({
             >
               {type2 === 'awards' && p.hasCategories && (
                 <Link
-                  style={{ textAlign: 'center' }}
+                  style={{ textAlign: 'center' , color:'black' }}
                   to={`/award/categories/${p._id}`}
                 >
-                  <ArrowRightOutlined />
+                  {p.title}
                 </Link>
               )}
               {type2 === 'awards' && !p.hasCategories && !p.isSubcategory && (

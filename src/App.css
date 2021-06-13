@@ -480,6 +480,10 @@ body::-webkit-scrollbar-thumb:hover {
     grid-template-columns: none !important;
   }
 
+  .section-news-left--tags .tags{
+    justify-content: left !important;
+  }
+
   .poll-awards{
     overflow-y: hidden;
     overflow-x: hidden;
@@ -918,6 +922,7 @@ body::-webkit-scrollbar-thumb:hover {
   flex-direction: column;
   margin-top: 3.5rem;
   width: 100%;
+  justify-content: center;
 }
 
 .long-card-desc .heading {
@@ -999,12 +1004,13 @@ body::-webkit-scrollbar-thumb:hover {
 
 .sidenav li {
   list-style-type: none;
+  line-height: 4rem;
 }
 
 .sidenav a {
   padding: 8px 8px 8px 32px;
   text-decoration: none;
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   color: #818181;
   display: block;
   transition: 0.3s;
@@ -1517,7 +1523,7 @@ body::-webkit-scrollbar-thumb:hover {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1rem;
-  margin-top: 1rem;
+  margin-top: 3rem;
 }
 
 .share {

@@ -133,6 +133,9 @@ const Chart = ({ english:{english}, id, isModalVisible, setIsModalVisible }) => 
             return ''.concat(" ",percent, '%');
           }
         },
+        xAxis: {
+          grid: { line: { style: 'none' } },
+        },
         color:'#ac074b'
       };
     }

@@ -102,7 +102,7 @@ const Awards = ({ fetchAwards, awards: { awards },english:{english} } ) => {
     }
     return minDiff < 0
       ? 'show has expired'
-      : `${duration._data.days} Days ${duration._data.hours} hours ${duration._data.minutes} minutes left!!`;
+      :  `Expiring on ${moment(expiryTime).format('DD MMMM, YYYY')}`;
   };
   const handleOk = () => {
     setType3(false);

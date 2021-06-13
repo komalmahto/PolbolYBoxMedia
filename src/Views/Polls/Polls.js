@@ -91,9 +91,9 @@ const Polls = ({ english: { english }, auth: { token } }) => {
     setSelectedTags(checkedValues);
   }
   const checkChecked = (item) => {
-    console.log(selectedTags);
+    // console.log(selectedTags);
     const bool = selectedTags.indexOf(item);
-    console.log(bool);
+    // console.log(bool);
     if (bool !== -1) {
       return {
         backgroundColor: '#a62844',
