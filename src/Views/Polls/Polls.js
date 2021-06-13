@@ -230,7 +230,7 @@ const Polls = ({ english: { english }, auth: { token } }) => {
             cats={catspa}
           />
           <Tabs size={'large'} defaultActiveKey={checkLength(pollsBasedOnCategory, 'polls') === 0 ? '2' : '1'} onChange={callback} type='card'>
-            <TabPane tab={pollsBasedOnCategory ? `Active (${checkLength(pollsBasedOnCategory, 'polls')})` : null} key='1'>
+            <TabPane tab={pollsBasedOnCategory && checkLength(pollsBasedOnCategory, 'polls') ? `Active (${checkLength(pollsBasedOnCategory, 'polls')})` : null} key='1'>
               {PollView(pollsBasedOnCategory, 'active', 'polls')}
             </TabPane>
             <TabPane tab={pollsBasedOnCategory && pollsBasedOnCategory.payload  ? `Expired (${pollsBasedOnCategory.payload.payload.length - checkLength(pollsBasedOnCategory, 'polls')})` : null} key='2'>

@@ -513,7 +513,7 @@ const HomePollsAndAwards = ({ fetchPolls, fetchAwards, polls: { polls }, awards:
       <Tabs className={'tabsStyl'} size={'large'} type='card'>
         <TabPane className="cat" id="cat" tab={english ? 'Polls' : 'मतदान'} key='1'>
           <Tabs className={'pp'} size={'small'} defaultActiveKey={checkLength(pollsBasedOnCategory, 'polls') === 0 ? '2' : '1'} onChange={callback}>
-            <TabPane tab={pollsBasedOnCategory ? `Active (${checkLength(pollsBasedOnCategory, 'polls')})` : null} key='1'>
+            <TabPane tab={pollsBasedOnCategory && checkLength(pollsBasedOnCategory, 'polls')? `Active (${checkLength(pollsBasedOnCategory, 'polls')})` : null} key='1'>
               {grid(pollsBasedOnCategory, 'active', 'polls')}
             </TabPane>
             <TabPane tab={pollsBasedOnCategory && pollsBasedOnCategory.payload ? `Expired (${pollsBasedOnCategory.payload.payload.length - checkLength(pollsBasedOnCategory, 'polls')})` : null} key='2'>

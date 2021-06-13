@@ -205,6 +205,14 @@ const Nav = function ({ fetchLanguage, logout, english: { english }, auth: { tok
           &times;
         </a>
         <li>
+          <span style={{ color: 'white' }}>
+           {!token ? <span style={{marginLeft:'35px'}} onClick={()=>{onClick();closeNav()}}>Login/Register</span>: <i style={{ color: 'white' , marginLeft:'35px' }} className="far fa-user"></i>}  {!token ? null : user && user.userName && user.userName}
+          </span>
+        </li>
+
+        {token ? <li><span style={{ color: 'white',marginLeft:'35px' }} onClick={logout}> Logout</span> </li> : null}
+       
+        {/* <li>
           <Dropdown className='guest' overlay={menu} trigger={['click']}>
             <a
               className='ant-dropdown-link guest-item'
@@ -219,7 +227,7 @@ const Nav = function ({ fetchLanguage, logout, english: { english }, auth: { tok
                 <i style={{ color: 'white' }} className="fas fa-chevron-down"></i>                  </span>
             </a>
           </Dropdown>
-        </li>
+        </li> */}
         <li style={{ marginLeft: '35px' }}>
           {/* <Select
             bordered={false}
