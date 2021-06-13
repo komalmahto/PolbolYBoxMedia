@@ -51,9 +51,6 @@ const Footer = () => {
                 <Col xs={24} sm={24} md={4} style={{ padding: "10px" }}>
                     <div>
                         <br />
-                        <Link to="/" style={{ color: "white" }}>
-                            <h3 style={{ color: "white" }}>Home</h3>
-                        </Link>
                         <a href="https://apps.apple.com/pa/app/polbol/id1476395002?l=en" style={{ color: "white" }} target="_blank">
                             <h3 style={{ color: "white" }}>Download App</h3>
                         </a>

@@ -30,7 +30,7 @@ const ModalLogin = ({
     time: 30,
     isSet: false,
   });
-  const [loginSuccessModal,setLoginSuccessModal] = useState(false);
+  const [loginSuccessModal, setLoginSuccessModal] = useState(false);
   const [regionData, setRegionData] = useState([]);
   const [profileData, setProfileData] = useState({
     gender: "",
@@ -54,8 +54,8 @@ const ModalLogin = ({
     });
   };
   useEffect(() => {
-    if(isModalVisible){
-    fetchRegions();
+    if (isModalVisible) {
+      fetchRegions();
     }
   }, [isModalVisible]);
   useEffect(() => {
@@ -102,8 +102,8 @@ const ModalLogin = ({
           // if (!res.data.payload.gender) {
           //   setProfile(true);
           // } else {
-            setLoginSuccessModal(true);
-            setIsModalVisible(false);
+          setLoginSuccessModal(true);
+          setIsModalVisible(false);
           //}
         })
         .catch((err) => {
@@ -184,19 +184,19 @@ const ModalLogin = ({
     <React.Fragment>
       <Modal
         visible={loginSuccessModal}
-        onOk={()=>setLoginSuccessModal(false)}
-        onCancel={()=>{setLoginSuccessModal(false)}}
+        onOk={() => setLoginSuccessModal(false)}
+        onCancel={() => { setLoginSuccessModal(false) }}
         footer={null}
-        style={{maxWidth:'max-content'}}
+        style={{ maxWidth: 'max-content' }}
         closable={false}
       >
-        <div style={{alignItems:'center' , display:'flex', flexDirection:'column'}}>
+        <div style={{ alignItems: 'center', display: 'flex', flexDirection: 'column' }}>
           <div>
-        <h3 style={{textAlign:"center",padding:'20px'}}>Logged in succesfully</h3>
-        </div>
-        <div>
-        <Button style={{background: '#ce3356',color:'white',borderColor:'#ce3356'}} onClick={()=>{setLoginSuccessModal(false)}} type="primary">OK</Button>
-        </div>
+            <h3 style={{ textAlign: "center", padding: '20px' }}>Logged in succesfully</h3>
+          </div>
+          <div>
+            <Button style={{ background: '#ce3356', color: 'white', borderColor: '#ce3356' }} onClick={() => { setLoginSuccessModal(false) }} type="primary">OK</Button>
+          </div>
         </div>
       </Modal>
       <Modal
@@ -279,7 +279,7 @@ const ModalLogin = ({
             <form className="profile-form" onSubmit={handleProfileUpdate}>
               <label htmlFor="gender">
                 Gender
-              <select
+                <select
                   value={profileData.gender}
                   onChange={(e) =>
                     setProfileData((prev) => ({
@@ -296,7 +296,7 @@ const ModalLogin = ({
               <br />
               <label htmlFor="">
                 Date of Birth
-              <DatePicker
+                <DatePicker
                   onChange={(value) =>
                     setProfileData((prev) => ({ ...prev, dateOfBirth: value }))
                   }
@@ -304,7 +304,7 @@ const ModalLogin = ({
                 />
               </label>
               <br />
-              <label htmlFor="religion">
+              {/* <label htmlFor="religion">
                 Religion (optional)
               <select
                   value={profileData.religion}
@@ -321,11 +321,11 @@ const ModalLogin = ({
                       <option value={rel}>{rel.toUpperCase()}</option>
                     ))}
                 </select>
-              </label>
+              </label> */}
               <br />
               <label htmlFor="state">
                 State
-              <select
+                <select
                   value={profileData.state}
                   onChange={(e) =>
                     setProfileData((prev) => ({ ...prev, state: e.target.value }))

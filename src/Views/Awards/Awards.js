@@ -102,7 +102,7 @@ const Awards = ({ fetchAwards, awards: { awards },english:{english} } ) => {
     }
     return minDiff < 0
       ? 'show has expired'
-      :  `Expiring on ${moment(expiryTime).format('DD MMMM, YYYY')}`;
+      :  `Expiring on ${moment(expiryTime).format('Do MMMM, YYYY')}`;
   };
   const handleOk = () => {
     setType3(false);
@@ -325,11 +325,11 @@ const Awards = ({ fetchAwards, awards: { awards },english:{english} } ) => {
             onChange={callback}
             type='card'
           >
-            <TabPane tab='Active' key='1'>
+            <TabPane tab={ awards ? `Active (${awards.length})` : null} key='1'>
               {PollView(awards,'active','awards')}
             </TabPane>
-            <TabPane tab='Expired' key='2'>
-              {PollView(expiredAwards.payload, 'expired', 'awards')}
+            <TabPane tab={expiredAwards && expiredAwards.payload ? `Expired (${expiredAwards.payload.length})` : null } key='2'>
+              { expiredAwards && expiredAwards.payload &&  expiredAwards.payload.length > 0 ? PollView(expiredAwards.payload, 'expired', 'awards') : <h4>Currently no expired awards available.</h4>}
             </TabPane>
           </Tabs>
         </div>

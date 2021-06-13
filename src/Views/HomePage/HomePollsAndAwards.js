@@ -256,7 +256,7 @@ const HomePollsAndAwards = ({ fetchPolls, fetchAwards, polls: { polls }, awards:
       difference = Math.floor(duration.asMinutes());
       unit = 'minutes';
     }
-    return minDiff < 0 ? 'show has expired' : `Expiring on ${moment(expiryTime).format('DD MMMM, YYYY')}`;
+    return minDiff < 0 ? 'show has expired' : `Expiring on ${moment(expiryTime).format('Do MMMM, YYYY')}`;
   };
   const grid = (data, type, type2) => {
     // console.log(data, 'data');
@@ -513,21 +513,21 @@ const HomePollsAndAwards = ({ fetchPolls, fetchAwards, polls: { polls }, awards:
       <Tabs className={'tabsStyl'} size={'large'} type='card'>
         <TabPane className="cat" id="cat" tab={english ? 'Polls' : 'मतदान'} key='1'>
           <Tabs className={'pp'} size={'small'} defaultActiveKey={checkLength(pollsBasedOnCategory, 'polls') === 0 ? '2' : '1'} onChange={callback}>
-            <TabPane tab='Active' key='1'>
+            <TabPane tab={pollsBasedOnCategory ? `Active (${checkLength(pollsBasedOnCategory, 'polls')})` : null} key='1'>
               {grid(pollsBasedOnCategory, 'active', 'polls')}
             </TabPane>
-            <TabPane tab='Expired' key='2'>
+            <TabPane tab={pollsBasedOnCategory && pollsBasedOnCategory.payload ? `Expired (${pollsBasedOnCategory.payload.payload.length - checkLength(pollsBasedOnCategory, 'polls')})` : null} key='2'>
               {grid(pollsBasedOnCategory, 'expired', 'polls')}
             </TabPane>
           </Tabs>
         </TabPane>
         <TabPane tab={english ? 'Awards' : 'अवार्डस'} key='2'>
           <Tabs className={'pp'} size={'small'} defaultActiveKey={checkLength(awards, 'awards') === 0 ? '2' : '1'} onChange={callback}>
-            <TabPane tab='Active' key='1'>
+            <TabPane tab={ awards ? `Active (${awards.length})` : null} key='1'>
               {grid(awards, 'active', 'awards')}
             </TabPane>
-            <TabPane tab='Expired' key='2'>
-              {grid(expiredAwards.payload, 'expired', 'awards')}
+            <TabPane tab={expiredAwards && expiredAwards.payload ? `Expired (${expiredAwards.payload.length})` : null } key='2'>
+              { expiredAwards && expiredAwards.payload && expiredAwards.payload.length > 0 ? grid(expiredAwards.payload, 'expired', 'awards') :  <h4>Currently no expired awards available.</h4>}
             </TabPane>
           </Tabs>
         </TabPane>
