@@ -1748,6 +1748,8 @@ input[type=number] {
 
 .signin-form-container-box .input-box {
   position: relative;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .signin-form-container-box .input-box .label {

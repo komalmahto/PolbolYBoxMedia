@@ -203,20 +203,7 @@ const HomePollsAndAwards = ({ fetchPolls, fetchAwards, polls: { polls }, awards:
   const getExpiryString = (expiryTime) => {
     const lifeEndTime = moment(expiryTime);
     const now = moment();
-    let duration = moment.duration(lifeEndTime.diff(now));
-    let difference = Math.floor(duration.asDays());
-    let minDiff = Math.floor(duration.asMinutes());
-    // console.log(minDiff, 'diff');
-
-    let unit = 'days';
-    if (difference < 1) {
-      difference = Math.floor(duration.asHours());
-      unit = 'hours';
-    }
-    if (difference < 1) {
-      difference = Math.floor(duration.asMinutes());
-      unit = 'minutes';
-    }
+    let minDiff = lifeEndTime.diff(now);
     return minDiff;
   };
 
@@ -369,14 +356,14 @@ const HomePollsAndAwards = ({ fetchPolls, fetchAwards, polls: { polls }, awards:
           </div>
           <div className="grid-2" >
             {!token&&useData &&
-              useData.slice(0, 6).map((p) =>{return !p.hidden  ? (
+              useData.map((p) =>{return !p.hidden  ? (
                 <div onClick={() => setIt(p)} className={type2==='awards'?'home-award-po':null} >
                   <PollCard setVote={setVote} english={english}  type={type} icons={icons} type2={type2} p={p} getExpiryString1={getExpiryString1} />
                 </div>
               ):null}
               )}
                {token&&useData &&
-              useData.slice(0, 6).map((p) => {return !p.hidden  ? (
+              useData.map((p) => {return !p.hidden  ? (
                 <div onClick={() => setIt(p)} className={type2==='awards'?'home-award-po':null} >
                   <PollCard setVote={setVote} english={english}  type={type} icons={icons} type2={type2} p={p} getExpiryString1={getExpiryString1} />
                 </div>
@@ -392,7 +379,7 @@ const HomePollsAndAwards = ({ fetchPolls, fetchAwards, polls: { polls }, awards:
                 dots={false}
                 arrows={true}
               >
-                {useData.slice(0, 6).map((p) => {
+                {useData.map((p) => {
                   return !p.hidden ? (
                     <div onClick={() => setIt(p)} className={type2 === 'awards' ? 'home-award-po' : null} >
                       <PollCard setVote={setVote} english={english} type={type} icons={icons} type2={type2} p={p} getExpiryString1={getExpiryString1} />
@@ -408,7 +395,7 @@ const HomePollsAndAwards = ({ fetchPolls, fetchAwards, polls: { polls }, awards:
                 dots={false}
                 arrows={true}
               >
-                {useData.slice(0, 6).map((p) => {
+                {useData.map((p) => {
                   return !p.hidden ? (
                     <div onClick={() => setIt(p)} className={type2 === 'awards' ? 'home-award-po' : null} >
                       <PollCard setVote={setVote} english={english} type={type} icons={icons} type2={type2} p={p} getExpiryString1={getExpiryString1} />
@@ -513,10 +500,11 @@ const HomePollsAndAwards = ({ fetchPolls, fetchAwards, polls: { polls }, awards:
       <Tabs className={'tabsStyl'} size={'large'} type='card'>
         <TabPane className="cat" id="cat" tab={english ? 'Polls' : 'मतदान'} key='1'>
           <Tabs className={'pp'} size={'small'} defaultActiveKey={checkLength(pollsBasedOnCategory, 'polls') === 0 ? '2' : '1'} onChange={callback}>
-            <TabPane tab={pollsBasedOnCategory && checkLength(pollsBasedOnCategory, 'polls')? `Active (${checkLength(pollsBasedOnCategory, 'polls')})` : null} key='1'>
+            <TabPane tab={pollsBasedOnCategory && pollsBasedOnCategory.payload ? `Active (${pollsBasedOnCategory.payload.totalActive})` : null} key='1'>
+              {console.log(pollsBasedOnCategory)}
               {grid(pollsBasedOnCategory, 'active', 'polls')}
             </TabPane>
-            <TabPane tab={pollsBasedOnCategory && pollsBasedOnCategory.payload ? `Expired (${pollsBasedOnCategory.payload.payload.length - checkLength(pollsBasedOnCategory, 'polls')})` : null} key='2'>
+            <TabPane tab={pollsBasedOnCategory && pollsBasedOnCategory.payload ? `Expired (${pollsBasedOnCategory.payload.totalExpired})` : null} key='2'>
               {grid(pollsBasedOnCategory, 'expired', 'polls')}
             </TabPane>
           </Tabs>

@@ -209,8 +209,6 @@ const Nav = function ({ fetchLanguage, logout, english: { english }, auth: { tok
            {!token ? <span style={{marginLeft:'35px'}} onClick={()=>{onClick();closeNav()}}>Login/Register</span>: <i style={{ color: 'white' , marginLeft:'35px' }} className="far fa-user"></i>}  {!token ? null : user && user.userName && user.userName}
           </span>
         </li>
-
-        {token ? <li><span style={{ color: 'white',marginLeft:'35px' }} onClick={logout}> Logout</span> </li> : null}
        
         {/* <li>
           <Dropdown className='guest' overlay={menu} trigger={['click']}>
@@ -287,6 +285,8 @@ const Nav = function ({ fetchLanguage, logout, english: { english }, auth: { tok
         >
           <Link to='/quiz'>QUIZ</Link>
         </li>
+
+        {token ? <li><span style={{ color: 'white',marginLeft:'35px' }} onClick={logout}> Logout</span> </li> : null}
 
       </div>
     </div>

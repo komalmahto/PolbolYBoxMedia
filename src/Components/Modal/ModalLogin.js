@@ -39,6 +39,7 @@ const ModalLogin = ({
     state: "",
     city: "",
   });
+  const [referalCode , setReferalCode] = useState('');
   const religionData = [
     "christian",
     "islam",
@@ -114,6 +115,10 @@ const ModalLogin = ({
   };
 
   const getOtp = async () => {
+    if (referalCode.length > 0 && referalCode !== 'r7865ikc' && referalCode !== 'vds5267g' && referalCode !== '7437sdvi' && referalCode !== 'sdjhv852' && referalCode !== 'xnmzbm64' && referalCode !== 'mcds6730') {
+      setReferalCode('');
+      return alert('Invalid Referral Code');
+    }
     if (phone.length === 10) {
       await axios
         .post(`user/login?phone=${phone}`, {
@@ -123,6 +128,7 @@ const ModalLogin = ({
           console.log(res);
           setTimer({ ...timer, time: 30, isSet: true });
           setResData(res.data.payload);
+          setReferalCode('');
         });
     }
   };
@@ -219,12 +225,22 @@ const ModalLogin = ({
               <div>
                 <div className="input-box">
                   <input
+                    autoFocus
                     value={phone}
                     onChange={changePhone}
                     type="number"
                     placeholder="Phone number"
                   />
                   <label className="label">Phone number</label>
+                </div>
+                <div className="input-box">
+                  <input
+                    placeholder="Referral code (if any)"
+                    value={referalCode}
+                    type="text"
+                    className="input-field"
+                    onChange={(e) => setReferalCode(e.target.value)}
+                  />
                 </div>
                 {Object.keys(resData).length > 0 && (
                   <div className="otp-box">

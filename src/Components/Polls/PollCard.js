@@ -231,7 +231,7 @@ const PollCard = ({
         <h4>{voteModalData.question}</h4>
         {voteModalData.type === 'bar' ?
           <div>
-            <Rate count={10} value={answer.key + 1} onChange={(value) => { setAnswer({ ...answer, key: value - 1 }) }} />
+            <Rate count={10} value={answer.key + 1} onChange={(value) => { if(value > 0) {setAnswer({ ...answer, key: value - 1 })}  }} />
           </div> : <span><Options /></span>
         }
         <div style={{ marginTop: '5px' }}>

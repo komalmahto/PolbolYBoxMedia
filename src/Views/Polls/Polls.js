@@ -105,22 +105,10 @@ const Polls = ({ english: { english }, auth: { token } }) => {
   const getExpiryString = (expiryTime) => {
     const lifeEndTime = moment(expiryTime);
     const now = moment();
-    let duration = moment.duration(lifeEndTime.diff(now));
-    let difference = Math.floor(duration.asDays());
-    let minDiff = Math.floor(duration.asMinutes());
-    console.log(minDiff, 'diff');
-
-    let unit = 'days';
-    if (difference < 1) {
-      difference = Math.floor(duration.asHours());
-      unit = 'hours';
-    }
-    if (difference < 1) {
-      difference = Math.floor(duration.asMinutes());
-      unit = 'minutes';
-    }
+    let minDiff = lifeEndTime.diff(now);
     return minDiff;
   };
+
 
   const checkLength = (data, type) => {
 
@@ -230,10 +218,10 @@ const Polls = ({ english: { english }, auth: { token } }) => {
             cats={catspa}
           />
           <Tabs size={'large'} defaultActiveKey={checkLength(pollsBasedOnCategory, 'polls') === 0 ? '2' : '1'} onChange={callback} type='card'>
-            <TabPane tab={pollsBasedOnCategory && checkLength(pollsBasedOnCategory, 'polls') ? `Active (${checkLength(pollsBasedOnCategory, 'polls')})` : null} key='1'>
+            <TabPane tab={pollsBasedOnCategory && pollsBasedOnCategory.payload ? `Active (${pollsBasedOnCategory.payload.totalActive})` : null}  key='1'>
               {PollView(pollsBasedOnCategory, 'active', 'polls')}
             </TabPane>
-            <TabPane tab={pollsBasedOnCategory && pollsBasedOnCategory.payload  ? `Expired (${pollsBasedOnCategory.payload.payload.length - checkLength(pollsBasedOnCategory, 'polls')})` : null} key='2'>
+            <TabPane tab={pollsBasedOnCategory && pollsBasedOnCategory.payload ? `Expired (${pollsBasedOnCategory.payload.totalExpired})` : null} key='2'>
               {PollView(pollsBasedOnCategory, 'expired', 'polls')}
             </TabPane>
           </Tabs>
