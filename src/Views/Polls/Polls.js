@@ -1,239 +1,170 @@
-import React, { useState, useEffect } from 'react';
-import CategoryBar from '../../Components/CategoryBar/CategoryBar';
-import { cats, catspa } from '../../Components/icons/Icons';
-import { Tabs, Carousel } from 'antd';
-import axios from '../../axios';
-import moment from 'moment';
-import PollCard from '../../Components/Polls/PollCard';
-import { icons } from '../../Components/icons/Icons';
-import { connect } from 'react-redux';
+import { useEffect, useState } from "react";
+import { pollCategories } from "../../data";
+import OverallPolls from "./OverallPolls";
+import FilteredPolls from "./FilteredPolls/FilteredPolls";
+import * as api from "../../api";
+import Multiselect from "multiselect-react-dropdown";
+import styles from "./Polls.module.css";
 
-
-const Polls = ({ english: { english }, auth: { token } }) => {
-  const [selectedTags, setSelectedTags] = useState([]);
-  const [pollsBasedOnCategory, setPollsBasedOnCategory] = useState({});
-  const [page, setPage] = useState(1)
-  const [vote, setVote] = useState(false)
-
-
-  const { TabPane } = Tabs;
-  useEffect(() => {
-    fetchPollsSelected();
-  }, [english, token, vote]);
+const Polls = () => {
+  // const [polls, setPolls] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [active, setActive] = useState(true);
+  const [activePolls, setActivePolls] = useState([]);
+  const [expiredPolls, setExpiredPolls] = useState([]);
+  const [activePollsTotal, setActivePollsTotal] = useState(0);
+  const [expiredPollsTotal, setExpiredPollsTotal] = useState(0);
 
   useEffect(() => {
-    fetchPollsSelected();
-  }, [selectedTags]);
+    setCategories([...pollCategories.splice(0, 4)]);
+    getActivePolls();
+    getExpiredPolls();
+  }, []);
 
-  const fetchPollsSelected = async (page) => {
-    const queryParam = selectedTags.join(',');
+  useEffect(() => {
+    getFilteredPolls();
+  }, [selectedCategories, active]);
+
+  const getActivePolls = async () => {
     try {
-      if (token) {
-        const response = await axios.get(`/polls?hindi=${!english}&mode=active`, {
-          headers: {
-            Authorization: {
-              toString() {
-                return `Bearer ` + JSON.parse(token);
-              }
-            }
-          },
-          params: {
-            page,
-            categories: selectedTags.length > 0 ? queryParam : undefined,
-          },
-        });
-        const response1 = await axios.get(`/polls?hindi=${!english}&mode=expired`, {
-          headers: {
-            Authorization: {
-              toString() {
-                return `Bearer ` + JSON.parse(token);
-              }
-            }
-          },
-          params: {
-            page,
-            categories: selectedTags.length > 0 ? queryParam : undefined,
-          },
-        });
-        console.log(response1)
-        console.log(response.data.payload.payload.concat(response1.data.payload.payload))
-        const final = response.data.payload.payload.concat(response1.data.payload.payload)
-        console.log(final)
-        response.data.payload.payload = final
-        const responseJSON = response.data;
-        setPollsBasedOnCategory(responseJSON);
+      const { data } = await api.getActivePolls();
+      setActivePollsTotal(data.payload.totalActive);
+      setActivePolls(data.payload.payload);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const getExpiredPolls = async () => {
+    try {
+      const { data } = await api.getExpiredPolls();
+      setExpiredPollsTotal(data.payload.totalExpired);
+      setExpiredPolls(data.payload.payload);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-        console.log(responseJSON, 'selected news');
+  const handleCategoryClick = (category) => {
+    if (!selectedCategories.includes(category))
+      setSelectedCategories([...selectedCategories, category]);
+    else
+      setSelectedCategories(
+        selectedCategories.filter((cat) => cat !== category)
+      );
+  };
+
+  const getFilteredPolls = async () => {
+    try {
+      let mode = active ? "active" : "expired";
+      let categories = selectedCategories.join(",");
+
+      const { data } = await api.getFilteredPolls(mode, categories);
+
+      if (active) {
+        // setActivePollsTotal(data.payload.length);
+        setActivePolls([...data.payload.payload]);
+      } else {
+        // setExpiredPollsTotal(data.payload.length);
+        setExpiredPolls([...data.payload.payload]);
       }
-      else {
-        const response = await axios.get(`/common/polls?hindi=${!english}`, {
-          params: {
-            page,
-            categories: selectedTags.length > 0 ? queryParam : undefined,
-          },
-        });
-        const responseJSON = response.data;
-        setPollsBasedOnCategory(responseJSON);
-
-        console.log(responseJSON, 'selected news');
-      }
-
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      console.log(error);
     }
   };
 
-  function callback(key) {
-    console.log(key);
-  }
-  function onChange(checkedValues) {
-    console.log('checked = ', checkedValues);
-    setSelectedTags(checkedValues);
-  }
-  const checkChecked = (item) => {
-    // console.log(selectedTags);
-    const bool = selectedTags.indexOf(item);
-    // console.log(bool);
-    if (bool !== -1) {
-      return {
-        backgroundColor: '#a62844',
-        color: 'white',
-      };
-    }
+  const onSelect = (selectedList, selectedItem) => {
+    setSelectedCategories([...selectedCategories, selectedItem.name]);
   };
 
-  const getExpiryString = (expiryTime) => {
-    const lifeEndTime = moment(expiryTime);
-    const now = moment();
-    let minDiff = lifeEndTime.diff(now);
-    return minDiff;
-  };
-
-
-  const checkLength = (data, type) => {
-
-    let useData = []
-    if (type === 'polls') {
-      useData =
-        Object.keys(data).length > 0 &&
-        data.payload.payload.filter((p) => {
-          return getExpiryString(p.lifeSpan) > 0;
-        });
-      console.log(useData);
-      return useData.length;
-    }
-
-  }
-
-  const PollView = (data, type, type2) => {
-    let useData;
-    if (type === 'active') {
-      useData =
-        Object.keys(data).length > 0 &&
-        data.payload.payload.filter((p) => {
-          return getExpiryString(p.lifeSpan) > 0;
-        });
-      console.log(useData);
-    } else if (type === 'expired') {
-      useData =
-        Object.keys(data).length > 0 &&
-        data.payload.payload.filter((p) => {
-          return getExpiryString(p.lifeSpan) < 0;
-        });
-      console.log(useData);
-    }
-
-    let screenWidth = window.innerWidth;
-
-    return screenWidth > 768 ? (
-      <>
-        <div style={{ margin: '1.5rem 0' }}>
-          {  /*        <span>{useData.length + ' ' + type + ' ' + type2}</span>
-    */}        </div>
-        <div className='pollCont'>
-          {!token && useData &&
-            useData.slice(0, 10 * page).map(
-              (p) =>
-                p.hidden === false && (
-                  <PollCard setVote={setVote} vote={vote} english={english} icons={icons} type2={type2} p={p} type={type} />
-                )
-            )}
-          {token && useData &&
-            useData.slice(0, 10 * page).map(
-              (p) =>
-              (
-                <PollCard setVote={setVote} vote={vote} english={english} icons={icons} type2={type2} p={p} type={type} />
-              )
-            )}
-        </div>
-
-        {useData && useData.length > page * 10 && <center><button className="loadmore" onClick={changePage}>Load more</button></center>}
-      </>
-    ) : (
-      <React.Fragment>
-        <div className='pollCont'>
-        <p style={{color:'rgb(166, 40, 68)' , textAlign:'center'}}><i class="fa fa-hand-o-left" aria-hidden="true"></i> Swipe</p>
-          {!token && useData &&
-            <Carousel
-              dots={false}
-            >
-              {useData.map(
-                (p) => {
-                  return !p.hidden ? (
-                    <PollCard setVote={setVote} vote={vote} english={english} icons={icons} type2={type2} p={p} type={type} />
-                  ) : null
-                }
-              )}
-            </Carousel>
-          }
-          {token && useData &&
-            <Carousel
-              dots={false}
-            >
-              {useData.map(
-                (p) => {
-                  return !p.hidden ? (
-                    <PollCard setVote={setVote} vote={vote} english={english} icons={icons} type2={type2} p={p} type={type} />
-                  ) : null
-                }
-              )
-              }
-            </Carousel>
-          }
-        </div>
-      </React.Fragment>
+  const onRemove = (selectedList, selectedItem) => {
+    setSelectedCategories(
+      selectedCategories.filter((category) => category !== selectedItem.name)
     );
   };
-  const changePage = () => {
-    setPage(page + 1)
-  }
+
   return (
-    <div className='poll-box'>
-      <div>
-        {/*<h1>Polls</h1>*/}
-        <div>
-          <CategoryBar
-            onChange={onChange}
-            checkChecked={checkChecked}
-            cats={catspa}
+    <div className="container">
+      <div className={styles.header}>
+        <p className={styles.pHeading}>Poll</p>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus,
+          neque.
+        </p>
+      </div>
+      <div className={styles.categories}>
+        <span
+          className={
+            selectedCategories.length === 0
+              ? `${styles.category} ${styles.selected}`
+              : styles.category
+          }
+          onClick={() => setSelectedCategories([])}
+        >
+          Overall
+        </span>
+        {categories.map((category, index) => (
+          <span
+            key={index}
+            className={
+              selectedCategories.includes(category)
+                ? `${styles.category} ${styles.selected}`
+                : styles.category
+            }
+            onClick={(_) => handleCategoryClick(category)}
+          >
+            {category}
+          </span>
+        ))}
+        <div
+          style={{
+            width: "250px",
+            fontSize: "0.8rem",
+            margin: "15px 0",
+          }}
+        >
+          <Multiselect
+            style={{ height: "100%" }}
+            options={pollCategories.map((category) => ({ name: category }))}
+            onSelect={onSelect}
+            onRemove={onRemove}
+            displayValue="name"
+            placeholder="View All Categories"
+            showArrow
           />
-          <Tabs size={'large'} defaultActiveKey={checkLength(pollsBasedOnCategory, 'polls') === 0 ? '2' : '1'} onChange={callback} type='card'>
-            <TabPane tab={pollsBasedOnCategory && pollsBasedOnCategory.payload ? `Active (${pollsBasedOnCategory.payload.totalActive})` : null}  key='1'>
-              {PollView(pollsBasedOnCategory, 'active', 'polls')}
-            </TabPane>
-            <TabPane tab={pollsBasedOnCategory && pollsBasedOnCategory.payload ? `Expired (${pollsBasedOnCategory.payload.totalExpired})` : null} key='2'>
-              {PollView(pollsBasedOnCategory, 'expired', 'polls')}
-            </TabPane>
-          </Tabs>
         </div>
       </div>
+      <div
+        className={`${
+          active
+            ? `${styles.types} ${styles.active}`
+            : `${styles.types} ${styles.expired}`
+        }`}
+      >
+        <div onClick={() => setActive(true)}>
+          ACTIVE <span>{activePollsTotal}</span>
+        </div>
+        <div onClick={() => setActive(false)}>
+          EXPIRED <span>{expiredPollsTotal}</span>
+        </div>
+      </div>
+      {active ? (
+        selectedCategories.length === 0 ? (
+          <div className={styles.polls}>
+            <OverallPolls polls={activePolls} />
+          </div>
+        ) : (
+          <FilteredPolls mode="active" polls={activePolls} />
+        )
+      ) : selectedCategories.length === 0 ? (
+        <div className={styles.polls}>
+          <OverallPolls polls={expiredPolls} />
+        </div>
+      ) : (
+        <FilteredPolls mode="expired" polls={expiredPolls} />
+      )}
     </div>
   );
 };
 
-const mapStateToProps = (state) => ({
-  english: state.english,
-  auth: state.auth
-});
-
-export default connect(mapStateToProps)(Polls);
+export default Polls;

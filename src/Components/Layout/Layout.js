@@ -1,20 +1,11 @@
-import React from 'react';
-import Navbar from '../Navigation/Nav';
-import MainView from '../MainView/MainView';
-import {useLocation,useHistory} from 'react-router-dom'
-
-const Layout = ({match}) => {
-  const location=useLocation()
-  const history=useHistory()
-  console.log(history)
-  const pat=location.pathname.split('/')
-
+const Layout = (props) => {
   return (
-    <div>
-      {pat[1]!=="yt"&& <Navbar />}
-
-      
-      <MainView />
+    <div
+      style={{
+        paddingTop: "100px",
+      }}
+    >
+      {props.children}
     </div>
   );
 };

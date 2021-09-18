@@ -1,0 +1,51 @@
+.filter {
+  position: relative;
+  background: #84855d;
+  display: inline-block;
+  font-size: 0.8rem;
+  padding: 6px 10px;
+  color: #fff;
+  cursor: pointer;
+}
+.filter p i {
+  margin-left: 5px;
+}
+
+.filter_body {
+  box-shadow: 0 10px 30px #888;
+  position: absolute;
+  display: none;
+  top: 100%;
+  left: 0;
+  background: #fff;
+  color: #000;
+  padding: 10px 20px;
+  height: 300px;
+  width: 200px;
+  overflow-y: scroll;
+}
+.filter_body.display {
+  display: block;
+}
+
+.filter_option {
+  border-bottom: 1px solid #000;
+  padding-bottom: 3px;
+  margin-bottom: 15px;
+}
+.filter_head {
+  font-size: 0.8rem;
+  font-weight: 400;
+  margin-bottom: 3px;
+}
+
+.filter_value {
+  padding: 2px 5px;
+  color: #333;
+  cursor: pointer;
+}
+
+.filter_value p {
+  cursor: pointer;
+  margin: 3px 0;
+}

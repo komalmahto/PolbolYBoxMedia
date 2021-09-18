@@ -1,0 +1,136 @@
+.rectangle {
+  z-index: -100;
+  top: 0;
+  left: 0;
+  position: absolute;
+  width: 60vw;
+  overflow: hidden;
+}
+
+.home {
+  width: 100vw;
+}
+
+.intro_section {
+  min-height: 450px;
+  width: 80%;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.wrapper {
+  height: 350px;
+  width: 50%;
+}
+
+iframe {
+  height: 100%;
+  width: 100%;
+}
+
+.features {
+  width: 40%;
+}
+.features h2 {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 2rem;
+  line-height: 47px;
+  letter-spacing: 0.04em;
+  color: #000000;
+}
+
+.features_list {
+  margin-top: 20px;
+}
+.feature {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  width: 90%;
+  min-height: 121px;
+  background: #fdf9f6;
+  border-radius: 15px;
+  margin: 15px 0;
+}
+
+.features_list .feature:nth-child(1),
+.features_list .feature:nth-child(3) {
+  float: right;
+}
+
+.features_list .feature:nth-child(2) {
+  float: left;
+}
+
+.img {
+  width: 85px;
+  height: 85px;
+  left: 984px;
+  top: 369px;
+  background: url("https://s3-alpha-sig.figma.com/img/861a/7d42/aded6213d06f56f06a00779db71f8bca?Expires=1632700800&Signature=NAqptCzbHafLz67~eO0jVnk3A0F~6ywfCyrbURKh8h82~guS2Z2QAx5X5sWghxJQl-obS2zDQoiHSh7fMdu9qq2rfqJTtDiCJ1xfN1w9Rv51xlu8YhqiMLCDOjK5bL689YCaWLogXj60ZkvOEgC6RYvN7i-5CKxymaBo14TE99SDum66~bMPUHa8NBn3jpfqDCVtBPpAsgAzQW0aSdqWrN80RWFrnKKKL5HcQfOr4sDoM25T1hG-IxC0NGoDSilkCBhNtiKjL~h6icFdXT4zPYqhGEbuurNFNapBAzG1Z8HFWaE3kYFL1bgtFmxwjMrkxQh-siP9t8b2zYNKWo7Zeg__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA");
+  border-radius: 12px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.feature_detail {
+  margin: 0 20px;
+}
+
+.feature_detail .feature_name {
+  width: 120px;
+  height: 30px;
+  background: #fdeddb;
+  border-radius: 50px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.feature_detail h2 {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 1rem;
+  line-height: 26px;
+  margin: 10px 0;
+}
+.feature_detail span {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 0.9rem;
+  line-height: 19px;
+  color: #5b5b5b;
+}
+
+@media screen and (max-width: 950px) {
+  .intro_section {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .wrapper {
+    width: 100%;
+  }
+  .features {
+    width: 100%;
+    margin: 50px 0;
+  }
+  .feature {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .wrapper {
+    height: 200px;
+  }
+  .img {
+    display: none;
+  }
+  .feature_detail {
+    margin: 0 5px;
+  }
+}

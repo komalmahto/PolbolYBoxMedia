@@ -1,21 +1,22 @@
-import './App.css';
-import Layout from './Components/Layout/Layout'
-import {store,persistor} from './Store';
-import { Provider } from 'react-redux';
-import { PersistGate } from 'redux-persist/integration/react'
+import { Provider } from "react-redux";
+import store from "./store";
+import { BrowserRouter as Router } from "react-router-dom";
 
+// Components
+import Navbar from "./components/Navbar/Navbar";
+import MainView from "./components/MainView/MainView";
+import Footer from "./components/Footer/Footer";
 
-function App() {
+const App = () => {
   return (
-    <>
- <Provider store={store}>
-  <PersistGate loading={null} persistor={persistor}>   
-   <Layout/>
-  </PersistGate>
-
-</Provider>
-</>
+    <Provider store={store}>
+      <Router>
+        <Navbar />
+        <MainView />
+        <Footer />
+      </Router>
+    </Provider>
   );
-}
+};
 
 export default App;

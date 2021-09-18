@@ -1,0 +1,135 @@
+.container {
+  width: 98%;
+  margin: auto;
+}
+
+.poll {
+  margin-bottom: 20px;
+}
+.poll .category {
+  margin-left: 5px;
+  font-size: 0.95rem;
+}
+
+.main {
+  position: relative;
+  background: #fdf9f6;
+  padding: 40px 20px;
+  margin: 5px;
+  border-radius: 15px;
+}
+
+.poll_image {
+  height: 200px;
+  width: 100%;
+  border-radius: 15px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.poll_details {
+  margin: 20px 0;
+}
+
+.poll_details p {
+  font-size: 0.9rem;
+  line-height: 1.3rem;
+}
+
+.actions {
+  display: flex;
+  margin: 15px 0;
+}
+.like {
+  margin-right: 10px;
+}
+
+.vote_now {
+  background: #fdeddb;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.vote_now p {
+  font-size: 0.9rem;
+  margin-top: 5px;
+  color: #5b5b5b;
+}
+
+.expiry {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 0.8rem;
+  background: #84855d;
+  color: #fff;
+  padding: 5px 15px;
+  border-radius: 50px;
+}
+.actions div {
+  cursor: pointer;
+}
+
+.no_polls_message {
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.3rem;
+  text-align: center;
+}
+
+@media screen and (min-width: 550px) {
+  .poll_image {
+    height: 400px;
+  }
+  .no_polls_message {
+    height: 250px;
+    font-size: 1.6rem;
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .main {
+    display: flex;
+    align-items: center;
+    padding: 30px;
+  }
+  .poll_image {
+    height: 150px;
+    width: 30%;
+    max-width: 150px;
+  }
+  .poll_details {
+    margin: 0 45px;
+    display: flex;
+    height: 150px;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 50%;
+  }
+  .poll_details p {
+    width: 75%;
+    margin-top: 30px;
+    font-size: 1.1rem;
+  }
+  .actions {
+    margin: 0;
+  }
+  .vote_now {
+    padding: 0;
+    height: 150px;
+    width: 150px;
+    margin-left: 50px;
+  }
+  .expiry {
+    top: 5px;
+    font-size: 0.7rem;
+  }
+}

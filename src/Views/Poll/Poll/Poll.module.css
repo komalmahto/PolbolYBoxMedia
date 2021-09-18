@@ -1,0 +1,13 @@
+.poll {
+  width: 90%;
+  margin: auto;
+}
+
+.question_title {
+  font-size: 0.85rem;
+  margin-bottom: 15px;
+}
+
+.chart {
+  width: 100%;
+}

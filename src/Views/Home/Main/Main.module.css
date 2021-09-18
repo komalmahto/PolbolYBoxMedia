@@ -1,0 +1,381 @@
+.home {
+  margin-top: 50px;
+  display: flex;
+  justify-content: space-between;
+  height: auto;
+}
+
+.features {
+  width: 60%;
+}
+
+.feature {
+  margin-bottom: 30px;
+}
+
+.feature h2 {
+  position: relative;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 1.8rem;
+  line-height: 2.8rem;
+  letter-spacing: 0.04em;
+  display: inline-block;
+}
+
+.feature h2::before {
+  position: absolute;
+  content: "";
+  width: 120%;
+  bottom: 0;
+  left: 0;
+  border: 1px solid #84855d;
+  box-sizing: border-box;
+}
+
+.poll_box {
+  margin: 10px 0;
+  display: grid;
+  gap: 0.5em;
+  grid-auto-rows: minmax(230px, auto);
+  grid-template-columns: repeat(2, 1fr);
+}
+.item {
+  position: relative;
+  background: #c4c4c4;
+  cursor: pointer;
+}
+
+.poll_box .item:nth-child(5n) {
+  grid-column: 1/3;
+}
+
+.poll_box .item {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: flex-end;
+}
+.item_container {
+  width: 85%;
+  margin: 0 auto 10px auto;
+  color: #fff;
+  font-size: 0.75rem;
+  z-index: 100;
+  text-align: center;
+}
+.item_container a {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+}
+
+.poll_box .item:hover .item_image {
+  transform: scale(1.2);
+}
+
+.petition_box {
+  margin: 10px 0;
+  display: grid;
+  gap: 0.5em;
+  grid-auto-rows: minmax(230px, auto);
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.petition_box .item:nth-child(5n) {
+  grid-column: 1/3;
+}
+
+.award_box {
+  margin: 10px 0;
+  display: grid;
+  gap: 0.5em;
+  grid-auto-rows: minmax(230px, auto);
+  grid-template-columns: repeat(2, 1fr);
+}
+.award_box .item:nth-child(5n) {
+  grid-column: 1/3;
+}
+.item img {
+  width: 100%;
+}
+
+.latest_news {
+  width: 28%;
+  border: 1px solid #84855d;
+  border-radius: 12px;
+  padding: 10px 0 10px 20px;
+}
+
+.latest_news h2 {
+  position: relative;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 1.1rem;
+  line-height: 3rem;
+  color: #000000;
+}
+.latest_news h2::before {
+  position: absolute;
+  content: "";
+  width: 70%;
+  border: 1px solid #84855d;
+  bottom: 0;
+}
+
+.news_list {
+  margin: 10px 0;
+  height: 1530px;
+  overflow-y: scroll;
+}
+
+.news {
+  width: 100%;
+  /* margin: 10px 0; */
+  border-bottom: 1px solid #84855d;
+  padding-bottom: 20px;
+  margin-bottom: 30px;
+}
+
+.news img {
+  width: 100%;
+}
+.news .title {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 0.9rem;
+  line-height: 1.4rem;
+  letter-spacing: 0.02em;
+  color: #000000;
+  margin: 12px 0;
+  padding-right: 10px;
+}
+.news button {
+  padding: 8px 20px;
+  color: #ffffff;
+  background: #84855d;
+  font-style: normal;
+  font-size: 0.75rem;
+  line-height: 12px;
+  border: none;
+  outline: none;
+  border-radius: 50px;
+  cursor: pointer;
+}
+.view_all {
+  padding: 10px 0;
+  width: 200px;
+  display: block;
+  margin: 20px auto 0 auto;
+  color: #ffffff;
+  background: #84855d;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 0.9rem;
+  line-height: 12px;
+  border: none;
+  outline: none;
+  border-radius: 50px;
+  cursor: pointer;
+}
+
+.downloads {
+  width: 100%;
+  padding: 25px 0;
+  background: #fdeddb;
+  border-radius: 25px;
+  margin: 30px 0;
+}
+
+.container {
+  width: 85%;
+  height: 100%;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.container img {
+  width: 190px;
+  cursor: pointer;
+  border-radius: 50px;
+}
+.text h2 {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+  color: #000000;
+}
+.text p {
+  font-size: 0.95rem;
+}
+
+.activities {
+  display: flex;
+  justify-content: space-between;
+}
+
+.activity {
+  width: 45%;
+  margin: 30px 0;
+}
+
+.activity h2 {
+  display: inline-block;
+  position: relative;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 1.4rem;
+  line-height: 3rem;
+  letter-spacing: 0.04em;
+  color: #000000;
+  margin-bottom: 30px;
+}
+.activity h2::before {
+  position: absolute;
+  content: "";
+  width: 120%;
+  bottom: 0;
+  border: 1px solid #84855d;
+}
+
+.activity .detail {
+  min-height: 350px;
+  box-shadow: 0 0 10px #333;
+  border-radius: 20px;
+  text-align: center;
+  padding: 35px 35px;
+}
+.activity img {
+  height: 150px;
+  border-radius: 50px;
+  margin-bottom: 20px;
+}
+.activity .text {
+  min-height: 60px;
+}
+.activity .text p {
+  margin-bottom: 10px;
+  width: 90%;
+  margin: 0 auto 10px auto;
+}
+.activity button {
+  color: #fff;
+  background: #ff4d4f;
+  border: none;
+  outline: none;
+  padding: 10px 20px;
+  border-radius: 15px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+.activity button:hover {
+  opacity: 0.8;
+}
+
+.award_container {
+  padding: 20px 0;
+  width: 90%;
+  height: 100%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.award_container {
+  font-size: 0.85rem;
+}
+.award_container img {
+  width: 100%;
+  margin: 15px 0;
+}
+
+@media screen and (max-width: 950px) {
+  .poll_box {
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: minmax(200px, auto);
+  }
+  .award_box {
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: minmax(200px, auto);
+  }
+  .petition_box {
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: minmax(200px, auto);
+  }
+  .latest_news {
+    width: 35%;
+  }
+  .news_list {
+    height: 1580px;
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .container {
+    display: block;
+  }
+  .activities {
+    flex-direction: column;
+  }
+  .activity {
+    width: 100%;
+  }
+  .home {
+    display: block;
+  }
+  .features {
+    width: 100%;
+  }
+  .latest_news {
+    width: 100%;
+    padding-right: 20px;
+  }
+  .news_list {
+    height: auto;
+    overflow: auto;
+  }
+}
+
+@media screen and (max-width: 530px) {
+  .container {
+    text-align: center;
+  }
+  .container img {
+    margin-top: 10px;
+  }
+  .poll_box {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .poll_box .item:nth-child(5n) {
+    grid-column: 1/2;
+  }
+  .award_box {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .award_box .item:nth-child(5n) {
+    grid-column: 1/2;
+  }
+  .petition_box {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .petition_box .item:nth-child(5n) {
+    grid-column: 1/2;
+  }
+  .view_all {
+    margin: 0;
+  }
+}
