@@ -67,7 +67,7 @@ function Petition3() {
         </div>
       </div>
       <div className={styles.body}>
-        <p className={styles.ques}>Add a photo or video</p>
+        <p className={styles.ques}>Add a photo</p>
         <p className={styles.qtext}>
           Petitions with a photo or video receive six times more signatures than
           those without. Include one that captures the emotion of your story.
