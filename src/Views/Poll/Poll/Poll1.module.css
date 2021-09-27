@@ -1,0 +1,24 @@
+.center{
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    width: 30%;
+    height: 30%;
+}
+.container{
+    background-color: #FDF9F6;
+    margin-bottom: 40px;
+}
+.list{
+    text-align: center;
+    padding: 10px;
+}
+.backbtn{
+    position: absolute;
+    margin:10px;
+    background-color: #84855D;
+    display: inline-block;
+    height:25px;
+    right:150px;
+   bottom:30px;
+}

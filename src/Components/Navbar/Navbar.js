@@ -19,7 +19,9 @@ const Navbar = () => {
             <Link to="/polls">Poll</Link>
           </li>
           <li>Awards</li>
-          <li>Petition</li>
+          <li>
+           <Link to="/petitions"> Petition</Link>
+            </li>
           <li>News</li>
           <li>TV</li>
           <li>Quiz</li>

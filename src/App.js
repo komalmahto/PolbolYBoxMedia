@@ -3,9 +3,9 @@ import store from "./store";
 import { BrowserRouter as Router } from "react-router-dom";
 
 // Components
-import Navbar from "./components/Navbar/Navbar";
-import MainView from "./components/MainView/MainView";
-import Footer from "./components/Footer/Footer";
+import Navbar from "./Components/Navbar/Navbar";
+import MainView from "./Components/MainView/MainView";
+import Footer from "./Components/Footer/Footer";
 
 const App = () => {
   return (
