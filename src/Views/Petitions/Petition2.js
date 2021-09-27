@@ -1,8 +1,8 @@
-import React, { useState ,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { EditorState } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
-import {convertToRaw} from 'draft-js';
+import { convertToRaw } from "draft-js";
 
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import styles from "./Petition.module.css";
@@ -11,43 +11,43 @@ import "draft-js/dist/Draft.css";
 import "./Editor.css";
 
 function Petition2() {
-  const history=useHistory();
+  const history = useHistory();
 
   const [editorState, setEditorState] = useState(() =>
     EditorState.createEmpty()
   );
   const [url, setUrl] = useState("");
-  const [convertedContent,setConvertedContent]=useState(null);
+  const [convertedContent, setConvertedContent] = useState(null);
 
-  const handleClick=()=>{
-    history.push('/petition3');
-   }
-
+  const handleClick = () => {
+    history.push("/petition3");
+  };
+  const handlePrevClick = () => {
+    history.push("/petition1");
+  };
   const handleEditorChange = (state) => {
     setEditorState(state);
     convertContentToHTML();
-  }
+  };
   const convertContentToHTML = () => {
     let currentContentAsRaw = convertToRaw(editorState.getCurrentContent());
     setConvertedContent(currentContentAsRaw);
-  }
+  };
   useEffect(() => {
     const unlisten = history.listen(() => {
-        window.scrollTo(0, 0);
+      window.scrollTo(0, 0);
     });
     return () => {
-        unlisten();
+      unlisten();
     };
-}, []);
-let val=null;
-    if(convertedContent!=null && convertedContent.blocks!=null){
-      convertedContent.blocks.map(data=>{
-        val+=data.text.length;
-      })
-    
-    }
+  }, []);
+  let val = null;
+  if (convertedContent != null && convertedContent.blocks != null) {
+    convertedContent.blocks.map((data) => {
+      val += data.text.length;
+    });
+  }
   return (
-    
     <div>
       <div className={styles.header}>
         <p className={styles.pHeading}>PETITION</p>
@@ -84,19 +84,19 @@ let val=null;
       <div className={styles.area}>
         <div className={styles.empty}></div>
         <div className={styles.input}>
-        <Editor
-        editorState={editorState}
-        onEditorStateChange={handleEditorChange}
-        wrapperClassName="wrapper-class"
-        editorClassName="editor-class"
-        toolbarClassName="toolbar-class"
-        placeholder="Write here"
-      />  
+          <Editor
+            editorState={editorState}
+            onEditorStateChange={handleEditorChange}
+            wrapperClassName="wrapper-class"
+            editorClassName="editor-class"
+            toolbarClassName="toolbar-class"
+            placeholder="Write here"
+          />
         </div>
       </div>
       <p className={styles.message}>
         Great — you’ve started writing your petition. We recommend adding
-        another {val?(1000-val):1000} more characters before you finish.
+        another {val ? 1000 - val : 1000} more characters before you finish.
       </p>
       <p className={styles.reftext}>Provide Any Reference Link</p>
       <input
@@ -105,7 +105,12 @@ let val=null;
         value={url}
         onChange={(e) => setUrl(e.target.value)}
       ></input>
-      <button className={styles.btn} onClick={handleClick}>Continue</button>
+      <button className={styles.backbtn} onClick={handlePrevClick}>
+        Previous
+      </button>
+      <button className={styles.btn} onClick={handleClick}>
+        Continue
+      </button>
       <div className={styles.desc}>
         <p className={styles.head}>Keep it short and to the point</p>
         <p className={styles.sub}>

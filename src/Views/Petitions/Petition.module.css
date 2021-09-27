@@ -102,6 +102,17 @@
   font-size: 22px;
   cursor: pointer;
 }
+.backbtn {
+  background-color: #84855d;
+  border-radius: 12px;
+  width: 249px;
+  height: 60px;
+  color: white;
+  font-size: 22px;
+  cursor: pointer;
+  margin-left: 100px;
+  margin-top: 70px;
+}
 .tbox {
   border: 2px solid #84855d;
   border-radius: 8px;
@@ -180,29 +191,28 @@
   margin-left: 160px;
   margin-bottom: -30px;
 }
-.picarea{
-  height:200px;
-  width:400px;
+.picarea {
+  height: 200px;
+  width: 400px;
   margin-top: 100px;
-  margin-left:auto;
+  margin-left: auto;
   margin-right: auto;
-
 }
 .fileinput {
   width: 249px;
   height: 50px;
   border: 2px solid #9c9c9c;
   border-radius: 4px;
-  margin-left:300px;
+  margin-left: 300px;
   margin-right: auto;
-  margin-top: 100px;  
+  margin-top: 100px;
 }
-.pic{
-  height:100%;
+.pic {
+  height: 100%;
   width: 100%;
   background-size: cover;
 }
-.error{
+.error {
   color: red;
   text-align: center;
 }

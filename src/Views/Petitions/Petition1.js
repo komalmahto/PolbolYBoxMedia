@@ -1,27 +1,30 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./Petition.module.css";
 import { useHistory } from "react-router-dom";
 import { GiHorizontalFlip } from "react-icons/gi";
 function Petition1() {
-  const history=useHistory();
+  const history = useHistory();
 
   const [title, setTitle] = useState("");
 
   const handleTitle = (e) => {
     setTitle(e.target.value);
   };
-  const handleClick=()=>{
-    history.push('/petition2');
-   }
+  const handleClick = () => {
+    history.push("/petition2");
+  };
+  const handlePrevClick = () => {
+    history.push("/petition");
+  };
 
-   useEffect(() => {
+  useEffect(() => {
     const unlisten = history.listen(() => {
-        window.scrollTo(0, 0);
+      window.scrollTo(0, 0);
     });
     return () => {
-        unlisten();
+      unlisten();
     };
-}, []);
+  }, []);
   return (
     <div>
       <div className={styles.header}>
@@ -63,7 +66,12 @@ function Petition1() {
         value={title}
         onChange={handleTitle}
       ></input>
-      <button className={styles.btn}  onClick={handleClick}>Continue</button>
+      <button className={styles.backbtn} onClick={handlePrevClick}>
+        Previous
+      </button>
+      <button className={styles.btn} onClick={handleClick}>
+        Continue
+      </button>
       <div className={styles.desc}>
         <p className={styles.head}>Keep it short and to the point</p>
         <p className={styles.sub}>
