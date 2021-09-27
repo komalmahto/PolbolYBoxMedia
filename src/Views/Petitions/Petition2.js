@@ -9,8 +9,10 @@ import styles from "./Petition.module.css";
 import { GiHorizontalFlip } from "react-icons/gi";
 import "draft-js/dist/Draft.css";
 import "./Editor.css";
+import { connect } from "react-redux";
+import { updatestateProblem, updatestateRelink } from "../../redux/Actions";
 
-function Petition2() {
+function Petition2(props) {
   const history = useHistory();
 
   const [editorState, setEditorState] = useState(() =>
@@ -20,6 +22,9 @@ function Petition2() {
   const [convertedContent, setConvertedContent] = useState(null);
 
   const handleClick = () => {
+    props.updatestateProblem(convertedContent);
+    props.updatestateRelink(url);
+
     history.push("/petition3");
   };
   const handlePrevClick = () => {
@@ -34,6 +39,7 @@ function Petition2() {
     setConvertedContent(currentContentAsRaw);
   };
   useEffect(() => {
+    setUrl(props.reflinkstate);
     const unlisten = history.listen(() => {
       window.scrollTo(0, 0);
     });
@@ -125,4 +131,17 @@ function Petition2() {
   );
 }
 
-export default Petition2;
+const mapStateToProps = (state) => {
+  return {
+    problemstate: state.problem,
+    reflinkstate: state.reflink,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    updatestateProblem: (problem) => dispatch(updatestateProblem(problem)),
+    updatestateRelink: (reflink) => dispatch(updatestateRelink(reflink)),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Petition2);

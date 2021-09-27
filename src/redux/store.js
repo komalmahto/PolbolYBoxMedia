@@ -1,11 +1,17 @@
-// import { createStore} from "redux";
-// import { composeWithDevTools } from "redux-devtools-extension";
+import { createStore } from "redux";
+import { composeWithDevTools } from "redux-devtools-extension";
+import rootReducer from "./rootReducer";
 
-// const initialState = {};
+const store = createStore(
+  rootReducer,
+  {
+    category: "",
+    title: "",
+    problem: null,
+    reflink: "",
+    photo: null,
+  },
+  composeWithDevTools()
+);
 
-// const store = createStore(
-//     rootReducer,
-//     initialState,
-//     composeWithDevTools())
-
-// export default store;
+export default store;

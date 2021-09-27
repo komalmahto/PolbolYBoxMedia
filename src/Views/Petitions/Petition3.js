@@ -3,8 +3,10 @@ import styles from "./Petition.module.css";
 import { useHistory } from "react-router-dom";
 import { GiHorizontalFlip } from "react-icons/gi";
 import "./Editor.css";
+import { connect } from "react-redux";
+import { updatestatePhoto } from "../../redux/Actions";
 
-function Petition3() {
+function Petition3(props) {
   const history = useHistory();
   const [url, setUrl] = useState("");
   const [photo, setPhoto] = useState(null);
@@ -15,9 +17,17 @@ function Petition3() {
     history.push("/petition2");
   };
 
+  const handleSave = () => {
+    if (photo != null) {
+      props.updatestatePhoto({ photo });
+    } else {
+      props.updatestatePhoto(url);
+    }
+  };
+
   const handleImage = (e) => {
     if (e.target.files[0].type.split("/")[0] === "image") {
-      setPhoto(e.target.files[0]);
+      setPhoto(URL.createObjectURL(e.target.files[0]));
       setSource(URL.createObjectURL(e.target.files[0]));
       setError(null);
     } else {
@@ -32,6 +42,7 @@ function Petition3() {
   };
 
   useEffect(() => {
+    setPhoto(props.photostate);
     const unlisten = history.listen(() => {
       window.scrollTo(0, 0);
     });
@@ -99,7 +110,9 @@ function Petition3() {
       <button className={styles.backbtn} onClick={handlePrevClick}>
         Previous
       </button>
-      <button className={styles.btn}>Save and Preview</button>
+      <button onClick={handleSave} className={styles.btn}>
+        Save and Preview
+      </button>
       <div className={styles.desc}>
         <p className={styles.head}>Keep it short and to the point</p>
         <p className={styles.sub}>
@@ -114,4 +127,15 @@ function Petition3() {
   );
 }
 
-export default Petition3;
+const mapStateToProps = (state) => {
+  return {
+    photostate: state.photo,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    updatestatePhoto: (photo) => dispatch(updatestatePhoto(photo)),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Petition3);

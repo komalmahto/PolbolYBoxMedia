@@ -2,7 +2,10 @@ import React, { useState, useEffect } from "react";
 import styles from "./Petition.module.css";
 import { useHistory } from "react-router-dom";
 import { GiHorizontalFlip } from "react-icons/gi";
-function Petition() {
+import { connect } from "react-redux";
+import { updatestateCategory } from "../../redux/Actions";
+
+function Petition(props) {
   const history = useHistory();
   const [category, setCategory] = useState(null);
 
@@ -21,6 +24,7 @@ function Petition() {
     setCategory(e.target.id);
   };
   const handleClick = () => {
+    props.updatestateCategory(category);
     history.push("/petition1");
   };
   useEffect(() => {
@@ -31,6 +35,10 @@ function Petition() {
       unlisten();
     };
   }, [history]);
+
+  // useEffect(()=>{
+  //   setCategory(props.categorystate)
+  // },[])
   return (
     <div>
       <div className={styles.header}>
@@ -89,4 +97,15 @@ function Petition() {
   );
 }
 
-export default Petition;
+const mapStateToProps = (state) => {
+  return {
+    categorystate: state.category,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    updatestateCategory: (category) => dispatch(updatestateCategory(category)),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Petition);

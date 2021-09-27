@@ -2,7 +2,10 @@ import React, { useState, useEffect } from "react";
 import styles from "./Petition.module.css";
 import { useHistory } from "react-router-dom";
 import { GiHorizontalFlip } from "react-icons/gi";
-function Petition1() {
+import { connect } from "react-redux";
+import { updatestateTitle } from "../../redux/Actions";
+
+function Petition1(props) {
   const history = useHistory();
 
   const [title, setTitle] = useState("");
@@ -11,6 +14,8 @@ function Petition1() {
     setTitle(e.target.value);
   };
   const handleClick = () => {
+    props.updatestateTitle(title);
+    console.log("hello");
     history.push("/petition2");
   };
   const handlePrevClick = () => {
@@ -18,6 +23,7 @@ function Petition1() {
   };
 
   useEffect(() => {
+    setTitle(props.titlestate);
     const unlisten = history.listen(() => {
       window.scrollTo(0, 0);
     });
@@ -25,6 +31,7 @@ function Petition1() {
       unlisten();
     };
   }, []);
+
   return (
     <div>
       <div className={styles.header}>
@@ -86,4 +93,15 @@ function Petition1() {
   );
 }
 
-export default Petition1;
+const mapStateToProps = (state) => {
+  return {
+    titlestate: state.title,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    updatestateTitle: (title) => dispatch(updatestateTitle(title)),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Petition1);
