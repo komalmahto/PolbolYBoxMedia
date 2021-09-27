@@ -32,11 +32,11 @@ function Petition1() {
         </p>
       </div>
       <div className={styles.steps}>
-        <div className={`${styles.circle} ${styles.active}`}>
+        <div className={styles.circle}>
           <p className={styles.text}>1</p>
         </div>
         <GiHorizontalFlip className={styles.icon} />
-        <div className={styles.circle}>
+        <div className={`${styles.circle} ${styles.active}`}>
           <p className={styles.text}>2</p>
         </div>
         <GiHorizontalFlip className={styles.icon} />

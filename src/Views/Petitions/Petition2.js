@@ -17,7 +17,7 @@ function Petition2() {
     EditorState.createEmpty()
   );
   const [url, setUrl] = useState("");
-  const [convertedContent,setConvertedContent]=useState("");
+  const [convertedContent,setConvertedContent]=useState(null);
 
   const handleClick=()=>{
     history.push('/petition3');
@@ -39,7 +39,15 @@ function Petition2() {
         unlisten();
     };
 }, []);
+let val=null;
+    if(convertedContent!=null && convertedContent.blocks!=null){
+      convertedContent.blocks.map(data=>{
+        val+=data.text.length;
+      })
+    
+    }
   return (
+    
     <div>
       <div className={styles.header}>
         <p className={styles.pHeading}>PETITION</p>
@@ -49,7 +57,7 @@ function Petition2() {
         </p>
       </div>
       <div className={styles.steps}>
-        <div className={`${styles.circle} ${styles.active}`}>
+        <div className={styles.circle}>
           <p className={styles.text}>1</p>
         </div>
         <GiHorizontalFlip className={styles.icon} />
@@ -57,7 +65,7 @@ function Petition2() {
           <p className={styles.text}>2</p>
         </div>
         <GiHorizontalFlip className={styles.icon} />
-        <div className={styles.circle}>
+        <div className={`${styles.circle} ${styles.active}`}>
           <p className={styles.text}>3</p>
         </div>
         <GiHorizontalFlip className={styles.icon} />
@@ -88,7 +96,7 @@ function Petition2() {
       </div>
       <p className={styles.message}>
         Great — you’ve started writing your petition. We recommend adding
-        another 998 more characters before you finish.
+        another {val?(1000-val):1000} more characters before you finish.
       </p>
       <p className={styles.reftext}>Provide Any Reference Link</p>
       <input

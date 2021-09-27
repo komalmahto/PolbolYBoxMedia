@@ -28,7 +28,7 @@ function Petition() {
         <p className={styles.pHeading}>PETITION</p>
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus,
-          neque.
+          neque.  
         </p>
       </div>
       <div className={styles.steps}>

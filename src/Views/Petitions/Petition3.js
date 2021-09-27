@@ -7,7 +7,29 @@ import "./Editor.css";
 function Petition3() {
 const history=useHistory();
   const [url, setUrl] = useState("");
-  
+  const[photo,setPhoto]=useState(null);
+  const [source,setSource]=useState(null);
+  const [error,setError]=useState(false);
+    const handleImage=(e)=>{
+        console.log(e.target.files[0]);
+        console.log(e.target.files[0].type);
+        if(e.target.files[0].type.split("/")[0]==="image"){
+        setPhoto(e.target.files[0]);
+        setSource(URL.createObjectURL(e.target.files[0]));
+        setError(null);
+      }
+      else{
+        setError(true);
+        setTimeout(() => {
+          setError(null);
+        }, 4000);
+        setPhoto(null);
+        setSource(null);
+      }
+e.target.value="";
+    }
+
+
   useEffect(() => {
     const unlisten = history.listen(() => {
         window.scrollTo(0, 0);
@@ -27,7 +49,7 @@ const history=useHistory();
         </p>
       </div>
       <div className={styles.steps}>
-        <div className={`${styles.circle} ${styles.active}`}>
+        <div className={styles.circle}>
           <p className={styles.text}>1</p>
         </div>
         <GiHorizontalFlip className={styles.icon} />
@@ -39,7 +61,7 @@ const history=useHistory();
           <p className={styles.text}>3</p>
         </div>
         <GiHorizontalFlip className={styles.icon} />
-        <div className={styles.circle}>
+        <div className={`${styles.circle} ${styles.active}`}>
           <p className={styles.text}>4</p>
         </div>
       </div>
@@ -50,7 +72,11 @@ const history=useHistory();
         </p>
       </div>
       <div className={styles.area}>
-      <input className={styles.fileinput} type="file" id="img" name="img" accept="image/*,video/*" />
+        <div className={styles.picarea}>
+        {source?<img className={styles.pic} src={source}/>:""}
+        </div>
+      <input className={styles.fileinput} type="file" accept="image/*" onChange={handleImage} />
+      {error?<p className={styles.error}>Upload only images </p>:""}
       </div>
 
       <p className={styles.message} style={{textAlign:"center"}}>
