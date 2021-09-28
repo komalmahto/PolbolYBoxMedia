@@ -24,3 +24,12 @@ export const getPollResults = (pollId) =>
   api.get(`/poll/results/guest?id=${pollId}`);
 
 export const getActiveAwards = () => api.get(`/award/fetchAwardsAndCategories`);
+export const getCommonPetitions = () => api.get("/common/petitions");
+export const getHighlightedPetitions = () =>
+  api.get(`/petitions/highlighted?language=english`);
+export const getActivePetitions = () =>
+  api.get(`/common/petitions?mode=active`);
+export const getExpiredPetitions = () =>
+  api.get(`/common/petitions?mode=expired`);
+export const getFilteredPetitions = (mode, categories) =>
+  api.get(`/common/petitions?mode=${mode}&categories=${categories}`);

@@ -5,12 +5,13 @@ import Petition from "../../Views/Petitions/Petition";
 import Petition1 from "../../Views/Petitions/Petition1";
 import Petition2 from "../../Views/Petitions/Petition2";
 import Petition3 from "../../Views/Petitions/Petition3";
+
 import Layout from "../Layout/Layout";
 
 // Views
 const Home = React.lazy(() => import("../../Views/Home/Home"));
 const Polls = React.lazy(() => import("../../Views/Polls/Polls"));
-
+const Petitions = React.lazy(() => import("../../Views/Petitions/Petitions"));
 const MainView = () => {
   return (
     <Layout>
@@ -18,7 +19,8 @@ const MainView = () => {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/polls" component={Polls} />
-          <Route exact path="/petitions" component={Petition} />
+          <Route exact path="/petitions" component={Petitions} />
+          <Route exact path="/petition" component={Petition} />
           <Route exact path="/petition1" component={Petition1} />
           <Route exact path="/petition2" component={Petition2} />
           <Route exact path="/petition3" component={Petition3} />

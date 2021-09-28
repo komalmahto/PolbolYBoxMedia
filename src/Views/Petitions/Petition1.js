@@ -95,7 +95,7 @@ function Petition1(props) {
 
 const mapStateToProps = (state) => {
   return {
-    titlestate: state.title,
+    titlestate: state.pet.title,
   };
 };
 

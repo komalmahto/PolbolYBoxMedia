@@ -99,7 +99,7 @@ function Petition(props) {
 
 const mapStateToProps = (state) => {
   return {
-    categorystate: state.category,
+    categorystate: state.pet.category,
   };
 };
 

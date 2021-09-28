@@ -58,3 +58,7 @@ export const regions = [
   "Uttaranchal",
   "West Bengal",
 ];
+
+export const petitionCategories=[
+  "Animal",
+];

@@ -129,7 +129,7 @@ function Petition3(props) {
 
 const mapStateToProps = (state) => {
   return {
-    photostate: state.photo,
+    photostate: state.pet.photo,
   };
 };
 

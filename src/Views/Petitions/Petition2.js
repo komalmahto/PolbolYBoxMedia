@@ -133,8 +133,8 @@ function Petition2(props) {
 
 const mapStateToProps = (state) => {
   return {
-    problemstate: state.problem,
-    reflinkstate: state.reflink,
+    problemstate: state.pet.problem,
+    reflinkstate: state.pet.reflink,
   };
 };
 
