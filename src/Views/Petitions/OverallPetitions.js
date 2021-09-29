@@ -13,10 +13,8 @@ const OverallPetitions = ({ petitions }) => {
     <div
       key={index}
       onClick={() =>
-        (isAuthenticated())?
         history.push(`/petition/${getSlug(petition.title)}/${petition._id}`)
-        :
-          history.push(`common/petition/${getSlug(petition.title)}/613c4f54a781e21a7cf0cdbb`)
+
     
       }
       className={styles.petition}

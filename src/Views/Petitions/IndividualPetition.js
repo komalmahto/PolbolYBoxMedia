@@ -13,8 +13,9 @@ import DOMPurify from "dompurify";
 import { useHistory } from "react-router-dom";
 import axios from "../../axios";
 
-function IndividualPetition({ match, auth: { token, user } }) {
-  token = JSON.parse(token);
+function IndividualPetition({ match, auth }) {
+ 
+
   const { petitionId } = match.params;
 
   const history = useHistory();
@@ -42,7 +43,7 @@ function IndividualPetition({ match, auth: { token, user } }) {
       if (api.isAuthenticated()) {
         data = await axios.get(`petition/${petitionId}`, {
           headers: {
-            Authorization: `bearer ${token}`,
+            Authorization: `bearer ${JSON.parse(auth.token)}`,
           },
         });
       } else {
@@ -64,7 +65,7 @@ function IndividualPetition({ match, auth: { token, user } }) {
       await axios.post("petition/signature", JSON.stringify(final), {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `bearer ${token}`,
+          Authorization: `bearer ${JSON.parse(auth.token)}`,
         },
       });
       history.push("/");

@@ -1,6 +1,7 @@
 // import VoteIcon from "../../../Icons/VoteIcon";
 import styles from "./FilteredPetitions.module.css";
 import { useHistory } from "react-router";
+import { getSlug } from "../../../helpers/index";
 import { expiresIn, formatDate } from "../../../helpers";
 import PropTypes from "prop-types";
 
@@ -36,7 +37,7 @@ const FilteredPetitions = ({ mode, petitions }) => {
                   className={styles.vote_now}
                   onClick={() =>
                     history.push(
-                      `/petition/${petition.question.split(" ").join("-")}/${petition._id}`
+                      `/petition/${getSlug(petition.title)}/${petition._id}`
                     )
                   }
                 >
