@@ -17,7 +17,7 @@ function IndividualPetition({ match, auth: { token, user } }) {
   token = JSON.parse(token);
   const { petitionId } = match.params;
 
-  const history=useHistory()
+  const history = useHistory();
 
   const [petitionData, setPetitionData] = useState(null);
   const [data, setData] = useState(null);
@@ -54,21 +54,21 @@ function IndividualPetition({ match, auth: { token, user } }) {
     }
   };
 
-  const signPetitionHandler = async() => {
+  const signPetitionHandler = async () => {
     if (api.isAuthenticated()) {
       const final = {
         petition: petitionId,
         comment: comments,
         anonymous: identity,
       };
-     await axios.post("petition/signature", JSON.stringify(final), {
+      await axios.post("petition/signature", JSON.stringify(final), {
         headers: {
           "Content-Type": "application/json",
           Authorization: `bearer ${token}`,
         },
       });
-      history.push('/')
-    } 
+      history.push("/");
+    }
   };
   const identityHandler = (e) => {
     setIdentity(e.target.checked);

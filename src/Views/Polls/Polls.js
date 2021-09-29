@@ -151,17 +151,17 @@ const Polls = () => {
       {active ? (
         selectedCategories.length === 0 ? (
           <div className={styles.polls}>
-            <OverallPolls polls={activePolls} />
+            <OverallPolls mode="active" polls={activePolls} />
           </div>
         ) : (
           <FilteredPolls mode="active" polls={activePolls} />
         )
       ) : selectedCategories.length === 0 ? (
         <div className={styles.polls}>
-          <OverallPolls polls={expiredPolls} />
+          <OverallPolls mode="expired" polls={expiredPolls} />
         </div>
       ) : (
-        <FilteredPolls mode="expired" polls={expiredPolls} />
+        <FilteredPolls  mode="expired" polls={expiredPolls} />
       )}
     </div>
   );

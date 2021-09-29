@@ -1,0 +1,20 @@
+.container{
+    padding:10px
+}
+.heading{
+    margin-bottom: 50px;
+}
+.check{
+    display: none;
+}
+.fills{
+    margin-top: -10px;
+    margin-left: 160px;
+}
+.show{
+    display: block;
+}
+.box{
+    display: flex;
+    flex-wrap: wrap;
+}

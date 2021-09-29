@@ -3,10 +3,12 @@ import styles from "./FilteredPolls.module.css";
 import { useHistory } from "react-router";
 import { expiresIn, formatDate } from "../../../helpers";
 import PropTypes from "prop-types";
+import { getSlug } from "../../../helpers/index";
 
 const FilteredPolls = ({ mode, polls }) => {
   const history = useHistory();
 
+  console.log(mode);
   return (
     <div className={styles.list}>
       <div className={styles.container}>
@@ -34,10 +36,17 @@ const FilteredPolls = ({ mode, polls }) => {
                 </div>
                 <div
                   className={styles.vote_now}
-                  onClick={() =>
+                  onClick={() =>{
+                  mode==="active"?
                     history.push(
-                      `/poll/${poll.question.split(" ").join("-")}/${poll._id}`
+                      `/poll/${getSlug(poll.question)}/${poll._id}`)
+                  
+                  :
+                    history.push(
+                      `/poll/results/${getSlug(poll.question)}/${poll._id}`
                     )
+                
+                    }
                   }
                 >
                   <div style={{ marginLeft: "8px" }}>

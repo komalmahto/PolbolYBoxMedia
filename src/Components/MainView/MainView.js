@@ -1,7 +1,9 @@
 import React, { Suspense } from "react";
 import { Route, Switch } from "react-router-dom";
+import Poll from "../../Views/Poll/Poll/Poll";
+import Graphs from "../../Views/Polls/Graphs";
 import Poll1 from "../../Views/Poll/Poll/Poll1";
-import Petition from "../../Views/Petitions/Petition";
+import Petition from "../../Views/Petitions/Petition";  
 import Petition1 from "../../Views/Petitions/Petition1";
 import Petition2 from "../../Views/Petitions/Petition2";
 import Petition3 from "../../Views/Petitions/Petition3";
@@ -30,6 +32,7 @@ const MainView = () => {
           <PrivateRoute exact path="/petition3" component={Petition3} />
           <PrivateRoute exact path="/petition-preview" component={PetitionPreview} />
           <Route exact path="/poll/:slug/:pollId" component={Poll1} />
+          <Route exact path="/poll/results/:slug/:pollId" component={Graphs} />
           <Route exact path="/petition/:slug/:petitionId" component={IndividualPetition} />
         </Switch>
       </Suspense>

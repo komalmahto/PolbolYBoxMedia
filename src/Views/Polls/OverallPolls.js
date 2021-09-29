@@ -5,14 +5,17 @@ import PropTypes from "prop-types";
 
 const OVERLAY = "linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.9))";
 
-const OverallPolls = ({ polls }) => {
+const OverallPolls = ({ polls ,mode}) => {
   const history = useHistory();
 
   return polls.map((poll, index) => (
     <div
       key={index}
-      onClick={() =>
+      onClick={() =>{
+        mode==='active'?
         history.push(`/poll/${getSlug(poll.question)}/${poll._id}`)
+        : history.push(`/poll/results/${getSlug(poll.question)}/${poll._id}`)
+      }
       }
       className={styles.poll}
       style={{
