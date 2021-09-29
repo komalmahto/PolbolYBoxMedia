@@ -3,8 +3,7 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import OtpInput from "react-otp-input";
 import axios from "../../axios";
-import { connect } from "react-redux";
-import { fetchToken } from "../../redux/Actions/AuthActions";
+
 
 function MyVerticallyCenteredModal(props) {
   const [num, setNum] = useState(null);
@@ -40,7 +39,7 @@ function MyVerticallyCenteredModal(props) {
         .then((res) => {
           console.log(res);
           console.log(res.headers[`x-auth`]);
-          localStorage.setItem(
+         localStorage.setItem(
             "authToken",
             JSON.stringify(res.headers[`x-auth`])
           );
@@ -109,16 +108,5 @@ function MyVerticallyCenteredModal(props) {
   );
 }
 
-const mapStateToProps = (state) => ({
-  auth: state.auth,
-});
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    fetchToken: (token, user) => dispatch(fetchToken(token, user)),
-  };
-};
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(MyVerticallyCenteredModal);
+export default MyVerticallyCenteredModal;

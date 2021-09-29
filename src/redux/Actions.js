@@ -29,3 +29,19 @@ export const updatestatePhoto = (photo = null) => {
     payload: photo,
   };
 };
+export const updatestateDescription = (desc = "") => {
+  return {
+    type: "SET_DESC_STATE",
+    payload: desc,
+  };
+};export const updatestateExpectedSignatures = (expectedsign = 0) => {
+  return {
+    type: "SET_EXPECTEDSIGN_STATE",
+    payload: expectedsign,
+  };
+};export const updatestateLifespan = (lifespan = null) => {
+  return {
+    type: "SET_LIFESPAN_STATE",
+    payload: lifespan,
+  };
+};

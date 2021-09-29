@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { EditorState } from "draft-js";
+import { convertFromRaw, EditorState } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
 import { convertToRaw } from "draft-js";
-
+import {stateToHTML} from 'draft-js-export-html';
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import styles from "./Petition.module.css";
 import { GiHorizontalFlip } from "react-icons/gi";
@@ -20,7 +20,14 @@ function Petition2(props) {
   );
   const [url, setUrl] = useState("");
   const [convertedContent, setConvertedContent] = useState(null);
-
+  const [showdata,setShowdata]=useState(null);
+  var editState;
+  var html;
+  if(showdata!=null){
+  const contentState = convertFromRaw(showdata);
+  html=stateToHTML(contentState);
+  }
+  
   const handleClick = () => {
     props.updatestateProblem(convertedContent);
     props.updatestateRelink(url);
@@ -32,14 +39,17 @@ function Petition2(props) {
   };
   const handleEditorChange = (state) => {
     setEditorState(state);
-    convertContentToHTML();
+    convertContentToRaw();
   };
-  const convertContentToHTML = () => {
+  const convertContentToRaw = () => {
     let currentContentAsRaw = convertToRaw(editorState.getCurrentContent());
     setConvertedContent(currentContentAsRaw);
   };
+  
   useEffect(() => {
     setUrl(props.reflinkstate);
+    setShowdata(props.problemstate)
+   
     const unlisten = history.listen(() => {
       window.scrollTo(0, 0);
     });
@@ -53,6 +63,7 @@ function Petition2(props) {
       val += data.text.length;
     });
   }
+  console.log(convertedContent);
   return (
     <div>
       <div className={styles.header}>
@@ -100,6 +111,8 @@ function Petition2(props) {
           />
         </div>
       </div>
+
+
       <p className={styles.message}>
         Great — you’ve started writing your petition. We recommend adding
         another {val ? 1000 - val : 1000} more characters before you finish.

@@ -3,9 +3,10 @@ import { Link } from "react-router-dom";
 import styles from "./Navbar.module.css";
 import Modal from "../Modal/Modal";
 import { connect } from "react-redux";
+import { fetchToken } from "../../redux/Actions/AuthActions";
 import { logout } from "../../redux/Actions/AuthActions";
 
-const Navbar = ({ auth: { token, user }, logout }) => {
+const Navbar = ({ auth: { token, user }, logout,fetchToken }) => {
   const [displayMenu, setDisplayMenu] = useState(false);
   const [show, setShow] = useState(false);
   const clickHandler = () => {
@@ -79,7 +80,7 @@ const Navbar = ({ auth: { token, user }, logout }) => {
           <li>Quiz</li>
         </ul>
       </nav>
-      <Modal show={show} onHide={() => setShow(false)} />
+      <Modal fetchToken={()=>fetchToken()}show={show} onHide={() => setShow(false)} />
     </>
   );
 };
@@ -89,6 +90,7 @@ const mapStateToProps = (state) => ({
 });
 const mapDispatchToProps = (dispatch) => {
   return {
+    fetchToken: (token, user) => dispatch(fetchToken(token, user)),
     logout: () => dispatch(logout()),
   };
 };

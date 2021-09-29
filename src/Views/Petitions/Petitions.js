@@ -7,6 +7,7 @@ import Multiselect from "multiselect-react-dropdown";
 import styles from "./Petitions.module.css";
 import OverallPetitons from "./OverallPetitions";
 import Modal from "../../Components/Modal/Modal"
+import { connect } from "react-redux";
 
 const Petitions = () => {
   // const [polls, setPolls] = useState([]);
@@ -100,6 +101,7 @@ const Petitions = () => {
           neque.
         </p>
       </div>
+      <button className={styles.cpetition} onClick={createPetitionhandler}>Create Petition</button>
       <div className={styles.categories}>
         <span
           className={
@@ -171,7 +173,7 @@ const Petitions = () => {
       ) : (
         <FilteredPetitions mode="expired" petitions={expiredPetitions} />
       )}
-     <button onClick={createPetitionhandler}>Create Petition</button>
+   
     </div>
   );
 };

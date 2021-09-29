@@ -33,3 +33,16 @@ export const getExpiredPetitions = () =>
   api.get(`/common/petitions?mode=expired`);
 export const getFilteredPetitions = (mode, categories) =>
   api.get(`/common/petitions?mode=${mode}&categories=${categories}`);
+
+
+  export const isAuthenticated = () => {
+    if (typeof window == "undefined") {
+      return false;
+    }
+  
+    if (localStorage.getItem("authToken")) {
+      return JSON.parse(localStorage.getItem("authToken"));
+    } else {
+      return false;
+    }
+  };

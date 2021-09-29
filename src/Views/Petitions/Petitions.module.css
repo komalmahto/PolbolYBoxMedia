@@ -31,7 +31,10 @@
   .category.selected {
     background: #48483d;
   }
-  
+  .cpetition{
+    
+    margin-left:800px;
+  }
   .polls {
     display: grid;
     grid-template-columns: repeat(3, 1fr);

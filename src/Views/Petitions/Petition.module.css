@@ -226,3 +226,13 @@
   font-size: 28px;
   color: white;
 }
+.entry{
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  margin-left:300px;
+  justify-content: space-between;
+}
+.ls{
+  margin-top: 30px;
+}

@@ -5,7 +5,8 @@ import { GiHorizontalFlip } from "react-icons/gi";
 import "./Editor.css";
 import { connect } from "react-redux";
 import { updatestatePhoto } from "../../redux/Actions";
-
+import axios from "../../axios";
+import {isAuthenticated} from "../../api/index"
 function Petition3(props) {
   const history = useHistory();
   const [url, setUrl] = useState("");
@@ -19,18 +20,56 @@ function Petition3(props) {
 
   const handleSave = () => {
     if (photo != null) {
-      props.updatestatePhoto({ photo });
+      props.updatestatePhoto(photo);
     } else {
       props.updatestatePhoto(url);
     }
+    createPost();
   };
+  const createPost=()=>{
+    const final={
+      image:props.photostate,
+      title:props.titlestate,
+      categories:props.categorystate,
+     content:JSON.stringify(props.problemstate),
+     expectedSignatures:2000,
+     description:"helo"
+    }
+    console.log(JSON.stringify(final));
+    if(isAuthenticated()){
+    axios.post('petition',JSON.stringify(final),
+    {
+      headers: { 'Content-Type': 'application/json' ,
+                  'Authorization':`bearer ${props.auth.token}`
+                }
+    }).then((res)=>{
+      console.log(res);
+    })
+    .catch(err=>{
+      console.log(err)
+    })
+  }
 
+  }
   const handleImage = (e) => {
     if (e.target.files[0].type.split("/")[0] === "image") {
-      setPhoto(URL.createObjectURL(e.target.files[0]));
       setSource(URL.createObjectURL(e.target.files[0]));
       setError(null);
-    } else {
+     let formData=new FormData();
+     formData.append("image",e.target.files[0]);
+      axios.post(`upload/image`,
+      formData,
+      {
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' ,
+                  'Authorization':`bearer ${props.auth.token}`
+                }
+      }).then((res)=>{
+        console.log(res);
+        setPhoto(res.data.payload)
+      })
+      .catch((err)=>console.log(err))
+    } 
+    else {
       setError(true);
       setTimeout(() => {
         setError(null);
@@ -88,12 +127,16 @@ function Petition3(props) {
         <div className={styles.picarea}>
           {source ? <img className={styles.pic} src={source} /> : ""}
         </div>
-        <input
-          className={styles.fileinput}
-          type="file"
-          accept="image/*"
-          onChange={handleImage}
-        />
+        <form className={styles.fileinput}>
+        <div className="form-group">
+          <input
+            onChange={(e) => handleImage(e)}
+            type="file"
+            accept="image/*"
+            className="form-control"
+          />
+          </div>
+          </form>
         {error ? <p className={styles.error}>Upload only images </p> : ""}
       </div>
 
@@ -129,7 +172,15 @@ function Petition3(props) {
 
 const mapStateToProps = (state) => {
   return {
+    auth:state.auth,
     photostate: state.pet.photo,
+    problemstate: state.pet.problem,
+    reflinkstate: state.pet.reflink,
+    titlestate: state.pet.title,
+    categorystate: state.pet.category,
+    descstate: state.pet.description,
+    expecteddignstate: state.pet.expectedSignatures,
+    lifespanstate: state.pet.lifespan,
   };
 };
 

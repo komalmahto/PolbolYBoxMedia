@@ -3,18 +3,36 @@ import styles from "./Petition.module.css";
 import { useHistory } from "react-router-dom";
 import { GiHorizontalFlip } from "react-icons/gi";
 import { connect } from "react-redux";
-import { updatestateTitle } from "../../redux/Actions";
+import { updatestateTitle,updatestateDescription,updatestateExpectedSignatures,updatestateLifespan } from "../../redux/Actions";
 
 function Petition1(props) {
   const history = useHistory();
 
   const [title, setTitle] = useState("");
+  const [sign, setSign] = useState(0);
+  const [lifespan, setLifespan] = useState(null);
+  const [desc,setDesc]=useState("")
 
   const handleTitle = (e) => {
     setTitle(e.target.value);
   };
+
+  const handlesignChange=(e)=>{
+    setSign(e.target.value);
+  }
+  const handleLsChange=(e)=>{
+    setLifespan(e.target.value);
+  }
+
+  const handleDescription=(e)=>{
+    setDesc(e.target.value)
+  }
+
   const handleClick = () => {
     props.updatestateTitle(title);
+    props.updatestateDesc(desc);
+    props.updatestateExpectedSign(sign);
+    props.updatestateLifespan(lifespan)
     console.log("hello");
     history.push("/petition2");
   };
@@ -24,6 +42,10 @@ function Petition1(props) {
 
   useEffect(() => {
     setTitle(props.titlestate);
+    setDesc(props.descstate);
+    setSign(props.expectedsignstate);
+    setLifespan(props.lifespanstate);
+    
     const unlisten = history.listen(() => {
       window.scrollTo(0, 0);
     });
@@ -72,7 +94,21 @@ function Petition1(props) {
         placeholder="Title"
         value={title}
         onChange={handleTitle}
-      ></input>
+      />  
+
+     <input
+        className={styles.tbox}
+        placeholder="Description"
+        value={desc}
+        onChange={handleDescription}
+      />  
+        <div className={styles.entry}>
+    <label>Expeced Signatures</label>
+      <input onChange={handlesignChange} type="number" value={sign} placeholder="Expected Signatures"/>
+
+      <label className={styles.ls}>Lifespan</label>
+      <input onChange={handleLsChange} type="date" value={lifespan}/>  
+      </div>
       <button className={styles.backbtn} onClick={handlePrevClick}>
         Previous
       </button>
@@ -96,12 +132,19 @@ function Petition1(props) {
 const mapStateToProps = (state) => {
   return {
     titlestate: state.pet.title,
+    descstate: state.pet.description,
+    expectedsignstate: state.pet.expectedSignatures,
+    lifespanstate: state.pet.lifespan,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     updatestateTitle: (title) => dispatch(updatestateTitle(title)),
+    updatestateDesc:(desc)=>dispatch(updatestateDescription(desc)),
+    updatestateExpectedSign:(sign)=>dispatch(updatestateExpectedSignatures(sign)),
+    updatestateLifespan:(span)=>dispatch(updatestateLifespan(span))
+
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Petition1);
