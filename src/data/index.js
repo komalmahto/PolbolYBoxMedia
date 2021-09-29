@@ -59,6 +59,25 @@ export const regions = [
   "West Bengal",
 ];
 
-export const petitionCategories=[
-  "Animal",
+
+export const petitionCategories = [
+  "Social Issues",
+  "Auto",
+  "Tech",
+  "Legal",
+  "Crime",
+  "Media",
+  "International",
+  "Lifestyle",
+  "Entertainment",
+  "Sports",
+  "Business",
+  "Elections",
+  "Education",
+  "Economy",
+  "Health",
+  "Fashion",
+  "Bollywood",
+  "Indian Politics",
+  "Politics",
 ];

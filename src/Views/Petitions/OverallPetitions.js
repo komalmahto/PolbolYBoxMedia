@@ -7,7 +7,6 @@ const OVERLAY = "linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.9))";
 
 const OverallPetitions = ({ petitions }) => {
   const history = useHistory();
-  console.log(" petitioen " ,petitions);
   
     return petitions.length>0?petitions.map((petition, index) => (
     <div

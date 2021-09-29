@@ -4,21 +4,13 @@ import { useHistory } from "react-router-dom";
 import { GiHorizontalFlip } from "react-icons/gi";
 import { connect } from "react-redux";
 import { updatestateCategory } from "../../redux/Actions";
+import {petitionCategories as categories} from "../../data/index"
 
 function Petition(props) {
   const history = useHistory();
   const [category, setCategory] = useState(null);
 
-  const categories = [
-    "Animals",
-    "Animals",
-    "Animals",
-    "Animals",
-    "Animals",
-    "Animals",
-    "Animals",
-    "Animals",
-  ];
+ 
 
   const handleSelect = (e) => {
     setCategory(e.target.id);
@@ -77,7 +69,7 @@ function Petition(props) {
 
       <div className={styles.cards}>
         {categories.map((value, key) => (
-          <div key={key} id={value} className={styles.card}>
+          <div key={key} id={value} className={styles.card} style={{"backgroundImage":{}}} >
             <div
               id={value}
               onClick={handleSelect}

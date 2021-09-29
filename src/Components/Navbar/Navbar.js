@@ -80,7 +80,7 @@ const Navbar = ({ auth: { token, user }, logout,fetchToken }) => {
           <li>Quiz</li>
         </ul>
       </nav>
-      <Modal fetchToken={()=>fetchToken()}show={show} onHide={() => setShow(false)} />
+      <Modal fetchToken={(token,user)=>fetchToken(token,user)}show={show} onHide={() => setShow(false)} />
     </>
   );
 };

@@ -24,33 +24,9 @@ function Petition3(props) {
     } else {
       props.updatestatePhoto(url);
     }
-    createPost();
+    history.push('/petition-preview')
   };
-  const createPost=()=>{
-    const final={
-      image:props.photostate,
-      title:props.titlestate,
-      categories:props.categorystate,
-     content:JSON.stringify(props.problemstate),
-     expectedSignatures:2000,
-     description:"helo"
-    }
-    console.log(JSON.stringify(final));
-    if(isAuthenticated()){
-    axios.post('petition',JSON.stringify(final),
-    {
-      headers: { 'Content-Type': 'application/json' ,
-                  'Authorization':`bearer ${props.auth.token}`
-                }
-    }).then((res)=>{
-      console.log(res);
-    })
-    .catch(err=>{
-      console.log(err)
-    })
-  }
-
-  }
+  
   const handleImage = (e) => {
     if (e.target.files[0].type.split("/")[0] === "image") {
       setSource(URL.createObjectURL(e.target.files[0]));

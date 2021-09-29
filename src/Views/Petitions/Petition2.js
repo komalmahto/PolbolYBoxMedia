@@ -21,7 +21,7 @@ function Petition2(props) {
   const [url, setUrl] = useState("");
   const [convertedContent, setConvertedContent] = useState(null);
   const [showdata,setShowdata]=useState(null);
-  var editState;
+ 
   var html;
   if(showdata!=null){
   const contentState = convertFromRaw(showdata);

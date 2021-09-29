@@ -5,6 +5,8 @@ import Petition from "../../Views/Petitions/Petition";
 import Petition1 from "../../Views/Petitions/Petition1";
 import Petition2 from "../../Views/Petitions/Petition2";
 import Petition3 from "../../Views/Petitions/Petition3";
+import PetitionPreview from "../../Views/Petitions/PetitionPreview";
+
 import PrivateRoute from "../../PrivateRoute";
 
 import Layout from "../Layout/Layout";
@@ -22,11 +24,11 @@ const MainView = () => {
           <Route exact path="/" component={Home} />
           <Route exact path="/polls" component={Polls} />
           <Route exact path="/petitions" component={Petitions} />
-          <Route exact path="/petition" component={Petition} />
-          <Route exact path="/petition1" component={Petition1} />
-          <Route exact path="/petition2" component={Petition2} />
-          <Route exact path="/petition3" component={Petition3} />
-          <Route exact path="/individual" component={IndividualPetition} />
+          <PrivateRoute exact path="/petition" component={Petition} />
+          <PrivateRoute exact path="/petition1" component={Petition1} />
+          <PrivateRoute exact path="/petition2" component={Petition2} />
+          <PrivateRoute exact path="/petition3" component={Petition3} />
+          <PrivateRoute exact path="/petition-preview" component={PetitionPreview} />
           <Route exact path="/poll/:slug/:pollId" component={Poll1} />
         </Switch>
       </Suspense>

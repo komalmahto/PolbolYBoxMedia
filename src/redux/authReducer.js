@@ -13,7 +13,7 @@ export default function reduce(state = initialState, action) {
   switch (type) {
     case SIGNIN:
       const nstate={...state,token:payload.token,user:payload.user}
-      // localStorage.setItem('authToken', JSON.stringify(payload.token));
+      localStorage.setItem('authToken', JSON.stringify(payload.token));
       return nstate;
 
     case LOGOUT:
