@@ -24,31 +24,31 @@ const Petitions = () => {
   useEffect(() => {
     setCategories([...petitionCategories.splice(0, 4)]);
     getActivePetitions();
-    getExpiredPetitions();
+    // getExpiredPetitions();
   }, []);
 
   useEffect(() => {
-    getFilteredPetitions();
+    // getFilteredPetitions();
   }, [selectedCategories, active]);
 
   const getActivePetitions = async () => {
     try {
       const { data } = await api.getActivePetitions();
-      setActivePetitionsTotal(data.payload.totalActive);
+      setActivePetitionsTotal(data.payload.length);
       setActivePetitions(data.payload.payload);
     } catch (error) {
       console.log(error);
     }
   };
-  const getExpiredPetitions = async () => {
-    try {
-      const { data } = await api.getExpiredPetitions();
-      setExpiredPetitionsTotal(data.payload.totalExpired);
-      setExpiredPetitions(data.payload.payload);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const getExpiredPetitions = async () => {
+  //   try {
+  //     const { data } = await api.getExpiredPetitions();
+  //     setExpiredPetitionsTotal(data.payload.totalExpired);
+  //     setExpiredPetitions(data.payload.payload);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   const handleCategoryClick = (category) => {
     if (!selectedCategories.includes(category))
@@ -59,24 +59,24 @@ const Petitions = () => {
       );
   };
 
-  const getFilteredPetitions = async () => {
-    try {
-      let mode = active ? "active" : "expired";
-      let categories = selectedCategories.join(",");
+  // const getFilteredPetitions = async () => {
+  //   try {
+  //     let mode = active ? "active" : "expired";
+  //     let categories = selectedCategories.join(",");
 
-      const { data } = await api.getFilteredPetitions(mode, categories);
+  //     // const { data } = await api.getFilteredPetitions(mode, categories);
 
-      if (active) {
-        // setActivePollsTotal(data.payload.length);
-        setActivePetitions([...data.payload.payload]);
-      } else {
-        // setExpiredPollsTotal(data.payload.length);
-        setExpiredPetitions([...data.payload.payload]);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //     // if (active) {
+  //       // setActivePetitionsTotal(data.payload.length);
+  //       // setActivePetitions([...data.payload.payload]);
+  //     // } else {
+  //     //   // setExpiredPollsTotal(data.payload.length);
+  //     //   setExpiredPetitions([...data.payload.payload]);
+  //     // }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   const onSelect = (selectedList, selectedItem) => {
     setSelectedCategories([...selectedCategories, selectedItem.name]);

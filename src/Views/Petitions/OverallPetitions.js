@@ -2,6 +2,7 @@ import { useHistory } from "react-router";
 import { getSlug } from "../../helpers";
 import styles from "./Petitions.module.css";
 import PropTypes from "prop-types";
+import { isAuthenticated } from "../../api";
 
 const OVERLAY = "linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.9))";
 
@@ -12,16 +13,20 @@ const OverallPetitions = ({ petitions }) => {
     <div
       key={index}
       onClick={() =>
-        history.push(`/petition/${getSlug(petition.question)}/${petition._id}`)
+        (isAuthenticated())?
+        history.push(`/petition/${getSlug(petition.title)}/${petition._id}`)
+        :
+          history.push(`common/petition/${getSlug(petition.title)}/613c4f54a781e21a7cf0cdbb`)
+    
       }
       className={styles.petition}
       style={{
         backgroundImage: `${OVERLAY}, url("${petition.image}")`,
       }}
     >
-      {/* <div className={styles.poll_container}>
-        <p>{petition.question.slice(0, 30)}...</p>
-      </div> */}
+      <div className={styles.petition_container}>
+        <p>{petition.title.slice(0, 30)}...</p>
+      </div>
     </div>
   )):"";
 };

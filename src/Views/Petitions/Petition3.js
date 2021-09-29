@@ -8,6 +8,7 @@ import { updatestatePhoto } from "../../redux/Actions";
 import axios from "../../axios";
 import {isAuthenticated} from "../../api/index"
 function Petition3(props) {
+  const token=JSON.parse(props.auth.token);
   const history = useHistory();
   const [url, setUrl] = useState("");
   const [photo, setPhoto] = useState(null);
@@ -37,7 +38,7 @@ function Petition3(props) {
       formData,
       {
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' ,
-                  'Authorization':`bearer ${props.auth.token}`
+                  'Authorization':`bearer ${token}`
                 }
       }).then((res)=>{
         console.log(res);

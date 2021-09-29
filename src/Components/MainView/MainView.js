@@ -30,6 +30,7 @@ const MainView = () => {
           <PrivateRoute exact path="/petition3" component={Petition3} />
           <PrivateRoute exact path="/petition-preview" component={PetitionPreview} />
           <Route exact path="/poll/:slug/:pollId" component={Poll1} />
+          <Route exact path="/petition/:slug/:petitionId" component={IndividualPetition} />
         </Switch>
       </Suspense>
     </Layout>
