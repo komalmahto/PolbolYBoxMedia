@@ -31,7 +31,7 @@ const Navbar = ({ auth: { token, user }, logout,fetchToken }) => {
             <li>
               <Link to="/petitions"> Petition</Link>
             </li>
-            <li>News</li>
+            <li> <Link to="/news">News</Link></li>
             <li><Link to="/livetv">TV</Link></li>
             <li>Quiz</li>
             {!token ? (

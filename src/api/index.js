@@ -37,7 +37,12 @@ export const getFilteredPetitions = (mode, categories) =>
   export const getPetitionResults = (petitionId) =>
   api.get(`/petition/${petitionId}`);
 
+  export const getNews=()=>
+    api.get('/news?hindi=false');
   
+  export const getFilteredNews = (categories) =>
+  api.get(`/news?hindi=false&categories=${categories}`);
+
   export const isAuthenticated = () => {
     if (typeof window == "undefined") {
       return false;

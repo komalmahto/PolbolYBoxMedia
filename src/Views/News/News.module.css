@@ -1,0 +1,142 @@
+.header {
+    background: #fdf9f6;
+    color: #535353;
+    border-radius: 25px;
+    text-align: center;
+    padding: 50px 20px;
+    margin-bottom: 30px;
+    font-size: 0.9rem;
+  }
+  
+  .pHeading {
+    font-size: 2rem;
+    margin-bottom: 5px;
+    color: #000;
+    text-transform: uppercase;
+  }
+  .categories {
+    margin-bottom: 30px;
+  }
+  .category {
+    display: inline-block;
+    background: #84855d;
+    padding: 7px 20px;
+    margin: 0 5px 5px 5px;
+    border-radius: 50px;
+    color: #fff;
+    font-size: 0.9rem;
+    cursor: pointer;
+    user-select: none;
+  }
+  .category.selected {
+    background: #48483d;
+  }
+  
+  .polls {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: minmax(230px, auto);
+    gap: 3px;
+    margin-bottom: 30px;
+  }
+  
+  .poll {
+    position: relative;
+    background: #535353;
+    cursor: pointer;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: flex-end;
+  }
+  
+  .poll .poll_container {
+    width: 85%;
+    margin: 0 auto 15px auto;
+    color: #fff;
+    text-align: center;
+    font-size: 0.8rem;
+  }
+  .read_more {
+    position: absolute;
+    top: 15px;
+    right: 10px;
+  }
+  .read_more a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: bold;
+  }
+  
+  .types {
+    position: relative;
+    display: inline-flex;
+    text-align: center;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #000;
+    font-size: 0.9rem;
+    font-weight: bold;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.2rem;
+  }
+  .types div {
+    padding: 0 20px;
+    cursor: pointer;
+  }
+  .types::before {
+    position: absolute;
+    content: "";
+    bottom: -1px;
+    height: 4px;
+    width: 50%;
+    background: #84855d;
+    transition: all 0.1s ease-out;
+  }
+  .types.active::before {
+    left: 0;
+  }
+  .types.expired::before {
+    left: 50%;
+  }
+  .types div span {
+    display: inline-block;
+    background: #fdeddb;
+    height: 30px;
+    width: 30px;
+    font-weight: 400;
+    border-radius: 50%;
+    margin-left: 5px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  @media screen and (max-width: 750px) {
+    .polls {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media screen and (max-width: 550px) {
+    .pHeading {
+      margin-bottom: 15px;
+    }
+    .header {
+      font-size: 0.8rem;
+    }
+  }
+  
+  @media screen and (max-width: 350px) {
+    .polls {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+  
+  @media screen and (max-width: 300px) {
+    .polls {
+      grid-auto-rows: minmax(330px, auto);
+    }
+  }
+  

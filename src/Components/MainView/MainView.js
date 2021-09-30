@@ -9,11 +9,14 @@ import Petition2 from "../../Views/Petitions/Petition2";
 import Petition3 from "../../Views/Petitions/Petition3";
 import PetitionPreview from "../../Views/Petitions/PetitionPreview";
 import LiveTv from "../../Views/TV/LiveTv";
+import News from "../../Views/News/News";
+import SingleNews from "../../Views/News/SingleNews";
 
 import PrivateRoute from "../../PrivateRoute";
 
 import Layout from "../Layout/Layout";
 import IndividualPetition from "../../Views/Petitions/IndividualPetition";
+
 
 
 // Views
@@ -37,6 +40,8 @@ const MainView = () => {
           <Route exact path="/poll/results/:slug/:pollId" component={Graphs} />
           <Route exact path="/petition/:slug/:petitionId" component={IndividualPetition} />
           <Route exact path="/livetv" component={LiveTv} />
+          <Route exact path="/news" component={News} />
+          <Route exact path="/news/:slug/:newsId" component={SingleNews} />
         </Switch>
       </Suspense>
     </Layout>
