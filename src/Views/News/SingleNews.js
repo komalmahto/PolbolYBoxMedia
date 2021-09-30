@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import "./SingleNews.css";
 import axios from "../../axios";
+import { useHistory } from "react-router-dom";
 
 function SingleNews({ match }) {
+    const history=useHistory();
   const { newsId } = match.params;
   const [newsData, setNewsData] = useState(null);
 
- 
 
   const fetchNews = async () => {
     const { data } = await axios.get(`common/newsById/${newsId}`);
@@ -16,6 +17,15 @@ function SingleNews({ match }) {
   useEffect(() => {
     fetchNews();
   }, [match]);
+
+  useEffect(() => {
+    const unlisten = history.listen(() => {
+        window.scrollTo(-100, 0);
+      });
+      return () => {
+        unlisten();
+      };
+  }, [])
   console.log(newsData);
   return (
     <div className="container">
