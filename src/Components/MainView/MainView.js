@@ -8,11 +8,13 @@ import Petition1 from "../../Views/Petitions/Petition1";
 import Petition2 from "../../Views/Petitions/Petition2";
 import Petition3 from "../../Views/Petitions/Petition3";
 import PetitionPreview from "../../Views/Petitions/PetitionPreview";
+import LiveTv from "../../Views/TV/LiveTv";
 
 import PrivateRoute from "../../PrivateRoute";
 
 import Layout from "../Layout/Layout";
 import IndividualPetition from "../../Views/Petitions/IndividualPetition";
+
 
 // Views
 const Home = React.lazy(() => import("../../Views/Home/Home"));
@@ -34,6 +36,7 @@ const MainView = () => {
           <Route exact path="/poll/:slug/:pollId" component={Poll1} />
           <Route exact path="/poll/results/:slug/:pollId" component={Graphs} />
           <Route exact path="/petition/:slug/:petitionId" component={IndividualPetition} />
+          <Route exact path="/livetv" component={LiveTv} />
         </Switch>
       </Suspense>
     </Layout>
