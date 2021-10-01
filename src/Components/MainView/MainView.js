@@ -39,6 +39,7 @@ const MainView = () => {
           <PrivateRoute exact path="/petition2" component={Petition2} />
           <PrivateRoute exact path="/petition3" component={Petition3} />
           <PrivateRoute exact path="/petition-preview" component={PetitionPreview} />
+          <Route exact path="/petition/:slug/:petitionId" component={IndividualPetition} />
           <Route exact path="/poll/:slug/:pollId" component={Poll1} />
           <Route exact path="/poll/results/:slug/:pollId" component={Graphs} />
           <Route exact path="/awards" component={Awards} />
@@ -49,7 +50,6 @@ const MainView = () => {
           <Route exact path="/livetv" component={LiveTv} />
           <Route exact path="/news" component={News} />
           <Route exact path="/news/:slug/:newsId" component={SingleNews} />
-          
         </Switch>
       </Suspense>
     </Layout>
