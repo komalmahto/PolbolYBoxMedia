@@ -1,6 +1,5 @@
 import React, { Suspense } from "react";
 import { Route, Switch } from "react-router-dom";
-import Poll from "../../Views/Poll/Poll/Poll";
 import Graphs from "../../Views/Polls/Graphs";
 import Poll1 from "../../Views/Poll/Poll/Poll1";
 import Petition from "../../Views/Petitions/Petition";  
@@ -16,6 +15,10 @@ import PrivateRoute from "../../PrivateRoute";
 
 import Layout from "../Layout/Layout";
 import IndividualPetition from "../../Views/Petitions/IndividualPetition";
+import Awards from "../../Views/Awards/Awards";
+import AwardCategories from "../../Views/Awards/AwardCategories";
+import SubCategories from "../../Views/Awards/SubCategories";
+import FinalAwards from "../../Views/Awards/FinalAwards";
 
 
 
@@ -38,10 +41,15 @@ const MainView = () => {
           <PrivateRoute exact path="/petition-preview" component={PetitionPreview} />
           <Route exact path="/poll/:slug/:pollId" component={Poll1} />
           <Route exact path="/poll/results/:slug/:pollId" component={Graphs} />
-          <Route exact path="/petition/:slug/:petitionId" component={IndividualPetition} />
+          <Route exact path="/awards" component={Awards} />
+          <Route exact path="/awards/categories/:slug/:showId" component={AwardCategories} />
+          <Route exact path="/awards/categories/subcat/:showId/:categoryId" component={SubCategories} />
+          <Route exact path="/awards/categories/subcat/:showId/:categoryId" component={SubCategories}/>
+          <Route exact path="/awards/categories/subcat/award/:showId/:categoryId/:id" component={FinalAwards} />
           <Route exact path="/livetv" component={LiveTv} />
           <Route exact path="/news" component={News} />
           <Route exact path="/news/:slug/:newsId" component={SingleNews} />
+          
         </Switch>
       </Suspense>
     </Layout>

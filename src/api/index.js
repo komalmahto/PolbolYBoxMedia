@@ -43,6 +43,10 @@ export const getFilteredPetitions = (mode, categories) =>
   export const getFilteredNews = (categories) =>
   api.get(`/news?hindi=false&categories=${categories}`);
 
+  export const getExpiredAwards=()=>
+    api.get('/award/fetchAwardsAndCategories?mode=expired');
+  
+  
   export const isAuthenticated = () => {
     if (typeof window == "undefined") {
       return false;

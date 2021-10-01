@@ -27,7 +27,7 @@ const Navbar = ({ auth: { token, user }, logout,fetchToken }) => {
             <li>
               <Link to="/polls">Poll</Link>
             </li>
-            <li>Awards</li>
+            <li><Link to="/awards">Awards</Link></li>
             <li>
               <Link to="/petitions"> Petition</Link>
             </li>
