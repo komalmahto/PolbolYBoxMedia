@@ -25,7 +25,7 @@ function FinalAwards({ match }) {
   return (
     <div className="container">
       <div className="header">
-        <p className="pHeading">Awards</p>
+        <p className="pHeading">{catAwards.length>0?catAwards[0].heading:""}</p>
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus,
           neque.
