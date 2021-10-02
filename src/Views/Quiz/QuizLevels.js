@@ -3,8 +3,10 @@ import axios from "../../axios";
 import "./Quiz.css";
 import { FaPlay } from "react-icons/fa";
 import { AiFillLock } from "react-icons/ai";
+import { useHistory } from "react-router-dom";
 
 function QuizLevels({ match }) {
+  const history=useHistory();
   const { catId } = match.params;
   const [levels, setLevels] = useState([]);
 
@@ -14,6 +16,10 @@ function QuizLevels({ match }) {
     );
     setLevels(data.payload.quizzes);
   };
+
+  const clickHandler=(level)=>{
+    history.push(`/quiz/level/${catId}/${level._id}`)
+  }
 
   useEffect(() => {
     fetchQuiz();
@@ -31,7 +37,7 @@ function QuizLevels({ match }) {
       <div className="box">
         {levels.length > 0
           ? levels.map((quiz, index) => (
-              <div key={index} className="quiz">
+              <div key={index} className="quiz" onClick={()=>clickHandler(quiz)}>
                 <img className="icon" src={quiz.icon} />
                 <div className="sub-box">
                   <h4>LEVEL {quiz.level}</h4>
