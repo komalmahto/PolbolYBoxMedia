@@ -56,3 +56,11 @@
   margin-right: auto;
   margin-top: 20px;
 }
+.avatar{
+  height:30px;
+  width:30px
+}
+.avatarimage{
+  height:100px;
+  width: 100px;
+}
