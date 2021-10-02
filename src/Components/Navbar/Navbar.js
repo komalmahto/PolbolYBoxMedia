@@ -33,7 +33,7 @@ const Navbar = ({ auth: { token, user }, logout,fetchToken }) => {
             </li>
             <li> <Link to="/news">News</Link></li>
             <li><Link to="/livetv">TV</Link></li>
-            <li>Quiz</li>
+            <li><Link to="/quiz">Quiz</Link></li>
             {!token ? (
               <li onClick={clickHandler}> Login</li>
             ) : (

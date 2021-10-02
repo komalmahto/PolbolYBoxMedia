@@ -19,6 +19,8 @@ import Awards from "../../Views/Awards/Awards";
 import AwardCategories from "../../Views/Awards/AwardCategories";
 import SubCategories from "../../Views/Awards/SubCategories";
 import FinalAwards from "../../Views/Awards/FinalAwards";
+import QuizCat from "../../Views/Quiz/QuizCat";
+import QuizLevels from "../../Views/Quiz/QuizLevels";
 
 
 
@@ -50,6 +52,9 @@ const MainView = () => {
           <Route exact path="/livetv" component={LiveTv} />
           <Route exact path="/news" component={News} />
           <Route exact path="/news/:slug/:newsId" component={SingleNews} />
+          <Route exact path="/quiz" component={QuizCat} />
+          <Route exact path="/quiz/levels/:catId"  component={QuizLevels}/>
+          
         </Switch>
       </Suspense>
     </Layout>
