@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./Quiz.css";
+import styles from "./Quiz.module.css";
 import axios from "../../axios";
 import { useHistory } from "react-router-dom";
 function QuizCat() {
@@ -20,27 +20,27 @@ function QuizCat() {
 
   return (
     <div>
-      <div className="header">
-        <p className="pHeading">Quiz</p>
+      <div className={styles.header}>
+        <p className={styles.pHeading}>Quiz</p>
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus,
           neque.
         </p>
       </div>
-      <div className="head">
+      <div className={styles.head}>
         <h3> Choose quiz category</h3>
-        <hr className="hr" />
+        <hr className={styles.hr} />
       </div>
-      <div className="card1s">
+      <div className={styles.cards1}>
         {categories.length > 0
           ? categories.map((category, index) => (
               <div
-                className="card"
+                className={styles.card}
                 key={index}
                 onClick={() => handleClick(category._id)}
               >
-                <img className="image1" src={category.icon} />
-                <p className="name">{category.name}</p>
+                <img className={styles.image1} src={category.icon} />
+                <p className={styles.name}>{category.name}</p>
               </div>
             ))
           : ""}

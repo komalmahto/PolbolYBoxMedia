@@ -19,6 +19,7 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  margin-left:100px
 }
 .card {
   width: 350px;
@@ -41,8 +42,7 @@
   font-size: 24px;
   line-height: 28px;
   text-align: center;
-  margin-left: auto;
-  margin-right: auto;
+ margin-left:40px;
   margin-top: 10px;
 }
 .nameheading {
@@ -52,9 +52,8 @@
   font-size: 24px;
   line-height: 28px;
   text-align: center;
-  margin-left: auto;
-  margin-right: auto;
   margin-top: 20px;
+  margin-right:20px
 }
 .avatar{
   height:30px;

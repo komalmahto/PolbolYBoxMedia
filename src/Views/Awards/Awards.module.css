@@ -16,6 +16,7 @@
 }
 .categories {
   margin-bottom: 30px;
+  margin-left:400px;
 }
 .category {
   display: inline-block;
@@ -27,6 +28,7 @@
   font-size: 0.9rem;
   cursor: pointer;
   user-select: none;
+  margin-left:30px;
 }
 .category.selected {
   background: #48483d;
@@ -38,6 +40,7 @@
   grid-auto-rows: minmax(230px, auto);
   gap: 3px;
   margin-bottom: 30px;
+  margin-left:100px
 }
 
 .poll {
@@ -80,6 +83,7 @@
   font-weight: bold;
   padding-bottom: 0.5rem;
   margin-bottom: 1.2rem;
+  margin-left:40px;
 }
 .types div {
   padding: 0 20px;

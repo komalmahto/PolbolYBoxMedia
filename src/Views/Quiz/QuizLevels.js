@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "../../axios";
-import "./Quiz.css";
+import styles from "./Quiz.module.css";
 import { FaPlay } from "react-icons/fa";
 import { AiFillLock } from "react-icons/ai";
 import { useHistory } from "react-router-dom";
@@ -27,26 +27,26 @@ function QuizLevels({ match }) {
   console.log(levels);
   return (
     <div>
-      <div className="header">
-        <p className="pHeading">Quiz</p>
+      <div className={styles.header}>
+        <p className={styles.pHeading}>Quiz</p>
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus,
           neque.
         </p>
       </div>
-      <div className="box">
+      <div className={styles.box}>
         {levels.length > 0
           ? levels.map((quiz, index) => (
-              <div key={index} className="quiz" onClick={()=>clickHandler(quiz)}>
-                <img className="icon" src={quiz.icon} />
-                <div className="sub-box">
+              <div key={index} className={styles.quiz} onClick={()=>clickHandler(quiz)}>
+                <img className={styles.icon} src={quiz.icon} />
+                <div className={styles.subbox}>
                   <h4>LEVEL {quiz.level}</h4>
                   <p>{quiz.metadata.maxQuestions} Questions</p>
                 </div>
                 {quiz.level == 1 ? (
-                  <FaPlay className="playicon" />
+                  <FaPlay className={styles.playicon} />
                 ) : (
-                  <AiFillLock className="playicon" />
+                  <AiFillLock className={styles.playicon} />
                 )}
               </div>
             ))

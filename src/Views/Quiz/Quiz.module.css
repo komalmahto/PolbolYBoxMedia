@@ -1,3 +1,19 @@
+.header {
+  background: #fdf9f6;
+  color: #535353;
+  border-radius: 25px;
+  text-align: center;
+  padding: 50px 20px;
+  margin: 30px;
+  font-size: 0.9rem;
+}
+.pHeading {
+  font-size: 40px;
+  margin-bottom: 5px;
+  color: #000;
+  text-transform: uppercase;
+}
+
 .head {
   width: 400px;
   margin-left: 100px;
@@ -44,11 +60,13 @@
 }
 .box {
   display: flex;
+  flex-direction:column;
   justify-content: space-around;
   align-items: center;
-  max-height: 600px;
-  max-width: 900px;
-  overflow-y: scroll;
+  height: 900px;
+  width:900px;
+  overflow-x:hidden;
+  overflow-y:scroll;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 200px;
@@ -62,7 +80,7 @@
   border-radius: 4px;
   margin: 30px;
 }
-.sub-box {
+.subbox {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -152,8 +170,9 @@
 .abs {
   position: absolute;
   top: 900px;
+  right:400px;
 }
-/* .quiz-result {
+/* .quizresult {
   margin-top: -600px;
   font-size: 1.3rem;
   font-weight: bold;

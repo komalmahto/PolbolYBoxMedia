@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import OverallAwards from "./OverallAwards";
 import * as api from "../../api";
 
-import "./Awards.css";
+import styles from"./Awards.module.css";
 
 const Awards = () => {
   const [active, setActive] = useState(true);
@@ -32,24 +32,23 @@ const Awards = () => {
   };
 
   return (
-    <div className="container">
-      <div className="header">
-        <p className="pHeading">Awards</p>
+    <div className={styles.container}>
+      <div className={styles.header}>
+        <p className={styles.pHeading}>Awards</p>
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus,
           neque.
         </p>
       </div>
-      <div className="categories">
+      <div className={styles.categories}>
         <div
           style={{
             width: "250px",
             fontSize: "0.8rem",
-            margin: "15px 0",
           }}
         ></div>
       </div>
-      <div className={`${active ? "types active" : "types expired"}`}>
+      <div className={`${active ? `${styles.types} ${styles.active}` : `${styles.types} ${styles.expired}`}`}>
         <div onClick={() => setActive(true)}>
           ACTIVE <span>{activeAwards.length}</span>
         </div>
@@ -58,11 +57,11 @@ const Awards = () => {
         </div>
       </div>
       {active ? (
-        <div className="polls">
+        <div className={styles.polls}>
           <OverallAwards mode="active" awards={activeAwards} />
         </div>
       ) : (
-        <div className="polls">
+        <div className={styles.polls}>
           <OverallAwards mode="expired" awards={expiredAwards} />
         </div>
       )}

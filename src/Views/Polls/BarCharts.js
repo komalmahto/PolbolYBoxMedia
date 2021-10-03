@@ -135,7 +135,7 @@ function BarCharts(props) {
                   className={value}
                   onClick={handleClick}
                 >
-                  {value} <FiCheck id={"check," + value} className={"check"} />
+                  {value} <FiCheck id={"check," + value} className="check" />
                 </Dropdown.Item>
               ))
             : ""}
@@ -150,7 +150,7 @@ function BarCharts(props) {
                   className={value}
                   onClick={handleClick}
                 >
-                  {value} <FiCheck id={"check," + value} className={"check"} />
+                  {value} <FiCheck id={"check," + value} className="check" />
                 </Dropdown.Item>
               ))
             : ""}
@@ -165,7 +165,7 @@ function BarCharts(props) {
                   className={value}
                   onClick={handleClick}
                 >
-                  {value} <FiCheck id={"check," + value} className={"check"} />
+                  {value} <FiCheck id={"check," + value} className="check" />
                 </Dropdown.Item>
               ))
             : ""}

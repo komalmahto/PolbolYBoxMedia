@@ -9,7 +9,7 @@ import ReactDOM from "react-dom";
 import ModalVideo from "react-modal-video";
 import ListGroup from "react-bootstrap/ListGroup";
 
-import "./AwardCategories.css";
+import styles from "./AwardCategories.module.css";
 
 function FinalAwards({ match }) {
   const history = useHistory();
@@ -45,9 +45,9 @@ function FinalAwards({ match }) {
   }, []);
 
   return (
-    <div className="container">
-      <div className="header">
-        <p className="pHeading">
+    <div className={styles.container}>
+      <div className={styles.header}>
+        <p className={styles.pHeading}>
           {catAwards.length > 0 ? catAwards[0].heading : ""}
         </p>
         <p>
@@ -62,20 +62,20 @@ function FinalAwards({ match }) {
         videoId={videoid}
         onClose={() => setOpen(false)}
       />
-      <Tabs defaultActiveKey="nominees" transition={false} className="mb-3">
+      <Tabs defaultActiveKey="nominees" transition={false} className={styles.mb-3}>
         <Tab eventKey="nominees" title="Nominees">
-          <div className="cards">
+          <div className={styles.cards}>
             {catAwards.length > 0
               ? catAwards[0].nominations.map((cat, index) => (
                   <>
                     <div
                       key={index}
-                      className="card"
+                      className={styles.card}
                       onClick={() => openModal(cat.ytlink)}
                     >
-                      <img className="image" src={cat.image} />
-                      <div className="video"></div>
-                      <div className="name">
+                      <img className={styles.image} src={cat.image} />
+                      <div className={styles.video}></div>
+                      <div className={styles.name}>
                         <p>{cat.name}</p>
                       </div>
                     </div>
@@ -90,7 +90,7 @@ function FinalAwards({ match }) {
               ? catAwards[0].jurys.map((item, index) => {
                   return (
                     <ListGroup.Item key={index}>
-                      <img className="avatarimage" src={item.image} />
+                      <img className={styles.avatarimage} src={item.image} />
                       <p>@{item.name}</p>
                       <p>{item.comments}</p>
                     </ListGroup.Item>
@@ -106,7 +106,7 @@ function FinalAwards({ match }) {
               ? comments.map((item, index) => {
                   return (
                     <ListGroup.Item key={index}>
-                      <img className="avatar" src={item.user.avatar} />
+                      <img className={styles.avatar} src={item.user.avatar} />
                       <p>
                         @{item.user.firstName + item.user.lastName} voted{" "}
                         {item.award.nominations.name}

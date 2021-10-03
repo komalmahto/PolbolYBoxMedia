@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./livetv.css";
+import styles from "./livetv.module.css";
 import ReactPlayer from 'react-player'
 import axios from "../../axios";
 function LiveTv() {
@@ -31,35 +31,35 @@ function LiveTv() {
   }, []);
 
   return (
-    <div className="livetv">
-      <div className="header">
-        <p className="pHeading">LIVE TV</p>
+    <div className={styles.livetv}>
+      <div className={styles.header}>
+        <p className={styles.pHeading}>LIVE TV</p>
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus,
           neque.
         </p>
       </div>
-      <div className="options">
-        <div onClick={() => handleLanguage("hindi")} className="lang">
+      <div className={styles.options}>
+        <div onClick={() => handleLanguage("hindi")} className={styles.lang}>
           Hindi
-          <hr className={"line" + (language === "hindi" ? "show" : "")} />
+          <hr className={ (language === "hindi" ? styles.lineshow : styles.line)} />
         </div>
 
-        <div onClick={() => handleLanguage("english")} className="lang">
+        <div onClick={() => handleLanguage("english")} className={styles.lang}>
           English
-          <hr className={"line" + (language === "english" ? "show" : "")} />
+          <hr className={ (language === "english" ? styles.lineshow : styles.line)} />
         </div>
       </div>
-      <div className="channels">
+      <div className={styles.channels}>
         {channelData
           ? channelData.map((channel, index) => {
               if (channel.language == language) {
-                return <div key={index} className="channel" onClick={()=>handleClick(channel)}style={{backgroundImage:`url(${channel.image})`}}></div>;
+                return <div key={index} className={styles.channel} onClick={()=>handleClick(channel)}style={{backgroundImage:`url(${channel.image})`}}></div>;
               }
             })
           : ""}
       </div>
-      <div className="player">
+      <div className={styles.player}>
           <ReactPlayer  playing={true} width="100%" controls={true} url={activechannel} />
       </div>
     </div>

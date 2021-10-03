@@ -3,6 +3,7 @@ import axios from "../../axios";
 import { Modal } from "antd";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 import { FieldTimeOutlined } from "@ant-design/icons";
+import styles from "./Quiz.module.css"
 const { confirm } = Modal;
 
 const QuizPlay = ({ match, history }) => {
@@ -185,7 +186,7 @@ const QuizPlay = ({ match, history }) => {
     <div>
         <Modal
         visible={isModalVisible}
-        className="modal1"
+        className={styles.modal1}
         onOk={handleOk}
         onCancel={handleCancel}
         footer={null}
@@ -193,12 +194,12 @@ const QuizPlay = ({ match, history }) => {
       >
         <h2 style={{fontWeight:'bold', textAlign:'center'}}>Result</h2>
         {Object.keys(final).length > 0 && (
-          <div className='quiz-result'  >
-          <div className="total-score">
+          <div className={styles.quizresult}  >
+          <div className={styles.totalscore}>
             <p style={{ textTransform:'none'}}>Total Score: {final.score}/{final.outOf}</p>
             </div>
-            <div className="bottom">
-            <div className="cont" style={{ textTransform:'none'}}>
+            <div className={styles.bottom}>
+            <div className={styles.cont} style={{ textTransform:'none'}}>
             <p style={{ textTransform:'none'}}><span>Correct answers :</span><span>{final.countCorrect}/{final.maxQuestions}</span> </p>
             <p style={{ textTransform:'none'}}><span>No of Attempts :</span><span>{final.attempts}</span> </p>
             <p style={{ textTransform:'none'}}><span>Accuracy :</span><span> {final.accuracy} %</span></p>
@@ -208,37 +209,37 @@ const QuizPlay = ({ match, history }) => {
         )}
       </Modal>
 
-      <div className="header">
-        <p className="pHeading">Quiz</p>
+      <div className={styles.header}>
+        <p className={styles.pHeading}>Quiz</p>
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus,
           neque.
         </p>
       </div>
-      <div className="head">
+      <div className={styles.head}>
         <h2>Level  {Object.keys(questions).length > 0 ? questions.questions[0].level : ""} </h2>
-        <hr className="hr1" />
+        <hr className={styles.hr1} />
       </div>
-      <div className="qno">
+      <div className={styles.qno}>
         {index+1}/
         {Object.keys(questions).length > 0 ? questions.questions.length : ""}
       </div>
       {start && display && (
-        <div className="content">
-          <div className="sub1">
-            <div className="quesc">
-              <p className="ques">{display.content.question}</p>
+        <div className={styles.content}>
+          <div className={styles.sub1}>
+            <div className={styles.quesc}>
+              <p className={styles.ques}>{display.content.question}</p>
             </div>
-            <div className="btns">
-              <button className="btnsbtn">Hint</button>
-              <button className="btnsbtn">Watch Ad</button>
+            <div className={styles.btns}>
+              <button className={styles.btnsbtn}>Hint</button>
+              <button className={styles.btnsbtn}>Watch Ad</button>
             </div>
           </div>
-          <div className="options1">
+          <div className={styles.options1}>
             {display.options.map((option, index) => (
               <div
                 key={index}
-                className="option"
+                className={styles.option}
                 onClick={() => showAns(option._id)}
                 style={showCorrect(option._id)}
               >
@@ -246,13 +247,13 @@ const QuizPlay = ({ match, history }) => {
               </div>
             ))}
           </div>
-          <div className="btns abs">
+          <div className={`${styles.btns} ${styles.abs}`}>
             {Object.keys(result).length > 0 && (
               <>
-                <button className="btnsbtn " onClick={showConfirm}>
+                <button className={styles.btnsbtn} onClick={showConfirm}>
                   Exit
                 </button>
-                <button className="btnsbtn" onClick={nextQuestion}>
+                <button className={styles.btnsbtn} onClick={nextQuestion}>
                   Next
                 </button>
               </>

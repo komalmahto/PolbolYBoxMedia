@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "../../axios";
-import "./AwardCategories.css";
+import styles from "./AwardCategories.module.css";
 import { getSlug } from "../../helpers";
 import { useHistory } from "react-router";
 
@@ -23,28 +23,28 @@ function SubCategories({ match }) {
   }, []);
 
   return (
-    <div className="container">
-      <div className="header">
-        <p className="pHeading">Awards</p>
+    <div className={styles.container}>
+      <div className={styles.header}>
+        <p className={styles.pHeading}>Awards</p>
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus,
           neque.
         </p>
       </div>
-      <div className="cards">
+      <div className={styles.cards}>
         {subCat.length > 0
           ? subCat.map((cat, index) => (
               <div
                 key={index}
-                className="card"
+                className={styles.card}
                 onClick={() => {
                   history.push(
                     `/awards/categories/subcat/award/${match.params.showId}/${categoryId}/${cat._id}`
                   );
                 }}
               >
-                <img className="image" src={cat.image} />
-                <div className="nameheading">
+                <img className={styles.image} src={cat.image} />
+                <div className={styles.nameheading}>
                   <p>{cat.heading}</p>
                 </div>
               </div>
