@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./SingleNews.css";
+import styles from "./SingleNews.module.css";
 import axios from "../../axios";
 import { useHistory } from "react-router-dom";
 
@@ -28,15 +28,15 @@ function SingleNews({ match }) {
   }, [])
   console.log(newsData);
   return (
-    <div className="container">
-      <div className="header">
-        <p className="pHeading">News</p>
+    <div className={styles.container}>
+      <div className={styles.header}>
+        <p className={styles.pHeading}>News</p>
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus,
           neque.
         </p>
       </div>
-      <div className="top">
+      <div className={styles.top}>
         <h4>{newsData ? newsData.categories[0] : ""}</h4>
         <hr />
         <p>
@@ -45,13 +45,13 @@ function SingleNews({ match }) {
             : ""}
         </p>
       </div>
-      <div className="content">
-          <img className="image" src={newsData?newsData.images[0]:""} />
-          <h3 className="title">{newsData?newsData.headline:""}</h3>
+      <div className={styles.content}>
+          <img className={styles.image} src={newsData?newsData.images[0]:""} />
+          <h3 className={styles.title}>{newsData?newsData.headline:""}</h3>
           <div>
-              <p class="desc">{newsData?newsData.description:""}</p>
+              <p className={styles.desc}>{newsData?newsData.description:""}</p>
           </div>
-          <a className="link" href={newsData?newsData.source:""}>Read Full Article</a>
+          <a className={styles.link} href={newsData?newsData.source:""}>Read Full Article</a>
       </div>
      
     </div>
