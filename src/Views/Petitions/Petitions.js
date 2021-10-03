@@ -12,7 +12,7 @@ import { AiFillPlusCircle } from "react-icons/ai";
 import Noty from 'noty';  
 import "noty/lib/noty.css";  
 import "noty/lib/themes/mint.css";  
-
+import {isAuthenticated} from "../../api/index"
 const Petitions = () => {
   // const [polls, setPolls] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -93,15 +93,21 @@ const Petitions = () => {
   };
   
   const createPetitionhandler=()=>{
+    if(isAuthenticated())
+    {
+       history.push('/petition');
+    }
+    else{
     new Noty({
       type:'alert',
-      layout: 'topLeft',
+      layout: 'centerLeft',
       text: 'Please login to create petition',
       timeout:1000,
       theme:'sunset',
       modal:true
   }).show();
-      // history.push('/petition');
+}
+     
   }
   return (
     <div className="container">
