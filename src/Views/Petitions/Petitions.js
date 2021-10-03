@@ -96,7 +96,7 @@ const Petitions = () => {
     new Noty({
       type:'alert',
       layout: 'topLeft',
-      text: 'Please login',
+      text: 'Please login to create petition',
       timeout:1000,
       theme:'sunset',
       modal:true
