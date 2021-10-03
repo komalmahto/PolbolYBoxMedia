@@ -234,7 +234,7 @@ const QuizPlay = ({ match, history }) => {
               <button className="btnsbtn">Watch Ad</button>
             </div>
           </div>
-          <div className="options">
+          <div className="options1">
             {display.options.map((option, index) => (
               <div
                 key={index}

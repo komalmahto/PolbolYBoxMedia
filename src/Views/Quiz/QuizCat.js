@@ -31,7 +31,7 @@ function QuizCat() {
         <h3> Choose quiz category</h3>
         <hr className="hr" />
       </div>
-      <div className="cards">
+      <div className="card1s">
         {categories.length > 0
           ? categories.map((category, index) => (
               <div
@@ -39,7 +39,7 @@ function QuizCat() {
                 key={index}
                 onClick={() => handleClick(category._id)}
               >
-                <img className="image" src={category.icon} />
+                <img className="image1" src={category.icon} />
                 <p className="name">{category.name}</p>
               </div>
             ))

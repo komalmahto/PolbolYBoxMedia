@@ -6,7 +6,7 @@
   border: 3px solid #84855d;
   width: 300px;
 }
-.cards {
+.cards1 {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -21,7 +21,7 @@
   margin: 20px;
   cursor: pointer;
 }
-.image {
+.image1 {
   width: 270px;
   height: 200px;
   border-radius: 12px;
@@ -131,7 +131,7 @@
   
   margin: 10px;
 }
-.options {
+.options1 {
   display: flex;
   flex-direction: column;
   height: 600px;
