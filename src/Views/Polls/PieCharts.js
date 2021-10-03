@@ -16,7 +16,7 @@ function PieCharts(props) {
   });
 
   const [labels, setLabels] = useState(null);
-
+  // const [ show, setShow ] = useState(false);
   const graphOption = {
     options: {
       legend: {
@@ -37,6 +37,7 @@ function PieCharts(props) {
   };
 
   const handleClick = (e) => {
+    e.stopPropagation();
     if (e.target.classList.contains("overall")) {
       if (filters.nofilters.overall !== undefined) {
         const obj = {};
@@ -62,6 +63,7 @@ function PieCharts(props) {
     } else {
       setFilters({ ...filters, [elem1]: obj });
     }
+    // setShow(!show)
   };
 
   const handleDelete = (e) => {

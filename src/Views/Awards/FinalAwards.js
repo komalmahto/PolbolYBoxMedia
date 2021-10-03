@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "../../axios";
-
+import { isAuthenticated } from "../../api/index";
 import { getSlug } from "../../helpers";
 import { useHistory } from "react-router";
 import Tabs from "react-bootstrap/Tabs";
@@ -8,6 +8,7 @@ import Tab from "react-bootstrap/Tab";
 import ReactDOM from "react-dom";
 import ModalVideo from "react-modal-video";
 import ListGroup from "react-bootstrap/ListGroup";
+import Card from "react-bootstrap/Card";
 
 import styles from "./AwardCategories.module.css";
 
@@ -20,13 +21,28 @@ function FinalAwards({ match }) {
   const [isOpen, setOpen] = useState(false);
   const [videoid, setVideoid] = useState("");
   const [comments, setComments] = useState([]);
+  const [results, setResults] = useState(null);
 
   const fetchData = async () => {
     const { data } = await axios.get(
       `award/awardList?categoryId=${categoryId}`
     );
-
+  
     setCatAwards(data.payload.filter((d) => d._id === id));
+  };
+  const fetchResults = async () => {
+    if (isAuthenticated()) {
+      let token=JSON.parse(localStorage.getItem("authToken"));
+    
+      token=(JSON.parse(token));
+
+      const {data} = await axios.get(`award/results?id=${id}`,{
+        headers:{
+          Authorization:`Bearer ${token}`
+        }
+      });
+      setResults(data.payload.winner);
+    }
   };
 
   const fetchComments = async () => {
@@ -42,8 +58,10 @@ function FinalAwards({ match }) {
   useEffect(() => {
     fetchData();
     fetchComments();
+    fetchResults();
   }, []);
-
+  
+  console.log(results);
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -62,7 +80,11 @@ function FinalAwards({ match }) {
         videoId={videoid}
         onClose={() => setOpen(false)}
       />
-      <Tabs defaultActiveKey="nominees" transition={false} className={styles.mb-3}>
+      <Tabs
+        defaultActiveKey="nominees"
+        transition={false}
+        className={styles.mb - 3}
+      >
         <Tab eventKey="nominees" title="Nominees">
           <div className={styles.cards}>
             {catAwards.length > 0
@@ -99,7 +121,19 @@ function FinalAwards({ match }) {
               : ""}
           </ListGroup>
         </Tab>
-        <Tab eventKey="Results" title="Results"></Tab>
+        <Tab eventKey="Results" title="Results">
+          {
+            isAuthenticated()?
+         ( <Card className={styles.result} style={{ width: "18rem" }}>
+            <Card.Img variant="top" src={results ? results.image : ""} />
+            <Card.Body>
+            <Card.Title>Winner</Card.Title>
+              <Card.Title>{results ? results.name : ""}</Card.Title>
+            </Card.Body>
+          </Card>):"Please Login"
+          }
+        </Tab>
+          
         <Tab eventKey="Comments" title="Comments">
           <ListGroup>
             {comments.length > 0

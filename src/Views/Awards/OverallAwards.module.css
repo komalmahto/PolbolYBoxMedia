@@ -85,6 +85,8 @@
   text-align: center;
 }
 
+
+
 @media screen and (min-width: 550px) {
   .poll_image {
     height: 400px;
