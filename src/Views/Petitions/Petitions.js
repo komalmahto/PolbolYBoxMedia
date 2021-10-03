@@ -8,6 +8,10 @@ import styles from "./Petitions.module.css";
 import OverallPetitons from "./OverallPetitions";
 import Modal from "../../Components/Modal/Modal"
 import { connect } from "react-redux";
+import { AiFillPlusCircle } from "react-icons/ai";
+import Noty from 'noty';  
+import "noty/lib/noty.css";  
+import "noty/lib/themes/mint.css";  
 
 const Petitions = () => {
   // const [polls, setPolls] = useState([]);
@@ -89,7 +93,15 @@ const Petitions = () => {
   };
   
   const createPetitionhandler=()=>{
-      history.push('/petition');
+    new Noty({
+      type:'alert',
+      layout: 'topLeft',
+      text: 'Please login',
+      timeout:1000,
+      theme:'sunset',
+      modal:true
+  }).show();
+      // history.push('/petition');
   }
   return (
     <div className="container">
@@ -101,7 +113,7 @@ const Petitions = () => {
           neque.
         </p>
       </div>
-      <button className={styles.cpetition} onClick={createPetitionhandler}>Create Petition</button>
+      <AiFillPlusCircle className={styles.cpetition} onClick={createPetitionhandler}/>
       <div className={styles.categories}>
         <span
           className={

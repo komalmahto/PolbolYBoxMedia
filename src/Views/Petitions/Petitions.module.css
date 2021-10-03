@@ -32,8 +32,11 @@
     background: #48483d;
   }
   .cpetition{
-    
     margin-left:800px;
+    height:50px;
+    width: 50px;
+    cursor: pointer;
+    
   }
   .petitions {
     display: grid;
