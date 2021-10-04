@@ -43,7 +43,7 @@ function QuizLevels({ match }) {
                   <h4>LEVEL {quiz.level}</h4>
                   <p>{quiz.metadata.maxQuestions} Questions</p>
                 </div>
-                {quiz.level == 1 ? (
+                {quiz.level === 1 ? (
                   <FaPlay className={styles.playicon} />
                 ) : (
                   <AiFillLock className={styles.playicon} />

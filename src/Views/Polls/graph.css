@@ -8,13 +8,42 @@
     display: none;
 }
 .fills{
-    margin-top: -10px;
-    margin-left: 160px;
+    margin-top: 10px;
+    margin-left: 100px;
 }
-.show{
-    display: block;
-}
+
 .box{
     display: flex;
     flex-wrap: wrap;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.dropdowns{
+    margin-left:400px;
+    display: inline-block;
+    width: 600px;
+}
+.sub{
+    width:100%
+}
+#selected{
+    width:100px;
+    background-color: #5b5b5b;
+    border-radius: 10%;
+    border:1px solid #5b5b5b;
+    margin-left: 20px;
+    color: #ffffff;
+    padding: 5px;
+    margin-top: 30px;
+}
+.apexcharts-legend{
+    display: flex  !important;
+    align-items:center !important;
+    justify-content: space-between !important;
+    padding: 30px!important;
+    
+}
+.apexcharts-legend-series{
+    width:300px !important;
 }

@@ -14,20 +14,31 @@ function PieCharts(props) {
     age: {},
     region: {},
   });
+const  legends= {
+  position: "bottom",
+  horizontalAlign: 'left', 
+  width:700,
 
+  offsetX: 0,
+  offsetY: 5,
+  markers: { radius: 0 },
+  itemMargin: {
+    horizontal: 0,
+    vertical: 10,
+},
+};
+const legends1={
+  show:false,
+}
   const [labels, setLabels] = useState(null);
   // const [ show, setShow ] = useState(false);
   const graphOption = {
     options: {
-      legend: {
-        position: "bottom",
-        markers: { radius: 0 },
-        horizontalAlign: "left",
-      },
+     
       labels,
       plotOptions: {
         pie: {
-          offsetX: -90,
+          offsetX: 30,
           dataLabels: {
             offset: -10,
           },
@@ -92,6 +103,11 @@ function PieCharts(props) {
 
     setFilters({ ...filters, nofilters: obj });
   };
+
+  const handleEnter = (e) => {
+    e.target.click();
+  };
+  
   useEffect(() => {
     setData(props.data);
   }, []);
@@ -103,6 +119,7 @@ function PieCharts(props) {
     }
   }, [data]);
 
+  console.log(data);
   return (
     <div className="container">
       {data ? (
@@ -110,7 +127,7 @@ function PieCharts(props) {
       ) : (
         ""
       )}
-      <DropdownButton id="dropdown-basic-button" title="Filter Results">
+      {/* <DropdownButton className="d-inline mx-2" title="Filter Results">
         <DropdownButton id="dropdown-basic-button" title="No Filter">
           <Dropdown.Item className="overall" onClick={handleClick}>
             Overall <FiCheck id={"check,Overall"} />
@@ -161,13 +178,105 @@ function PieCharts(props) {
               ))
             : ""}
         </DropdownButton>
-      </DropdownButton>
+      </DropdownButton> */}
+      <div className="dropdowns">
+        <Dropdown className="d-inline mx-2" autoClose="outside">
+          <Dropdown.Toggle
+            id="dropdown-autoclose-outside"
+            onMouseEnter={handleEnter}
+            style={{backgroundColor: "#84855D"}}
+          >
+            No Filter
+          </Dropdown.Toggle>
+          <Dropdown.Menu>
+            <Dropdown.Item className="overall" onClick={handleClick}>
+              Overall
+            </Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
 
+        <Dropdown className="d-inline mx-2" autoClose="outside">
+          <Dropdown.Toggle
+            id="dropdown-autoclose-outside"
+            onMouseEnter={handleEnter}
+            style={{backgroundColor: "#84855D"}}
+          >
+            Gender
+          </Dropdown.Toggle>
+
+          <Dropdown.Menu>
+            {data
+              ? Object.keys(data.data.payload.gender).map((value, key) => (
+                  <Dropdown.Item
+                    key={key}
+                    id={"gender," + value + ":" + key}
+                    className={value}
+                    onClick={handleClick}
+                  >
+                    {value}{" "}
+                    <FiCheck id={"check," + value} className={"check"} />
+                  </Dropdown.Item>
+                ))
+              : ""}
+          </Dropdown.Menu>
+        </Dropdown>
+
+        <Dropdown className="d-inline mx-2" autoClose="outside">
+          <Dropdown.Toggle
+            id="dropdown-autoclose-outside"
+            onMouseEnter={handleEnter}
+            style={{backgroundColor: "#84855D"}}
+          >
+             Age Groups
+          </Dropdown.Toggle>
+
+          <Dropdown.Menu>
+            {data
+              ? Object.keys(data.data.payload.age).map((value, key) => (
+                  <Dropdown.Item
+                    key={key}
+                    id={"age," + value + ":" + key}
+                    className={value}
+                    onClick={handleClick}
+                  >
+                    {value}{" "}
+                    <FiCheck id={"check," + value} className={"check"} />
+                  </Dropdown.Item>
+                ))
+              : ""}
+          </Dropdown.Menu>
+        </Dropdown>
+
+        <Dropdown className="d-inline mx-2" autoClose="outside">
+          <Dropdown.Toggle style={{backgroundColor: "#84855D"}}
+            id="dropdown-autoclose-outside"
+            onMouseEnter={handleEnter}
+          >
+            Region
+          </Dropdown.Toggle>
+
+          <Dropdown.Menu>
+            {data
+              ? Object.keys(data.data.payload.region).map((value, key) => (
+                  <Dropdown.Item
+                    key={key}
+                    id={"region," + value + ":" + key}
+                    className={value}
+                    onClick={handleClick}
+                  >
+                    {value}{" "}
+                    <FiCheck id={"check," + value} className={"check"} />
+                  </Dropdown.Item>
+                ))
+              : ""}
+          </Dropdown.Menu>
+        </Dropdown>
+      </div>
       <div className="fills">
         {Object.keys(filters).map((value, key) => {
           return Object.keys(filters[value]).map((val, idx) => {
             return (
-              <span key={idx} className={val} onClick={handleDelete}>
+              <span key={idx} className={val} id="selected" onClick={handleDelete}>
                 {val} <FiXCircle />
               </span>
             );
@@ -176,24 +285,34 @@ function PieCharts(props) {
       </div>
 
       <div className="sub">
-        {Object.keys(filters).map((value, key) =>
+        {Object.keys(filters).map((value, key1) =>
           Object.keys(filters[value]).length > 0 ? (
             <>
               <h5>{value}</h5>
-              <div key={key} className="box">
+              <div key={key1} className="box">
                 {Object.keys(filters[value]).map((val, idx) =>
                   labels != null ? (
                     <div>
-                      <Chart
+                      {idx===Object.keys(filters[value]).length-1?( <Chart
                         key={idx}
                         options={{
-                          ...graphOption.options,
+                          ...graphOption.options,legend:legends,
                           title: { text: val },
                         }}
                         series={filters[value][val]}
                         type="pie"
-                        width="550"
-                      />
+                        width="750px"
+                      />):( <Chart
+                        key={idx}
+                        options={{
+                          ...graphOption.options,legend:legends1,
+                          title: { text: val },
+                        }}
+                        series={filters[value][val]}
+                        type="pie"
+                        width="300"
+                      />)}
+                     
                     </div>
                   ) : (
                     <></>
