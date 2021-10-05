@@ -34,11 +34,10 @@ const legends1={
  
   const graphOption = {
     options: {
-     
       labels,
       plotOptions: {
         pie: {
-          offsetX: 30,
+          offsetX: 0,
           dataLabels: {
             offset: -10,
           },
@@ -248,7 +247,7 @@ const legends1={
                         key={idx}
                         className="chart"
                         options={{
-                          ...graphOption.options,legend:legends,
+                          ...graphOption.options,legend:legends,plotOptions:{...graphOption.plotOptions,pie:{...graphOption.options.plotOptions.pie,offsetX:-170}},
                           title: { text: val ,
                             align:"center",
                           },
@@ -260,7 +259,8 @@ const legends1={
                         key={idx}
                         options={{
                           ...graphOption.options,legend:legends1,
-                          title: { text: val },
+                          title: { text: val,
+                            align:"center", },
                         }}
                         series={filters[value][val]}
                         type="pie"
