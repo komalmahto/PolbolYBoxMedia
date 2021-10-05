@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Chart from "react-apexcharts";
 import Dropdown from "react-bootstrap/Dropdown";
-import DropdownButton from "react-bootstrap/DropdownButton";
 import { FiCheck } from "react-icons/fi";
 import { FiXCircle } from "react-icons/fi";
 import "./graph.css";
 
-function PieCharts({match}) {
-  const {pollId}=match.params
+function PieCharts(props) {
+ 
   const [data, setData] = useState(null);
   const [filters, setFilters] = useState({
     nofilters: {},
@@ -32,7 +31,7 @@ const legends1={
   show:false,
 }
   const [labels, setLabels] = useState(null);
-  // const [ show, setShow ] = useState(false);
+ 
   const graphOption = {
     options: {
      
@@ -47,12 +46,7 @@ const legends1={
       },
     },
   };
-  const handleFetch = () => {
-    fetch(`https://backend.polbol.in/backend/poll/results/guest?id=${pollId}`)
-      .then((res) => res.json())
-      .then((data) => setData({ data }))
-      .catch((err) => console.log(err));
-  };
+ 
 
   const handleClick = (e) => {
     e.stopPropagation();
@@ -116,9 +110,10 @@ const legends1={
   };
   
   useEffect(() => {
-    handleFetch();
+    setData(props.data);
   }, []);
 
+  console.log(props);
   useEffect(() => {
     if (data) {
       setLabels(data.data.payload.poll.options.map((val, idx) => val.name));
@@ -126,7 +121,7 @@ const legends1={
     }
   }, [data]);
 
-  console.log(data);
+  console.log(props.data);
   return (
     <div className="container">
       {data ? (
@@ -257,7 +252,7 @@ const legends1={
                         }}
                         series={filters[value][val]}
                         type="pie"
-                        width="750px"
+                        width="730px"
                       />):( <Chart
                         key={idx}
                         options={{
@@ -266,7 +261,7 @@ const legends1={
                         }}
                         series={filters[value][val]}
                         type="pie"
-                        width="300"
+                        width="340"
                       />)}
                      
                     </div>
