@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import PieCharts from "./PieCharts";
 import BarCharts from "./BarCharts";
+import NewPol from "./NewPol";
+
 
 function Graphs({ match }) {
+  
   const { pollId } = match.params;
   const [data, setData] = useState(null);
   const handleFetch = () => {
@@ -18,7 +21,7 @@ function Graphs({ match }) {
     <div>
       {data ? (
         data.data.payload.poll.type === "pie" ? (
-          <PieCharts data={data} />
+          <NewPol data={data} pollId={pollId} />
         ) : (
           <BarCharts data={data} />
         )

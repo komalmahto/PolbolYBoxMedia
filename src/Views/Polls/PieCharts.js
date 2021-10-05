@@ -127,58 +127,7 @@ const legends1={
       ) : (
         ""
       )}
-      {/* <DropdownButton className="d-inline mx-2" title="Filter Results">
-        <DropdownButton id="dropdown-basic-button" title="No Filter">
-          <Dropdown.Item className="overall" onClick={handleClick}>
-            Overall <FiCheck id={"check,Overall"} />
-          </Dropdown.Item>
-        </DropdownButton>
-        <Dropdown.Divider />
-        <DropdownButton id="dropdown-button" title="Gender">
-          {data
-            ? Object.keys(data.data.payload.gender).map((value, key) => (
-                <Dropdown.Item
-                  key={key}
-                  id={"gender," + value + ":" + key}
-                  className={value}
-                  onClick={handleClick}
-                >
-                  {value} <FiCheck id={"check," + value} className={"check"} />
-                </Dropdown.Item>
-              ))
-            : ""}
-        </DropdownButton>
-        <Dropdown.Divider />
-        <DropdownButton id="dropdown-button" title="Age Group">
-          {data
-            ? Object.keys(data.data.payload.age).map((value, key) => (
-                <Dropdown.Item
-                  key={key}
-                  id={"age," + value + ":" + key}
-                  className={value}
-                  onClick={handleClick}
-                >
-                  {value} <FiCheck id={"check," + value} className={"check"} />
-                </Dropdown.Item>
-              ))
-            : ""}
-        </DropdownButton>
-        <Dropdown.Divider />
-        <DropdownButton id="dropdown-button" title="Region">
-          {data
-            ? Object.keys(data.data.payload.region).map((value, key) => (
-                <Dropdown.Item
-                  key={key}
-                  id={"region," + value + ":" + key}
-                  className={value}
-                  onClick={handleClick}
-                >
-                  {value} <FiCheck id={"check," + value} className={"check"} />
-                </Dropdown.Item>
-              ))
-            : ""}
-        </DropdownButton>
-      </DropdownButton> */}
+     
       <div className="dropdowns">
         <Dropdown className="d-inline mx-2" autoClose="outside">
           <Dropdown.Toggle

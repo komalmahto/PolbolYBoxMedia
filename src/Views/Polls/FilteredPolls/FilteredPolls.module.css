@@ -84,7 +84,19 @@
   font-size: 1.3rem;
   text-align: center;
 }
+.avatar{
+  height:30px;
+  width:30px
+}
+.comments{
+  margin-bottom: 100px;
+}
+.chart_image{
+height:120px;
+width:120px;
+margin-bottom: 30px;
 
+}
 @media screen and (min-width: 550px) {
   .poll_image {
     height: 400px;
