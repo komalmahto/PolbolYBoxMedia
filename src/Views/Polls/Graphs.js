@@ -20,14 +20,10 @@ function Graphs({ match }) {
   return (
     <div>
       {data ? (
-        data.data.payload.poll.type === "pie" ? (
+         (
           <NewPol data={data} pollId={pollId} />
-        ) : (
-          <BarCharts data={data} />
-        )
-      ) : (
-        ""
-      )}
+        ) 
+      ):""}
     </div>
   );
 }

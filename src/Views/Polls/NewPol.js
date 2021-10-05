@@ -30,7 +30,7 @@ function NewPol({ data, pollId }) {
     handleComments();
   }, []);
 
-  console.log(comments);
+  console.log(pollData);
   return (
     <div className={styles.poll}>
       <p className={styles.category}>
