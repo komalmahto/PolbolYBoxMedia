@@ -21,6 +21,7 @@
     /* align-items: flex-start; */
 }
 
+
 .dropdowns{
     margin-left:400px;
     display: inline-block;
@@ -28,6 +29,12 @@
 }
 .sub{
     width:100%
+}
+.sub1{
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    width: 70%;
 }
 #selected{
     width:100px;
@@ -50,3 +57,28 @@
     width:300px !important;
 }
 
+.group{
+    display: flex;
+    margin-right:40px;
+
+}
+
+.votes{
+    margin-left: 10px;
+    margin-top: 24px;
+    height: 290px;
+}
+.vote{
+    height: 9px;
+}
+.apexcharts-xaxis{
+    display: none !important;
+}
+.bar1{
+    margin-right: 10px;
+}
+.total{
+    margin-left: -62px;
+    width: 134px;
+    margin-top: 30px;
+}
