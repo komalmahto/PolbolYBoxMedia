@@ -7,7 +7,7 @@
   margin-bottom: 20px;
 }
 .poll .category {
-  margin-left: 10px;
+  margin-left: 18px;
   font-size: 0.95rem;
 }
 
@@ -97,13 +97,16 @@ line-height: 26px;
   margin-bottom: 100px;
 }
 .chart_image{
-height:120px;
-width:120px;
+height:100px; 
+width:100px;
+margin-top: 15px;
 margin-bottom: 30px;
 
 }
 .commentcontainer{
-  height:150px;
+  box-sizing: border-box;
+  height:120px;
+  padding: 20px;
 }
 .name{
   margin-top: 10px;
@@ -130,9 +133,9 @@ margin-bottom: 30px;
     padding: 30px;
   }
   .poll_image {
-    height: 150px;
-    width: 30%;
-    max-width: 150px;
+    height: 180px;
+    width: 40%;
+    max-width: 170px;
   }
   .poll_details {
     margin: 0 45px;

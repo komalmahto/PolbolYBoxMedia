@@ -53,8 +53,10 @@ function NewPol({ data, pollId }) {
           
           </div>
         </div>
-        <div>
-          <img className={styles.chart_image} onClick={clickHandler} src={pic} />
+        <div onClick={clickHandler} >
+          <img className={styles.chart_image} src={pic} />
+          <br />
+          <p className={styles.category}>Poll Results</p>
         </div>
       </div>
       <div className={styles.comments}>
@@ -65,8 +67,8 @@ function NewPol({ data, pollId }) {
                 return (
                   <ListGroup.Item key={index} className={styles.commentcontainer}>
                     <img className={styles.avatar}  src={item.user.avatar} />
-                    <p className={styles.name}>@{item.user.userName} commented</p>
-                    <p className={styles.comments}>{item.comment}</p>
+                    <p className={styles.category}>@{item.user.userName} commented</p>
+                    <p className={styles.category}>{item.comment}</p>
                   </ListGroup.Item>
                 );
               })

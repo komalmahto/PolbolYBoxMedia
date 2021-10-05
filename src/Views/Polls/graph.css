@@ -15,8 +15,10 @@
 .box{
     display: flex;
     flex-wrap: wrap;
-    width: 100%;
-    justify-content: space-around;
+   margin-left: 10px;
+    width: 100%;;
+    justify-content: space-between;
+    /* align-items: flex-start; */
 }
 
 .dropdowns{
@@ -47,3 +49,4 @@
 .apexcharts-legend-series{
     width:300px !important;
 }
+

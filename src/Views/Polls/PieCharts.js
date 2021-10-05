@@ -246,9 +246,12 @@ const legends1={
                     <div>
                       {idx===Object.keys(filters[value]).length-1?( <Chart
                         key={idx}
+                        className="chart"
                         options={{
                           ...graphOption.options,legend:legends,
-                          title: { text: val },
+                          title: { text: val ,
+                            align:"center",
+                          },
                         }}
                         series={filters[value][val]}
                         type="pie"
