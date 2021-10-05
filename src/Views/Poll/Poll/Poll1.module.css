@@ -20,5 +20,12 @@
     display: inline-block;
     height:25px;
     right:150px;
-   bottom:30px;
+   bottom:120px;
+}
+
+.rating{
+    margin-top: 30px;
+    font-size: 20px;
+    height:300px;
+    margin-left: 350px;
 }

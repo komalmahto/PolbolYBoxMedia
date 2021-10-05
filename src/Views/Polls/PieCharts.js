@@ -18,7 +18,6 @@ const  legends= {
   position: "bottom",
   horizontalAlign: 'left', 
   width:700,
-
   offsetX: 0,
   offsetY: 5,
   markers: { radius: 0 },
@@ -249,7 +248,7 @@ const legends1={
                         options={{
                           ...graphOption.options,legend:legends,plotOptions:{...graphOption.plotOptions,pie:{...graphOption.options.plotOptions.pie,offsetX:-170}},
                           title: { text: val ,
-                            align:"center",
+                            align:"left",
                           },
                         }}
                         series={filters[value][val]}
