@@ -6,7 +6,8 @@ import { FiCheck } from "react-icons/fi";
 import { FiXCircle } from "react-icons/fi";
 import "./graph.css";
 
-function PieCharts(props) {
+function PieCharts({match}) {
+  const {pollId}=match.params
   const [data, setData] = useState(null);
   const [filters, setFilters] = useState({
     nofilters: {},
@@ -45,6 +46,12 @@ const legends1={
         },
       },
     },
+  };
+  const handleFetch = () => {
+    fetch(`https://backend.polbol.in/backend/poll/results/guest?id=${pollId}`)
+      .then((res) => res.json())
+      .then((data) => setData({ data }))
+      .catch((err) => console.log(err));
   };
 
   const handleClick = (e) => {
@@ -109,7 +116,7 @@ const legends1={
   };
   
   useEffect(() => {
-    setData(props.data);
+    handleFetch();
   }, []);
 
   useEffect(() => {

@@ -46,7 +46,7 @@ const MainView = () => {
           <Route exact path="/petition/:slug/:petitionId" component={IndividualPetition} />
           <Route exact path="/poll/:slug/:pollId" component={Poll1} />
           <Route exact path="/poll/results/:slug/:pollId" component={Graphs} />
-          <Route exact path="/poll/results//graphs:slug/:pollId" component={PieCharts} />
+          <Route exact path="/poll/results/graphs/:slug/:pollId" component={PieCharts} />
           <Route exact path="/awards" component={Awards} />
           <Route exact path="/awards/categories/:slug/:showId" component={AwardCategories} />
           <Route exact path="/awards/categories/subcat/:showId/:categoryId" component={SubCategories} />
