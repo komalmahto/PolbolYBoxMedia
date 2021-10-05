@@ -7,7 +7,7 @@
   margin-bottom: 20px;
 }
 .poll .category {
-  margin-left: 5px;
+  margin-left: 10px;
   font-size: 0.95rem;
 }
 
@@ -30,11 +30,16 @@
 
 .poll_details {
   margin: 20px 0;
+  width: 381px;
+height: 60px;
 }
 
 .poll_details p {
-  font-size: 0.9rem;
-  line-height: 1.3rem;
+  font-family: Roboto;
+font-style: normal;
+font-weight: normal;
+font-size: 22px;
+line-height: 26px;
 }
 
 .actions {
@@ -96,6 +101,17 @@ height:120px;
 width:120px;
 margin-bottom: 30px;
 
+}
+.commentcontainer{
+  height:150px;
+}
+.name{
+  margin-top: 10px;
+  font-size: 20px;
+}
+.comments{
+  font-size: 18px;
+  margin-left: 10px;
 }
 @media screen and (min-width: 550px) {
   .poll_image {

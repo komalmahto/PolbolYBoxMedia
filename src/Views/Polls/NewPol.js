@@ -63,10 +63,10 @@ function NewPol({ data, pollId }) {
           {comments.length > 0
             ? comments.map((item, index) => {
                 return (
-                  <ListGroup.Item key={index}>
+                  <ListGroup.Item key={index} className={styles.commentcontainer}>
                     <img className={styles.avatar}  src={item.user.avatar} />
-                    <p>@{item.user.userName}</p>
-                    <p>{item.comment}</p>
+                    <p className={styles.name}>@{item.user.userName} commented</p>
+                    <p className={styles.comments}>{item.comment}</p>
                   </ListGroup.Item>
                 );
               })
