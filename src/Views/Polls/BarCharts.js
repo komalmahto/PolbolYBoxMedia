@@ -53,6 +53,7 @@ function BarCharts(props) {
         },
       },
       xaxis: {
+        type:"Rating",
         categories: [10, 9, 8, 7, 6, 5, 4, 3, 2, 1],
       },
     },
@@ -167,7 +168,7 @@ function BarCharts(props) {
   console.log(data ? data.data.payload : "");
 
   return (
-    <div className="container">
+    <div>
       {data ? (
         <h4 className="heading">{data.data.payload.poll.question}</h4>
       ) : (
@@ -290,7 +291,7 @@ function BarCharts(props) {
         {Object.keys(filters).map((value, key) =>
           Object.keys(filters[value]).length > 0 ? (
             <>
-              <h5>{value}</h5>
+             <h5>{value!=="nofilters"?value:""}</h5>
               <div key={key} className="box">
                 {Object.keys(filters[value]).map((val, idx) => (
                   <div key={idx} className="group">
@@ -299,14 +300,14 @@ function BarCharts(props) {
                       key={idx}
                       options={{
                         ...graphOption.options,
-                        title: { text: val, align: "left" },
+                        title: { text:val!=="overall"? val:"" , align: "left" },
                       }}
                       series={[{ name: "Actual", data: filters[value][val] }]}
                       type="bar"
-                      width="630"
+                      width="500"
                     />
                     <div className="votes">
-                      Votes
+                      <p className="bold">Votes</p>
                       {filtersVotes[value][val].map((val, idx) => (
                         <p key={idx} className="vote">
                           {val}

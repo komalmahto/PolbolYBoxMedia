@@ -237,7 +237,7 @@ const legends1={
         {Object.keys(filters).map((value, key1) =>
           Object.keys(filters[value]).length > 0 ? (
             <>
-              <h5>{value}</h5>
+              <h5>{value!=="nofilters"?value:""}</h5>
               <div key={key1} className="box">
                 {Object.keys(filters[value]).map((val, idx) =>
                   labels != null ? (
@@ -246,14 +246,14 @@ const legends1={
                         key={idx}
                         className="chart"
                         options={{
-                          ...graphOption.options,legend:legends,plotOptions:{...graphOption.plotOptions,pie:{...graphOption.options.plotOptions.pie,offsetX:-170}},
-                          title: { text: val ,
+                          ...graphOption.options,legend:legends,plotOptions:{...graphOption.plotOptions,pie:{...graphOption.options.plotOptions.pie,offsetX:-120}},
+                          title: { text:val!=="overall"? val:"" ,
                             align:"left",
                           },
                         }}
                         series={filters[value][val]}
                         type="pie"
-                        width="730px"
+                        width="580px"
                       />):( <Chart
                         key={idx}
                         options={{

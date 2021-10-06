@@ -1,84 +1,96 @@
-.container{
-    padding:10px
+.container {
+  padding: 10px;
 }
-.heading{
-    margin-bottom: 50px;
+.heading {
+  margin-bottom: 50px;
+  margin-left: 40px;
 }
-.check{
-    display: none;
+.check {
+  display: none;
 }
-.fills{
-    margin-top: 10px;
-    margin-left: 100px;
-}
-
-.box{
+.fills {
     display: flex;
     flex-wrap: wrap;
-   margin-left: 10px;
-    width: 100%;;
-    justify-content: space-between;
-    /* align-items: flex-start; */
+  margin-top: 10px;
+  margin-left: 100px;
+  align-items: center;
 }
 
+.box {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 10px;
+  width: 100%;
+  justify-content: flex-start;
+  /* align-items: flex-start; */
+}
 
-.dropdowns{
-    margin-left:400px;
-    display: inline-block;
-    width: 600px;
+.dropdowns {
+  margin-left: 400px;
+  display: inline-block;
+  width: 600px;
 }
-.sub{
-    width:100%
+.sub {
+  width: 100%;
 }
-.sub1{
-    display: flex;
+.sub1 {
+  /* display: flex;
     justify-content: flex-start;
-    flex-wrap: wrap;
-    width: 70%;
+    flex-wrap: wrap; */
+  margin-left: 40px;
+  width: 90%;
 }
-#selected{
-    width:100px;
-    background-color: #5b5b5b;
-    border-radius: 10%;
-    border:1px solid #5b5b5b;
-    margin-left: 20px;
-    color: #ffffff;
-    padding: 5px;
-    margin-top: 30px;
+#selected {
+  width: 100px;
+  background-color: #5b5b5b;
+  border-radius: 10%;
+  border: 1px solid #5b5b5b;
+  margin-left: 20px;
+  color: #ffffff;
+  padding: 5px;
+  margin-top: 30px;
 }
-.apexcharts-legend{
-    display: flex  !important;
-    align-items:center !important;
-    justify-content: space-between !important;
-    padding: 30px!important;
-    
+.apexcharts-legend {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 30px !important;
 }
-.apexcharts-legend-series{
-    width:300px !important;
-}
-
-.group{
-    display: flex;
-    margin-right:40px;
-
+.apexcharts-legend-series {
+  width: 300px !important;
 }
 
-.votes{
-    margin-left: 10px;
-    margin-top: 24px;
-    height: 290px;
+.group {
+  display: flex;
+  margin-right: 40px;
+  height: 300px;
+  border: 1px solid black;
+  margin: 10px;
 }
-.vote{
-    height: 9px;
+
+.votes {
+  margin-left: -8px;
+  margin-top: -6px;
+  height: 212px;
 }
-.apexcharts-xaxis{
-    display: none !important;
+.vote {
+  height: 2px;
+  font-size: 12px;
 }
-.bar1{
-    margin-right: 10px;
+
+.apexcharts-xaxis {
+  display: none !important;
 }
-.total{
-    margin-left: -62px;
-    width: 134px;
-    margin-top: 30px;
+.bar1 {
+  margin-right: 10px;
+}
+.total {
+  margin-left: -100px;
+  width: 134px;
+  margin-top: 30px;
+  font-weight: 800;
+}
+.bold{
+    font-weight: 800;
+    margin-left: -10px; 
 }
