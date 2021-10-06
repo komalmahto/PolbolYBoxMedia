@@ -23,12 +23,12 @@ import QuizCat from "../../Views/Quiz/QuizCat";
 import QuizLevels from "../../Views/Quiz/QuizLevels";
 import QuizPlay from "../../Views/Quiz/QuizPlay";
 import GraphsContainer from "../../Views/Polls/GraphsContainer";
-
+import Polls from "../../Views/Polls/Polls";
 
 
 // Views
 const Home = React.lazy(() => import("../../Views/Home/Home"));
-const Polls = React.lazy(() => import("../../Views/Polls/Polls"));
+
 const Petitions = React.lazy(() => import("../../Views/Petitions/Petitions"));
 const MainView = () => {
   return (

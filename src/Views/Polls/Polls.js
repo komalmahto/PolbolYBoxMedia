@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { pollCategories } from "../../data";
+import { pollCategories } from "../../data/index";
 import OverallPolls from "./OverallPolls";
 import FilteredPolls from "./FilteredPolls/FilteredPolls";
 import * as api from "../../api";
@@ -17,9 +17,10 @@ const Polls = () => {
   const [expiredPollsTotal, setExpiredPollsTotal] = useState(0);
 
   useEffect(() => {
-    setCategories([...pollCategories.splice(0, 4)]);
+    setCategories(pollCategories);
     getActivePolls();
     getExpiredPolls();
+    
   }, []);
 
   useEffect(() => {
@@ -82,6 +83,7 @@ const Polls = () => {
       selectedCategories.filter((category) => category !== selectedItem.name)
     );
   };
+  
 
   return (
     <div className="container">
@@ -91,7 +93,23 @@ const Polls = () => {
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus,
           neque.
         </p>
+        <div
+          className={`${
+            active
+              ? `${styles.types} ${styles.active}`
+              : `${styles.types} ${styles.expired}`
+          }`}
+        >
+          <div onClick={() => setActive(true)}>
+            ACTIVE <span>{activePollsTotal}</span>
+          </div>
+          <div onClick={() => setActive(false)}>
+            EXPIRED <span>{expiredPollsTotal}</span>
+          </div>
+        </div>
+        <hr className={styles.hr} />
       </div>
+
       <div className={styles.categories}>
         <span
           className={
@@ -123,7 +141,7 @@ const Polls = () => {
             margin: "15px 0",
           }}
         >
-          <Multiselect
+          {/* <Multiselect
             style={{ height: "100%" }}
             options={pollCategories.map((category) => ({ name: category }))}
             onSelect={onSelect}
@@ -131,23 +149,10 @@ const Polls = () => {
             displayValue="name"
             placeholder="View All Categories"
             showArrow
-          />
+          /> */}
         </div>
       </div>
-      <div
-        className={`${
-          active
-            ? `${styles.types} ${styles.active}`
-            : `${styles.types} ${styles.expired}`
-        }`}
-      >
-        <div onClick={() => setActive(true)}>
-          ACTIVE <span>{activePollsTotal}</span>
-        </div>
-        <div onClick={() => setActive(false)}>
-          EXPIRED <span>{expiredPollsTotal}</span>
-        </div>
-      </div>
+
       {active ? (
         selectedCategories.length === 0 ? (
           <div className={styles.polls}>
@@ -161,7 +166,7 @@ const Polls = () => {
           <OverallPolls mode="expired" polls={expiredPolls} />
         </div>
       ) : (
-        <FilteredPolls  mode="expired" polls={expiredPolls} />
+        <FilteredPolls mode="expired" polls={expiredPolls} />
       )}
     </div>
   );

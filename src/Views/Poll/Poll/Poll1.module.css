@@ -12,6 +12,12 @@
 .list{
     text-align: center;
     padding: 10px;
+   
+}
+.list1{
+    width: 600px ;
+    margin-left: 300px;
+    margin-top: 30px;
 }
 .backbtn{
     position: absolute;
@@ -20,9 +26,21 @@
     display: inline-block;
     height:25px;
     right:150px;
-   bottom:120px;
+   bottom:60px;
+   margin-bottom: 30px;
 }
 
+.share{
+    position: absolute;
+    margin:10px;
+    background-color: #84855D;  
+    display: inline-block;
+    height:25px;
+    right:210px;
+   bottom:150px;
+   margin-bottom: 30px;
+   font-size: 18px;
+}
 .rating{
     margin-top: 30px;
     font-size: 20px;
