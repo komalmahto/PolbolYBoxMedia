@@ -24,6 +24,11 @@ function BarCharts(props) {
 
   const graphOption = {
     options: {
+      dataLabels: {
+        formatter: function (val) {
+          return val + " %";
+        },
+      },
       grid: {
         show: false,
       },
@@ -33,14 +38,11 @@ function BarCharts(props) {
           barHeight: "70%",
           dataLabels: {
             position: "center",
-            formatter: function (val) {
-              return val + "%";
-            },
-            enabled: true,
             style: {
               colors: ["#3433"],
             },
-          },
+            enabled: true,
+          }
         },
       },
       chart: {
@@ -305,7 +307,7 @@ function BarCharts(props) {
                       series={[{ name: "Actual", data: filters[value][val] }]}
                       type="bar"
                       width="500"
-                    />
+                     />
                     <div className="votes">
                       <p className="bold">Votes</p>
                       {filtersVotes[value][val].map((val, idx) => (
