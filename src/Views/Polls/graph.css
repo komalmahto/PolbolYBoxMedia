@@ -7,7 +7,7 @@
 }
 .check {
   display: none;
-}
+}   
 .fills {
     display: flex;
     flex-wrap: wrap;
@@ -93,4 +93,11 @@
 .bold{
     font-weight: 800;
     margin-left: -10px; 
+}
+#over{
+    display: inline-block;
+    width:80px;
+    height:35px;
+    color: white;
+    border:1px solid blue;
 }
