@@ -129,7 +129,7 @@ const legends1={
       )}
      
       <div className="dropdowns">
-        <Dropdown className="d-inline mx-2" autoClose="outside">
+        {/* <Dropdown className="d-inline mx-2" autoClose="outside">
           <Dropdown.Toggle
             id="dropdown-autoclose-outside"
             onMouseEnter={handleEnter}
@@ -137,12 +137,12 @@ const legends1={
           >
             No Filter
           </Dropdown.Toggle>
-          <Dropdown.Menu>
-            <Dropdown.Item className="overall" onClick={handleClick}>
+          <Dropdown.Menu> */}
+            <Dropdown.Item style={{ backgroundColor: "#84855D" }} className="overall" id="over" onClick={handleClick}>
               Overall
             </Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
+          {/* </Dropdown.Menu>
+        </Dropdown> */}
 
         <Dropdown className="d-inline mx-2" autoClose="outside">
           <Dropdown.Toggle
@@ -253,7 +253,7 @@ const legends1={
                         }}
                         series={filters[value][val]}
                         type="pie"
-                        width="580px"
+                        width="700px"
                       />):( <Chart
                         key={idx}
                         options={{
