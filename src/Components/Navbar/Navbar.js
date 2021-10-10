@@ -5,12 +5,30 @@ import Modal from "../Modal/Modal";
 import { connect } from "react-redux";
 import { fetchToken } from "../../redux/Actions/AuthActions";
 import { logout } from "../../redux/Actions/AuthActions";
+import { updateLanguage } from "../../redux/Actions";
+import hind from "./ind.png";
+import eng from "./United-kingdom_flag_icon_round.svg.png";
 
-const Navbar = ({ auth: { token, user }, logout,fetchToken }) => {
+const Navbar = ({
+  auth: { token, user },
+  logout,
+  fetchToken,
+  updateLanguage,
+  lang,
+}) => {
   const [displayMenu, setDisplayMenu] = useState(false);
   const [show, setShow] = useState(false);
   const clickHandler = () => {
     setShow(!show);
+  };
+
+  const handleLanguage = () => {
+    if (lang.language === "English") {
+      updateLanguage("Hindi");
+    }
+    if (lang.language === "Hindi") {
+      updateLanguage("English");
+    }
   };
 
   return (
@@ -18,7 +36,7 @@ const Navbar = ({ auth: { token, user }, logout,fetchToken }) => {
       <nav className={styles.navbar}>
         <div className={styles.container}>
           <div className={styles.logo}>
-            <p>Logo</p>
+            <p>LOGO</p>
           </div>
           <ul className={styles.links}>
             <li>
@@ -27,19 +45,46 @@ const Navbar = ({ auth: { token, user }, logout,fetchToken }) => {
             <li>
               <Link to="/polls">Poll</Link>
             </li>
-            <li><Link to="/awards">Awards</Link></li>
+            <li>
+              <Link to="/awards">Awards</Link>
+            </li>
             <li>
               <Link to="/petitions"> Petition</Link>
             </li>
-            <li> <Link to="/news">News</Link></li>
-            <li><Link to="/livetv">TV</Link></li>
-            <li><Link to="/quiz">Quiz</Link></li>
-            {!token ? (
-              <li onClick={clickHandler}> Login</li>
-            ) : (
-              <li onClick={logout}> Logout</li>
-            )}
+            <li>
+              {" "}
+              <Link to="/news">News</Link>
+            </li>
+            <li>
+              <Link to="/livetv">TV</Link>
+            </li>
+            <li>
+              <Link to="/quiz">Quiz</Link>
+            </li>
           </ul>
+          <div>
+            <span onClick={handleLanguage}>
+              {lang.language === "Hindi" ? (
+                <span className={styles.lang}>
+                  <img src={hind} alt="z" width="20" height="20" />
+                  {lang.language}
+                </span>
+              ) : (
+                <span className={styles.lang}>
+                  <img src={eng} height="20" width="20" alt="image" />
+                  {lang.language}
+                </span>
+              )}
+            </span>
+            {!token ? (
+              <span onClick={clickHandler} className={styles.auth}>
+                {" "}
+                Login
+              </span>
+            ) : (
+              <span onClick={logout} className={styles.auth}> Logout</span>
+            )}
+          </div>
           <div
             className={styles.hamburger}
             onClick={() => setDisplayMenu(true)}
@@ -80,18 +125,24 @@ const Navbar = ({ auth: { token, user }, logout,fetchToken }) => {
           <li>Quiz</li>
         </ul>
       </nav>
-      <Modal fetchToken={(token,user)=>fetchToken(token,user)}show={show} onHide={() => setShow(false)} />
+      <Modal
+        fetchToken={(token, user) => fetchToken(token, user)}
+        show={show}
+        onHide={() => setShow(false)}
+      />
     </>
   );
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
+  lang: state.lang,
 });
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchToken: (token, user) => dispatch(fetchToken(token, user)),
     logout: () => dispatch(logout()),
+    updateLanguage: (lang) => dispatch(updateLanguage(lang)),
   };
 };
 

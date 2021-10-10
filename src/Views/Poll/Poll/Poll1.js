@@ -8,6 +8,8 @@ import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import "./Poll1.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Poll1({ match }) {
   const history = useHistory();
@@ -37,10 +39,17 @@ function Poll1({ match }) {
     handleFetch();
   }, [match]);
 
+
+    const notify = () => {
+      navigator.clipboard.writeText(window.location.href)
+      toast("Copied to clipboard");
+    };
+  
   return (
     <div>
       {pollData ? (
         <>
+        <ToastContainer/>
           <img className={styles.center} src={pollData.payload.image}></img>
           <h3 className={styles.list}>{pollData.payload.question}</h3>
 
@@ -98,7 +107,7 @@ function Poll1({ match }) {
       )}
       <div className={styles.share}>
         <button>
-          <h3>Share</h3>
+          <h3 onClick={notify}>Share</h3>
         </button>
       </div>
 

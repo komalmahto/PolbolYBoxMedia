@@ -90,8 +90,9 @@ line-height: 26px;
   text-align: center;
 }
 .avatar{
-  height:30px;
-  width:30px
+  height:50px;
+  width:50px;
+  border-radius: 50%;
 }
 .comments{
   margin-bottom: 100px;
@@ -105,8 +106,16 @@ margin-bottom: 30px;
 }
 .commentcontainer{
   box-sizing: border-box;
-  height:120px;
+  /* height:120px; */
   padding: 20px;
+  display: flex;
+  align-items: center;
+
+}
+.categoryUser{
+  margin-left: 18px;
+  font-size: 0.95rem;
+  color: grey;
 }
 .name{
   margin-top: 10px;

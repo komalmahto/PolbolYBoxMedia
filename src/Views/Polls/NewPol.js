@@ -67,8 +67,10 @@ function NewPol({ data, pollId }) {
                 return (
                   <ListGroup.Item key={index} className={styles.commentcontainer}>
                     <img className={styles.avatar}  src={item.user.avatar} />
-                    <p className={styles.category}>@{item.user.userName} commented</p>
+                    <div>
+                    <p className={styles.categoryUser}>@{item.user.userName} commented</p>
                     <p className={styles.category}>{item.comment}</p>
+                    </div>
                   </ListGroup.Item>
                 );
               })

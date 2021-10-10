@@ -3,6 +3,8 @@ import Chart from "react-apexcharts";
 import Dropdown from "react-bootstrap/Dropdown";
 import { FiCheck } from "react-icons/fi";
 import { FiXCircle } from "react-icons/fi";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./graph.css";
 
 function PieCharts(props) {
@@ -106,6 +108,11 @@ const legends1={
   const handleEnter = (e) => {
     e.target.click();
   };
+
+  const notify=()=>{
+    navigator.clipboard.writeText(window.location.href)
+    toast("Copied to clipboard");
+  }
   
   useEffect(() => {
     setData(props.data);
@@ -122,8 +129,9 @@ const legends1={
   console.log(props.data);
   return (
     <div className="container">
+      <ToastContainer/>
       {data ? (
-        <h4 className="heading">{data.data.payload.poll.question}</h4>
+        <h4 className="heading">{data.data.payload.poll.question} <span onClick={notify}>Share result <i style={{color:"#84855d"}} className="fas fa-share-alt"></i></span></h4>
       ) : (
         ""
       )}

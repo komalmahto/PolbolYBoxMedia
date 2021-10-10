@@ -37,11 +37,13 @@ function QuizLevels({ match }) {
       <div className={styles.box}>
         {levels.length > 0
           ? levels.map((quiz, index) => (
-              <div key={index} className={styles.quiz} onClick={()=>clickHandler(quiz)}>
+              <div key={index} className={quiz.level===1?styles.quiz1:styles.quiz} onClick={()=>clickHandler(quiz)}>
+                <div className={styles.subbox1}>
                 <img className={styles.icon} src={quiz.icon} />
                 <div className={styles.subbox}>
                   <h4>LEVEL {quiz.level}</h4>
                   <p>{quiz.metadata.maxQuestions} Questions</p>
+                </div>
                 </div>
                 {quiz.level === 1 ? (
                   <FaPlay className={styles.playicon} />

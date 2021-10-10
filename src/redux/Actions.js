@@ -34,14 +34,23 @@ export const updatestateDescription = (desc = "") => {
     type: "SET_DESC_STATE",
     payload: desc,
   };
-};export const updatestateExpectedSignatures = (expectedsign = 0) => {
+};
+export const updatestateExpectedSignatures = (expectedsign = 0) => {
   return {
     type: "SET_EXPECTEDSIGN_STATE",
     payload: expectedsign,
   };
-};export const updatestateLifespan = (lifespan = null) => {
+};
+export const updatestateLifespan = (lifespan = null) => {
   return {
     type: "SET_LIFESPAN_STATE",
     payload: lifespan,
   };
 };
+
+export const updateLanguage=(language="eng")=>{
+  return {
+    type:'SET_LANGUAGE',
+    payload:language,
+  }
+}

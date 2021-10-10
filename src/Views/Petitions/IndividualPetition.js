@@ -12,10 +12,9 @@ import { convertFromRaw } from "draft-js";
 import DOMPurify from "dompurify";
 import { useHistory } from "react-router-dom";
 import axios from "../../axios";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function IndividualPetition({ match, auth }) {
- 
-
   const { petitionId } = match.params;
 
   const history = useHistory();
@@ -47,7 +46,7 @@ function IndividualPetition({ match, auth }) {
           },
         });
       } else {
-        data = await axios.get(`common/petition/613c4f54a781e21a7cf0cdbb`);
+        data = await axios.get(`common/petition/${petitionId}`);
       }
       setPetitionData(data.data.payload);
     } catch (error) {
@@ -68,8 +67,14 @@ function IndividualPetition({ match, auth }) {
           Authorization: `bearer ${JSON.parse(auth.token)}`,
         },
       });
-      history.push("/");
-    }
+
+toast("Petition signed!!!")   
+setTimeout(()=>{
+  window.location.reload();
+
+},1000)
+
+ }
   };
   const identityHandler = (e) => {
     setIdentity(e.target.checked);
@@ -79,8 +84,14 @@ function IndividualPetition({ match, auth }) {
     setComments(e.target.value);
   };
 
+  const notify=()=>{
+    navigator.clipboard.writeText(window.location.href)
+    toast("Copied to clipboard");
+  }
+
   return (
-    <div className="area">
+    <>
+    <ToastContainer/>
       <div className={styles.header}>
         <p className={styles.pHeading}>PETITION</p>
         <p>
@@ -89,9 +100,20 @@ function IndividualPetition({ match, auth }) {
         </p>
       </div>
       <div className={styles.title}>
-        {petitionData ? petitionData.title : ""}
+        {petitionData
+          ? " Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendu neque"
+          : ""}
       </div>
       <div className={styles.main}>
+        <div>
+          <img
+            className={styles.pic}
+            src={petitionData ? petitionData.image : ""}
+          ></img>
+          <p className={styles.imgtext}>
+            {petitionData ? petitionData.description : ""}
+          </p>
+        </div>
         <div className={styles.box}>
           <p className={styles.one}>
             {petitionData ? petitionData.signaturesReceived : ""} have signed.
@@ -101,14 +123,20 @@ function IndividualPetition({ match, auth }) {
             now={petitionData ? petitionData.signaturesReceived : 0}
             max={petitionData ? petitionData.expectedSignature : 0}
           />
-          <CgCheckO />
-          <p>
-            <span className={styles.two}>
-              At {petitionData ? petitionData.expectedSignature : ""}{" "}
-              signatures,
-            </span>
-            <span>
-              {" "}
+          <p className={styles.sig}>
+            <i
+              className="fas fa-check-circle"
+              style={{
+                color: "#84855d",
+                marginRight: "1rem",
+                fontSize: "3rem",
+              }}
+            ></i>
+            <span className={styles.two1}>
+              <span className={styles.two}>
+                At {petitionData ? petitionData.expectedSignature : ""}{" "}
+                signatures,
+              </span>
               this petition is more likely to get a reaction from the decision
               maker!
             </span>
@@ -121,29 +149,26 @@ function IndividualPetition({ match, auth }) {
             value={comments}
             placeholder="I am signing because  (optional)"
           />
-          <br />
-          <input
-            type="checkbox"
-            onChange={identityHandler}
-            checked={identity}
-          />
-          <p>Display my name and comment on this petition</p>
-          <button onClick={signPetitionHandler} className={styles.btn}>
+          <label className={styles.agree} htmlFor="">
+            <input
+              type="checkbox"
+              onChange={identityHandler}
+              checked={identity}
+            />
+            Display my name and comment on this petition
+          </label>
+          {auth.token && petitionData&&!petitionData.signedByMe?<button onClick={signPetitionHandler} className={styles.btn}>
             Sign In This Petition
-          </button>
-        </div>
-        <img
-          className={styles.pic}
-          src={petitionData ? petitionData.image : ""}
-        ></img>
-        <p className={styles.imgtext}>
-          {petitionData ? petitionData.description : ""}
-        </p>
-        <div className={styles.text}>
-          {/* <div dangerouslySetInnerHTML={{ __html: data }} /> */}
+          </button>:auth.token &&<button  className={styles.btn}>
+            Signature Received
+          </button>}
+          {!auth.token&&<button onClick={()=>toast("Login to sign petition!!")}  className={styles.btn}>
+            Sign In This Petition
+          </button>}
+          <span style={{marginLeft:"1rem",cursor:"pointer"}} onClick={notify}>Share <i className="fas fa-share-alt"></i></span>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 const mapStateToProps = (state) => {

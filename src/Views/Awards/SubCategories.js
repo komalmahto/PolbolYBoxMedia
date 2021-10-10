@@ -44,7 +44,7 @@ function SubCategories({ match }) {
                 }}
               >
                 <img className={styles.image} src={cat.image} />
-                <div className={styles.nameheading}>
+                <div className={styles.name}>
                   <p>{cat.heading}</p>
                 </div>
               </div>

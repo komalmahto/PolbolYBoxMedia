@@ -19,7 +19,8 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  margin-left:100px
+  justify-content: space-evenly;
+  /* margin-left:100px */
 }
 .card {
   width: 350px;
@@ -28,21 +29,25 @@
   border-radius: 15px;
   margin: 10px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 .image {
-  width: 270px;
+  width: 310px;
   height: 200px;
   border-radius: 12px;
-  padding-top: 20px;
+  /* padding-top: 20px; */
 }
 .name {
-  width: 190px;
-  height: 60px;
+  /* width: 200px; */
+  /* height: 60px; */
   font-weight: normal;
-  font-size: 24px;
-  line-height: 28px;
+  font-size: 20px;
+  /* line-height: 28px; */
   text-align: center;
- margin-left:40px;
+ /* margin-left:40px; */
   margin-top: 10px;
 }
 .nameheading {
@@ -67,4 +72,12 @@
 .result{
   margin-left: 100px;
   margin-top: 50px;
+}
+.vote{
+  display: block;
+  background-color:#84855d;
+  color: white;
+  margin: 1rem 0;
+  padding: 0.5rem;
+  cursor: pointer;
 }

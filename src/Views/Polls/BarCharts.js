@@ -3,6 +3,8 @@ import Chart from "react-apexcharts";
 import Dropdown from "react-bootstrap/Dropdown";
 import { FiCheck } from "react-icons/fi";
 import { FiXCircle } from "react-icons/fi";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./graph.css";
 
 function BarCharts(props) {
@@ -168,11 +170,17 @@ function BarCharts(props) {
   }, [data]);
 
   console.log(data ? data.data.payload : "");
+  const notify=()=>{
+    navigator.clipboard.writeText(window.location.href)
+    toast("Copied to clipboard");
+  }
 
   return (
     <div>
+            <ToastContainer/>
+
       {data ? (
-        <h4 className="heading">{data.data.payload.poll.question}</h4>
+        <h4 className="heading">{data.data.payload.poll.question}<span onClick={notify}>Share result <i style={{color:"#84855d"}} className="fas fa-share-alt"></i></span></h4>
       ) : (
         ""
       )}

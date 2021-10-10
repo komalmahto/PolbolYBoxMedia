@@ -39,8 +39,12 @@ function QuizCat() {
                 key={index}
                 onClick={() => handleClick(category._id)}
               >
+                        <div className={styles.cardinside}>
+
                 <img className={styles.image1} src={category.icon} />
+                </div>
                 <p className={styles.name}>{category.name}</p>
+
               </div>
             ))
           : ""}

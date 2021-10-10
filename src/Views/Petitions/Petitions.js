@@ -13,6 +13,9 @@ import Noty from 'noty';
 import "noty/lib/noty.css";  
 import "noty/lib/themes/mint.css";  
 import {isAuthenticated} from "../../api/index"
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const Petitions = () => {
   // const [polls, setPolls] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -98,19 +101,14 @@ const Petitions = () => {
        history.push('/petition');
     }
     else{
-    new Noty({
-      type:'alert',
-      layout: 'centerLeft',
-      text: 'Please login to create petition',
-      timeout:1000,
-      theme:'sunset',
-      modal:true
-  }).show();
+       toast("Please login to create petition");
+
 }
      
   }
   return (
     <div className="container">
+            <ToastContainer />
 
       <div className={styles.header}>
         <p className={styles.pHeading}>Petitions</p>
@@ -119,7 +117,10 @@ const Petitions = () => {
           neque.
         </p>
       </div>
-      <AiFillPlusCircle className={styles.cpetition} onClick={createPetitionhandler}/>
+      {/* <AiFillPlusCircle className={styles.cpetition} onClick={createPetitionhandler}/> */}
+      <center><span className={styles.add} onClick={createPetitionhandler}><i className="fas fa-plus-circle"></i>{" "}<span className={styles.addPet}>Add Petition</span></span></center>
+
+      
       <div className={styles.categories}>
         <span
           className={

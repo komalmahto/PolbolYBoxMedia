@@ -26,6 +26,7 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  justify-content: space-evenly;
   margin-left: auto;
   margin-right: auto;
 }
@@ -36,18 +37,34 @@
   border-radius: 15px;
   margin: 20px;
   cursor: pointer;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ flex-direction: column;
+  padding: 1rem;
+}
+.cardinside{
+  height: 90%;
+  width: 90%;
+  background-color: #48483d;
+  display: flex;
+background-color: #fdeddb;
+border-radius: 15px;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 .image1 {
-  width: 270px;
-  height: 200px;
-  border-radius: 12px;
-  padding-top: 20px;
+  width: 150px;
+  height: 150px;
+  /* border-radius: 12px; */
+  border-radius: 50%;
 }
 .name {
   width: 190px;
   height: 60px;
   font-weight: normal;
-  font-size: 24px;
+  font-size: 16px;
   line-height: 28px;
   text-align: center;
   margin-left: auto;
@@ -55,14 +72,14 @@
   margin-top: 10px;
 }
 .icon {
-  height: 150px;
-  width: 200px;
+  height: 100px;
+  width: 100px;
 }
 .box {
   display: flex;
   flex-direction:column;
-  justify-content: space-around;
-  align-items: center;
+  /* justify-content: space-around; */
+  /* align-items: center; */
   height: 900px;
   width:900px;
   overflow-x:hidden;
@@ -74,23 +91,49 @@
 .quiz {
   display: flex;
   width: 839px;
-  height: 180px;
+  /* height: 180px; */
+  background: #f0f0f0;
+  box-shadow: -4px 4px 20px -6px #fdeddb;
+  border-radius: 4px;
+  margin: 30px 0;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  
+}
+.quiz1 {
+  display: flex;
+  width: 839px;
+  cursor: pointer;
+  /* height: 180px; */
   background: #fdf9f6;
   box-shadow: -4px 4px 20px -6px #fdeddb;
   border-radius: 4px;
-  margin: 30px;
+  margin: 30px 0;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem;
+  border-radius: 4px;
+  
 }
 .subbox {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 50px;
+  /* margin: 50px; */
+  margin-left: 2rem;
+}
+.subbox1{
+  display: flex;
 }
 .playicon {
-  margin: 80px;
-  margin-left: 200px;
-  transform: scale(5);
+  /* margin: 80px; */
+  /* margin-left: 200px; */
+  margin-right: 3rem;
+  transform: scale(4);
 }
 .hr1 {
   border: 3px solid #84855d;

@@ -98,8 +98,9 @@ function FinalAwards({ match }) {
                       <img className={styles.image} src={cat.image} />
                       <div className={styles.video}></div>
                       <div className={styles.name}>
-                        <p>{cat.name}</p>
+                       {cat.name}
                       </div>
+                      <center><span className={styles.vote}>Vote Now</span></center>
                     </div>
                   </>
                 ))

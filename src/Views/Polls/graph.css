@@ -3,7 +3,19 @@
 }
 .heading {
   margin-bottom: 50px;
-  margin-left: 40px;
+  /* margin-left: 40px; */
+  /* display: flex; */
+  /* align-items: center; */
+  text-align: center;
+  /* justify-content: space-between; */
+}
+.heading span{
+  font-size: 1.5rem;
+  background-color: #fdeddb;
+  padding: 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-left: 2rem;
 }
 .check {
   display: none;

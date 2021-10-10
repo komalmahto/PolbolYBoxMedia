@@ -3,18 +3,23 @@ import { Link } from "react-router-dom";
 import * as api from "../../../api";
 import { formatDate } from "../../../helpers";
 import styles from "./Main.module.css";
+import { useHistory } from "react-router-dom";
 
 const OVERLAY = "linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.9))";
 
 const Main = () => {
+  const history = useHistory();
+
   const [latestNews, setLatestNews] = useState([]);
   const [highlightedPolls, setHighlightedPolls] = useState([]);
   const [activeAwards, setActiveAwards] = useState([]);
+  const [petitions,setPetitions]=useState([])
 
   useEffect(() => {
     getLatestNews();
     getHighlightedPolls();
     getActiveAwards();
+    getPetitions();
   }, []);
 
   const getLatestNews = async () => {
@@ -43,6 +48,17 @@ const Main = () => {
       console.log(error);
     }
   };
+
+  const getPetitions=async()=>{
+    try {
+      const {data}=await api.getCommonPetitions();
+      console.log(data)
+      setPetitions(data.payload.payload)
+      
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
     <div className="container">
@@ -76,6 +92,26 @@ const Main = () => {
           <div className={styles.feature}>
             <h2>Petitions</h2>
             <div className={styles.petition_box}>
+              {petitions.map((pet)=>(
+                <div
+                  key={pet._id}
+                  className={styles.item}
+                  style={{
+                    backgroundImage: `${OVERLAY}, url("${pet.image}")`,
+                  }}
+                >
+                  <div className={styles.item_container}>
+                    <p>{pet.title.substring(0, 30)}...</p>
+                    <Link
+                      to={`/pet/${pet.title.split(" ").join("-")}/${
+                       pet._id
+                      }`}
+                    >
+                      Read More
+                    </Link>
+                  </div>
+                </div>
+              ))}
               <div className={styles.item}></div>
               <div className={styles.item}></div>
               <div className={styles.item}></div>
@@ -108,7 +144,7 @@ const Main = () => {
               </div>
             ))}
           </div>
-          <button className={styles.view_all}>View All</button>
+          <button onClick={()=>history.push("/news")} className={styles.view_all}>View All</button>
         </div>
       </div>
       <div className={styles.downloads}>

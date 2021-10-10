@@ -27,33 +27,38 @@
   font-style: normal;
   font-weight: 600;
   font-size: 26px;
+  cursor: pointer;
 }
 .line {
   width: 160px;
   margin-left: -30px;
   color: #84855d;
+
 }
 .lineshow {
   width: 160px;
   margin-left: -30px;
   color: #84855d;
-  border: 6px solid #84855d;
+  border: 3px solid #84855d;
 }
 .channels {
   display: flex;
   margin-left: 100px;
   align-items: center;
+  justify-content: center;
   margin-bottom: 100px;
   flex-wrap: wrap;
 }
 .channel {
     display: flex;
   width: 200px;
-  height: 200px;
-  background-position: cover;
+  height: 100px;
+  background-size: cover;
+  
+  background-position: center;
+  background-repeat: no-repeat;
   margin-right: 20px;
   align-items: center;
-  background-repeat: no-repeat;
   cursor:pointer;
   background-color: #84855d;
   margin-bottom: 20px;
@@ -65,9 +70,13 @@ border-radius: 12px;
 .player{
     width: 860px;
 height: 472px;
+background-color: black;
 box-shadow: 8px 8px 15px rgba(179, 179, 179, 0.25);
 border-radius: 25px;
 margin-left: auto;
 margin-right: auto;
 margin-bottom: 200px;
+display: flex;
+align-items: center;
+justify-content: center;
 }
