@@ -15,7 +15,11 @@
     text-transform: uppercase;
   }
   .categories {
+    /* margin-bottom: 30px; */
+    display: grid;
     margin-bottom: 30px;
+    justify-content: space-evenly;
+    grid-template-columns: repeat(10, minmax(135px, 145px));
   }
   .category {
     display: inline-block;
@@ -24,8 +28,9 @@
     margin: 0 5px 5px 5px;
     border-radius: 50px;
     color: #fff;
-    font-size: 0.9rem;
+    font-size: 0.7rem;
     cursor: pointer;
+    text-align: center;
     user-select: none;
   }
   .category.selected {

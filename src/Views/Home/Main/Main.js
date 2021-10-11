@@ -53,7 +53,7 @@ const Main = () => {
     try {
       const {data}=await api.getCommonPetitions();
       console.log(data)
-      setPetitions(data.payload.payload)
+      setPetitions(data.payload.payload.slice(0,5))
       
     } catch (error) {
       console.log(error)
@@ -112,10 +112,6 @@ const Main = () => {
                   </div>
                 </div>
               ))}
-              <div className={styles.item}></div>
-              <div className={styles.item}></div>
-              <div className={styles.item}></div>
-              <div className={styles.item}></div>
             </div>
           </div>
           <div className={styles.feature}>

@@ -18,6 +18,7 @@ const Polls = () => {
 
   useEffect(() => {
     setCategories(pollCategories);
+    console.log(categories)
     getActivePolls();
     getExpiredPolls();
     

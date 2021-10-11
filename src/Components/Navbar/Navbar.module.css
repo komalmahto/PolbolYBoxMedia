@@ -143,3 +143,15 @@
     margin-right: 2px;
   
 }
+
+.ico i{
+  font-size: 2rem;
+  margin-right: 1rem;
+  cursor: pointer;
+  color: #000;
+}
+
+.navRight{
+  display: flex;
+  align-items: center;
+}

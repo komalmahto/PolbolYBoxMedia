@@ -34,6 +34,8 @@ export const getExpiredPetitions = () =>
 export const getFilteredPetitions = (mode, categories) =>
   api.get(`/common/petitions?mode=${mode}&categories=${categories}`);
 
+  export const getFilteredAwards = (mode, categories) =>
+  api.get(`/awards/award/fetchAwardsAndCategories?mode=${mode}&categories=${categories}`);
   export const getPetitionResults = (petitionId) =>
   api.get(`/petition/${petitionId}`);
 
@@ -45,7 +47,6 @@ export const getFilteredPetitions = (mode, categories) =>
 
   export const getExpiredAwards=()=>
     api.get('/award/fetchAwardsAndCategories?mode=expired');
-  
   
   export const isAuthenticated = () => {
     if (typeof window == "undefined") {

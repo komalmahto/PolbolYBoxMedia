@@ -32,13 +32,13 @@ function LiveTv() {
 
   return (
     <div className={styles.livetv}>
-      <div className={styles.header}>
+      {/* <div className={styles.header}>
         <p className={styles.pHeading}>LIVE TV</p>
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus,
           neque.
         </p>
-      </div>
+      </div> */}
       <div className={styles.options}>
         <div onClick={() => handleLanguage("hindi")} className={styles.lang}>
           Hindi

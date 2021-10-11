@@ -27,13 +27,13 @@ function QuizLevels({ match }) {
   console.log(levels);
   return (
     <div>
-      <div className={styles.header}>
+      {/* <div className={styles.header}>
         <p className={styles.pHeading}>Quiz</p>
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus,
           neque.
         </p>
-      </div>
+      </div> */}
       <div className={styles.box}>
         {levels.length > 0
           ? levels.map((quiz, index) => (

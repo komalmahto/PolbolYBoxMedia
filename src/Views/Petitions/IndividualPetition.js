@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styles from "./IndividualPetition.module.css";
-import ProgressBar from "react-bootstrap/ProgressBar";
+// import ProgressBar from "react-bootstrap/ProgressBar";
 import * as api from "../../api/index";
 import { CgCheckO } from "react-icons/cg";
 import { AiOutlineUser } from "react-icons/ai";
@@ -14,6 +14,7 @@ import { useHistory } from "react-router-dom";
 import axios from "../../axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ProgressBar from "../../Components/ProgressBar/ProgressBar";
 function IndividualPetition({ match, auth }) {
   const { petitionId } = match.params;
 
@@ -119,10 +120,11 @@ setTimeout(()=>{
             {petitionData ? petitionData.signaturesReceived : ""} have signed.
             Let’s get to {petitionData ? petitionData.expectedSignature : ""}!
           </p>
-          <ProgressBar
+          {/* <ProgressBar
             now={petitionData ? petitionData.signaturesReceived : 0}
             max={petitionData ? petitionData.expectedSignature : 0}
-          />
+          /> */}
+           <ProgressBar bgcolor="#84855d" progress={((petitionData?petitionData.signaturesReceived:0)*100)/(petitionData?petitionData.expectedSignature:0)}  height={30} />
           <p className={styles.sig}>
             <i
               className="fas fa-check-circle"

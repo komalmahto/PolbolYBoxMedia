@@ -3,6 +3,7 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import OtpInput from "react-otp-input";
 import axios from "../../axios";
+import styles from './Modal.module.css'
 
 
 function MyVerticallyCenteredModal(props) {
@@ -71,7 +72,7 @@ function MyVerticallyCenteredModal(props) {
       <Modal
         {...props}
         onExited={handleCancel}
-        size="lg"
+        size="md"
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
@@ -79,26 +80,31 @@ function MyVerticallyCenteredModal(props) {
           <Modal.Title id="contained-modal-title-vcenter">Login</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <h4>Phone number</h4>
-          <input type="number" onChange={handleChange}></input>
+          {/* <h4 >Phone number</h4> */}
+          <div className={styles.center}>
+          
+
+          <input className={styles.inp} type="tel" onChange={handleChange} placeholder="Phone Number"></input>
           <br />
-          <Button disabled={!btnshow} onClick={getOtp}>
+          <button className={styles.otpBtn} disabled={!btnshow} onClick={getOtp}>
             Get Otp
-          </Button>
+          </button>
+          </div>
           {Object.keys(phoneData).length > 0 && (
-            <div className="otp-box">
+            <div className={styles.OtpBox}>
               <p>Please enter otp</p>
               <OtpInput
                 value={otp}
                 onChange={handleOtpChange}
                 numInputs={4}
-                containerStyle={"container-style"}
-                inputStyle={valid ? "input-style" : "input-style invalid-style"}
+                containerStyle={styles.container}
+                inputStyle={valid ? styles.valid : styles.invalid}
                 isInputNum={true}
               />
               {!valid && <p className="invalid">Invalid otp</p>}
             </div>
           )}
+          <center className={styles.terms}><i className="fas fa-shield-alt"></i><p>We are not storing any private information .By continuing you agree to our <span className={styles.cond}>Terms and conditons</span></p></center>
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={props.onHide}>Close</Button>

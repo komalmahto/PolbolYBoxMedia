@@ -100,39 +100,57 @@ function Petition3(props) {
           those without. Include one that captures the emotion of your story.
         </p>
       </div>
-      <div className={styles.area}>
+      <div className={styles.areaImg}>
         <div className={styles.picarea}>
           {source ? <img className={styles.pic} src={source} /> : ""}
         </div>
+
         <form className={styles.fileinput}>
+
         <div className="form-group">
+          <label htmlFor="image">
+            Upload Photo
           <input
+          style={{display:"none"}}
+          name="image"
+          id="image"
             onChange={(e) => handleImage(e)}
             type="file"
             accept="image/*"
             className="form-control"
           />
+          </label>
           </div>
           </form>
         {error ? <p className={styles.error}>Upload only images </p> : ""}
-      </div>
+      
 
+      </div>
+      <div className={styles.body}>
       <p className={styles.message} style={{ textAlign: "center" }}>
         Or Provide URL Here
       </p>
+     
+
+     <div className={styles.urlAdd}>
       <input
         className={styles.tbox}
         placeholder="https://"
         value={url}
         onChange={(e) => setUrl(e.target.value)}
       ></input>
-      <button className={styles.add}>Add</button>
-      <button className={styles.backbtn} onClick={handlePrevClick}>
+            <button className={`${styles.btn} ${styles.urlAddBtn}`}>Add</button>
+            </div>
+          
+      <div className={styles.actions}>
+      <button className={styles.btn} onClick={handlePrevClick}>
         Previous
       </button>
       <button onClick={handleSave} className={styles.btn}>
         Save and Preview
       </button>
+      </div>
+      </div>
       <div className={styles.desc}>
         <p className={styles.head}>Keep it short and to the point</p>
         <p className={styles.sub}>

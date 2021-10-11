@@ -1,9 +1,10 @@
 import { SIGNIN, LOGOUT, UPDATEUSER } from './Actions/Types';
 
 let token = JSON.parse(localStorage.getItem('authToken'))
+let user=JSON.parse(localStorage.getItem("polBolUser"))
 const initialState = {
   token: token || '',
-  user: {},
+  user: user?user:"",
 };
 
 
@@ -14,6 +15,7 @@ export default function reduce(state = initialState, action) {
     case SIGNIN:
       const nstate={...state,token:payload.token,user:payload.user}
       localStorage.setItem('authToken', JSON.stringify(payload.token));
+      localStorage.setItem('polBolUser',JSON.stringify(payload.user))
       return nstate;
 
     case LOGOUT:

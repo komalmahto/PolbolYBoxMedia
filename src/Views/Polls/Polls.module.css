@@ -15,20 +15,23 @@
   text-transform: uppercase;
 }
 .categories {
-  margin-left: 60px;
-  display: flex;
-  flex-wrap: wrap;
+  /* margin-left: 60px; */
+  display: grid;
   margin-bottom: 30px;
-  width:900px;
+  justify-content: space-evenly;
+  grid-template-columns: repeat(10, minmax(135px, 145px));
+
+  /* width:900px; */
 }
 .category {
   display: inline-block;
+  text-align: center;
   background: #84855d;
   padding: 7px 20px;
   margin: 0 5px 5px 5px;
   border-radius: 50px;
   color: #fff;
-  font-size: 0.9rem;
+  font-size: 0.7rem;
   cursor: pointer;
   user-select: none;
 }

@@ -4,6 +4,8 @@ import { Modal } from "antd";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 import { FieldTimeOutlined } from "@ant-design/icons";
 import styles from "./Quiz.module.css"
+// import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
+
 const { confirm } = Modal;
 
 const QuizPlay = ({ match, history }) => {
@@ -216,9 +218,9 @@ const QuizPlay = ({ match, history }) => {
           neque.
         </p>
       </div>
+      <div className={styles.gap}>
       <div className={styles.head}>
-        <h2>Level  {Object.keys(questions).length > 0 ? questions.questions[0].level : ""} </h2>
-        <hr className={styles.hr1} />
+        <span >Level  {Object.keys(questions).length > 0 ? questions.questions[0].level : ""} </span>
       </div>
       <div className={styles.qno}>
         {index+1}/
@@ -246,8 +248,7 @@ const QuizPlay = ({ match, history }) => {
                 {option.text}
               </div>
             ))}
-          </div>
-          <div className={`${styles.btns} ${styles.abs}`}>
+            <div className={`${styles.btns} ${styles.abs}`}>
             {Object.keys(result).length > 0 && (
               <>
                 <button className={styles.btnsbtn} onClick={showConfirm}>
@@ -259,8 +260,12 @@ const QuizPlay = ({ match, history }) => {
               </>
             )}
           </div>
+          </div>
+          
         </div>
       )}
+            </div>
+
     </div>
   );
 };

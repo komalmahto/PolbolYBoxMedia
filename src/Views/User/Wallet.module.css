@@ -1,0 +1,128 @@
+.header {
+  background: #fdf9f6;
+  color: #535353;
+  border-radius: 25px;
+  text-align: center;
+  padding: 50px 20px;
+  margin-bottom: 30px;
+  font-size: 0.9rem;
+  margin: 30px;
+}
+
+.pHeading {
+  font-size: 2rem;
+  margin-bottom: 5px;
+  color: #000;
+  text-transform: uppercase;
+}
+.amount {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-family: Roboto;
+}
+.amountHave {
+  margin-bottom: 1rem;
+  font-size: 30px;
+}
+.amountVal {
+  font-size: 60px;
+  font-weight: 400;
+}
+
+.transaction {
+  
+  width: 80%;
+  margin: 0 auto;
+  border-radius: 15px 15px 0 0;
+  margin-bottom: 300px;
+}
+.transaction .head {
+  font-family: Poppins;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background-color: #fdeddb;
+  border-radius: 15px 15px 0 0;
+  font-size: 28px;
+}
+.month {
+  width: 100%;
+}
+.monthHead {
+  font-family: Roboto;
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  background-color: #fdf9f6;
+  font-size: 24px;
+}
+
+.history {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1rem;
+  border-bottom: 2px solid grey;
+}
+
+.history .left {
+  display: flex;
+  align-items: center;
+}
+.history .left .dot {
+  height: 50px;
+  width: 50px;
+  display: inline-block;
+  border-radius: 50%;
+  background-color: #84855d;
+  margin-right: 2rem;
+}
+
+.history .left .purchase {
+  display: flex;
+  flex-direction: column;
+}
+
+.history .left .purchaseHead {
+  font-family: Roboto;
+  font-weight: 400;
+  font-size: 20px;
+  margin-bottom: 0.5rem;
+}
+.history .left .purchaseDate{
+font-size: 14px;
+font-family: Roboto;
+font-weight: 400;
+color: grey;
+}
+
+.history .right{
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.history .right .am{
+    font-size: 24px;
+font-family: Roboto;
+font-weight: 500;
+}
+
+.history .right .status{
+    font-size: 14px;
+font-family: Roboto;
+font-weight: 400;
+     color: #cf0404;
+}
+
+.actions{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 40%;
+    margin: 30px auto;
+    /* margin: 30px 0; */
+}

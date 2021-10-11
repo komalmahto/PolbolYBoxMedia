@@ -10,9 +10,7 @@ import PetitionPreview from "../../Views/Petitions/PetitionPreview";
 import LiveTv from "../../Views/TV/LiveTv";
 import News from "../../Views/News/News";
 import SingleNews from "../../Views/News/SingleNews";
-
 import PrivateRoute from "../../PrivateRoute";
-
 import Layout from "../Layout/Layout";
 import IndividualPetition from "../../Views/Petitions/IndividualPetition";
 import Awards from "../../Views/Awards/Awards";
@@ -25,6 +23,8 @@ import QuizPlay from "../../Views/Quiz/QuizPlay";
 import GraphsContainer from "../../Views/Polls/GraphsContainer";
 import Polls from "../../Views/Polls/Polls";
 
+// User
+import Wallet from "../../Views/User/Wallet";
 
 // Views
 const Home = React.lazy(() => import("../../Views/Home/Home"));
@@ -58,7 +58,7 @@ const MainView = () => {
           <Route exact path="/quiz" component={QuizCat} />
           <Route exact path="/quiz/levels/:catId"  component={QuizLevels}/>
           <Route exact path="/quiz/level/:catId/:quizId"  component={QuizPlay}/>
-          
+          <Route exact path="/user/:userId/wallet" component={Wallet}/>
         </Switch>
       </Suspense>
     </Layout>

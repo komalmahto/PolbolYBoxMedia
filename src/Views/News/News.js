@@ -11,7 +11,7 @@ const News = () => {
   const [news, setNews] = useState([]);
 
   useEffect(() => {
-    setCategories([...newsCategories.splice(0, 4)]);
+    setCategories([...newsCategories]);
     getNews();
   }, []);
 
@@ -99,7 +99,7 @@ const News = () => {
             margin: "15px 0",
           }}
         >
-          <Multiselect
+          {/* <Multiselect
             style={{ height: "100%" }}
             options={newsCategories.map((category) => ({ name: category }))}
             onSelect={onSelect}
@@ -107,7 +107,7 @@ const News = () => {
             displayValue="name"
             placeholder="View All Categories"
             showArrow
-          />
+          /> */}
         </div>
       </div>
 

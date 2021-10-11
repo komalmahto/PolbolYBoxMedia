@@ -62,7 +62,7 @@ const Navbar = ({
               <Link to="/quiz">Quiz</Link>
             </li>
           </ul>
-          <div>
+          <div className={styles.navRight}>
             <span onClick={handleLanguage}>
               {lang.language === "Hindi" ? (
                 <span className={styles.lang}>
@@ -76,6 +76,9 @@ const Navbar = ({
                 </span>
               )}
             </span>
+            {token&& <Link to="/" className={styles.ico}><i className="fas fa-user-circle"></i></Link>}
+            {console.log(user._id)}
+            {token&& <Link to={`/user/${user._id}/wallet`} className={styles.ico}><i className="fas fa-wallet"></i></Link>}
             {!token ? (
               <span onClick={clickHandler} className={styles.auth}>
                 {" "}

@@ -29,7 +29,7 @@ const Petitions = () => {
   const history=useHistory(null);
 
   useEffect(() => {
-    setCategories([...petitionCategories.splice(0, 4)]);
+    setCategories([...petitionCategories]);
     getActivePetitions();
     // getExpiredPetitions();
   }, []);
@@ -152,7 +152,7 @@ const Petitions = () => {
             margin: "15px 0",
           }}
         >
-          <Multiselect
+          {/* <Multiselect
             style={{ height: "100%" }}
             options={petitionCategories.map((category) => ({ name: category }))}
             onSelect={onSelect}
@@ -160,7 +160,7 @@ const Petitions = () => {
             displayValue="name"
             placeholder="View All Categories"
             showArrow
-          />
+          /> */}
         </div>
       </div>
       <div

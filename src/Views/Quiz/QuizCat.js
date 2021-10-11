@@ -27,9 +27,9 @@ function QuizCat() {
           neque.
         </p>
       </div>
-      <div className={styles.head}>
+      <div className={styles.headCat}>
         <h3> Choose quiz category</h3>
-        <hr className={styles.hr} />
+        {/* <hr className={styles.hr} /> */}
       </div>
       <div className={styles.cards1}>
         {categories.length > 0

@@ -112,11 +112,13 @@ function Petition2(props) {
         </div>
       </div>
 
-
+<div className={styles.pad}>
       <p className={styles.message}>
+      <i className="fas fa-check-circle"></i>
         Great — you’ve started writing your petition. We recommend adding
         another {val ? 1000 - val : 1000} more characters before you finish.
       </p>
+     
       <p className={styles.reftext}>Provide Any Reference Link</p>
       <input
         className={styles.tbox}
@@ -124,12 +126,16 @@ function Petition2(props) {
         value={url}
         onChange={(e) => setUrl(e.target.value)}
       ></input>
-      <button className={styles.backbtn} onClick={handlePrevClick}>
+       
+       <div className={styles.actions}>
+      <button className={styles.btn} onClick={handlePrevClick}>
         Previous
       </button>
       <button className={styles.btn} onClick={handleClick}>
         Continue
       </button>
+      </div>
+      </div>
       <div className={styles.desc}>
         <p className={styles.head}>Keep it short and to the point</p>
         <p className={styles.sub}>
