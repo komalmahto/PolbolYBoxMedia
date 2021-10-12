@@ -5,15 +5,15 @@ import { expiresIn, formatDate } from "../../../helpers";
 import PropTypes from "prop-types";
 import { getSlug } from "../../../helpers/index";
 
-const FilteredPolls = ({ mode, polls }) => {
+const FilteredPolls = ({ mode, polls ,page}) => {
   const history = useHistory();
 
-  console.log(mode);
+  console.log(mode,page);
   return (
     <div className={styles.list}>
       <div className={styles.container}>
         {polls.length > 0 ? (
-          polls.map((poll) => (
+          polls.slice(0, page * 3).map((poll) => (
             <div key={poll._id} className={styles.poll}>
               <p className={styles.category}>Poll on {poll.categories[0]}</p>
               <div className={styles.main}>

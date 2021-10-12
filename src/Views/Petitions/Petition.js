@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import { GiHorizontalFlip } from "react-icons/gi";
 import { connect } from "react-redux";
 import { updatestateCategory } from "../../redux/Actions";
-import {petitionCategories as categories} from "../../data/index"
+import {pollCategories as categories} from "../../data/index"
 
 function Petition(props) {
   const history = useHistory();

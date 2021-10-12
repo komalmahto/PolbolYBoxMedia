@@ -8,7 +8,6 @@ import "react-toastify/dist/ReactToastify.css";
 import "./graph.css";
 
 function PieCharts(props) {
- 
   const [data, setData] = useState(null);
   const [filters, setFilters] = useState({
     nofilters: {},
@@ -16,23 +15,23 @@ function PieCharts(props) {
     age: {},
     region: {},
   });
-const  legends= {
-  position: "bottom",
-  horizontalAlign: 'left', 
-  width:700,
-  offsetX: 0,
-  offsetY: 5,
-  markers: { radius: 0 },
-  itemMargin: {
-    horizontal: 0,
-    vertical: 10,
-},
-};
-const legends1={
-  show:false,
-}
+  const legends = {
+    position: "bottom",
+    horizontalAlign: "left",
+    width: 700,
+    offsetX: 0,
+    offsetY: 5,
+    markers: { radius: 0 },
+    itemMargin: {
+      horizontal: 0,
+      vertical: 10,
+    },
+  };
+  const legends1 = {
+    show: false,
+  };
   const [labels, setLabels] = useState(null);
- 
+
   const graphOption = {
     options: {
       labels,
@@ -46,7 +45,6 @@ const legends1={
       },
     },
   };
- 
 
   const handleClick = (e) => {
     e.stopPropagation();
@@ -109,11 +107,11 @@ const legends1={
     e.target.click();
   };
 
-  const notify=()=>{
-    navigator.clipboard.writeText(window.location.href)
+  const notify = () => {
+    navigator.clipboard.writeText(window.location.href);
     toast("Copied to clipboard");
-  }
-  
+  };
+
   useEffect(() => {
     setData(props.data);
   }, []);
@@ -129,13 +127,19 @@ const legends1={
   console.log(props.data);
   return (
     <div className="container">
-      <ToastContainer/>
+      <ToastContainer />
       {data ? (
-        <h4 className="heading">{data.data.payload.poll.question} <span onClick={notify}>Share result <i style={{color:"#84855d"}} className="fas fa-share-alt"></i></span></h4>
+        <h4 className="heading">
+          {data.data.payload.poll.question}{" "}
+          <span onClick={notify}>
+            Share result{" "}
+            <i style={{ color: "#84855d" }} className="fas fa-share-alt"></i>
+          </span>
+        </h4>
       ) : (
         ""
       )}
-     
+
       <div className="dropdowns">
         {/* <Dropdown className="d-inline mx-2" autoClose="outside">
           <Dropdown.Toggle
@@ -146,17 +150,22 @@ const legends1={
             No Filter
           </Dropdown.Toggle>
           <Dropdown.Menu> */}
-            <Dropdown.Item style={{ backgroundColor: "#84855D" }} className="overall" id="over" onClick={handleClick}>
-              Overall
-            </Dropdown.Item>
-          {/* </Dropdown.Menu>
+        <Dropdown.Item
+          style={{ backgroundColor: "#84855D" }}
+          className="overall"
+          id="over"
+          onClick={handleClick}
+        >
+          Overall
+        </Dropdown.Item>
+        {/* </Dropdown.Menu>
         </Dropdown> */}
 
         <Dropdown className="d-inline mx-2" autoClose="outside">
           <Dropdown.Toggle
             id="dropdown-autoclose-outside"
             onMouseEnter={handleEnter}
-            style={{backgroundColor: "#84855D"}}
+            style={{ backgroundColor: "#84855D" }}
           >
             Gender
           </Dropdown.Toggle>
@@ -182,9 +191,9 @@ const legends1={
           <Dropdown.Toggle
             id="dropdown-autoclose-outside"
             onMouseEnter={handleEnter}
-            style={{backgroundColor: "#84855D"}}
+            style={{ backgroundColor: "#84855D" }}
           >
-             Age Groups
+            Age Groups
           </Dropdown.Toggle>
 
           <Dropdown.Menu>
@@ -205,7 +214,8 @@ const legends1={
         </Dropdown>
 
         <Dropdown className="d-inline mx-2" autoClose="outside">
-          <Dropdown.Toggle style={{backgroundColor: "#84855D"}}
+          <Dropdown.Toggle
+            style={{ backgroundColor: "#84855D" }}
             id="dropdown-autoclose-outside"
             onMouseEnter={handleEnter}
           >
@@ -233,7 +243,12 @@ const legends1={
         {Object.keys(filters).map((value, key) => {
           return Object.keys(filters[value]).map((val, idx) => {
             return (
-              <span key={idx} className={val} id="selected" onClick={handleDelete}>
+              <span
+                key={idx}
+                className={val}
+                id="selected"
+                onClick={handleDelete}
+              >
                 {val} <FiXCircle />
               </span>
             );
@@ -245,35 +260,47 @@ const legends1={
         {Object.keys(filters).map((value, key1) =>
           Object.keys(filters[value]).length > 0 ? (
             <>
-              <h5>{value!=="nofilters"?value:""}</h5>
+              <h5>{value !== "nofilters" ? value : ""}</h5>
               <div key={key1} className="box">
                 {Object.keys(filters[value]).map((val, idx) =>
                   labels != null ? (
                     <div>
-                      {idx===Object.keys(filters[value]).length-1?( <Chart
-                        key={idx}
-                        className="chart"
-                        options={{
-                          ...graphOption.options,legend:legends,plotOptions:{...graphOption.plotOptions,pie:{...graphOption.options.plotOptions.pie,offsetX:-120}},
-                          title: { text:val!=="overall"? val:"" ,
-                            align:"left",
-                          },
-                        }}
-                        series={filters[value][val]}
-                        type="pie"
-                        width="700px"
-                      />):( <Chart
-                        key={idx}
-                        options={{
-                          ...graphOption.options,legend:legends1,
-                          title: { text: val,
-                            align:"center", },
-                        }}
-                        series={filters[value][val]}
-                        type="pie"
-                        width="340"
-                      />)}
-                     
+                      {idx === Object.keys(filters[value]).length - 1 ? (
+                        <Chart
+                          key={idx}
+                          className="chart"
+                          options={{
+                            ...graphOption.options,
+                            legend: legends,
+                            plotOptions: {
+                              ...graphOption.plotOptions,
+                              pie: {
+                                ...graphOption.options.plotOptions.pie,
+                                offsetX: -120,
+                              },
+                            },
+                            title: {
+                              text: val !== "overall" ? val : "",
+                              align: "left",
+                            },
+                          }}
+                          series={filters[value][val]}
+                          type="pie"
+                          width="700px"
+                        />
+                      ) : (
+                        <Chart
+                          key={idx}
+                          options={{
+                            ...graphOption.options,
+                            legend: legends1,
+                            title: { text: val, align: "center" },
+                          }}
+                          series={filters[value][val]}
+                          type="pie"
+                          width="340"
+                        />
+                      )}
                     </div>
                   ) : (
                     <></>

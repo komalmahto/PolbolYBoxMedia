@@ -5,10 +5,10 @@ import PropTypes from "prop-types";
 
 const OVERLAY = "linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.9))";
 
-const OverallNews = ({ news }) => {
+const OverallNews = ({ news,page }) => {
   const history = useHistory();
 
-  return news.map((singlenews, index) => (
+  return news.slice(0,page*12).map((singlenews, index) => (
     <div
       key={index}
       onClick={() =>

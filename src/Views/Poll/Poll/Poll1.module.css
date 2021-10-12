@@ -4,10 +4,17 @@
     display: block;
     width: 30%;
     height: 30%;
+    margin-bottom: 2rem;
 }
 .container{
     background-color: #FDF9F6;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
+    width: 80%;
+    margin: 15px auto;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 10px;
 }
 .list{
     text-align: center;
@@ -15,21 +22,19 @@
    
 }
 .list1{
-    width: 600px ;
-    margin-left: 300px;
-    margin-top: 30px;
+    margin-left: 20px;
+}
+.backbtn,.submitbtn,.sharebtn{
+   background-color: #84855D;
+   color: white;
+   padding: 0.5rem 1rem;
+   cursor: pointer;
+   border-radius: 10px;
+
 }
 .backbtn{
-    position: absolute;
-    margin:10px;
-    background-color: #84855D;
-    display: inline-block;
-    height:25px;
-    right:150px;
-   bottom:20px;
-   margin-bottom: 30px;
+    background-color: #5b5c3f;
 }
-
 .share{
     position: absolute;
     margin:10px;
@@ -46,4 +51,18 @@
     font-size: 20px;
     height:300px;
     margin-left: 350px;
+}
+
+.actions{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 20px auto;
+    width: 80%;
+
+
+}
+.slidecontainer{
+    width: 80% ;
+    margin: 10px auto;
 }

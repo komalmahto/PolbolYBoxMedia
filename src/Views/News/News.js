@@ -9,6 +9,8 @@ const News = () => {
   const [categories, setCategories] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [news, setNews] = useState([]);
+  const [page, setPage] = useState(1);
+  const [y, setY] = useState(0);
 
   useEffect(() => {
     setCategories([...newsCategories]);
@@ -18,6 +20,15 @@ const News = () => {
   useEffect(() => {
     getFilteredNews();
   }, [selectedCategories]);
+const loadMorePage = () => {
+    let pos = window.scrollY;
+    console.log(pos, 'poss');
+    setY(pos);
+    setPage(page + 1);
+    console.log('len');
+    // const len = newsBasedOnCategory.payload.data.length;
+    let pageLen = page * 12;
+  };
 
   const getNews = async () => {
     try {
@@ -113,13 +124,14 @@ const News = () => {
 
       {selectedCategories.length === 0 ? (
         <div className={styles.polls}>
-          <OverallNews news={news} />
+          <OverallNews page={page} news={news} />
         </div>
       ) : (
         <div className={styles.polls}>
-          <OverallNews news={news} />
+          <OverallNews page={page} news={news} />
         </div>
       )}
+    {news.length>page*12 &&  <center><span className={styles.loadMore} onClick={loadMorePage}>load more</span></center>}
     </div>
   );
 };

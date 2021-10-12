@@ -140,13 +140,15 @@ function FinalAwards({ match }) {
             {comments.length > 0
               ? comments.map((item, index) => {
                   return (
-                    <ListGroup.Item key={index}>
+                    <ListGroup.Item key={index} className={styles.commentcontainer}>
                       <img className={styles.avatar} src={item.user.avatar} />
-                      <p>
+                      <div>
+                      <p className={styles.categoryUser}>
                         @{item.user.firstName + item.user.lastName} voted{" "}
                         {item.award.nominations.name}
                       </p>
-                      <p>{item.comment}</p>
+                      <p className={styles.category}>{item.comment}</p>
+                      </div>
                     </ListGroup.Item>
                   );
                 })

@@ -15,18 +15,66 @@ const Polls = () => {
   const [expiredPolls, setExpiredPolls] = useState([]);
   const [activePollsTotal, setActivePollsTotal] = useState(0);
   const [expiredPollsTotal, setExpiredPollsTotal] = useState(0);
-
+  const [page, setPage] = useState({
+    activeNonfiltered: 1,
+    activeFiltered: 1,
+    expiredNonfiltered: 1,
+    expiredFiltered: 1,
+  });
+  const [y, setY] = useState(0);
   useEffect(() => {
     setCategories(pollCategories);
-    console.log(categories)
+    console.log(categories);
     getActivePolls();
     getExpiredPolls();
-    
   }, []);
 
   useEffect(() => {
     getFilteredPolls();
   }, [selectedCategories, active]);
+
+  const loadMorePage = (type) => {
+    if (type === "ANF") {
+      let pos = window.scrollY;
+      console.log(pos, "poss");
+      setY(pos);
+      setPage((prevState) => ({
+        ...prevState,
+        activeNonfiltered: prevState.activeNonfiltered + 1,
+      }));
+      console.log("len");
+    }
+    if (type === "AF") {
+      let pos = window.scrollY;
+      console.log(pos, "poss");
+      setY(pos);
+      setPage((prevState) => ({
+        ...prevState,
+        activeFiltered: prevState.activeFiltered + 1,
+      }));
+      console.log("len");
+    }
+    if (type === "ENF") {
+      let pos = window.scrollY;
+      console.log(pos, "poss");
+      setY(pos);
+      setPage((prevState) => ({
+        ...prevState,
+        expiredNonfiltered: prevState.expiredNonfiltered + 1,
+      }));
+      console.log("len");
+    }
+    if (type === "EF") {
+      let pos = window.scrollY;
+      console.log(pos, "poss");
+      setY(pos);
+      setPage((prevState) => ({
+        ...prevState,
+        expiredFiltered: prevState.expiredFiltered + 1,
+      }));
+      console.log("len");
+    }
+  };
 
   const getActivePolls = async () => {
     try {
@@ -84,7 +132,6 @@ const Polls = () => {
       selectedCategories.filter((category) => category !== selectedItem.name)
     );
   };
-  
 
   return (
     <div className="container">
@@ -157,17 +204,57 @@ const Polls = () => {
       {active ? (
         selectedCategories.length === 0 ? (
           <div className={styles.polls}>
-            <OverallPolls mode="active" polls={activePolls} />
+            <OverallPolls
+              page={page.activeNonfiltered}
+              mode="active"
+              polls={activePolls}
+            />
+            {activePolls.length > page.activeNonfiltered * 3 && (
+              <center className={styles.loadmore}>
+                <span onClick={() => loadMorePage("ANF")}>Load more</span>
+              </center>
+            )}
           </div>
         ) : (
-          <FilteredPolls mode="active" polls={activePolls} />
+          <div>
+            <FilteredPolls
+              page={page.activeFiltered}
+              mode="active"
+              polls={activePolls}
+            />
+            {activePolls.length > page.activeFiltered * 3 && (
+              <center className={styles.loadmore}>
+                <span onClick={() => loadMorePage("AF")}>Load more</span>
+              </center>
+            )}{" "}
+          </div>
         )
       ) : selectedCategories.length === 0 ? (
         <div className={styles.polls}>
-          <OverallPolls mode="expired" polls={expiredPolls} />
+          <OverallPolls
+            page={page.expiredNonfiltered}
+            mode="expired"
+            polls={expiredPolls}
+          />
+          {expiredPolls.length > page.expiredNonfiltered * 3 && (
+            <center className={styles.loadmore}>
+              <span onClick={() => loadMorePage("ENF")}>Load more</span>
+            </center>
+          )}
         </div>
       ) : (
-        <FilteredPolls mode="expired" polls={expiredPolls} />
+        <div>
+          <FilteredPolls
+            page={page.expiredFiltered}
+            mode="expired"
+            polls={expiredPolls}
+          />
+          {expiredPolls.length > page.expiredFiltered * 3 && (
+            <center className={styles.loadmore}>
+              <span onClick={() => loadMorePage("EF")}>Load more</span>
+            </center>
+          )}
+        </div>
       )}
     </div>
   );
