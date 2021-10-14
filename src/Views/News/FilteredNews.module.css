@@ -1,0 +1,27 @@
+.filtered{
+    height: 200px;
+    width: 100%;
+    margin-bottom: 3rem;
+    display: grid;
+    grid-template-columns: 310px 1fr;
+    border-radius: 20px;
+    background-color: #eeee;
+
+}
+.image{
+    width: 300px;
+    height: 100%;
+    background-position: center;
+    background-size: cover;
+    border-radius: 20px;
+}
+.poll_container{
+    padding: 20px;
+}
+.head{
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+.disc{
+    margin-top:1rem ;
+}

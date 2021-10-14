@@ -6,13 +6,13 @@ import * as api from "../../api";
 import Multiselect from "multiselect-react-dropdown";
 import styles from "./Petitions.module.css";
 import OverallPetitons from "./OverallPetitions";
-import Modal from "../../Components/Modal/Modal"
+import Modal from "../../Components/Modal/Modal";
 import { connect } from "react-redux";
 import { AiFillPlusCircle } from "react-icons/ai";
-import Noty from 'noty';  
-import "noty/lib/noty.css";  
-import "noty/lib/themes/mint.css";  
-import {isAuthenticated} from "../../api/index"
+import Noty from "noty";
+import "noty/lib/noty.css";
+import "noty/lib/themes/mint.css";
+import { isAuthenticated } from "../../api/index";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -26,7 +26,57 @@ const Petitions = () => {
   const [activePetitionsTotal, setActivePetitionsTotal] = useState(0);
   const [expiredPetitionsTotal, setExpiredPetitionsTotal] = useState(0);
 
-  const history=useHistory(null);
+  const history = useHistory(null);
+  const [page, setPage] = useState({
+    activeNonfiltered: 1,
+    activeFiltered: 1,
+    expiredNonfiltered: 1,
+    expiredFiltered: 1,
+  });
+
+  const loadMorePage = (type) => {
+    if (type === "ANF") {
+      let pos = window.scrollY;
+      console.log(pos, "poss");
+      setY(pos);
+      setPage((prevState) => ({
+        ...prevState,
+        activeNonfiltered: prevState.activeNonfiltered + 1,
+      }));
+      console.log("len");
+    }
+    if (type === "AF") {
+      let pos = window.scrollY;
+      console.log(pos, "poss");
+      setY(pos);
+      setPage((prevState) => ({
+        ...prevState,
+        activeFiltered: prevState.activeFiltered + 1,
+      }));
+      console.log("len");
+    }
+    if (type === "ENF") {
+      let pos = window.scrollY;
+      console.log(pos, "poss");
+      setY(pos);
+      setPage((prevState) => ({
+        ...prevState,
+        expiredNonfiltered: prevState.expiredNonfiltered + 1,
+      }));
+      console.log("len");
+    }
+    if (type === "EF") {
+      let pos = window.scrollY;
+      console.log(pos, "poss");
+      setY(pos);
+      setPage((prevState) => ({
+        ...prevState,
+        expiredFiltered: prevState.expiredFiltered + 1,
+      }));
+      console.log("len");
+    }
+  };
+  const [y, setY] = useState(0);
 
   useEffect(() => {
     setCategories([...petitionCategories]);
@@ -94,21 +144,17 @@ const Petitions = () => {
       selectedCategories.filter((category) => category !== selectedItem.name)
     );
   };
-  
-  const createPetitionhandler=()=>{
-    if(isAuthenticated())
-    {
-       history.push('/petition');
-    }
-    else{
-       toast("Please login to create petition");
 
-}
-     
-  }
+  const createPetitionhandler = () => {
+    if (isAuthenticated()) {
+      history.push("/petition");
+    } else {
+      toast("Please login to create petition");
+    }
+  };
   return (
     <div className="container">
-            <ToastContainer />
+      <ToastContainer />
 
       <div className={styles.header}>
         <p className={styles.pHeading}>Petitions</p>
@@ -118,9 +164,13 @@ const Petitions = () => {
         </p>
       </div>
       {/* <AiFillPlusCircle className={styles.cpetition} onClick={createPetitionhandler}/> */}
-      <center><span className={styles.add} onClick={createPetitionhandler}><i className="fas fa-plus-circle"></i>{" "}<span className={styles.addPet}>Add Petition</span></span></center>
+      <center>
+        <span className={styles.add} onClick={createPetitionhandler}>
+          <i className="fas fa-plus-circle"></i>{" "}
+          <span className={styles.addPet}>Add Petition</span>
+        </span>
+      </center>
 
-      
       <div className={styles.categories}>
         <span
           className={
@@ -179,20 +229,61 @@ const Petitions = () => {
       </div>
       {active ? (
         selectedCategories.length === 0 ? (
+          <>
           <div className={styles.petitions}>
-            <OverallPetitons petitions={activePetitions} />
+            <OverallPetitons
+              page={page.activeNonfiltered}
+              petitions={activePetitions}
+            />
           </div>
+          <div>{activePetitions.length > page.activeNonfiltered * 6 && (
+              <center className={styles.loadmore}>
+                <span onClick={() => loadMorePage("ANF")}>Load more</span>
+              </center>
+            )}</div>
+          </>
         ) : (
-          <FilteredPetitions mode="active" petitions={activePetitions} />
+          <div>
+          <FilteredPetitions
+            page={page.activeFiltered}
+            mode="active"
+            petitions={activePetitions}
+          />
+          {activePetitions.length > page.activeFiltered * 6 && (
+              <center className={styles.loadmore}>
+                <span onClick={() => loadMorePage("AF")}>Load more</span>
+              </center>
+            )}{" "}
+          </div>
         )
       ) : selectedCategories.length === 0 ? (
+        <>
         <div className={styles.petitions}>
-          <OverallPetitons petitions={expiredPetitions} />
+          <OverallPetitons
+            page={page.expiredNonfiltered}
+            petitions={expiredPetitions}
+          />
         </div>
+        <div> {expiredPetitions.length > page.expiredNonfiltered * 6 && (
+            <center className={styles.loadmore}>
+              <span onClick={() => loadMorePage("ENF")}>Load more</span>
+            </center>
+          )}</div>
+        </>
       ) : (
-        <FilteredPetitions mode="expired" petitions={expiredPetitions} />
+        <div>
+        <FilteredPetitions
+          page={page.expiredFiltered}
+          mode="expired"
+          petitions={expiredPetitions}
+        />
+          {expiredPetitions.length > page.expiredFiltered * 3 && (
+            <center className={styles.loadmore}>
+              <span onClick={() => loadMorePage("EF")}>Load more</span>
+            </center>
+          )}
+        </div>
       )}
-   
     </div>
   );
 };

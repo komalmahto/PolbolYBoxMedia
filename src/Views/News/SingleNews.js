@@ -60,6 +60,7 @@ function SingleNews({ match }) {
               className={styles.image}
               src={newsData ? newsData.images[0] : ""}
             />
+            <div className={styles.sub}>
             <h3 className={styles.title}>
               {newsData ? newsData.headline : ""}
             </h3>
@@ -87,6 +88,7 @@ function SingleNews({ match }) {
                   <i className="fas fa-share-alt"></i>
                 </span>
               </div>
+            </div>
             </div>
           </div>
         </div>

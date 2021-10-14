@@ -10,9 +10,9 @@
   /* justify-content: space-between; */
 }
 .heading span{
-  font-size: 1.5rem;
+  font-size: 1rem;
   background-color: #fdeddb;
-  padding: 1rem;
+  padding: 0.5rem 0.8rem;
   border-radius: 10px;
   cursor: pointer;
   margin-left: 2rem;

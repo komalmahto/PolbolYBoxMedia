@@ -25,6 +25,8 @@ export default function reduce(state = initialState, action) {
 
     case UPDATEUSER:
       const neestate={...state,user:payload}
+      localStorage.setItem('polBolUser',JSON.stringify(payload))
+
       return neestate
 
     default:

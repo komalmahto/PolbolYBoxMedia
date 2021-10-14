@@ -8,6 +8,10 @@ import { logout } from "../../redux/Actions/AuthActions";
 import { updateLanguage } from "../../redux/Actions";
 import hind from "./ind.png";
 import eng from "./United-kingdom_flag_icon_round.svg.png";
+import { Menu, Dropdown } from "antd";
+import { DownOutlined } from "@ant-design/icons";
+
+
 
 const Navbar = ({
   auth: { token, user },
@@ -21,7 +25,26 @@ const Navbar = ({
   const clickHandler = () => {
     setShow(!show);
   };
-
+  const menu = (
+    <Menu>
+      <Menu.Item key="0">
+        <Link className={styles.dropItem} to={`/user/${user._id}`} >
+          <i className="fas fa-user-circle"></i> Profile
+        </Link>
+      </Menu.Item>
+      <Menu.Item key="1">
+        <Link className={styles.dropItem} to={`/user/${user._id}/wallet`}  >
+          <i className="fas fa-wallet"></i> Wallet
+        </Link>
+      </Menu.Item>
+      <Menu.Item key="1">
+        <span onClick={logout} className={`${styles.auth} ${styles.dropItem}`}  >
+        <i className="fas fa-sign-out-alt"></i>
+          Logout 
+        </span>
+      </Menu.Item>
+    </Menu>
+  );
   const handleLanguage = () => {
     if (lang.language === "English") {
       updateLanguage("Hindi");
@@ -76,7 +99,24 @@ const Navbar = ({
                 </span>
               )}
             </span>
-            {token&& <Link to="/" className={styles.ico}><i className="fas fa-user-circle"></i></Link>}
+
+            {token && (
+              <Dropdown overlay={menu} trigger={["click"]}>
+                <a
+                  className={styles.antdDrop}
+                  onClick={(e) => e.preventDefault()}
+                >
+                  <i className="fas fa-user-circle"></i>&nbsp; <DownOutlined />
+                </a>
+              </Dropdown>
+            )}
+            {!token && (
+              <span onClick={clickHandler} className={styles.auth}>
+                {" "}
+                Login
+              </span>
+            )}
+            {/* {token&& <Link to="/" className={styles.ico}><i className="fas fa-user-circle"></i></Link>}
             {console.log(user._id)}
             {token&& <Link to={`/user/${user._id}/wallet`} className={styles.ico}><i className="fas fa-wallet"></i></Link>}
             {!token ? (
@@ -86,7 +126,7 @@ const Navbar = ({
               </span>
             ) : (
               <span onClick={logout} className={styles.auth}> Logout</span>
-            )}
+            )} */}
           </div>
           <div
             className={styles.hamburger}

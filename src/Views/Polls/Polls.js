@@ -6,6 +6,7 @@ import * as api from "../../api";
 import Multiselect from "multiselect-react-dropdown";
 import styles from "./Polls.module.css";
 
+
 const Polls = () => {
   // const [polls, setPolls] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -203,18 +204,21 @@ const Polls = () => {
 
       {active ? (
         selectedCategories.length === 0 ? (
+          <>
           <div className={styles.polls}>
             <OverallPolls
               page={page.activeNonfiltered}
               mode="active"
               polls={activePolls}
             />
-            {activePolls.length > page.activeNonfiltered * 3 && (
+            
+          </div>
+          <div>{activePolls.length > page.activeNonfiltered * 3 && (
               <center className={styles.loadmore}>
                 <span onClick={() => loadMorePage("ANF")}>Load more</span>
               </center>
-            )}
-          </div>
+            )}</div>
+          </>
         ) : (
           <div>
             <FilteredPolls
@@ -230,18 +234,21 @@ const Polls = () => {
           </div>
         )
       ) : selectedCategories.length === 0 ? (
+        <>
         <div className={styles.polls}>
           <OverallPolls
             page={page.expiredNonfiltered}
             mode="expired"
             polls={expiredPolls}
           />
-          {expiredPolls.length > page.expiredNonfiltered * 3 && (
+         
+        </div>
+        <div> {expiredPolls.length > page.expiredNonfiltered * 3 && (
             <center className={styles.loadmore}>
               <span onClick={() => loadMorePage("ENF")}>Load more</span>
             </center>
-          )}
-        </div>
+          )}</div>
+        </>
       ) : (
         <div>
           <FilteredPolls
@@ -249,7 +256,7 @@ const Polls = () => {
             mode="expired"
             polls={expiredPolls}
           />
-          {expiredPolls.length > page.expiredFiltered * 3 && (
+          {expiredPolls.length > page.expiredFiltered * 9 && (
             <center className={styles.loadmore}>
               <span onClick={() => loadMorePage("EF")}>Load more</span>
             </center>

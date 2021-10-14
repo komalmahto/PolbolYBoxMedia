@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { pollCategories as newsCategories } from "../../data";
 import OverallNews from "./OverallNews";
+import FilteredNews from "./FilteredNews";
 import * as api from "../../api";
 import Multiselect from "multiselect-react-dropdown";
 import styles from "./News.module.css";
@@ -127,8 +128,8 @@ const loadMorePage = () => {
           <OverallNews page={page} news={news} />
         </div>
       ) : (
-        <div className={styles.polls}>
-          <OverallNews page={page} news={news} />
+        <div className={styles.fill}>
+          <FilteredNews page={page} news={news} />
         </div>
       )}
     {news.length>page*12 &&  <center><span className={styles.loadMore} onClick={loadMorePage}>load more</span></center>}

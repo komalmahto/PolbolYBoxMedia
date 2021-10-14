@@ -4,7 +4,9 @@ import * as api from "../../../api";
 import { formatDate } from "../../../helpers";
 import styles from "./Main.module.css";
 import { useHistory } from "react-router-dom";
-
+import { getSlug } from "../../../helpers";
+import google from '../../../assets/play_store.png'
+import apple from "../../../assets/apple.svg"
 const OVERLAY = "linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.9))";
 
 const Main = () => {
@@ -13,7 +15,7 @@ const Main = () => {
   const [latestNews, setLatestNews] = useState([]);
   const [highlightedPolls, setHighlightedPolls] = useState([]);
   const [activeAwards, setActiveAwards] = useState([]);
-  const [petitions,setPetitions]=useState([])
+  const [petitions, setPetitions] = useState([]);
 
   useEffect(() => {
     getLatestNews();
@@ -49,16 +51,15 @@ const Main = () => {
     }
   };
 
-  const getPetitions=async()=>{
+  const getPetitions = async () => {
     try {
-      const {data}=await api.getCommonPetitions();
-      console.log(data)
-      setPetitions(data.payload.payload.slice(0,5))
-      
+      const { data } = await api.getCommonPetitions();
+      console.log(data);
+      setPetitions(data.payload.payload.slice(0, 4));
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   return (
     <div className="container">
@@ -92,7 +93,7 @@ const Main = () => {
           <div className={styles.feature}>
             <h2>Petitions</h2>
             <div className={styles.petition_box}>
-              {petitions.map((pet)=>(
+              {petitions.map((pet) => (
                 <div
                   key={pet._id}
                   className={styles.item}
@@ -103,9 +104,7 @@ const Main = () => {
                   <div className={styles.item_container}>
                     <p>{pet.title.substring(0, 30)}...</p>
                     <Link
-                      to={`/pet/${pet.title.split(" ").join("-")}/${
-                       pet._id
-                      }`}
+                      to={`/pet/${pet.title.split(" ").join("-")}/${pet._id}`}
                     >
                       Read More
                     </Link>
@@ -133,14 +132,36 @@ const Main = () => {
           <h2>Latest News</h2>
           <div className={styles.news_list}>
             {latestNews.map((news) => (
-              <div key={news._id} className={styles.news}>
-                <img src={news.news.images[0]} alt={news.title} />
-                <p className={styles.title}>{news.title}</p>
-                <button>Read More</button>
+              // <div key={news._id} className={styles.news}>
+              //   <img src={news.news.images[0]} alt={news.title} />
+              //   <p className={styles.title}>{news.title}</p>
+              //   <button>Read More</button>
+              // </div>
+
+              <Link
+              to={`/news/ss/${news.targetId}`}            >
+            
+              <div
+              key={news._id}
+              className={styles.item}
+              style={{
+                backgroundImage: `${OVERLAY}, url("${news.news.images[0]}")`,
+              }}
+            >
+              <div className={styles.item_container}>
+                <p>{news.title.substring(0, 30)}...</p>
+               
               </div>
+            </div>
+            </Link>
             ))}
           </div>
-          <button onClick={()=>history.push("/news")} className={styles.view_all}>View All</button>
+          <button
+            onClick={() => history.push("/news")}
+            className={styles.view_all}
+          >
+            View All
+          </button>
         </div>
       </div>
       <div className={styles.downloads}>
@@ -150,11 +171,10 @@ const Main = () => {
             <p>Now available on Play Store and App Store</p>
           </div>
           <img
-            src="https://s3-alpha-sig.figma.com/img/42c8/9d9b/3363322d6d1fa4ed871d80b63dca1b99?Expires=1632700800&Signature=TANeS2lZodoXZallAy9jTUXn8F5z~6M3uKycKaIubx57e7XvyCjX--QQYRvfu8we2vhgpWMetonDwYHc5ahRji~uGBIOwfd1B~zn-y0FvtQAW2rdqHNRHL1L3NAIlw6s7VWO9X2UXCgdGtiBHb4o8vwtsIN-AzPTqd4COJ2WHgsufRVT99MPfwyi-Q8-fUI-wt7jPH5MFWE3tQxOlCJslnUjgnZRftoWgzyeU6jraERuL3dCE1TaZQZFtnEAzW3BHYWmVJ~bUUFFqc8msPS5uyo0SZ2xaqL8gmuTQLFYL3MieygNQextVqyVVnPyplr7JHkFdi-bQn3qO9AB3pc7fw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA"
-            alt="google-play-store"
+            src={google}
           />
           <img
-            src="https://s3-alpha-sig.figma.com/img/dc11/b7a6/3815091980d2f05dbd63dc90389ddfaf?Expires=1632700800&Signature=aYAuY5wivmuc1EsBscfsEu2GkCvOCoALalJ3DI7gH8owVm696-XjVtsYS0unAzvisYUloerF6BOLMjiwL~0u5YVE9XjiYfzNWugKOm2iJKSTFkhaYex8SIyLey30DtPLZ8BJZ9wAt66-bOCrKxAnQr9fXlYykZeLFWT4YvN5v5CLUCN-hbEfKjEJK1IJkBjQoC-xKDApix3iMeAxiTBQUeqeorWtXq3erkcVyCc1sVBT5kSieI92PIX-v8r1uOtBin1TpnE9JOn8p752YRDn0BAg7iArCPvPDgqo~PlfPpYZZ5yUQQZa2K9FbdmLFPM0sEgi9vqLJiyCioaUG9FiCw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA"
+            src={apple}
             alt="app-store"
           />
         </div>

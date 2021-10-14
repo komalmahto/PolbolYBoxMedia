@@ -53,10 +53,9 @@ function NewPol({ data, pollId }) {
           
           </div>
         </div>
-        <div onClick={clickHandler} >
-          <img className={styles.chart_image} src={pic} />
-          <br />
-          <p className={styles.category}>Poll Results</p>
+        <div className={styles.resBtn} onClick={clickHandler} >
+          <img className={styles.chart_image} src="https://api.iconify.design/flat-color-icons/pie-chart.svg" />
+          <p >Poll Results</p>
         </div>
       </div>
       <div className={styles.comments}>

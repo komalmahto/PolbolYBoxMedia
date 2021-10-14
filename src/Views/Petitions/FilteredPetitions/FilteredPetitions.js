@@ -5,14 +5,14 @@ import { getSlug } from "../../../helpers/index";
 import { expiresIn, formatDate } from "../../../helpers";
 import PropTypes from "prop-types";
 
-const FilteredPetitions = ({ mode, petitions }) => {
+const FilteredPetitions = ({ mode, petitions,page }) => {
   const history = useHistory();
 
   return (
     <div className={styles.list}>
       <div className={styles.container}>
         {petitions.length > 0 ? (
-          petitions.map((petition) => (
+          petitions.slice(0,page*6).map((petition) => (
             <div key={petition._id} className={styles.petition}>
               <p className={styles.category}>Petition on {petition.categories[0]}</p>
               <div className={styles.main}>

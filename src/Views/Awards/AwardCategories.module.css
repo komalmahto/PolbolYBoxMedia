@@ -80,6 +80,7 @@
   margin: 1rem 0;
   padding: 0.5rem;
   cursor: pointer;
+  border-radius: 10px;
 }
 .commentcontainer{
   box-sizing: border-box;

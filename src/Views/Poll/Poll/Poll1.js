@@ -12,12 +12,12 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { connect } from "react-redux";
 import ModalLog from "../../../Components/Modal/Modal";
-import { fetchToken,updateUser } from "../../../redux/Actions/AuthActions";
+import { fetchToken, updateUser } from "../../../redux/Actions/AuthActions";
 import { Modal, Button } from "antd";
 import axios from "../../../axios";
 import DatePicker from "react-date-picker";
 
-function Poll1({ match, auth,updateUser }) {
+function Poll1({ match, auth, updateUser }) {
   const history = useHistory();
 
   const [value, setValue] = useState(1);
@@ -39,8 +39,7 @@ function Poll1({ match, auth,updateUser }) {
     });
   };
   useEffect(() => {
-      fetchRegions();
-  
+    fetchRegions();
   }, []);
 
   const handleFetch = () => {
@@ -76,9 +75,8 @@ function Poll1({ match, auth,updateUser }) {
       if (auth.token && !auth.user.gender) {
         console.log("update profile");
         setShowProf(true);
-      }
-      else{
-        console.log(value)
+      } else {
+        console.log(value);
       }
     }
   };
@@ -96,15 +94,15 @@ function Poll1({ match, auth,updateUser }) {
           Authorization: {
             toString() {
               return `Bearer ` + JSON.parse(auth.token);
-            }
-          }
-        }
+            },
+          },
+        },
       })
       .then((res) => {
         toast.success("Profile updated!");
-        updateUser(res.data.payload)
+        updateUser(res.data.payload);
         // setIsModalVisible(false)
-        setShowProf(false)
+        setShowProf(false);
       });
   };
   return (
@@ -117,42 +115,43 @@ function Poll1({ match, auth,updateUser }) {
             visible={showProf}
             footer={null}
           >
-  <div>
-            <center>
-              {" "}
-              <h3>Update Profile</h3>
-            </center>
+            <div>
+              <center>
+                {" "}
+                <h3>Update Profile</h3>
+              </center>
 
-            <form className="profileForm" onSubmit={handleProfileUpdate}>
-              <label className="gender" htmlFor="gender">
-                <span>
-                Gender
-                </span>
-                <select
-                  value={profileData.gender}
-                  onChange={(e) =>
-                    setProfileData((prev) => ({
-                      ...prev,
-                      gender: e.target.value,
-                    }))
-                  }
-                >
-                  <option value="">Select Gender</option>
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
-                </select>
-              </label>
-              <br />
-              <label className="gender" htmlFor="">
-                Date of Birth
-                <DatePicker
-                  onChange={(value) =>
-                    setProfileData((prev) => ({ ...prev, dateOfBirth: value }))
-                  }
-                  value={profileData.dateOfBirth}
-                />
-              </label>
-              {/* <label htmlFor="religion">
+              <form className="profileForm" onSubmit={handleProfileUpdate}>
+                <label className="gender" htmlFor="gender">
+                  <span>Gender</span>
+                  <select
+                    value={profileData.gender}
+                    onChange={(e) =>
+                      setProfileData((prev) => ({
+                        ...prev,
+                        gender: e.target.value,
+                      }))
+                    }
+                  >
+                    <option value="">Select Gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                  </select>
+                </label>
+                <br />
+                <label className="gender" htmlFor="">
+                  Date of Birth
+                  <DatePicker
+                    onChange={(value) =>
+                      setProfileData((prev) => ({
+                        ...prev,
+                        dateOfBirth: value,
+                      }))
+                    }
+                    value={profileData.dateOfBirth}
+                  />
+                </label>
+                {/* <label htmlFor="religion">
                 Religion (optional)
               <select
                   value={profileData.religion}
@@ -170,53 +169,63 @@ function Poll1({ match, auth,updateUser }) {
                     ))}
                 </select>
               </label> */}
-              <br />
-              <label className="gender" htmlFor="state">
-                State
-                <select
-                  value={profileData.state}
-                  onChange={(e) =>
-                    setProfileData((prev) => ({ ...prev, state: e.target.value }))
-                  }
-                >
-                  <option value="">Select State</option>
-                  {regionData &&
-                    regionData.length > 0 &&
-                    regionData.map((rel) => (
-                      <option value={rel.name}>{rel.name.toUpperCase()}</option>
-                    ))}
-                </select>
-              </label>
-              <br />
-              {profileData.state && (
-                <label className="gender" htmlFor="city">
-                  City
+                <br />
+                <label className="gender" htmlFor="state">
+                  State
                   <select
-                    value={profileData.city}
+                    value={profileData.state}
                     onChange={(e) =>
                       setProfileData((prev) => ({
                         ...prev,
-                        city: e.target.value,
+                        state: e.target.value,
                       }))
                     }
                   >
-                    <option value="">Select City</option>
+                    <option value="">Select State</option>
                     {regionData &&
                       regionData.length > 0 &&
-                      regionData
-                        .filter((p) => p.name === profileData.state)[0]
-                        .subRegions.map((rel) => (
-                          <option value={rel}>{rel}</option>
-                        ))}
+                      regionData.map((rel) => (
+                        <option value={rel.name}>
+                          {rel.name.toUpperCase()}
+                        </option>
+                      ))}
                   </select>
                 </label>
-              )}
+                <br />
+                {profileData.state && (
+                  <label className="gender" htmlFor="city">
+                    City
+                    <select
+                      value={profileData.city}
+                      onChange={(e) =>
+                        setProfileData((prev) => ({
+                          ...prev,
+                          city: e.target.value,
+                        }))
+                      }
+                    >
+                      <option value="">Select City</option>
+                      {regionData &&
+                        regionData.length > 0 &&
+                        regionData
+                          .filter((p) => p.name === profileData.state)[0]
+                          .subRegions.map((rel) => (
+                            <option value={rel}>{rel}</option>
+                          ))}
+                    </select>
+                  </label>
+                )}
 
-              <center>
-                <input className="update-btn" type="submit" value="Update Profile" />
-              </center>
-            </form>
-          </div>          </Modal>
+                <center>
+                  <input
+                    className="update-btn"
+                    type="submit"
+                    value="Update Profile"
+                  />
+                </center>
+              </form>
+            </div>{" "}
+          </Modal>
           <ModalLog
             fetchToken={(token, user) => fetchToken(token, user)}
             show={show}
@@ -225,8 +234,10 @@ function Poll1({ match, auth,updateUser }) {
           <img className={styles.center} src={pollData.payload.image}></img>
           <h3 className={styles.list}>{pollData.payload.question}</h3>
 
+
           {pollData.payload.type === "pie" ? (
-            pollData.payload.options.map((val, key) => {
+            <div className={styles.opcont}>
+            {pollData.payload.options.map((val, key) => {
               return (
                 <div className={styles.container}>
                   <div className={styles.list1}>
@@ -247,7 +258,8 @@ function Poll1({ match, auth,updateUser }) {
                   </div>
                 </div>
               );
-            })
+            })}
+            </div>
           ) : (
             <>
               {/* <Typography component="legend">Rating</Typography>
@@ -305,4 +317,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps,{ updateUser })(Poll1);
+export default connect(mapStateToProps, { updateUser })(Poll1);

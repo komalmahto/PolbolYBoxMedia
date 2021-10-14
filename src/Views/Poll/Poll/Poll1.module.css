@@ -5,6 +5,8 @@
     width: 30%;
     height: 30%;
     margin-bottom: 2rem;
+    border: 2px solid grey;
+    border-radius: 30px;
 }
 .container{
     background-color: #FDF9F6;
@@ -15,6 +17,7 @@
     align-items: center;
     justify-content: flex-start;
     padding: 10px;
+   
 }
 .list{
     text-align: center;
@@ -64,5 +67,13 @@
 }
 .slidecontainer{
     width: 80% ;
-    margin: 10px auto;
+    margin: 40px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.opcont{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
 }

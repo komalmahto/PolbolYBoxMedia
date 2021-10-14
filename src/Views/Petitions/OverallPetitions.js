@@ -7,10 +7,10 @@ import { isAuthenticated } from "../../api";
 import ProgressBar from "../../Components/ProgressBar/ProgressBar";
 const OVERLAY = "linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.9))";
 
-const OverallPetitions = ({ petitions }) => {
+const OverallPetitions = ({ petitions,page }) => {
   const history = useHistory();
   
-    return petitions.length>0?petitions.map((petition, index) => (
+    return petitions.length>0?petitions.slice(0,page*6).map((petition, index) => (
     <div
       key={index}
       onClick={() =>

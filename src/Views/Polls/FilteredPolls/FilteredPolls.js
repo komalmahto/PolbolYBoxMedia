@@ -13,7 +13,7 @@ const FilteredPolls = ({ mode, polls ,page}) => {
     <div className={styles.list}>
       <div className={styles.container}>
         {polls.length > 0 ? (
-          polls.slice(0, page * 3).map((poll) => (
+          polls.slice(0, page * 9).map((poll) => (
             <div key={poll._id} className={styles.poll}>
               <p className={styles.category}>Poll on {poll.categories[0]}</p>
               <div className={styles.main}>

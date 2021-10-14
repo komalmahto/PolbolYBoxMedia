@@ -18,8 +18,9 @@
   /* margin-left: 60px; */
   display: grid;
   margin-bottom: 30px;
+  padding: 0 150px;
   justify-content: space-evenly;
-  grid-template-columns: repeat(10, minmax(135px, 145px));
+  grid-template-columns: repeat(10, minmax(130px, 135px));
 
   /* width:900px; */
 }
@@ -56,6 +57,7 @@
   background-position: center;
   display: flex;
   align-items: flex-end;
+
 }
 
 .poll .poll_container {
@@ -151,4 +153,11 @@
   .polls {
     grid-auto-rows: minmax(330px, auto);
   }
+}
+.loadmore{
+  cursor: pointer;
+  padding: .5rem 1rem;
+  border-radius: 10px;
+  color: white;
+  background-color: #84855d;
 }

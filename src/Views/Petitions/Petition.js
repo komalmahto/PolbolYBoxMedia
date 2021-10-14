@@ -81,7 +81,7 @@ function Petition(props) {
           </div>
         ))}
       </div>
-      <div className={styles.box}>See More</div>
+      {/* <div className={styles.box}>See More</div> */}
       <center><button className={styles.btn} onClick={handleClick}>
         Continue
       </button>

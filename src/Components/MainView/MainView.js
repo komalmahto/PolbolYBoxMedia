@@ -25,6 +25,8 @@ import Polls from "../../Views/Polls/Polls";
 
 // User
 import Wallet from "../../Views/User/Wallet";
+import Profile from "../../Views/User/Profile";
+
 
 // Views
 const Home = React.lazy(() => import("../../Views/Home/Home"));
@@ -59,6 +61,7 @@ const MainView = () => {
           <Route exact path="/quiz/levels/:catId"  component={QuizLevels}/>
           <Route exact path="/quiz/level/:catId/:quizId"  component={QuizPlay}/>
           <Route exact path="/user/:userId/wallet" component={Wallet}/>
+          <Route exact path="/user/:userId" component={Profile}/>
         </Switch>
       </Suspense>
     </Layout>

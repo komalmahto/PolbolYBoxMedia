@@ -7,7 +7,10 @@
   margin-bottom: 30px;
   font-size: 0.9rem;
 }
-
+.container{
+  width: 90%;
+  margin: auto;
+}
 .pHeading {
   font-size: 2rem;
   margin-bottom: 5px;
@@ -18,8 +21,9 @@
   /* margin-bottom: 30px; */
   display: grid;
   margin-bottom: 30px;
+  /* padding: 0 150px; */
   justify-content: space-evenly;
-  grid-template-columns: repeat(10, minmax(135px, 145px));
+  grid-template-columns: repeat(auto-fit, minmax(120px, 125px));
 }
 .category {
   display: inline-block;
