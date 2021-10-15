@@ -16,7 +16,7 @@ import { isAuthenticated } from "../../api/index";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const Petitions = () => {
+const Petitions = ({auth:{user,token}}) => {
   // const [polls, setPolls] = useState([]);
   const [categories, setCategories] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
@@ -85,8 +85,8 @@ const Petitions = () => {
   }, []);
 
   useEffect(() => {
-    // getFilteredPetitions();
-  }, [selectedCategories, active]);
+    getFilteredPetitions();
+  }, [selectedCategories]);
 
   const getActivePetitions = async () => {
     try {
@@ -116,24 +116,24 @@ const Petitions = () => {
       );
   };
 
-  // const getFilteredPetitions = async () => {
-  //   try {
-  //     let mode = active ? "active" : "expired";
-  //     let categories = selectedCategories.join(",");
+  const getFilteredPetitions = async () => {
+    try {
+      let mode = active ? "active" : "expired";
+      let categories = selectedCategories.join(",");
 
-  //     // const { data } = await api.getFilteredPetitions(mode, categories);
+      const { data } = await api.getFilteredPetitions(categories);
 
-  //     // if (active) {
-  //       // setActivePetitionsTotal(data.payload.length);
-  //       // setActivePetitions([...data.payload.payload]);
-  //     // } else {
-  //     //   // setExpiredPollsTotal(data.payload.length);
-  //     //   setExpiredPetitions([...data.payload.payload]);
-  //     // }
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+      if (active) {
+        setActivePetitionsTotal(data.payload.length);
+        setActivePetitions([...data.payload.payload]);
+      } else {
+        setExpiredPetitionsTotal(data.payload.length);
+        setExpiredPetitions([...data.payload.payload]);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const onSelect = (selectedList, selectedItem) => {
     setSelectedCategories([...selectedCategories, selectedItem.name]);
@@ -166,8 +166,7 @@ const Petitions = () => {
       {/* <AiFillPlusCircle className={styles.cpetition} onClick={createPetitionhandler}/> */}
       <center>
         <span className={styles.add} onClick={createPetitionhandler}>
-          <i className="fas fa-plus-circle"></i>{" "}
-          <span className={styles.addPet}>Add Petition</span>
+          <span className={styles.addPet}>Start a Petition</span>
         </span>
       </center>
 
@@ -213,43 +212,51 @@ const Petitions = () => {
           /> */}
         </div>
       </div>
-      <div
-        className={`${
-          active
-            ? `${styles.types} ${styles.active}`
-            : `${styles.types} ${styles.expired}`
-        }`}
-      >
-        <div onClick={() => setActive(true)}>
-          ACTIVE <span>{activePetitionsTotal}</span>
-        </div>
-        <div onClick={() => setActive(false)}>
-          EXPIRED <span>{expiredPetitionsTotal}</span>
+      <div className={styles.petitions}>
+        <div
+          className={`${
+            active
+              ? `${styles.types} ${styles.active}`
+              : `${styles.types} ${styles.expired}`
+          }`}
+        >
+          <div onClick={() => setActive(true)}>
+            ACTIVE <span>{activePetitionsTotal}</span>
+          </div>
+          <div onClick={() => setActive(false)}>
+            EXPIRED <span>{expiredPetitionsTotal}</span>
+          </div>
+          {/* <div onClick={() => setActive(false)}>
+            My petitions <span>{expiredPetitionsTotal}</span>
+          </div> */}
+          
         </div>
       </div>
       {active ? (
         selectedCategories.length === 0 ? (
           <>
-          <div className={styles.petitions}>
-            <OverallPetitons
-              page={page.activeNonfiltered}
-              petitions={activePetitions}
-            />
-          </div>
-          <div>{activePetitions.length > page.activeNonfiltered * 6 && (
-              <center className={styles.loadmore}>
-                <span onClick={() => loadMorePage("ANF")}>Load more</span>
-              </center>
-            )}</div>
+            <div className={styles.petitions}>
+              <OverallPetitons
+                page={page.activeNonfiltered}
+                petitions={activePetitions}
+              />
+            </div>
+            <div>
+              {activePetitions.length > page.activeNonfiltered * 6 && (
+                <center className={styles.loadmore}>
+                  <span onClick={() => loadMorePage("ANF")}>Load more</span>
+                </center>
+              )}
+            </div>
           </>
         ) : (
-          <div>
-          <FilteredPetitions
-            page={page.activeFiltered}
-            mode="active"
-            petitions={activePetitions}
-          />
-          {activePetitions.length > page.activeFiltered * 6 && (
+          <div className={styles.petitions}>
+            <FilteredPetitions
+              page={page.activeFiltered}
+              mode="active"
+              petitions={activePetitions}
+            />
+            {activePetitions.length > page.activeFiltered * 6 && (
               <center className={styles.loadmore}>
                 <span onClick={() => loadMorePage("AF")}>Load more</span>
               </center>
@@ -258,25 +265,28 @@ const Petitions = () => {
         )
       ) : selectedCategories.length === 0 ? (
         <>
-        <div className={styles.petitions}>
-          <OverallPetitons
-            page={page.expiredNonfiltered}
-            petitions={expiredPetitions}
-          />
-        </div>
-        <div> {expiredPetitions.length > page.expiredNonfiltered * 6 && (
-            <center className={styles.loadmore}>
-              <span onClick={() => loadMorePage("ENF")}>Load more</span>
-            </center>
-          )}</div>
+          <div className={styles.petitions}>
+            <OverallPetitons
+              page={page.expiredNonfiltered}
+              petitions={expiredPetitions}
+            />
+          </div>
+          <div>
+            {" "}
+            {expiredPetitions.length > page.expiredNonfiltered * 6 && (
+              <center className={styles.loadmore}>
+                <span onClick={() => loadMorePage("ENF")}>Load more</span>
+              </center>
+            )}
+          </div>
         </>
       ) : (
-        <div>
-        <FilteredPetitions
-          page={page.expiredFiltered}
-          mode="expired"
-          petitions={expiredPetitions}
-        />
+        <div className={styles.petitions}>
+          <FilteredPetitions
+            page={page.expiredFiltered}
+            mode="expired"
+            petitions={expiredPetitions}
+          />
           {expiredPetitions.length > page.expiredFiltered * 3 && (
             <center className={styles.loadmore}>
               <span onClick={() => loadMorePage("EF")}>Load more</span>
@@ -288,4 +298,9 @@ const Petitions = () => {
   );
 };
 
-export default Petitions;
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+
+export default connect(mapStateToProps)(Petitions);

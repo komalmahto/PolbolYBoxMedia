@@ -38,6 +38,7 @@ function Poll1({ match, auth, updateUser }) {
       setRegionData(res.data.payload);
     });
   };
+  
   useEffect(() => {
     fetchRegions();
   }, []);
@@ -231,9 +232,16 @@ function Poll1({ match, auth, updateUser }) {
             show={show}
             onHide={() => setShow(false)}
           />
+          <div className={styles.rel}>
           <img className={styles.center} src={pollData.payload.image}></img>
-          <h3 className={styles.list}>{pollData.payload.question}</h3>
-
+          <span className={styles.backbtn} onClick={handleClick}>
+          Back to polls
+        </span>
+          <span onClick={notify} className={styles.sharebtn}>
+          <i className="fas fa-share-alt"></i>
+        </span>
+          <h6 className={styles.list}>{pollData.payload.question}</h6>
+          </div>
 
           {pollData.payload.type === "pie" ? (
             <div className={styles.opcont}>
@@ -251,7 +259,8 @@ function Poll1({ match, auth, updateUser }) {
                         <FormControlLabel
                           value={val.name}
                           control={<Radio />}
-                          label={val.name}
+                          label={<span style={{ fontSize: '12px' }}>{val.name}</span>}
+
                         />
                       </RadioGroup>
                     </FormControl>
@@ -292,15 +301,13 @@ function Poll1({ match, auth, updateUser }) {
       )}
 
       <div className={styles.actions}>
-        <span className={styles.backbtn} onClick={handleClick}>
-          Back to polls
-        </span>
+       
         <span className={styles.submitbtn} onClick={handleSubmit}>
           Submit
         </span>
-        <span onClick={notify} className={styles.sharebtn}>
+        {/* <span onClick={notify} className={styles.sharebtn}>
           Share
-        </span>
+        </span> */}
       </div>
     </div>
   );

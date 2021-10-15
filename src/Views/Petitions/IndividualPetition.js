@@ -2,19 +2,24 @@ import React, { useState, useEffect } from "react";
 import styles from "./IndividualPetition.module.css";
 // import ProgressBar from "react-bootstrap/ProgressBar";
 import * as api from "../../api/index";
-import { CgCheckO } from "react-icons/cg";
-import { AiOutlineUser } from "react-icons/ai";
-import { BiCheckSquare } from "react-icons/bi";
-import pic from "./bridge-53769_1280.jpg";
-import { stateToHTML } from "draft-js-export-html";
+// import { CgCheckO } from "react-icons/cg";
+// import { AiOutlineUser } from "react-icons/ai";
+// import { BiCheckSquare } from "react-icons/bi";
+// import pic from "./bridge-53769_1280.jpg";
+// import { stateToHTML } from "draft-js-export-html";
 import { connect } from "react-redux";
-import { convertFromRaw } from "draft-js";
-import DOMPurify from "dompurify";
+// import { convertFromRaw } from "draft-js";
+// import DOMPurify from "dompurify";
 import { useHistory } from "react-router-dom";
 import axios from "../../axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ProgressBar from "../../Components/ProgressBar/ProgressBar";
+// import { convertToRaw } from 'draft-js';
+// import draftToHtml from 'draftjs-to-html';
+import { stateToHTML } from "draft-js-export-html";
+import { convertToRaw, convertFromRaw, EditorState, Editor } from 'draft-js';
+
 function IndividualPetition({ match, auth }) {
   const { petitionId } = match.params;
 
@@ -102,7 +107,7 @@ setTimeout(()=>{
       </div>
       <div className={styles.title}>
         {petitionData
-          ? " Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendu neque"
+          ? petitionData.title
           : ""}
       </div>
       <div className={styles.main}>
@@ -112,7 +117,12 @@ setTimeout(()=>{
             src={petitionData ? petitionData.image : ""}
           ></img>
           <p className={styles.imgtext}>
-            {petitionData ? petitionData.description : ""}
+            
+            {/* {petitionData&&stateToHTML(convertFromRaw(JSON.parse(petitionData.content)))} */}
+            {petitionData&&console.log(stateToHTML(convertFromRaw(JSON.parse(petitionData.content))))}
+            <div dangerouslySetInnerHTML={{ __html: petitionData&&stateToHTML(convertFromRaw(JSON.parse(petitionData.content))) }} />
+
+            {/* {petitionData ? petitionData.description : ""} */}
           </p>
         </div>
         <div className={styles.box}>

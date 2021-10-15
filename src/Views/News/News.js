@@ -21,6 +21,7 @@ const News = () => {
   useEffect(() => {
     getFilteredNews();
   }, [selectedCategories]);
+  
 const loadMorePage = () => {
     let pos = window.scrollY;
     console.log(pos, 'poss');

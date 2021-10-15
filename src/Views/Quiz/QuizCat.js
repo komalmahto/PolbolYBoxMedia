@@ -19,7 +19,7 @@ function QuizCat() {
   }, []);
 
   return (
-    <div>
+    <div className={styles.pad}>
       <div className={styles.header}>
         <p className={styles.pHeading}>Quiz</p>
         <p>
@@ -28,7 +28,7 @@ function QuizCat() {
         </p>
       </div>
       <div className={styles.headCat}>
-        <h3> Choose quiz category</h3>
+        <span> Choose quiz category</span>
         {/* <hr className={styles.hr} /> */}
       </div>
       <div className={styles.cards1}>

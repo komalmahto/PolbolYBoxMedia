@@ -31,8 +31,8 @@ export const getActivePetitions = () =>
   api.get(`/common/petitions`);
 export const getExpiredPetitions = () =>
   api.get(`/common/petitions?mode=expired`);
-export const getFilteredPetitions = (mode, categories) =>
-  api.get(`/common/petitions?mode=${mode}&categories=${categories}`);
+export const getFilteredPetitions = (categories) =>
+  api.get(`common/petitions?categories=${categories}`);
 
   export const getFilteredAwards = (mode, categories) =>
   api.get(`/awards/award/fetchAwardsAndCategories?mode=${mode}&categories=${categories}`);

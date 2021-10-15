@@ -41,7 +41,7 @@ function QuizLevels({ match }) {
                 <div className={styles.subbox1}>
                 <img className={styles.icon} src={quiz.icon} />
                 <div className={styles.subbox}>
-                  <h4>LEVEL {quiz.level}</h4>
+                  <span>LEVEL {quiz.level}</span>
                   <p>{quiz.metadata.maxQuestions} Questions</p>
                 </div>
                 </div>

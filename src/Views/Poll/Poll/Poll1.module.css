@@ -2,8 +2,8 @@
     margin-left: auto;
     margin-right: auto;
     display: block;
-    width: 30%;
-    height: 30%;
+    width: 20%;
+    height: 20%;
     margin-bottom: 2rem;
     border: 2px solid grey;
     border-radius: 30px;
@@ -11,8 +11,8 @@
 .container{
     background-color: #FDF9F6;
     margin-bottom: 30px;
-    width: 80%;
-    margin: 15px auto;
+    width: 60%;
+    margin: 7px auto;
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -22,12 +22,14 @@
 .list{
     text-align: center;
     padding: 10px;
+
    
 }
 .list1{
     margin-left: 20px;
+    font-size: 10px !important;
 }
-.backbtn,.submitbtn,.sharebtn{
+.backbtn,.submitbtn{
    background-color: #84855D;
    color: white;
    padding: 0.5rem 1rem;
@@ -37,6 +39,24 @@
 }
 .backbtn{
     background-color: #5b5c3f;
+}
+
+.sharebtn{
+    position: absolute;
+    top: 20px;
+    right: 180px;
+    color: #84855D;
+    font-size: 1.3rem;
+    cursor: pointer;
+}
+.backbtn{
+    position: absolute;
+    top: 20px;
+    left: 180px;
+}
+
+.rel{
+    position: relative;
 }
 .share{
     position: absolute;
@@ -59,7 +79,7 @@
 .actions{
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     margin: 20px auto;
     width: 80%;
 

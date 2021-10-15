@@ -16,10 +16,12 @@
   }
   .categories {
     margin-bottom: 30px;
+    width: 70%;
+    margin: 30px auto;
     display: grid;
     margin-bottom: 30px;
     justify-content: space-evenly;
-    grid-template-columns: repeat(10, minmax(135px, 145px));
+    grid-template-columns: repeat(10, minmax(125px, 125px));
   }
   .category {
     display: inline-block;
@@ -49,54 +51,87 @@
     grid-auto-rows: minmax(230px, auto);
     gap: 3px;
     margin-bottom: 30px; */
+    padding: 0 200px;
+  }
+
+  .petitionSub{
+    display: flex;
   }
   
   .petition {
     position: relative;
-    background: #535353;
+    /* background: #535353; */
     cursor: pointer;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
     display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    justify-content: space-between;
     /* align-items: flex-end; */
-    height: 300px;
-    border-radius: 15px 15px 15px 15px;
+    height: 210px;
+    /* border-radius: 15px 15px 15px 15px; */
     margin: 30px 0;
+    padding: 10px;
+    border: 2px solid grey;
   }
+.petitionBtm{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
   .petitionImg{
-    height: 100%;
-    width: 300px;
-    border-radius: 15px 0 0 15px;
+    height: 150px;
+    width: 250px;
+    /* border-radius: 15px 0 0 15px; */
 
   }
   .petition .petition_container {
-    padding: 2rem;
+    /* padding: 2rem; */
+    padding: 0 1rem;
     width: 100%;
-    background-color: #fdf9f6;
+    /* background-color: #fdf9f6; */
     border-radius: 0 15px 15px 0;
     
     
   }
+  .container{
+    
+  }
   .petition .petition_container_title {
- font-size: 30px;
- font-weight: 400;
+ font-size: 16px;
+ font-weight: bold;
  font-family: Roboto;
  color: #48483d;
     
     
   }
 
+  .user{
+text-transform: capitalize;
+color: #84855d;
+font-weight: bold;
+font-size: 14px;
+  }
+
+  .supp i{
+    color: #84855d;
+
+  }
+  .num{
+    font-weight: bold;
+  }
+
   .petition .petition_container_description {
-    font-size: 22px;
-    font-weight: 400;
+    font-size: 14px;
     font-family: Roboto;
     color: #48483d;
        
        
      }
   .expected{
-    font-size: 22px;
+    font-size: 14px;
     font-family: Roboto;
     margin: 15px 0;
   }
@@ -122,7 +157,11 @@
     cursor: pointer;
   }
  .addPet{
-   font-size: 2rem;
+   font-size: 1rem;
+   color: white;
+   background-color: #84855d;
+   padding: 0.5rem 1rem;
+   border-radius: 20px;
    margin-left: 1rem;
    cursor: pointer;
  }
