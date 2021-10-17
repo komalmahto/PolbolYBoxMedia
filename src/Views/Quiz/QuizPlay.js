@@ -662,7 +662,7 @@ const QuizPlay = ({ match, history, auth }) => {
   };
 
   return (
-    <div className={styles.box}>
+    <div className={styles.box1}>
       <DownloadModal
         isModalVisible={isDownloadModalVisible}
         setIsModalVisible={setIsDownloadModalVisible}

@@ -6,7 +6,7 @@
     padding: 50px 20px;
     margin-bottom: 30px;
     font-size: 0.9rem;
-    margin: 30px;
+    margin: 30px 0;
   }
   
   .pHeading {
@@ -16,7 +16,7 @@
     text-transform: uppercase;
   }
   .center{
-      padding:5rem 15rem;
+      /* padding:5rem 15rem; */
   }
   .container{
     margin-bottom: 300px;
@@ -58,12 +58,16 @@ color: #84855D;
 .sub{
     padding: 0.5rem 1rem;
 }
+.container1{
+    width: 70%;
+    margin: 0 auto;
+}
 .desc{
     font-family: Roboto;
 font-style: normal;
 font-weight: normal;
 /* font-size: 22px; */
-font-size: 1rem;
+font-size: 14px;
 }
 .link {
     font-family: Roboto;

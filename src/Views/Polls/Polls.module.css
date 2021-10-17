@@ -20,7 +20,7 @@
   margin-bottom: 30px;
   padding: 0 150px;
   justify-content: space-evenly;
-  grid-template-columns: repeat(10, minmax(130px, 135px));
+  grid-template-columns: repeat(10, minmax(102px, 110px));
 
   /* width:900px; */
 }
@@ -32,7 +32,7 @@
   margin: 0 5px 5px 5px;
   border-radius: 50px;
   color: #fff;
-  font-size: 0.7rem;
+  font-size: 0.5rem;
   cursor: pointer;
   user-select: none;
 }
@@ -59,7 +59,10 @@
   align-items: flex-end;
 
 }
-
+.container{
+  width: 70%;
+  margin: 10px auto;
+}
 .poll .poll_container {
   width: 85%;
   margin: 0 auto 15px auto;

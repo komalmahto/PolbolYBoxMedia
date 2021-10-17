@@ -16,10 +16,12 @@
   }
   .categories {
     /* margin-bottom: 30px; */
+    width: 70%;
     display: grid;
     margin-bottom: 30px;
     justify-content: space-evenly;
-    grid-template-columns: repeat(10, minmax(135px, 145px));
+    margin:0 auto;
+    grid-template-columns: repeat(10, minmax(102px, 110px));
   }
   .category {
     display: inline-block;
@@ -28,7 +30,7 @@
     margin: 0 5px 5px 5px;
     border-radius: 50px;
     color: #fff;
-    font-size: 0.7rem;
+    font-size: 0.5rem;
     cursor: pointer;
     text-align: center;
     user-select: none;
@@ -62,6 +64,11 @@
     color: #fff;
     text-align: center;
     font-size: 0.8rem;
+  }
+
+  .container{
+    width: 70%;
+    margin: 10px auto;
   }
   .read_more {
     position: absolute;
@@ -151,8 +158,15 @@
     border-radius: 10px;
     color: white;
     background-color: #84855d;
+    display: inline-block;
+    width: 100%;
   }
   .fill{
     display: flex;
     flex-direction: column;
+  }
+
+  .load{
+    margin: 20px 0;
+width: 100%;
   }

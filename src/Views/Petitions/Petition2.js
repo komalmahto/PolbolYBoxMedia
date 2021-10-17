@@ -27,6 +27,11 @@ function Petition2(props) {
   const contentState = convertFromRaw(showdata);
   html=stateToHTML(contentState);
   }
+
+  // useEffect(()=>{
+  //   setUrl(props.reflinkstate?props.reflinkstate:"")
+
+  // },[])
   
   const handleClick = () => {
     props.updatestateProblem(convertedContent);
@@ -49,6 +54,14 @@ function Petition2(props) {
   useEffect(() => {
     setUrl(props.reflinkstate);
     setShowdata(props.problemstate)
+
+    if(props.problemstate){
+    const contentState = convertFromRaw(props.problemstate);
+
+    setEditorState(    EditorState.createWithContent(contentState)
+    
+    )
+    }
    
     const unlisten = history.listen(() => {
       window.scrollTo(0, 0);

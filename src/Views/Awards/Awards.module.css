@@ -8,7 +8,7 @@
   font-size: 0.9rem;
 }
 .container{
-  width: 90%;
+  width: 70%;
   margin: auto;
 }
 .pHeading {
@@ -23,7 +23,7 @@
   margin-bottom: 30px;
   /* padding: 0 150px; */
   justify-content: space-evenly;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 125px));
+  grid-template-columns: repeat(10, minmax(102px, 110px));
 }
 .category {
   display: inline-block;
@@ -32,7 +32,7 @@
   margin: 0 5px 5px 5px;
   border-radius: 50px;
   color: #fff;
-  font-size: 0.7rem;
+  font-size: 0.5rem;
   cursor: pointer;
   text-align: center;
   user-select: none;
@@ -47,7 +47,7 @@
   grid-auto-rows: minmax(230px, auto);
   gap: 3px;
   margin-bottom: 30px;
-  margin-left:100px
+  /* margin-left:100px */
 }
 
 .poll {
@@ -90,7 +90,7 @@
   font-weight: bold;
   padding-bottom: 0.5rem;
   margin-bottom: 1.2rem;
-  margin-left:40px;
+  /* margin-left:40px; */
 }
 .types div {
   padding: 0 20px;

@@ -6,6 +6,8 @@ import { stateToHTML } from "draft-js-export-html";
 import { convertFromRaw } from "draft-js";
 import { connect } from "react-redux";
 import DOMPurify from "dompurify";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import {
   updatestatePhoto,
   updatestateProblem,
@@ -39,10 +41,11 @@ function PetitionPreview(props) {
       props.expectedSignatures === 0 ||
       props.lifespan === ""
     ) {
-      setError("Please fill the required fields");
-      setTimeout(() => {
-        setError(null);
-      }, 3000);
+      toast(`please fill the required fields`);
+      // setError("Please fill the required fields");
+      // setTimeout(() => {
+      //   setError(null);
+      // }, 3000);
     } else {
       setError(null);
       createPost();
@@ -82,19 +85,20 @@ function PetitionPreview(props) {
     }
   };
 
-  useEffect(() => {
-    if (props.problemstate != null && props.problemstate !== "undefined") {
-      const contentState = convertFromRaw(props.problemstate);
-      console.log(props.problemstate);
-      const html = stateToHTML(contentState);
-      const mySafeHTML = DOMPurify.sanitize(html);
-      setData(mySafeHTML);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (props.problemstate != null && props.problemstate !== "undefined") {
+  //     const contentState = convertFromRaw(props.problemstate);
+  //     console.log(props.problemstate);
+  //     const html = stateToHTML(contentState);
+  //     const mySafeHTML = DOMPurify.sanitize(html);
+  //     setData(mySafeHTML);
+  //   }
+  // }, []);
   console.log(data);
 
   return (
-    <div className="area">
+    <div className={styles.area}>
+      <ToastContainer />
       <div className={styles.header}>
         <p className={styles.pHeading}>PETITION</p>
         <p>
@@ -104,20 +108,24 @@ function PetitionPreview(props) {
       </div>
       {error ? error : ""}
       <div className={styles.title}>{props.titlestate}</div>
-      <div className={styles.main}>
+      <div className={styles.fle}>
         <img className={styles.pic} src={props.photostate}></img>
         <p className={styles.imgtext}>{props.descstate}</p>
+        <div className={styles.end}>
+          <span>Expected Signatures: {props.expecteddignstate}</span>{" "}
+          <span>Life span: {props.lifespanstate}</span>
+        </div>
         <div className={styles.text}>
           <div dangerouslySetInnerHTML={{ __html: data }} />
         </div>
       </div>
-      <div>
+      <div className={styles.actions}>
         <button className={styles.backbtn} onClick={handlePrevClick}>
           Previous
         </button>
-        <button className={styles.save} onClick={clickHandler}>
+        <button className={styles.backbtn} onClick={clickHandler}>
           {" "}
-          OK{" "}
+          Save and post{" "}
         </button>
       </div>
     </div>
@@ -131,7 +139,7 @@ const mapStateToProps = (state) => {
     reflinkstate: state.pet.reflink,
     titlestate: state.pet.title,
     categorystate: state.pet.category,
-    descstate: state.pet.description,
+    descstate: state.pet.desc,
     expecteddignstate: state.pet.expectedSignatures,
     lifespanstate: state.pet.lifespan,
   };

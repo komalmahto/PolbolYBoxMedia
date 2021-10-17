@@ -15,8 +15,9 @@ import "noty/lib/themes/mint.css";
 import { isAuthenticated } from "../../api/index";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import axios from '../../axios'
 
-const Petitions = ({auth:{user,token}}) => {
+const Petitions = ({ auth: { user, token } }) => {
   // const [polls, setPolls] = useState([]);
   const [categories, setCategories] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
@@ -25,6 +26,8 @@ const Petitions = ({auth:{user,token}}) => {
   const [expiredPetitions, setExpiredPetitions] = useState([]);
   const [activePetitionsTotal, setActivePetitionsTotal] = useState(0);
   const [expiredPetitionsTotal, setExpiredPetitionsTotal] = useState(0);
+  const [myPet, setMyPet] = useState(false);
+  const [userPet,setUserPet]=useState()
 
   const history = useHistory(null);
   const [page, setPage] = useState({
@@ -83,6 +86,30 @@ const Petitions = ({auth:{user,token}}) => {
     getActivePetitions();
     // getExpiredPetitions();
   }, []);
+
+  useEffect(()=>{
+    if(token){
+      getMyPetitons()
+    }
+
+  },[token])
+
+  const getMyPetitons=async()=>{
+    let data;
+    try {
+      const data=await axios.get(`petitions/myPetition`,{
+        headers: {
+          Authorization: `bearer ${JSON.parse(token)}`,
+        }})
+        console.log(data)
+        setUserPet(data.data.payload)
+    } catch (error) {
+      
+    }
+    
+
+
+  }
 
   useEffect(() => {
     getFilteredPetitions();
@@ -153,7 +180,7 @@ const Petitions = ({auth:{user,token}}) => {
     }
   };
   return (
-    <div className="container">
+    <div className={styles.container}>
       <ToastContainer />
 
       <div className={styles.header}>
@@ -185,21 +212,17 @@ const Petitions = ({auth:{user,token}}) => {
           <span
             key={index}
             className={
-              selectedCategories.includes(category)
+              selectedCategories.includes(category.name)
                 ? `${styles.category} ${styles.selected}`
                 : styles.category
             }
-            onClick={(_) => handleCategoryClick(category)}
+            onClick={(_) => handleCategoryClick(category.name)}
           >
-            {category}
+            {category.name}
           </span>
         ))}
         <div
-          style={{
-            width: "250px",
-            fontSize: "0.8rem",
-            margin: "15px 0",
-          }}
+          
         >
           {/* <Multiselect
             style={{ height: "100%" }}
@@ -215,24 +238,40 @@ const Petitions = ({auth:{user,token}}) => {
       <div className={styles.petitions}>
         <div
           className={`${
-            active
+            !myPet && active
               ? `${styles.types} ${styles.active}`
-              : `${styles.types} ${styles.expired}`
+              : !myPet
+              ? `${styles.types} ${styles.expired}`
+              : `${styles.types} ${styles.myPet}`
           }`}
         >
-          <div onClick={() => setActive(true)}>
+          <div
+            onClick={() => {
+              setActive(true);
+              setMyPet(false);
+            }}
+          >
             ACTIVE <span>{activePetitionsTotal}</span>
           </div>
-          <div onClick={() => setActive(false)}>
+          <div
+            onClick={() => {
+              setActive(false);
+              setMyPet(false);
+            }}
+          >
             EXPIRED <span>{expiredPetitionsTotal}</span>
           </div>
           {/* <div onClick={() => setActive(false)}>
             My petitions <span>{expiredPetitionsTotal}</span>
           </div> */}
-          
+          {token && (
+            <div onClick={() => setMyPet(true)}>
+              My Petitions <span>{expiredPetitionsTotal}</span>
+            </div>
+          )}
         </div>
       </div>
-      {active ? (
+      {!myPet&&active ? (
         selectedCategories.length === 0 ? (
           <>
             <div className={styles.petitions}>
@@ -263,7 +302,7 @@ const Petitions = ({auth:{user,token}}) => {
             )}{" "}
           </div>
         )
-      ) : selectedCategories.length === 0 ? (
+      ) :!myPet? selectedCategories.length === 0 ? (
         <>
           <div className={styles.petitions}>
             <OverallPetitons
@@ -293,6 +332,36 @@ const Petitions = ({auth:{user,token}}) => {
             </center>
           )}
         </div>
+      ):selectedCategories.length === 0 ? (
+        <>
+          <div className={styles.petitions}>
+            <OverallPetitons
+              page={page.expiredNonfiltered}
+              petitions={userPet}
+            />
+          </div>
+          <div>
+            {" "}
+            {expiredPetitions.length > page.expiredNonfiltered * 6 && (
+              <center className={styles.loadmore}>
+                <span onClick={() => loadMorePage("ENF")}>Load more</span>
+              </center>
+            )}
+          </div>
+        </>
+      ) : (
+        <div className={styles.petitions}>
+          <FilteredPetitions
+            page={page.expiredFiltered}
+            mode="expired"
+            petitions={userPet}
+          />
+          {expiredPetitions.length > page.expiredFiltered * 3 && (
+            <center className={styles.loadmore}>
+              <span onClick={() => loadMorePage("EF")}>Load more</span>
+            </center>
+          )}
+        </div>
       )}
     </div>
   );
@@ -301,6 +370,5 @@ const Petitions = ({auth:{user,token}}) => {
 const mapStateToProps = (state) => ({
   auth: state.auth,
 });
-
 
 export default connect(mapStateToProps)(Petitions);

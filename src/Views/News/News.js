@@ -73,7 +73,7 @@ const loadMorePage = () => {
   };
 
   return (
-    <div className="container">
+    <div className={styles.container}>
       <div className={styles.header}>
         <p className={styles.pHeading}>News</p>
         <p>
@@ -133,7 +133,7 @@ const loadMorePage = () => {
           <FilteredNews page={page} news={news} />
         </div>
       )}
-    {news.length>page*12 &&  <center><span className={styles.loadMore} onClick={loadMorePage}>load more</span></center>}
+    {news.length>page*12 &&  <center className={styles.load}><span className={styles.loadMore} onClick={loadMorePage}>Load more</span></center>}
     </div>
   );
 };

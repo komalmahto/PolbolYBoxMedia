@@ -107,7 +107,7 @@ function Poll1({ match, auth, updateUser }) {
       });
   };
   return (
-    <div>
+    <div className={styles.cont}>
       {pollData ? (
         <>
           <ToastContainer />

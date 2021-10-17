@@ -97,6 +97,7 @@ setTimeout(()=>{
 
   return (
     <>
+    <div className={styles.container}>
     <ToastContainer/>
       <div className={styles.header}>
         <p className={styles.pHeading}>PETITION</p>
@@ -134,14 +135,14 @@ setTimeout(()=>{
             now={petitionData ? petitionData.signaturesReceived : 0}
             max={petitionData ? petitionData.expectedSignature : 0}
           /> */}
-           <ProgressBar bgcolor="#84855d" progress={((petitionData?petitionData.signaturesReceived:0)*100)/(petitionData?petitionData.expectedSignature:0)}  height={30} />
+           <ProgressBar bgcolor="#84855d" progress={((petitionData?petitionData.signaturesReceived:0)*100)/(petitionData?petitionData.expectedSignature:0)}  height={15} />
           <p className={styles.sig}>
             <i
               className="fas fa-check-circle"
               style={{
                 color: "#84855d",
-                marginRight: "1rem",
-                fontSize: "3rem",
+                marginRight: "0",
+                fontSize: "20px",
               }}
             ></i>
             <span className={styles.two1}>
@@ -177,8 +178,9 @@ setTimeout(()=>{
           {!auth.token&&<button onClick={()=>toast("Login to sign petition!!")}  className={styles.btn}>
             Sign In This Petition
           </button>}
-          <span style={{marginLeft:"1rem",cursor:"pointer"}} onClick={notify}>Share <i className="fas fa-share-alt"></i></span>
+          <span style={{marginLeft:"10rem",cursor:"pointer",color:"#84855d"}} onClick={notify}><i className="fas fa-share-alt"></i></span>
         </div>
+      </div>
       </div>
     </>
   );

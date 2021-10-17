@@ -4,16 +4,27 @@ import { useHistory } from "react-router-dom";
 import { GiHorizontalFlip } from "react-icons/gi";
 import { connect } from "react-redux";
 import { updatestateCategory } from "../../redux/Actions";
-import {pollCategories as categories} from "../../data/index"
+import { petitionCategories as categories } from "../../data/index";
 
 function Petition(props) {
   const history = useHistory();
-  const [category, setCategory] = useState(null);
+  const [category, setCategory] = useState([]);
 
- 
+
+  useEffect(()=>{
+console.log(props)
+if(props.categorystate.length!==0){
+  setCategory(props.categorystate)
+}
+console.log(categories)
+  },[])
 
   const handleSelect = (e) => {
-    setCategory(e.target.id);
+    if (category.includes(e.target.id)) {
+      setCategory(category.filter((item) => item !== e.target.id));
+    } else {
+      setCategory((oldArray) => [...oldArray, e.target.id]);
+    }
   };
   const handleClick = () => {
     props.updatestateCategory(category);
@@ -69,22 +80,33 @@ function Petition(props) {
 
       <div className={styles.cards}>
         {categories.map((value, key) => (
-          <div key={key} id={value} className={styles.card} style={{"backgroundImage":{}}} >
+          <div
+            key={key}
+            id={value.name}
+            className={category.includes(value.name)?`${styles.card} ${styles.active}`:`${styles.card}`}
+
+          >
             <div
-              id={value}
+              id={value.name}
               onClick={handleSelect}
               className={styles.tile}
-            ></div>
-            <p id={value} onClick={handleSelect}>
-              {value}
+            
+
+            >
+                          <img src={value.image} className={styles.lol} alt="" />
+
+            </div>
+            <p id={value.name} onClick={handleSelect}>
+              {value.name}
             </p>
           </div>
         ))}
       </div>
       {/* <div className={styles.box}>See More</div> */}
-      <center><button className={styles.btn} onClick={handleClick}>
-        Continue
-      </button>
+      <center>
+        <button className={styles.btn} onClick={handleClick}>
+          Continue
+        </button>
       </center>
     </div>
   );

@@ -6,6 +6,7 @@
     grid-template-columns: 310px 1fr;
     border-radius: 20px;
     background-color: #eeee;
+    cursor: pointer;
 
 }
 .image{

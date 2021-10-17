@@ -102,6 +102,19 @@
   margin-right: auto;
   margin-bottom: 50px;
 }
+.box1{
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-around; */
+  /* align-items: center; */
+  /* height: 900px; */
+  width: 70%;
+  overflow-x: hidden;
+  /* overflow-y: scroll; */
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 50px;
+}
 .quiz {
   display: flex;
   width: 600px;
@@ -181,7 +194,7 @@
   background: #f0f0f0;
   box-shadow: -4px 4px 20px -6px #fdeddb;
   border-radius: 4px;
-  font-size: 28px;
+  font-size: 16px;
   margin-bottom: 20px;
   padding: 1rem;
 }
@@ -195,11 +208,12 @@
 
 }
 .btnsbtn {
-  width: 150px;
-  height: 60px;
+  /* width: 150px; */
+  /* height: 60px; */
   background: #48483d;
-  border-radius: 50px;
-  font-size: 22px;
+  border-radius: 10px;
+  padding: 0.3rem 0.8rem;
+  font-size: 14px;
   line-height: 26px;
   text-align: center;
   color: #ffffff;
@@ -220,8 +234,8 @@
   background: #fdf9f6;
   border-radius: 4px;
   justify-content: space-between;
-  font-size: 28px;
- padding: 1rem 2rem;
+  font-size: 16px;
+ padding: 0.5rem 1rem;
  display: flex;
  align-items: center;
  margin-bottom: 20px;
@@ -306,7 +320,7 @@
   padding:0.5rem 0;
   border-bottom: 4px solid #84855d;
   width: max-content;
-  font-size: 34px;
+  font-size: 20px;
 
 }
 .questionNumber{
@@ -324,7 +338,7 @@
   display: flex;
   align-items: center;
   margin-left: 5rem;
-  font-size: 1.3rem;
+  font-size: 1rem;
 }
 .timer .logo{
   margin-right: 1rem;
@@ -363,4 +377,15 @@
 .pad{
   width: 80%;
   margin: 0 auto;
+}
+
+
+.down{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 20px 30px;
+}
+.downBtn{
+  width: 200px;
 }

@@ -54,7 +54,10 @@
     top: 20px;
     left: 180px;
 }
-
+.cont{
+    width: 70%;
+    margin: 20px auto;
+}
 .rel{
     position: relative;
 }

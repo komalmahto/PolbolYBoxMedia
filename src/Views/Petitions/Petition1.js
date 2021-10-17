@@ -155,7 +155,7 @@ function Petition1(props) {
 const mapStateToProps = (state) => {
   return {
     titlestate: state.pet.title,
-    descstate: state.pet.description,
+    descstate: state.pet.desc,
     expectedsignstate: state.pet.expectedSignatures,
     lifespanstate: state.pet.lifespan,
   };

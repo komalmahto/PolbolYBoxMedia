@@ -135,7 +135,7 @@ const Polls = () => {
   };
 
   return (
-    <div className="container">
+    <div className={styles.container}>
       <div className={styles.header}>
         <p className={styles.pHeading}>Poll</p>
         <p>

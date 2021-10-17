@@ -37,6 +37,8 @@ function SingleNews({ match }) {
     <>
       <ToastContainer />
 
+      <div className={styles.container1}>
+
       <div className={styles.header}>
         <p className={styles.pHeading}>News</p>
         <p>
@@ -92,6 +94,7 @@ function SingleNews({ match }) {
             </div>
           </div>
         </div>
+      </div>
       </div>
     </>
   );

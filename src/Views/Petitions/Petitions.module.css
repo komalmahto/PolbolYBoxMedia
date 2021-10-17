@@ -21,7 +21,7 @@
     display: grid;
     margin-bottom: 30px;
     justify-content: space-evenly;
-    grid-template-columns: repeat(10, minmax(125px, 125px));
+    grid-template-columns: repeat(10, minmax(102px, 110px));
   }
   .category {
     display: inline-block;
@@ -30,7 +30,7 @@
     margin: 0 5px 5px 5px;
     border-radius: 50px;
     color: #fff;
-    font-size: 0.7rem;
+    font-size: 0.5rem;
     cursor: pointer;
     user-select: none;
     text-align: center;
@@ -51,7 +51,7 @@
     grid-auto-rows: minmax(230px, auto);
     gap: 3px;
     margin-bottom: 30px; */
-    padding: 0 200px;
+    /* padding: 0 200px; */
   }
 
   .petitionSub{
@@ -97,7 +97,8 @@
     
   }
   .container{
-    
+    width: 70%;
+    margin: 0 auto;
   }
   .petition .petition_container_title {
  font-size: 16px;
@@ -186,7 +187,7 @@ font-size: 14px;
     content: "";
     bottom: -1px;
     height: 4px;
-    width: 50%;
+    width: 33.33%;
     background: #84855d;
     transition: all 0.1s ease-out;
   }
@@ -194,7 +195,10 @@ font-size: 14px;
     left: 0;
   }
   .types.expired::before {
-    left: 50%;
+    left: 33.33%;
+  }
+  .types.myPet::before{
+    left: 66.66%;
   }
   .types div span {
     display: inline-block;

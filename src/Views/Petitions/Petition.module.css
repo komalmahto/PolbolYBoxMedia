@@ -72,17 +72,24 @@ margin: 0 20px;
   margin-left: 200px;
   margin-right: 200px;
   text-align: center;
+  border: 2px solid transparent;
 }
 .card {
   margin-bottom: 30px;
   cursor: pointer;
+}
+.lol{
+  height: 100px;
+  width: 100px;
 }
 .tile {
   width: 190px;
   height: 190px;
   background-color: #fdeddb;
   margin-bottom: 10px;
-}
+  display: flex;
+  align-items: center;
+justify-content: center;}
 .box {
   border: 2px solid #9c9c9c;
   box-sizing: border-box;
@@ -195,6 +202,9 @@ margin: 0 20px;
 
 .urlAdd{
   position: relative;
+}
+.active{
+  border: 2px solid #84855d;
 }
 .urlAddBtn{
   position: absolute;
