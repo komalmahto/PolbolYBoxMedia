@@ -5,9 +5,10 @@ import FilteredPolls from "./FilteredPolls/FilteredPolls";
 import * as api from "../../api";
 import Multiselect from "multiselect-react-dropdown";
 import styles from "./Polls.module.css";
+import { connect } from "react-redux";
 
 
-const Polls = () => {
+const Polls = ({lang}) => {
   // const [polls, setPolls] = useState([]);
   const [categories, setCategories] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
@@ -26,13 +27,17 @@ const Polls = () => {
   useEffect(() => {
     setCategories(pollCategories);
     console.log(categories);
+   
+  }, []);
+
+  useEffect(()=>{
     getActivePolls();
     getExpiredPolls();
-  }, []);
+  },[lang])
 
   useEffect(() => {
     getFilteredPolls();
-  }, [selectedCategories, active]);
+  }, [selectedCategories, active,lang]);
 
   const loadMorePage = (type) => {
     if (type === "ANF") {
@@ -79,7 +84,7 @@ const Polls = () => {
 
   const getActivePolls = async () => {
     try {
-      const { data } = await api.getActivePolls();
+      const { data } = await api.getActivePolls(lang);
       setActivePollsTotal(data.payload.totalActive);
       setActivePolls(data.payload.payload);
     } catch (error) {
@@ -88,7 +93,7 @@ const Polls = () => {
   };
   const getExpiredPolls = async () => {
     try {
-      const { data } = await api.getExpiredPolls();
+      const { data } = await api.getExpiredPolls(lang);
       setExpiredPollsTotal(data.payload.totalExpired);
       setExpiredPolls(data.payload.payload);
     } catch (error) {
@@ -207,6 +212,7 @@ const Polls = () => {
           <>
           <div className={styles.polls}>
             <OverallPolls
+            lang={lang}
               page={page.activeNonfiltered}
               mode="active"
               polls={activePolls}
@@ -222,6 +228,8 @@ const Polls = () => {
         ) : (
           <div>
             <FilteredPolls
+                        lang={lang}
+
               page={page.activeFiltered}
               mode="active"
               polls={activePolls}
@@ -237,6 +245,8 @@ const Polls = () => {
         <>
         <div className={styles.polls}>
           <OverallPolls
+                      lang={lang}
+
             page={page.expiredNonfiltered}
             mode="expired"
             polls={expiredPolls}
@@ -252,6 +262,8 @@ const Polls = () => {
       ) : (
         <div>
           <FilteredPolls
+                      lang={lang}
+
             page={page.expiredFiltered}
             mode="expired"
             polls={expiredPolls}
@@ -267,4 +279,9 @@ const Polls = () => {
   );
 };
 
-export default Polls;
+
+const mapStateToProps = (state) => ({
+  lang: state.lang,
+});
+
+export default connect(mapStateToProps)(Polls);

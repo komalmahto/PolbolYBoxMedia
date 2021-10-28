@@ -10,14 +10,13 @@ function Petition(props) {
   const history = useHistory();
   const [category, setCategory] = useState([]);
 
-
-  useEffect(()=>{
-console.log(props)
-if(props.categorystate.length!==0){
-  setCategory(props.categorystate)
-}
-console.log(categories)
-  },[])
+  useEffect(() => {
+    console.log(props);
+    if (props.categorystate.length !== 0) {
+      setCategory(props.categorystate);
+    }
+    console.log(categories);
+  }, []);
 
   const handleSelect = (e) => {
     if (category.includes(e.target.id)) {
@@ -83,18 +82,18 @@ console.log(categories)
           <div
             key={key}
             id={value.name}
-            className={category.includes(value.name)?`${styles.card} ${styles.active}`:`${styles.card}`}
-
+            className={
+              category.includes(value.name)
+                ? `${styles.card} ${styles.active}`
+                : `${styles.card}`
+            }
           >
-            <div
-              id={value.name}
-              onClick={handleSelect}
-              className={styles.tile}
-            
-
-            >
-                          <img src={value.image} className={styles.lol} alt="" />
-
+            <div className={
+              category.includes(value.name)
+                ? `${styles.tile} ${styles.tileactive}`
+                : `${styles.tile}`
+            } id={value.name} onClick={handleSelect} >
+              <img src={value.image} className={styles.lol} alt="" />
             </div>
             <p id={value.name} onClick={handleSelect}>
               {value.name}

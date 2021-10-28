@@ -39,11 +39,11 @@ export const getFilteredPetitions = (categories) =>
   export const getPetitionResults = (petitionId) =>
   api.get(`/petition/${petitionId}`);
 
-  export const getNews=()=>
-    api.get('/news?hindi=false');
+  export const getNews=(lang)=>
+    api.get(`/news?hindi=${lang.language==="Hindi"?true:false}`);
   
-  export const getFilteredNews = (categories) =>
-  api.get(`/news?hindi=false&categories=${categories}`);
+  export const getFilteredNews = (categories,lang) =>
+  api.get(`/news?hindi=${lang.language==="Hindi"?true:false}&categories=${categories}`);
 
   export const getExpiredAwards=()=>
     api.get('/award/fetchAwardsAndCategories?mode=expired');

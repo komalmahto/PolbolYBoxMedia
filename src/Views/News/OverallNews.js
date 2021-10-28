@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 
 const OVERLAY = "linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.9))";
 
-const OverallNews = ({ news,page }) => {
+const OverallNews = ({ news,page,lang }) => {
   const history = useHistory();
 
   return news.slice(0,page*12).map((singlenews, index) => (
@@ -13,7 +13,7 @@ const OverallNews = ({ news,page }) => {
       key={index}
       onClick={() =>
         history.push(
-          `/news/${getSlug(singlenews.short_headline)}/${singlenews._id}`
+          `/news/${getSlug(lang.language==="Hindi"?singlenews.short_headline_hindi:singlenews.short_headline)}/${singlenews._id}`
         )
       }
       className={styles.poll}
@@ -22,7 +22,7 @@ const OverallNews = ({ news,page }) => {
       }}
     >
       <div className={styles.poll_container}>
-        <p>{singlenews.short_headline}</p>
+        <p>{lang.language==="Hindi"?singlenews.short_headline_hindi:singlenews.short_headline}</p>
       </div>
     </div>
   ));

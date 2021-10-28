@@ -5,8 +5,9 @@ import FilteredNews from "./FilteredNews";
 import * as api from "../../api";
 import Multiselect from "multiselect-react-dropdown";
 import styles from "./News.module.css";
+import { connect } from "react-redux";
 
-const News = () => {
+const News = ({lang}) => {
   const [categories, setCategories] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [news, setNews] = useState([]);
@@ -15,8 +16,11 @@ const News = () => {
 
   useEffect(() => {
     setCategories([...newsCategories]);
-    getNews();
   }, []);
+  useEffect(()=>{
+    console.log(lang)
+    getNews();
+  },[lang.language])
 
   useEffect(() => {
     getFilteredNews();
@@ -34,7 +38,7 @@ const loadMorePage = () => {
 
   const getNews = async () => {
     try {
-      const { data } = await api.getNews();
+      const { data } = await api.getNews(lang);
       setNews([...data.payload.payload]);
     } catch (error) {
       console.log(error);
@@ -54,7 +58,7 @@ const loadMorePage = () => {
     try {
       let categories = selectedCategories.join(",");
 
-      const { data } = await api.getFilteredNews(categories);
+      const { data } = await api.getFilteredNews(categories,lang);
 
       setNews([...data.payload.payload]);
     } catch (error) {
@@ -126,11 +130,11 @@ const loadMorePage = () => {
 
       {selectedCategories.length === 0 ? (
         <div className={styles.polls}>
-          <OverallNews page={page} news={news} />
+          <OverallNews page={page} lang={lang} news={news} />
         </div>
       ) : (
         <div className={styles.fill}>
-          <FilteredNews page={page} news={news} />
+          <FilteredNews page={page} lang={lang} news={news} />
         </div>
       )}
     {news.length>page*12 &&  <center className={styles.load}><span className={styles.loadMore} onClick={loadMorePage}>Load more</span></center>}
@@ -138,4 +142,8 @@ const loadMorePage = () => {
   );
 };
 
-export default News;
+const mapStateToProps = (state) => ({
+  lang: state.lang,
+});
+
+export default connect(mapStateToProps)(News);

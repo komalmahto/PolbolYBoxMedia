@@ -5,16 +5,36 @@ import { expiresIn, formatDate } from "../../../helpers";
 import PropTypes from "prop-types";
 import { getSlug } from "../../../helpers/index";
 
-const FilteredPolls = ({ mode, polls ,page}) => {
+const FilteredPolls = ({ mode, polls, page, lang }) => {
   const history = useHistory();
 
-  console.log(mode,page);
+  console.log(mode, page);
   return (
     <div className={styles.list}>
       <div className={styles.container}>
         {polls.length > 0 ? (
           polls.slice(0, page * 9).map((poll) => (
-            <div key={poll._id} className={styles.poll}>
+            <div
+              onClick={() => {
+                mode === "active"
+                  ? history.push(
+                      `/poll/${getSlug(
+                        lang.language === "Hindi"
+                          ? poll.question_hindi
+                          : poll.question
+                      )}/${poll._id}`
+                    )
+                  : history.push(
+                      `/poll/results/${getSlug(
+                        lang.language === "Hindi"
+                          ? poll.question_hindi
+                          : poll.question
+                      )}/${poll._id}`
+                    );
+              }}
+              key={poll._id}
+              className={styles.poll}
+            >
               <p className={styles.category}>Poll on {poll.categories[0]}</p>
               <div className={styles.main}>
                 <div
@@ -24,7 +44,11 @@ const FilteredPolls = ({ mode, polls ,page}) => {
                   }}
                 ></div>
                 <div className={styles.poll_details}>
-                  <p>{poll.question}</p>
+                  <p>
+                    {lang.language === "Hindi"
+                      ? poll.question_hindi
+                      : poll.question}
+                  </p>
                   <div className={styles.actions}>
                     <div className={styles.like}>
                       <i className="far fa-heart"></i> {poll.likesCount}
@@ -34,21 +58,7 @@ const FilteredPolls = ({ mode, polls ,page}) => {
                     </div>
                   </div>
                 </div>
-                <div
-                  className={styles.vote_now}
-                  onClick={() =>{
-                  mode==="active"?
-                    history.push(
-                      `/poll/${getSlug(poll.question)}/${poll._id}`)
-                  
-                  :
-                    history.push(
-                      `/poll/results/${getSlug(poll.question)}/${poll._id}`
-                    )
-                
-                    }
-                  }
-                >
+                <div className={styles.vote_now}>
                   <div style={{ marginLeft: "8px" }}>
                     <VoteIcon />
                   </div>

@@ -14,7 +14,11 @@ const OverallAwards = ({ awards, mode }) => {
       <div className={styles.container}>
         {awards.length > 0 ? (
           awards.map((award) => (
-            <div key={award._id} className={styles.poll}>
+            <div style={{cursor:"pointer"}}  onClick={() => {
+              history.push(
+                `/awards/categories/${getSlug(award.title)}/${award._id}`
+              );
+            }} key={award._id} className={styles.poll}>
               <p className={styles.category}>{award.type[0]}</p>
               <div className={styles.main}>
                 <div
@@ -28,11 +32,7 @@ const OverallAwards = ({ awards, mode }) => {
                 </div>
                 <div
                   className={styles.vote_now}
-                  onClick={() => {
-                    history.push(
-                      `/awards/categories/${getSlug(award.title)}/${award._id}`
-                    );
-                  }}
+                 
                 >
                   <div style={{ marginLeft: "8px" }}>
                     <VoteIcon />

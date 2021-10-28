@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 
 const OVERLAY = "linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.9))";
 
-const OverallPolls = ({ polls ,mode,page}) => {
+const OverallPolls = ({ polls ,mode,page,lang}) => {
   const history = useHistory();
 
   return polls.slice(0,page*9).map((poll, index) => (
@@ -13,8 +13,8 @@ const OverallPolls = ({ polls ,mode,page}) => {
       key={index}
       onClick={() =>{
         mode==='active'?
-        history.push(`/poll/${getSlug(poll.question)}/${poll._id}`)
-        : history.push(`/poll/results/${getSlug(poll.question)}/${poll._id}`)
+        history.push(`/poll/${getSlug(lang.language==="Hindi"?poll.question_hindi:poll.question)}/${poll._id}`)
+        : history.push(`/poll/results/${getSlug(lang.language==="Hindi"?poll.question_hindi:poll.question)}/${poll._id}`)
       }
       }
       className={styles.poll}
@@ -23,7 +23,8 @@ const OverallPolls = ({ polls ,mode,page}) => {
       }}
     >
       <div className={styles.poll_container}>
-        <p>{poll.question.slice(0, 30)}...</p>
+        {/* <p>{poll.question.slice(0, 30)}...</p> */}
+        <p>{lang.language==="Hindi"?poll.question_hindi.slice(0,30)+"...":poll.question.slice(0,30)+"..."}</p>
       </div>
     </div>
   ));

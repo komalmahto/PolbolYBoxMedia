@@ -9,10 +9,10 @@
 margin: 0 auto;
 }
 .poll .category {
-  margin-left: 18px;
-  font-size: 1rem;
+  margin-left: 14px;
+  font-size: 14px;
   margin-bottom: 1rem;
-  font-weight: bold;
+  /* font-weight: bold; */
 }
 .resBtn{
   display: flex;
@@ -100,12 +100,13 @@ line-height: 26px;
   text-align: center;
 }
 .avatar{
-  height:50px;
-  width:50px;
+  height:40px;
+  width:40px;
   border-radius: 50%;
 }
 .comments{
   margin-bottom: 100px;
+  margin-top: 50px;
 }
 .chart_image{
 height:100px; 
@@ -119,14 +120,16 @@ cursor: pointer;
 .commentcontainer{
   box-sizing: border-box;
   /* height:120px; */
-  padding: 20px;
+  padding: 10px;
   display: flex;
-  align-items: center;
+  margin-top: 20px;
+  /* align-items: center; */
+  border: none !important;
 
 }
 .categoryUser{
-  margin-left: 18px;
-  font-size: 0.95rem;
+  margin-left: 14px;
+  font-size: 13px;
   color: grey;
 }
 .name{

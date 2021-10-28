@@ -17,7 +17,7 @@ import { Modal, Button } from "antd";
 import axios from "../../../axios";
 import DatePicker from "react-date-picker";
 
-function Poll1({ match, auth, updateUser }) {
+function Poll1({ match, auth, updateUser,lang }) {
   const history = useHistory();
 
   const [value, setValue] = useState(1);
@@ -240,14 +240,14 @@ function Poll1({ match, auth, updateUser }) {
           <span onClick={notify} className={styles.sharebtn}>
           <i className="fas fa-share-alt"></i>
         </span>
-          <h6 className={styles.list}>{pollData.payload.question}</h6>
+          <h6 className={styles.list}>{lang.language==="Hindi"?pollData.payload.question_hindi:pollData.payload.question}</h6>
           </div>
 
           {pollData.payload.type === "pie" ? (
             <div className={styles.opcont}>
             {pollData.payload.options.map((val, key) => {
               return (
-                <div className={styles.container}>
+                <div className={styles.container} style={value==val.name?{border:"2px solid grey",backgroundColor:"#fad5b8"}:{border:"2px solid transparent"}}>
                   <div className={styles.list1}>
                     <FormControl component="fieldset">
                       <RadioGroup
@@ -258,12 +258,16 @@ function Poll1({ match, auth, updateUser }) {
                       >
                         <FormControlLabel
                           value={val.name}
-                          control={<Radio />}
-                          label={<span style={{ fontSize: '12px' }}>{val.name}</span>}
+                          control={<Radio style={{visibility:"hidden",display:"none"}} />}
+                          label={<span style={{ fontSize: '12px' }}>{lang.language==="Hindi"?val.name_hindi:val.name}</span>}
 
                         />
                       </RadioGroup>
                     </FormControl>
+                    {/* <label htmlFor={key}>
+                      {val.name}
+                      <input onChange={handleChange} style={{display:"none"}} name="options" id={key} type="radio" value={val.name} />
+                    </label> */}
                   </div>
                 </div>
               );
@@ -316,6 +320,8 @@ function Poll1({ match, auth, updateUser }) {
 const mapStateToProps = (state) => {
   return {
     auth: state.auth,
+    lang: state.lang,
+
   };
 };
 const mapDispatchToProps = (dispatch) => {

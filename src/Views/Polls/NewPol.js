@@ -55,11 +55,11 @@ function NewPol({ data, pollId }) {
         </div>
         <div className={styles.resBtn} onClick={clickHandler} >
           <img className={styles.chart_image} src="https://api.iconify.design/flat-color-icons/pie-chart.svg" />
-          <p >Poll Results</p>
+          <p >View Results</p>
         </div>
       </div>
       <div className={styles.comments}>
-        Comments
+        <p>{comments.length} Comments</p>
         <ListGroup>
           {comments.length > 0
             ? comments.map((item, index) => {
@@ -67,7 +67,7 @@ function NewPol({ data, pollId }) {
                   <ListGroup.Item key={index} className={styles.commentcontainer}>
                     <img className={styles.avatar}  src={item.user.avatar} />
                     <div>
-                    <p className={styles.categoryUser}>@{item.user.userName} commented</p>
+                    <p className={styles.categoryUser}>@{item.user.userName}</p>
                     <p className={styles.category}>{item.comment}</p>
                     </div>
                   </ListGroup.Item>

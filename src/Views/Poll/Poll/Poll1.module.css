@@ -17,7 +17,12 @@
     align-items: center;
     justify-content: flex-start;
     padding: 10px;
+    cursor: pointer;
+    transition: all 0.3s;
    
+}
+.container:hover{
+    background-color: #fad5b8;
 }
 .list{
     text-align: center;

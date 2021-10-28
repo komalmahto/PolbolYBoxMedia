@@ -4,6 +4,7 @@ import Button from "react-bootstrap/Button";
 import OtpInput from "react-otp-input";
 import axios from "../../axios";
 import styles from './Modal.module.css'
+import {Link} from "react-router-dom"
 
 
 function MyVerticallyCenteredModal(props) {
@@ -104,7 +105,7 @@ function MyVerticallyCenteredModal(props) {
               {!valid && <p className="invalid">Invalid otp</p>}
             </div>
           )}
-          <center className={styles.terms}><i className="fas fa-shield-alt"></i><p>We are not storing any private information .By continuing you agree to our <span className={styles.cond}>Terms and conditons</span></p></center>
+          <center className={styles.terms}><i className="fas fa-shield-alt"></i><p>We are not storing any private information .By continuing you agree to our <span className={styles.cond}><a target="_blank" href="https://polbol-media.s3.ap-south-1.amazonaws.com/ToS.pdf">Terms and conditons</a></span></p></center>
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={props.onHide}>Close</Button>

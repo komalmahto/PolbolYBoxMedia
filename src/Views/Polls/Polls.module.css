@@ -57,9 +57,8 @@
   background-position: center;
   display: flex;
   align-items: flex-end;
-
 }
-.container{
+.container {
   width: 70%;
   margin: 10px auto;
 }
@@ -124,11 +123,10 @@
   justify-content: center;
   align-items: center;
 }
-.hr{
-  height:2px;
+.hr {
+  height: 2px;
   color: black;
   margin-top: -20px;
- 
 }
 
 @media screen and (max-width: 750px) {
@@ -157,10 +155,15 @@
     grid-auto-rows: minmax(330px, auto);
   }
 }
-.loadmore{
+.loadmore {
   cursor: pointer;
-  padding: .5rem 1rem;
+  padding: 0.5rem 1rem;
   border-radius: 10px;
   color: white;
   background-color: #84855d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  width: 130px;
 }
