@@ -269,19 +269,43 @@ function Poll1({ match, auth, updateUser, lang }) {
             onHide={() => setShow(false)}
           />
           <div className={styles.carousel}>
-            <Carousel itemClass={styles.grid} responsive={responsive}>
-              {
-                allActive.length>0&& allActive.filter((fil)=>fil._id!==pollId).map((pol)=>(
-                  <div className={styles.carouselCard}>
-                  <div className={styles.carouselImage} style={{backgroundImage:`url(${pol.image})`}}></div>
-                  <div className={styles.carouselText}>
-                   {lang.language==="Hindi"?pol.question_hindi:pol.question}
-                   <center><span onClick={()=>history.push(`/poll/${getSlug(lang.language==="Hindi"?pol.question_hindi:pol.question)}/${pol._id}`)} className={styles.voteBtn} >Vote Now</span></center>
-                  </div>
-                </div>
-                ))
-              }
-        
+            <Carousel
+              infinite={true}
+              itemClass={styles.grid}
+              responsive={responsive}
+            >
+              {allActive.length > 0 &&
+                allActive
+                  .filter((fil) => fil._id !== pollId)
+                  .map((pol) => (
+                    <div className={styles.carouselCard}>
+                      <div
+                        className={styles.carouselImage}
+                        style={{ backgroundImage: `url(${pol.image})` }}
+                      ></div>
+                      <div className={styles.carouselText}>
+                        {lang.language === "Hindi"
+                          ? pol.question_hindi
+                          : pol.question}
+                        <center>
+                          <span
+                            onClick={() =>
+                              history.push(
+                                `/poll/${getSlug(
+                                  lang.language === "Hindi"
+                                    ? pol.question_hindi
+                                    : pol.question
+                                )}/${pol._id}`
+                              )
+                            }
+                            className={styles.voteBtn}
+                          >
+                            Vote Now
+                          </span>
+                        </center>
+                      </div>
+                    </div>
+                  ))}
             </Carousel>
           </div>
           <div className={styles.rel}>

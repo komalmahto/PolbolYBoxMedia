@@ -98,7 +98,8 @@ function FinalAwards({ match }) {
                       <img className={styles.image} src={cat.image} />
                       <div className={styles.video}></div>
                       <div className={styles.name}>
-                       {cat.name}
+                        <center>{cat.name.split('(')[0]}</center>
+                       <center style={{fontSize:"0.8rem"}}>{cat.name.split('(')[1]&& <span>({cat.name.split('(')[1]}</span>}</center>
                       </div>
                       <center><span className={styles.vote}>Vote Now</span></center>
                     </div>
@@ -107,8 +108,8 @@ function FinalAwards({ match }) {
               : ""}
           </div>
         </Tab>
-        <Tab eventKey="Jury" title="Jury">
-          <ListGroup>
+        <Tab  eventKey="Jury" title="Jury">
+          <ListGroup style={{minHeight:"100vh"}}>
             {catAwards.length > 0
               ? catAwards[0].jurys.map((item, index) => {
                   return (

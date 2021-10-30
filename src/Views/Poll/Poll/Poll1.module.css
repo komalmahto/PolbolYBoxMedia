@@ -12,14 +12,19 @@
     background-color: #FDF9F6;
     margin-bottom: 30px;
     width: 90%;
-    margin: 7px auto;
+    /* margin: 7px auto; */
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: center;
     padding: 10px;
     cursor: pointer;
     transition: all 0.3s;
    
+}
+.MuiFormGroup-root{
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
 }
 .container:hover{
     background-color: #fad5b8;
@@ -34,6 +39,9 @@
 .list1{
     margin-left: 20px;
     font-size: 10px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .backbtn,.submitbtn{
    background-color: #84855D;

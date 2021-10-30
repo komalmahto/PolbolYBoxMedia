@@ -36,7 +36,8 @@ const Main = () => {
   const getHighlightedPolls = async () => {
     try {
       const { data } = await api.getHighlightedPolls();
-      setHighlightedPolls(data.payload.slice(0, 5));
+      console.log(data,"polls")
+      setHighlightedPolls(data.payload.slice(0,4));
     } catch (error) {
       console.log(error);
     }
@@ -45,7 +46,7 @@ const Main = () => {
   const getActiveAwards = async () => {
     try {
       const { data } = await api.getActiveAwards();
-      setActiveAwards(data.payload);
+      setActiveAwards(data.payload.slice(0,4));
     } catch (error) {
       console.log(error);
     }
