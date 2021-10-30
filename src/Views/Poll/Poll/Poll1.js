@@ -16,8 +16,12 @@ import { fetchToken, updateUser } from "../../../redux/Actions/AuthActions";
 import { Modal, Button } from "antd";
 import axios from "../../../axios";
 import DatePicker from "react-date-picker";
+import * as api from "../../../api";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+import { getSlug } from "../../../helpers";
 
-function Poll1({ match, auth, updateUser,lang }) {
+function Poll1({ match, auth, updateUser, lang }) {
   const history = useHistory();
 
   const [value, setValue] = useState(1);
@@ -32,16 +36,39 @@ function Poll1({ match, auth, updateUser,lang }) {
     state: "",
     city: "",
   });
+  const responsive = {
+    superLargeDesktop: {
+      // the naming can be any, depends on you.
+      breakpoint: { max: 4000, min: 3000 },
+      items: 2,
+    },
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 2,
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 2,
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1,
+    },
+  };
+  const [allActive, setAllActive] = useState([]);
   const [regionData, setRegionData] = useState([]);
   const fetchRegions = async () => {
     await axios.get("/region").then((res) => {
       setRegionData(res.data.payload);
     });
   };
-  
+
   useEffect(() => {
     fetchRegions();
   }, []);
+  useEffect(() => {
+    getActivePolls();
+  }, [lang]);
 
   const handleFetch = () => {
     fetch(`https://backend.polbol.in/backend/poll/${pollId}`)
@@ -55,6 +82,15 @@ function Poll1({ match, auth, updateUser,lang }) {
   };
   const handleChange = (event) => {
     setValue(event.target.value);
+  };
+
+  const getActivePolls = async () => {
+    try {
+      const { data } = await api.getActivePolls(lang);
+      setAllActive(data.payload.payload);
+    } catch (error) {
+      console.log(error);
+    }
   };
   const handleValueChange = (e) => {
     // console.log(e)
@@ -232,46 +268,86 @@ function Poll1({ match, auth, updateUser,lang }) {
             show={show}
             onHide={() => setShow(false)}
           />
+          <div className={styles.carousel}>
+            <Carousel itemClass={styles.grid} responsive={responsive}>
+              {
+                allActive.length>0&& allActive.filter((fil)=>fil._id!==pollId).map((pol)=>(
+                  <div className={styles.carouselCard}>
+                  <div className={styles.carouselImage} style={{backgroundImage:`url(${pol.image})`}}></div>
+                  <div className={styles.carouselText}>
+                   {lang.language==="Hindi"?pol.question_hindi:pol.question}
+                   <center><span onClick={()=>history.push(`/poll/${getSlug(lang.language==="Hindi"?pol.question_hindi:pol.question)}/${pol._id}`)} className={styles.voteBtn} >Vote Now</span></center>
+                  </div>
+                </div>
+                ))
+              }
+        
+            </Carousel>
+          </div>
           <div className={styles.rel}>
-          <img className={styles.center} src={pollData.payload.image}></img>
-          <span className={styles.backbtn} onClick={handleClick}>
-          Back to polls
-        </span>
-          <span onClick={notify} className={styles.sharebtn}>
-          <i className="fas fa-share-alt"></i>
-        </span>
-          <h6 className={styles.list}>{lang.language==="Hindi"?pollData.payload.question_hindi:pollData.payload.question}</h6>
+            <img className={styles.center} src={pollData.payload.image}></img>
+
+            <span onClick={notify} className={styles.sharebtn}>
+              <i className="fas fa-share-alt"></i>
+            </span>
+            <h6 className={styles.list}>
+              {lang.language === "Hindi"
+                ? pollData.payload.question_hindi
+                : pollData.payload.question}
+            </h6>
           </div>
 
           {pollData.payload.type === "pie" ? (
             <div className={styles.opcont}>
-            {pollData.payload.options.map((val, key) => {
-              return (
-                <div className={styles.container} style={value==val.name?{border:"2px solid grey",backgroundColor:"#fad5b8"}:{border:"2px solid transparent"}}>
-                  <div className={styles.list1}>
-                    <FormControl component="fieldset">
-                      <RadioGroup
-                        aria-label="gender"
-                        name="controlled-radio-buttons-group"
-                        value={value}
-                        onChange={handleChange}
-                      >
-                        <FormControlLabel
-                          value={val.name}
-                          control={<Radio style={{visibility:"hidden",display:"none"}} />}
-                          label={<span style={{ fontSize: '12px' }}>{lang.language==="Hindi"?val.name_hindi:val.name}</span>}
-
-                        />
-                      </RadioGroup>
-                    </FormControl>
-                    {/* <label htmlFor={key}>
+              {pollData.payload.options.map((val, key) => {
+                return (
+                  <div
+                    className={styles.container}
+                    style={
+                      value == val.name
+                        ? {
+                            border: "2px solid grey",
+                            backgroundColor: "#fad5b8",
+                          }
+                        : { border: "2px solid transparent" }
+                    }
+                  >
+                    <div className={styles.list1}>
+                      <FormControl component="fieldset">
+                        <RadioGroup
+                          aria-label="gender"
+                          name="controlled-radio-buttons-group"
+                          value={value}
+                          onChange={handleChange}
+                        >
+                          <FormControlLabel
+                            value={val.name}
+                            control={
+                              <Radio
+                                style={{
+                                  visibility: "hidden",
+                                  display: "none",
+                                }}
+                              />
+                            }
+                            label={
+                              <span style={{ fontSize: "12px" }}>
+                                {lang.language === "Hindi"
+                                  ? val.name_hindi
+                                  : val.name}
+                              </span>
+                            }
+                          />
+                        </RadioGroup>
+                      </FormControl>
+                      {/* <label htmlFor={key}>
                       {val.name}
                       <input onChange={handleChange} style={{display:"none"}} name="options" id={key} type="radio" value={val.name} />
                     </label> */}
+                    </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
             </div>
           ) : (
             <>
@@ -305,7 +381,9 @@ function Poll1({ match, auth, updateUser,lang }) {
       )}
 
       <div className={styles.actions}>
-       
+        <span className={styles.backbtn} onClick={handleClick}>
+          Back to polls
+        </span>
         <span className={styles.submitbtn} onClick={handleSubmit}>
           Submit
         </span>
@@ -321,7 +399,6 @@ const mapStateToProps = (state) => {
   return {
     auth: state.auth,
     lang: state.lang,
-
   };
 };
 const mapDispatchToProps = (dispatch) => {

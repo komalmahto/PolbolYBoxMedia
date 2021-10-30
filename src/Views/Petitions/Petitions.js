@@ -27,7 +27,7 @@ const Petitions = ({ auth: { user, token } }) => {
   const [activePetitionsTotal, setActivePetitionsTotal] = useState(0);
   const [expiredPetitionsTotal, setExpiredPetitionsTotal] = useState(0);
   const [myPet, setMyPet] = useState(false);
-  const [userPet,setUserPet]=useState()
+  const [userPet,setUserPet]=useState([])
 
   const history = useHistory(null);
   const [page, setPage] = useState({
@@ -101,7 +101,7 @@ const Petitions = ({ auth: { user, token } }) => {
         headers: {
           Authorization: `bearer ${JSON.parse(token)}`,
         }})
-        console.log(data)
+        console.log(data,"my pet")
         setUserPet(data.data.payload)
     } catch (error) {
       
@@ -266,7 +266,7 @@ const Petitions = ({ auth: { user, token } }) => {
           </div> */}
           {token && (
             <div onClick={() => setMyPet(true)}>
-              My Petitions <span>{expiredPetitionsTotal}</span>
+              My Petitions <span>{userPet&&userPet.length}</span>
             </div>
           )}
         </div>

@@ -3,9 +3,9 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import OtpInput from "react-otp-input";
 import axios from "../../axios";
-import styles from './Modal.module.css'
-import {Link} from "react-router-dom"
-
+import styles from "./Modal.module.css";
+import { Link } from "react-router-dom";
+import log from "./logo.png";
 
 function MyVerticallyCenteredModal(props) {
   const [num, setNum] = useState(null);
@@ -21,6 +21,14 @@ function MyVerticallyCenteredModal(props) {
     } else {
       setBtnshow(false);
     }
+  };
+  const googleLogin = async () => {
+    await axios
+      .get("https://backend.polbol.in/backend/user/login/socialAuth/google")
+      .then((res) => {
+        window.location.assign(res.data.payload);
+        console.log(res);
+      });
   };
   const getOtp = async () => {
     await axios
@@ -41,7 +49,7 @@ function MyVerticallyCenteredModal(props) {
         .then((res) => {
           console.log(res);
           console.log(res.headers[`x-auth`]);
-         localStorage.setItem(
+          localStorage.setItem(
             "authToken",
             JSON.stringify(res.headers[`x-auth`])
           );
@@ -83,13 +91,31 @@ function MyVerticallyCenteredModal(props) {
         <Modal.Body>
           {/* <h4 >Phone number</h4> */}
           <div className={styles.center}>
-          
+            <input
+              className={styles.inp}
+              type="tel"
+              onChange={handleChange}
+              placeholder="Phone Number"
+            ></input>
+            <br />
 
-          <input className={styles.inp} type="tel" onChange={handleChange} placeholder="Phone Number"></input>
-          <br />
-          <button className={styles.otpBtn} disabled={!btnshow} onClick={getOtp}>
-            Get Otp
-          </button>
+            <button
+              className={styles.otpBtn}
+              disabled={!btnshow}
+              onClick={getOtp}
+            >
+              Get Otp
+            </button>
+            <br />
+            <center style={{ color: "grey" }}>Or login using</center>
+            <br />
+            <center>
+              <span onClick={googleLogin} className={styles.google}>
+                <img src={log} height="20px" width="20px" />
+                Google
+              </span>
+            </center>
+            <br />
           </div>
           {Object.keys(phoneData).length > 0 && (
             <div className={styles.OtpBox}>
@@ -105,7 +131,21 @@ function MyVerticallyCenteredModal(props) {
               {!valid && <p className="invalid">Invalid otp</p>}
             </div>
           )}
-          <center className={styles.terms}><i className="fas fa-shield-alt"></i><p>We are not storing any private information .By continuing you agree to our <span className={styles.cond}><a target="_blank" href="https://polbol-media.s3.ap-south-1.amazonaws.com/ToS.pdf">Terms and conditons</a></span></p></center>
+          <center className={styles.terms}>
+            <i className="fas fa-shield-alt"></i>
+            <p>
+              We are not storing any private information .By continuing you
+              agree to our{" "}
+              <span className={styles.cond}>
+                <a
+                  target="_blank"
+                  href="https://polbol-media.s3.ap-south-1.amazonaws.com/ToS.pdf"
+                >
+                  Terms and conditons
+                </a>
+              </span>
+            </p>
+          </center>
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={props.onHide}>Close</Button>
@@ -114,6 +154,5 @@ function MyVerticallyCenteredModal(props) {
     </>
   );
 }
-
 
 export default MyVerticallyCenteredModal;

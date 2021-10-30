@@ -4,11 +4,52 @@ import ListGroup from "react-bootstrap/ListGroup";
 import pic from "../../Icons/pie_chart.png";
 import { getSlug } from "../../helpers";
 import { useHistory } from "react-router";
+import * as api from "../../api";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+import { connect } from "react-redux";
 
-function NewPol({ data, pollId }) {
+function NewPol({ data, pollId,lang }) {
   const history = useHistory();
   const [pollData, setPollData] = useState(null);
   const [comments, setComments] = useState([]);
+  const [allActive, setAllActive] = useState([]);
+
+  const responsive = {
+    superLargeDesktop: {
+      // the naming can be any, depends on you.
+      breakpoint: { max: 4000, min: 3000 },
+      items: 2,
+    },
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 2,
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 2,
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1,
+    },
+  };
+  useEffect(() => {
+    handleFetch();
+    handleComments();
+    console.log(history)
+  }, [history.location]);
+  useEffect(() => {
+    getActivePolls();
+  }, [lang]);
+  const getActivePolls = async () => {
+    try {
+      const { data } = await api.getExpiredPolls(lang);
+      setAllActive(data.payload.payload);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const handleFetch = () => {
     fetch(`https://backend.polbol.in/backend/poll/${pollId}`)
       .then((res) => res.json())
@@ -25,14 +66,29 @@ function NewPol({ data, pollId }) {
   const clickHandler=()=>{
     history.push(`/poll/results/graphs/${getSlug(pollData.question)}/${pollData._id}`)
   }
-  useEffect(() => {
-    handleFetch();
-    handleComments();
-  }, []);
+  
 
   console.log(pollData);
   return (
     <div className={styles.poll}>
+
+<div className={styles.carousel}>
+            <Carousel itemClass={styles.grid} responsive={responsive}>
+              {
+                allActive.length>0&& allActive.filter((fil)=>fil._id!==pollId).map((pol)=>(
+                  <div className={styles.carouselCard}>
+                  <div className={styles.carouselImage} style={{backgroundImage:`url(${pol.image})`}}></div>
+                  <div className={styles.carouselText}>
+                   {lang.language==="Hindi"?pol.question_hindi:pol.question}
+                   <center><span onClick={()=> history.push(`/poll/results/${getSlug(lang.language==="Hindi"?pol.question_hindi:pol.question)}/${pol._id}`)} className={styles.voteBtn} >View Result</span></center>
+                  </div>
+                </div>
+                ))
+              }
+        
+            </Carousel>
+          </div>
+      
       <p className={styles.category}>
         Poll on {pollData ? pollData.categories[0] : ""}
       </p>
@@ -80,4 +136,8 @@ function NewPol({ data, pollId }) {
   );
 }
 
-export default NewPol;
+const mapStateToProps = (state) => ({
+  lang: state.lang,
+});
+
+export default connect(mapStateToProps)(NewPol);

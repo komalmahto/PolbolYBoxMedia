@@ -13,7 +13,17 @@
   border: 2px solid #84855d;
   outline: none;
 }
-
+.google{
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    border: 2px solid grey;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.google img{
+    margin-right: 1rem;
+}
 .otpBtn {
   padding: 0.5rem 1rem;
   border: none;

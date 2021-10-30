@@ -6,9 +6,12 @@ import { FiXCircle } from "react-icons/fi";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./graph.css";
+import DropdownCascade from "react-dropdown-cascade";
 
 function BarCharts(props) {
   const [data, setData] = useState(null);
+  const [dropdownValue, setDropdownValue] = useState("Select filter");
+  const [it,setIt]=useState([])
 
   const [filters, setFilters] = useState({
     nofilters: {},
@@ -44,7 +47,7 @@ function BarCharts(props) {
               colors: ["#3433"],
             },
             enabled: true,
-          }
+          },
         },
       },
       chart: {
@@ -57,12 +60,81 @@ function BarCharts(props) {
         },
       },
       xaxis: {
-        type:"Rating",
+        type: "Rating",
         categories: [10, 9, 8, 7, 6, 5, 4, 3, 2, 1],
       },
     },
   };
 
+  const items = [
+    {
+      value: "1",
+      label: "Menu 1",
+      children: [
+        {
+          value: "11",
+          label: "Another Item",
+        },
+        {
+          value: "12",
+          label: "More Items",
+          children: [
+            {
+              value: "121",
+              label: "Sub Item A",
+            },
+            {
+              value: "122",
+              label: "Sub Item B",
+              disabled: true,
+            },
+            {
+              value: "123",
+              label: "Sub Item C",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      value: "2",
+      label: "Menu 2",
+    },
+    {
+      value: "3",
+      label: "Menu 3",
+      children: [
+        {
+          value: "31",
+          label: "Hello",
+        },
+        {
+          value: "21",
+          label: "World",
+        },
+      ],
+    },
+  ];
+  let options;
+  useEffect(() => {
+    // console.log(data.data.payload.ageAndGender,"data")
+    setIt(
+      data &&
+      data.data &&
+      Object.keys(data.data.payload.ageAndGender).map((m, i) => {
+        return {
+          value: m,
+          label: m,
+          children: Object.keys(data.data.payload.ageAndGender[m]).map((p) => {
+            return {
+              value: p,
+              label: p,
+            };
+          }),
+        };
+      }));
+    console.log(options);
+  }, [data]);
   const handleClick = (e) => {
     e.stopPropagation();
     if (e.target.classList.contains("overall")) {
@@ -170,17 +242,23 @@ function BarCharts(props) {
   }, [data]);
 
   console.log(data ? data.data.payload : "");
-  const notify=()=>{
-    navigator.clipboard.writeText(window.location.href)
+  const notify = () => {
+    navigator.clipboard.writeText(window.location.href);
     toast("Copied to clipboard");
-  }
+  };
 
   return (
     <div>
-            <ToastContainer/>
+      <ToastContainer />
 
       {data ? (
-        <h4 className="heading">{data.data.payload.poll.question}<span onClick={notify}>Share result <i style={{color:"#84855d"}} className="fas fa-share-alt"></i></span></h4>
+        <h4 className="heading">
+          {data.data.payload.poll.question}
+          <span onClick={notify}>
+            Share result{" "}
+            <i style={{ color: "#84855d" }} className="fas fa-share-alt"></i>
+          </span>
+        </h4>
       ) : (
         ""
       )}
@@ -195,12 +273,33 @@ function BarCharts(props) {
             No Filter
           </Dropdown.Toggle>
           <Dropdown.Menu> */}
-            <Dropdown.Item style={{ backgroundColor: "#84855D" }} className="overall" id="over" onClick={handleClick}>
-              Overall
-            </Dropdown.Item>
-          {/* </Dropdown.Menu>
+        <Dropdown.Item
+          style={{ backgroundColor: "#84855D" }}
+          className="overall"
+          id="over"
+          onClick={handleClick}
+        >
+          Overall
+        </Dropdown.Item>
+        {/* </Dropdown.Menu>
         </Dropdown> */}
-
+        <DropdownCascade
+          customStyles={{
+            dropdown: {
+              style: {
+                margin: "5px 20px 15px 20px",
+                color:"black"
+              },
+            },
+          }}
+          items={it?it:[]}
+          onSelect={(value, selectedItems) => {
+            console.log(value, selectedItems);
+            setDropdownValue(value);
+          }}
+          
+          value={dropdownValue}
+        />
         <Dropdown className="d-inline mx-2" autoClose="outside">
           <Dropdown.Toggle
             id="dropdown-autoclose-outside"
@@ -301,7 +400,7 @@ function BarCharts(props) {
         {Object.keys(filters).map((value, key) =>
           Object.keys(filters[value]).length > 0 ? (
             <>
-             <h5>{value!=="nofilters"?value:""}</h5>
+              <h5>{value !== "nofilters" ? value : ""}</h5>
               <div key={key} className="box">
                 {Object.keys(filters[value]).map((val, idx) => (
                   <div key={idx} className="group">
@@ -310,12 +409,15 @@ function BarCharts(props) {
                       key={idx}
                       options={{
                         ...graphOption.options,
-                        title: { text:val!=="overall"? val:"" , align: "left" },
+                        title: {
+                          text: val !== "overall" ? val : "",
+                          align: "left",
+                        },
                       }}
                       series={[{ name: "Actual", data: filters[value][val] }]}
                       type="bar"
                       width="500"
-                     />
+                    />
                     <div className="votes">
                       <p className="bold">Votes</p>
                       {filtersVotes[value][val].map((val, idx) => (
