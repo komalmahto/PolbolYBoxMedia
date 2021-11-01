@@ -97,8 +97,9 @@ function PetitionPreview(props) {
   console.log(data);
 
   return (
-    <div className={styles.area}>
-      <ToastContainer />
+    <>
+    <div className={styles.container}>
+    <ToastContainer/>
       <div className={styles.header}>
         <p className={styles.pHeading}>PETITION</p>
         <p>
@@ -106,20 +107,50 @@ function PetitionPreview(props) {
           neque.
         </p>
       </div>
-      {error ? error : ""}
-      <div className={styles.title}>{props.titlestate}</div>
-      <div className={styles.fle}>
-        <img className={styles.pic} src={props.photostate}></img>
-        <p className={styles.imgtext}>{props.descstate}</p>
-        <div className={styles.end}>
-          <span>Expected Signatures: {props.expecteddignstate}</span>{" "}
-          <span>Life span: {props.lifespanstate}</span>
-        </div>
-        <div className={styles.text}>
-          <div dangerouslySetInnerHTML={{ __html: data }} />
-        </div>
+      <div className={styles.title}>
+        {props.titlestate}
       </div>
-      <div className={styles.actions}>
+      <div className={styles.main}>
+        <div>
+          <img
+            className={styles.pic}
+            src={props.photostate}
+          ></img>
+          <p className={styles.imgtext}>
+  
+           {props.problemstate && <div dangerouslySetInnerHTML={{ __html: stateToHTML(convertFromRaw(props.problemstate)) }} />}
+
+            {/* {petitionData ? petitionData.description : ""} */}
+          </p>
+        </div>
+        <div className={styles.box}>
+          <p className={styles.one}>
+           {props.expecteddignstate} Signatures Expected
+          </p>
+          {/* <ProgressBar
+            now={petitionData ? petitionData.signaturesReceived : 0}
+            max={petitionData ? petitionData.expectedSignature : 0}
+          /> */}
+           {/* <ProgressBar bgcolor="#84855d" progress={((petitionData?petitionData.signaturesReceived:0)*100)/(petitionData?petitionData.expectedSignature:0)}  height={15} /> */}
+          <p className={styles.sig}>
+            <i
+              className="fas fa-check-circle"
+              style={{
+                color: "#84855d",
+                marginRight: "0",
+                fontSize: "20px",
+              }}
+            ></i>
+            <span className={styles.two1}>
+              <span className={styles.two}>
+                At {props.expecteddignstate}{" "}
+                signatures,
+              </span>
+              this petition is more likely to get a reaction from the decision
+              maker!
+            </span>
+          </p>
+          <div className={styles.actions}>
         <button className={styles.backbtn} onClick={handlePrevClick}>
           Previous
         </button>
@@ -128,7 +159,10 @@ function PetitionPreview(props) {
           Save and post{" "}
         </button>
       </div>
-    </div>
+        </div>
+      </div>
+      </div>
+    </>
   );
 }
 const mapStateToProps = (state) => {

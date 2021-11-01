@@ -112,8 +112,8 @@ function Petition2(props) {
         </p>
       </div>
       <div className={styles.area}>
-        <div className={styles.empty}></div>
-        <div className={styles.input}>
+        {/* <div className={styles.empty}></div> */}
+        <div>
           <Editor
             editorState={editorState}
             onEditorStateChange={handleEditorChange}
@@ -121,6 +121,7 @@ function Petition2(props) {
             editorClassName="editor-class"
             toolbarClassName="toolbar-class"
             placeholder="Write here"
+            editorStyle={{height:'max-content'}}
           />
         </div>
       </div>

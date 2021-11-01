@@ -88,14 +88,24 @@ function Petition(props) {
                 : `${styles.card}`
             }
           >
-            <div className={
-              category.includes(value.name)
-                ? `${styles.tile} ${styles.tileactive}`
-                : `${styles.tile}`
-            } id={value.name} onClick={handleSelect} >
-              <img src={value.image} className={styles.lol} alt="" />
+            <div
+              className={
+                category.includes(value.name)
+                  ? `${styles.tile} ${styles.tileactive}`
+                  : `${styles.tile}`
+              }
+              id={value.name}
+              onClick={handleSelect}
+            >
+              <img
+                onClick={handleSelect}
+                src={value.image}
+                className={styles.lol}
+                alt="s"
+                id={value.name}
+              />
             </div>
-            <p id={value.name} onClick={handleSelect}>
+            <p onClick={handleSelect} id={value.name}>
               {value.name}
             </p>
           </div>

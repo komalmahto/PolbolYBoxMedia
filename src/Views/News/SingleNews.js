@@ -4,11 +4,13 @@ import axios from "../../axios";
 import { useHistory } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ListGroup from "react-bootstrap/ListGroup";
 
 function SingleNews({ match }) {
   const history = useHistory();
   const { newsId } = match.params;
   const [newsData, setNewsData] = useState(null);
+  const [comments,setComments]=useState([])
 
   const fetchNews = async () => {
     const { data } = await axios.get(`common/newsById/${newsId}`);
@@ -17,8 +19,15 @@ function SingleNews({ match }) {
 
   useEffect(() => {
     fetchNews();
+    handleComments()
   }, [match]);
-
+  const handleComments = () => {
+    fetch(
+      `https://backend.polbol.in/backend/common/comments?parentId=${newsId}&parentType=news`
+    )
+      .then((res) => res.json())
+      .then((data) => setComments(data.payload.data));
+  };
   useEffect(() => {
     const unlisten = history.listen(() => {
       window.scrollTo(-100, 0);
@@ -95,7 +104,32 @@ function SingleNews({ match }) {
           </div>
         </div>
       </div>
+      <div className={styles.comments}>
+        <p>{comments.length} Comments</p>
+        <ListGroup>
+          {comments.length > 0
+            ? comments.map((item, index) => {
+                return (
+                  <ListGroup.Item
+                    key={index}
+                    className={styles.commentcontainer}
+                  >
+                    <img className={styles.avatar} src={item.user.avatar} />
+                    <div>
+                      <p className={styles.categoryUser}>
+                        @{item.user.userName}
+                      </p>
+                      <p className={styles.category}>{item.comment}</p>
+                    </div>
+                  </ListGroup.Item>
+                );
+              })
+            : ""}
+        </ListGroup>
       </div>
+
+      </div>
+     
     </>
   );
 }

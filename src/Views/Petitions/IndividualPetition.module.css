@@ -11,7 +11,7 @@
 .actions {
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-between;
   margin: 20px 0;
 }
 .pHeading {
@@ -49,7 +49,8 @@
   font-family: Poppins;
   font-style: normal;
   font-size: 14px;
-  line-height: 69px;
+  margin-top: 1.5rem;
+  /* line-height: 69px; */
 }
 
 .box {
@@ -121,10 +122,12 @@
 .backbtn {
   background-color: #84855d;
   border-radius: 12px;
-  width: 249px;
-  height: 60px;
+  /* width: 249px; */
+  /* height: 60px; */
   color: white;
-  font-size: 22px;
+  font-size: 12px;
+  border: none;
+  padding: 0.5rem 1rem;
   cursor: pointer;
   /* margin-left: 100px;
   margin-top: 70px; */

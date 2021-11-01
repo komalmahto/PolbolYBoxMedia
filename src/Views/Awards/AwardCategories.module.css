@@ -112,3 +112,13 @@
   margin-left: 18px;
   font-size: 0.95rem;
 }
+
+.down{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 20px 30px;
+}
+.downBtn{
+  width: 200px;
+}

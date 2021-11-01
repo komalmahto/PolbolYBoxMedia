@@ -128,7 +128,7 @@ setTimeout(()=>{
         </div>
         <div className={styles.box}>
           <p className={styles.one}>
-            {petitionData ? petitionData.signaturesReceived : ""} have signed.
+            {petitionData &&petitionData.signaturesReceived ? petitionData.signaturesReceived : 0} have signed.
             Let’s get to {petitionData ? petitionData.expectedSignature : ""}!
           </p>
           {/* <ProgressBar

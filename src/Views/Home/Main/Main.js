@@ -117,6 +117,7 @@ const Main = () => {
           <div className={styles.feature}>
             <h2>Awards</h2>
             <div className={styles.award_box}>
+              {activeAwards.length===0&&<p style={{color:'grey'}}>More awards coming soon!</p>}
               {activeAwards.map((award) => (
                 <div key={award._id} className={styles.item}>
                   <div className={styles.award_container}>

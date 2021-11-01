@@ -104,12 +104,12 @@ function Petition3(props) {
       </div>
       <div className={styles.areaImg}>
         <div className={styles.picarea}>
-          {source ? <img className={styles.pic} src={source} /> : ""}
+          {source ? <img className={styles.pic} src={source} /> : <i  style={{fontSize:'10rem'}}className="fas fa-image"></i>}
         </div>
 
         <form className={styles.fileinput}>
           <div className="form-group">
-            <label htmlFor="image">
+            <label style={{margin:"0"}} htmlFor="image">
               Upload Photo
               <input
                 style={{ display: "none" }}
