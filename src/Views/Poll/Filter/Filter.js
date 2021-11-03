@@ -1,10 +1,10 @@
-import { useState } from "react";
-import { regions } from "../../../data";
-import styles from "./Filter.module.css";
-import PropTypes from "prop-types";
+import { useState } from "react"
+import { regions } from "../../../data"
+import styles from "./Filter.module.css"
+import PropTypes from "prop-types"
 
 const Filter = ({ updateFilterOptions }) => {
-  const [displayFilter, setDisplayFilter] = useState(false);
+  const [displayFilter, setDisplayFilter] = useState(false)
 
   return (
     <div className={styles.filter}>
@@ -57,11 +57,11 @@ const Filter = ({ updateFilterOptions }) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
 Filter.propTypes = {
   updateFilterOptions: PropTypes.func.isRequired,
-};
+}
 
-export default Filter;
+export default Filter

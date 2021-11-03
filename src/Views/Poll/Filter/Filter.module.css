@@ -1,6 +1,20 @@
+.filter__bar {
+  height: 100%; /* Full-height: remove this if you want "auto" height */
+  /* Set the width of the sidebar */
+  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+  z-index: 10; /* Stay on top */
+  top: 0; /* Stay at the top */
+  left: 0;
+  flex: 2;
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 20px;
+  overflow: auto;
+  background-color: aqua;
+}
+
 .filter {
   position: relative;
-  background: #84855d;
+  background: #06ec71;
   display: inline-block;
   font-size: 0.8rem;
   padding: 6px 10px;

@@ -15,7 +15,8 @@
 }
 
 .logo {
-  font-size: 32px;
+  width: 20px;
+  height: 20px;
   cursor: pointer;
 }
 
@@ -75,7 +76,6 @@
   margin-bottom: 0;
   width: 60%;
   justify-content: space-between;
-  
 }
 .links li {
   position: relative;
@@ -120,55 +120,49 @@
   }
 }
 
-
-
-.lang{
+.lang {
   margin-right: 1rem;
   background-color: #fdeddb;
   padding: 0.5rem;
   border-radius: 20px;
   box-shadow: 0px 4px 14px -4px #cecdcd;
   cursor: pointer;
-  
 }
-.lang img{
-
-    margin-right: 2px;
-  
+.lang img {
+  margin-right: 2px;
 }
 
-.ico i{
+.ico i {
   font-size: 2rem;
   margin-right: 1rem;
   cursor: pointer;
   color: #000;
 }
 
-.navRight{
+.navRight {
   display: flex;
   align-items: center;
 }
-.antdDrop{
+.antdDrop {
   font-size: 2rem;
   display: flex;
   align-items: center;
   color: #84855d;
-  
 }
-.antdDrop i{
+.antdDrop i {
   color: #84855d;
 }
-.dropItem{
+.dropItem {
   font-size: 1.2rem;
   padding: 5px 5px;
   display: inline-block;
 }
 
-.dropItem i{
+.dropItem i {
   margin-right: 1rem;
 }
 
-.auth{
+.auth {
   background-color: #84855d;
   padding: 0.5rem 1rem;
   color: white;
