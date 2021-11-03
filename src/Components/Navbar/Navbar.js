@@ -1,17 +1,16 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import styles from "./Navbar.module.css";
-import Modal from "../Modal/Modal";
-import { connect } from "react-redux";
-import { fetchToken } from "../../redux/Actions/AuthActions";
-import { logout } from "../../redux/Actions/AuthActions";
-import { updateLanguage } from "../../redux/Actions";
-import hind from "./ind.png";
-import eng from "./United-kingdom_flag_icon_round.svg.png";
-import { Menu, Dropdown } from "antd";
-import { DownOutlined } from "@ant-design/icons";
-
-
+import { useState } from "react"
+import { Link } from "react-router-dom"
+import styles from "./Navbar.module.css"
+import Modal from "../Modal/Modal"
+import { connect } from "react-redux"
+import { fetchToken } from "../../redux/Actions/AuthActions"
+import { logout } from "../../redux/Actions/AuthActions"
+import { updateLanguage } from "../../redux/Actions"
+import hind from "./ind.png"
+import eng from "./United-kingdom_flag_icon_round.svg.png"
+import { Menu, Dropdown } from "antd"
+import { DownOutlined } from "@ant-design/icons"
+import image from "./Logo.png"
 
 const Navbar = ({
   auth: { token, user },
@@ -20,46 +19,46 @@ const Navbar = ({
   updateLanguage,
   lang,
 }) => {
-  const [displayMenu, setDisplayMenu] = useState(false);
-  const [show, setShow] = useState(false);
+  const [displayMenu, setDisplayMenu] = useState(false)
+  const [show, setShow] = useState(false)
   const clickHandler = () => {
-    setShow(!show);
-  };
+    setShow(!show)
+  }
   const menu = (
     <Menu>
       <Menu.Item key="0">
-        <Link className={styles.dropItem} to={`/user/${user._id}`} >
+        <Link className={styles.dropItem} to={`/user/${user._id}`}>
           <i className="fas fa-user-circle"></i> Profile
         </Link>
       </Menu.Item>
       <Menu.Item key="1">
-        <Link className={styles.dropItem} to={`/user/${user._id}/wallet`}  >
+        <Link className={styles.dropItem} to={`/user/${user._id}/wallet`}>
           <i className="fas fa-wallet"></i> Wallet
         </Link>
       </Menu.Item>
       <Menu.Item key="1">
-        <span onClick={logout} className={`${styles.auth} ${styles.dropItem}`}  >
-        <i className="fas fa-sign-out-alt"></i>
-          Logout 
+        <span onClick={logout} className={`${styles.auth} ${styles.dropItem}`}>
+          <i className="fas fa-sign-out-alt"></i>
+          Logout
         </span>
       </Menu.Item>
     </Menu>
-  );
+  )
   const handleLanguage = () => {
     if (lang.language === "English") {
-      updateLanguage("Hindi");
+      updateLanguage("Hindi")
     }
     if (lang.language === "Hindi") {
-      updateLanguage("English");
+      updateLanguage("English")
     }
-  };
+  }
 
   return (
     <>
       <nav className={styles.navbar}>
         <div className={styles.container}>
           <div className={styles.logo}>
-            <p>LOGO</p>
+            <img src={image} alt="" style={{ width: "100px", zIndex: "20" }} />
           </div>
           <ul className={styles.links}>
             <li>
@@ -174,19 +173,19 @@ const Navbar = ({
         onHide={() => setShow(false)}
       />
     </>
-  );
-};
+  )
+}
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
   lang: state.lang,
-});
+})
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchToken: (token, user) => dispatch(fetchToken(token, user)),
     logout: () => dispatch(logout()),
     updateLanguage: (lang) => dispatch(updateLanguage(lang)),
-  };
-};
+  }
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar)
