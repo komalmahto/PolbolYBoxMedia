@@ -1,7 +1,7 @@
 const arr = [
   {
     title:
-      "Lack of Compatibility and Communication, Long distance Relationship",
+    "Lack of Compatibility and Communication, Long distance Relationship",
     color: "rgb(0, 143, 251)",
   },
   {
