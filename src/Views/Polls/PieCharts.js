@@ -3,35 +3,27 @@ import Chart from "react-apexcharts"
 import Dropdown from "react-bootstrap/Dropdown"
 import { FiCheck } from "react-icons/fi"
 import { ToastContainer, toast } from "react-toastify"
-import "react-toastify/dist/ReactToastify.css"
-import "./graph.css"
-import "./PieChart.css"
 import Accordion from "@mui/material/Accordion"
 import AccordionSummary from "@mui/material/AccordionSummary"
 import AccordionDetails from "@mui/material/AccordionDetails"
-
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
-
-import { Pie } from "@ant-design/charts"
 import List from "@mui/material/List"
 import ListItem from "@mui/material/ListItem"
 import ListItemButton from "@mui/material/ListItemButton"
-import FilterOption from "./FilterOption"
 import { Typography, Grid } from "@mui/material"
 import arr from "./PieChart_Data"
+import { Line } from "@ant-design/charts"
 import Box from "@mui/material/Box"
 import Paper from "@mui/material/Paper"
 import { styled } from "@mui/material/styles"
-
-import "./FilterOption.css"
 import CloseIcon from "@mui/icons-material/Close"
 import MenuIcon from "@mui/icons-material/Menu"
 import ShowChartIcon from "@mui/icons-material/ShowChart"
-
-import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp"
-import MuiAccordion from "@mui/material/Accordion"
-import MuiAccordionSummary from "@mui/material/AccordionSummary"
-import MuiAccordionDetails from "@mui/material/AccordionDetails"
+import Modal from "@mui/material/Modal"
+import "react-toastify/dist/ReactToastify.css"
+import "./graph.css"
+import "./PieChart.css"
+import "./FilterOption.css"
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -43,8 +35,23 @@ const Item = styled(Paper)(({ theme }) => ({
 function PieCharts(props) {
   const [style, setStyle] = useState(" ")
   const [id, setId] = useState(0)
+  const [tick, setTicked] = useState(true)
   const [click, setClicked] = useState(false)
   const [hover, setHover] = useState("")
+  const [open1, setOpen1] = React.useState(false)
+  const [open, setOpen] = React.useState(false)
+  const [gotchart, setGotchart] = useState(null)
+  const [gotChart2, setGotchart2] = useState(null)
+
+  const handleOpen = (type) => {
+    console.log(type === "one")
+    if (type === "one") {
+      setOpen1(true)
+    } else {
+      setOpen1(false)
+    }
+    setOpen(true)
+  }
   const showMenu = () => {
     setClicked(true)
     setStyle("dropdown-content")
@@ -54,6 +61,7 @@ function PieCharts(props) {
     setClicked(false)
     setStyle("")
   }
+  const handleClose = () => setOpen(false)
   const [checked, setChecked] = React.useState([0])
 
   const handleToggle = (value) => () => {
@@ -99,61 +107,16 @@ function PieCharts(props) {
   const legends1 = {
     show: false,
   }
-  const [labels, setLabels] = useState(null)
-  // options={{
-  //   plotOptions: {
-  //     pie: {
-  //       donut: {
-  //         labels: {
-  //           show: true,
-  //           name: {
-  //             show: true,
-  //           },
-  //           value: {
-  //             show: true,
-  //           },
-  //         },
-  //       },
-  //     },
-  //   },
-  // }}
-  const graphOption = {
-    options: {
-      labels,
-      plotOptions: {
-        pie: {
-          donut: {
-            size: "60%",
-            labels: {
-              show: true,
-              name: {
-                show: false,
-              },
-              value: {
-                show: true,
-              },
-            },
-          },
-          offsetX: 0,
-          dataLabels: {
-            offset: -5,
-          },
-        },
-      },
-    },
-  }
-  // const [ageGap, setageGap] = useState(null)
-  // const [ageGapGender, setageGapGender] = useState(null)
+
   const handleSelect = (e) => {
     const id = e.target.id
     console.log(id, "komal")
     const splitAgeGender = id.split(":")
-    // setageGap(splitAgeGender[0])
-    // setageGapGender(splitAgeGender[1])
+
     var ageGap = splitAgeGender[0]
     var ageGapGender = splitAgeGender[1]
-    console.log(data.data.payload.ageAndGender[ageGap][ageGapGender])
-    console.log(ageGap, ageGapGender)
+    // console.log(data.data.payload.ageAndGender[ageGap][ageGapGender])
+    // console.log(ageGap, ageGapGender)
     const arr = Object.values(
       data.data.payload.ageAndGender[ageGap][ageGapGender]
     )
@@ -175,6 +138,8 @@ function PieCharts(props) {
   }
 
   const handleClick = (e) => {
+    setTicked(!tick)
+
     e.stopPropagation()
     console.log(e)
     if (e.target.classList.contains("overall")) {
@@ -211,7 +176,7 @@ function PieCharts(props) {
   }
 
   const settingOverall = () => {
-    const arr = Object.values(data.data.payload.global)
+    const arr = Object.values(props?.data.data.payload.global)
     const obj = { overall: arr }
 
     setFilters({ ...filters, nofilters: obj })
@@ -226,31 +191,208 @@ function PieCharts(props) {
     toast("Copied to clipboard")
   }
 
+  let lineChart = []
+  let lineChartGender = []
+  const [labels, setLabels] = useState(null)
+  const [daata, setDaata] = useState(null)
   useEffect(() => {
+    setDaata(props.data)
     setData(props.data)
-  }, [])
-
-  //console.log(props)
+  }, [props])
   useEffect(() => {
-    if (data) {
-      setLabels(data.data.payload.poll.options.map((val, idx) => val.name))
+    if (daata) {
+      setLabels(
+        props?.data.data.payload.poll.options.map((val, idx) => val.name)
+      )
       console.log(labels)
       settingOverall()
     }
-  }, [data])
+  }, [daata])
 
-  console.log(props.data)
+  const [datas, setDatas] = useState([])
+  useEffect(() => {
+    if (labels) {
+      asyncFetch1()
+      asyncFetch2()
+    }
+  }, [labels])
 
-  Object.keys(ageGender).map((value, key1) =>
-    Object.keys(ageGender[value]).length > 0
-      ? Object.keys(ageGender[value]).map((val, idx) =>
-          labels != null ? console.log(ageGender[value][val]) : " "
-        )
-      : null
-  )
+  const asyncFetch1 = async () => {
+    console.log(props)
 
+    Object.keys(props?.data?.data.payload.age).forEach((i, idx) => {
+      console.log(i)
+      console.log(labels)
+      for (let j = 0; j < 10; j++) {
+        console.log(labels[j])
+        console.log(props?.data.data.payload.age[i])
+      }
+      if (labels !== null && labels.length > 0) {
+        for (let j = 0; j < 10; j++) {
+          lineChart.push({
+            name: labels[j],
+            frequency: props?.data.data.payload.age[i][j],
+            ageGap: i,
+          })
+          console.log(lineChart)
+        }
+      }
+    })
+    setGotchart(lineChart)
+  }
+
+  const asyncFetch2 = () => {
+    Object.keys(props?.data?.data?.payload?.gender).forEach((i, idx) => {
+      console.log(i)
+      for (let j = 0; j < 10; j++) {
+        console.log(labels[j])
+        console.log(props?.data.data.payload.gender[i][j])
+      }
+      if (labels !== null) {
+        for (let j = 0; j < 10; j++) {
+          lineChartGender.push({
+            name: labels[j],
+            frequency: props?.data?.data?.payload?.gender[i][j],
+            gender: i,
+          })
+        }
+      }
+    })
+
+    setGotchart2(lineChartGender)
+    console.log(lineChartGender)
+    console.log(gotChart2)
+  }
+
+  var config1, config2
+  if (gotchart !== null && lineChartGender !== null) {
+    config2 = {
+      data: gotChart2,
+      yField: "frequency",
+      xField: "gender",
+      seriesField: "name",
+      xAxis: {
+        title: {
+          text: "Gender",
+          style: { fontSize: 20 },
+        },
+      },
+      yAxis: {
+        title: {
+          text: "Vote Percentage",
+          style: { fontSize: 20 },
+        },
+        label: {
+          formatter: function formatter(v) {
+            return "".concat(v, " %")
+          },
+        },
+      },
+
+      legend: { position: "top" },
+      smooth: true,
+      animation: {
+        appear: {
+          animation: "path-in",
+          duration: 2000,
+        },
+      },
+    }
+    config1 = {
+      data: gotchart !== null ? gotchart : " ",
+      yField: "frequency",
+      xField: "ageGap",
+      seriesField: "name",
+      xAxis: {
+        title: {
+          text: "Age Groups",
+          style: { fontSize: 20 },
+        },
+      },
+      yAxis: {
+        title: {
+          text: "Vote Percentage",
+          style: { fontSize: 20 },
+        },
+        label: {
+          formatter: function formatter(v) {
+            return "".concat(v, " %")
+          },
+        },
+      },
+
+      legend: { position: "top" },
+      smooth: true,
+      animation: {
+        appear: {
+          animation: "path-in",
+          duration: 10000,
+        },
+      },
+    }
+  }
+  const graphOption = {
+    options: {
+      labels,
+      plotOptions: {
+        pie: {
+          donut: {
+            size: "60%",
+            labels: {
+              show: true,
+              name: {
+                show: false,
+              },
+              value: {
+                show: true,
+              },
+            },
+          },
+          offsetX: 0,
+          dataLabels: {
+            offset: -5,
+          },
+        },
+      },
+    },
+  }
   return (
     <>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box
+          sx={style}
+          style={{
+            width: "80%",
+            margin: "0 auto",
+            backgroundColor: "white",
+            padding: "5%",
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+
+            bgcolor: "background.paper",
+
+            boxShadow: 24,
+            p: 4,
+          }}
+        >
+          {open1 === true && gotchart !== null && lineChartGender !== null ? (
+            <div>
+              <Line {...config1} />
+            </div>
+          ) : (
+            <div>
+              <Line {...config2} />
+            </div>
+          )}
+        </Box>
+      </Modal>
       <div className="container">
         <ToastContainer />
         {data && (
@@ -279,6 +421,7 @@ function PieCharts(props) {
             <Typography className="filterHeading">
               <input
                 type="checkbox"
+                checked={tick}
                 className="overall"
                 onClick={handleClick}
               />{" "}
@@ -422,6 +565,37 @@ function PieCharts(props) {
                   </>
                 )
               })}
+            <Accordion>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1a-content"
+                id="panel1a-header"
+              >
+                <Typography className="filterHeading">Option Trends</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <List sx={{ bgcolor: "background.paper" }}>
+                  <ListItem disablePadding>
+                    <ListItemButton
+                      onClick={() => {
+                        handleOpen("one")
+                      }}
+                    >
+                      Age
+                    </ListItemButton>
+                  </ListItem>
+                  <ListItem disablePadding>
+                    <ListItemButton
+                      onClick={() => {
+                        handleOpen("two")
+                      }}
+                    >
+                      Gender
+                    </ListItemButton>
+                  </ListItem>
+                </List>
+              </AccordionDetails>
+            </Accordion>
             <Accordion>
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}

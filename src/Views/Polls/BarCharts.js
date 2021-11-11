@@ -2,10 +2,14 @@ import React, { useState, useEffect } from "react"
 import Chart from "react-apexcharts"
 import Dropdown from "react-bootstrap/Dropdown"
 import { FiCheck } from "react-icons/fi"
-import { FiXCircle } from "react-icons/fi"
 import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import "./graph.css"
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
+
+import AccordionSummary from "@mui/material/AccordionSummary"
+import AccordionDetails from "@mui/material/AccordionDetails"
+import Accordion from "@mui/material/Accordion"
 import { Line } from "@ant-design/charts"
 import DropdownCascade from "react-dropdown-cascade"
 import List from "@mui/material/List"
@@ -83,11 +87,11 @@ function BarCharts(props) {
     })
     setGotchart(lineChart)
   }
-  const [line2, setLine2] = useState(false)
+
   const asyncFetch2 = () => {
     Object.keys(props?.data?.data?.payload?.gender).forEach((i, idx) => {
       console.log(i)
-      setLine2(true)
+
       if (labels !== null) {
         for (let j = 0; j < 10; j++) {
           lineChartGender.push({
@@ -182,8 +186,6 @@ function BarCharts(props) {
     setStyle("")
   }
   const [data, setData] = useState(null)
-  const [dropdownValue, setDropdownValue] = useState("Select filter")
-  const [it, setIt] = useState([])
 
   const [filters, setFilters] = useState({
     nofilters: {},
@@ -466,114 +468,153 @@ function BarCharts(props) {
               flexDirection: "column",
             }}
           >
-            {" "}
-            <Dropdown.Item className="overall" onClick={handleClick}>
+            <Typography className="filterHeading">
+              <input
+                type="checkbox"
+                className="overall"
+                onClick={handleClick}
+              />{" "}
               Overall
-            </Dropdown.Item>
-            <Typography
-              center
-              variant="h6"
-              style={{ color: "#84855D", marginLeft: "6%" }}
-            >
-              Gender
             </Typography>
-            <List sx={{ bgcolor: "background.paper" }}>
-              {data
-                ? Object.keys(data.data.payload.gender).map((value, key) => {
-                    const labelId = `checkbox-list-label-${value}`
-                    return (
-                      <ListItem disablePadding>
-                        <ListItemButton>
-                          <div style={{ marginRight: "7%" }}>
-                            <input
-                              type="checkbox"
-                              key={key}
-                              id={"gender," + value + ":" + key}
-                              className={value}
-                              onClick={handleClick}
+            <Accordion>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1a-content"
+                id="panel1a-header"
+              >
+                <Typography className="filterHeading">Gender</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <List sx={{ bgcolor: "background.paper" }}>
+                  {data
+                    ? Object.keys(data.data.payload.gender).map(
+                        (value, key) => {
+                          const labelId = `checkbox-list-label-${value}`
+                          return (
+                            <ListItem disablePadding>
+                              <ListItemButton>
+                                <div style={{ marginRight: "7%" }}>
+                                  <input
+                                    type="checkbox"
+                                    key={key}
+                                    id={"gender," + value + ":" + key}
+                                    className={value}
+                                    onClick={handleClick}
+                                  />
+                                </div>
+                                {value}{" "}
+                                <FiCheck
+                                  id={"check," + value}
+                                  className={"check"}
+                                />
+                              </ListItemButton>
+                            </ListItem>
+                          )
+                        }
+                      )
+                    : ""}
+                </List>
+              </AccordionDetails>
+            </Accordion>
+            <Accordion>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1a-content"
+                id="panel1a-header"
+              >
+                <Typography className="filterHeading">Age Groups</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <List sx={{ bgcolor: "background.paper" }}>
+                  {data
+                    ? Object.keys(data.data.payload.age).map((value, key) => (
+                        <ListItem disablePadding>
+                          <ListItemButton>
+                            <div style={{ marginRight: "7%" }}>
+                              <input
+                                type="checkbox"
+                                key={key}
+                                id={"age," + value + ":" + key}
+                                className={value}
+                                onClick={handleClick}
+                              />
+                            </div>
+                            {value}
+                            <FiCheck
+                              id={"check," + value}
+                              className={"check"}
                             />
-                          </div>
-                          {value}{" "}
-                          <FiCheck id={"check," + value} className={"check"} />
-                        </ListItemButton>
-                      </ListItem>
-                    )
-                  })
-                : ""}
-            </List>
-            <Typography
-              center
-              variant="h6"
-              style={{ color: "#84855D", marginLeft: "6%" }}
-            >
-              Age Groups
-            </Typography>
-            <List sx={{ bgcolor: "background.paper" }}>
-              {data
-                ? Object.keys(data.data.payload.age).map((value, key) => (
-                    <ListItem disablePadding>
-                      <ListItemButton>
-                        <div style={{ marginRight: "7%" }}>
-                          <input
-                            type="checkbox"
-                            key={key}
-                            id={"age," + value + ":" + key}
-                            className={value}
-                            onClick={handleClick}
-                          />
-                        </div>
-                        {value}
-                        <FiCheck id={"check," + value} className={"check"} />
-                      </ListItemButton>
-                    </ListItem>
-                  ))
-                : ""}
-            </List>
-            <Typography variant="h6">
-              <Button
-                style={{ color: "#84855D", marginLeft: "6%" }}
-                onClick={() => {
-                  handleOpen("one")
-                }}
+                          </ListItemButton>
+                        </ListItem>
+                      ))
+                    : ""}
+                </List>
+              </AccordionDetails>
+            </Accordion>
+            <Accordion>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1a-content"
+                id="panel1a-header"
               >
-                Line Chart 1
-              </Button>
-            </Typography>
-            <Typography variant="h6">
-              <Button
-                style={{ color: "#84855D", marginLeft: "6%" }}
-                onClick={() => {
-                  handleOpen("two")
-                }}
+                <Typography className="filterHeading">Option Trends</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <List sx={{ bgcolor: "background.paper" }}>
+                  <ListItem disablePadding>
+                    <ListItemButton
+                      onClick={() => {
+                        handleOpen("one")
+                      }}
+                    >
+                      Age
+                    </ListItemButton>
+                  </ListItem>
+                  <ListItem disablePadding>
+                    <ListItemButton
+                      onClick={() => {
+                        handleOpen("two")
+                      }}
+                    >
+                      Gender
+                    </ListItemButton>
+                  </ListItem>
+                </List>
+              </AccordionDetails>
+            </Accordion>
+            <Accordion>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1a-content"
+                id="panel1a-header"
               >
-                Line Chart 2
-              </Button>
-            </Typography>
-            <Dropdown className="d-inline mx-2" autoClose="outside">
-              <Dropdown.Toggle
-                style={{ backgroundColor: "#84855D" }}
-                id="dropdown-autoclose-outside"
-                onMouseEnter={handleEnter}
-              >
-                Region
-              </Dropdown.Toggle>
-
-              <Dropdown.Menu>
-                {data
-                  ? Object.keys(data.data.payload.region).map((value, key) => (
-                      <Dropdown.Item
-                        key={key}
-                        id={"region," + value + ":" + key}
-                        className={value}
-                        onClick={handleClick}
-                      >
-                        {value}{" "}
-                        <FiCheck id={"check," + value} className={"check"} />
-                      </Dropdown.Item>
-                    ))
-                  : ""}
-              </Dropdown.Menu>
-            </Dropdown>
+                <Typography className="filterHeading">Region</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <List>
+                  {data
+                    ? Object.keys(data.data.payload.region).map(
+                        (value, key) => (
+                          <ListItem disablePadding>
+                            <ListItemButton>
+                              <div style={{ marginRight: "2px" }}>
+                                <input
+                                  type="checkbox"
+                                  key={key}
+                                  id={"region," + value + ":" + key}
+                                  className={value}
+                                  onClick={handleClick}
+                                />
+                              </div>
+                              {value}
+                            </ListItemButton>
+                          </ListItem>
+                        )
+                      )
+                    : ""}
+                </List>
+              </AccordionDetails>
+            </Accordion>
           </div>
         </div>
         <div className="center_graph">
