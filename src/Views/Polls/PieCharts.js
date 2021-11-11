@@ -42,7 +42,9 @@ function PieCharts(props) {
   const [open, setOpen] = React.useState(false)
   const [gotchart, setGotchart] = useState(null)
   const [gotChart2, setGotchart2] = useState(null)
-
+  const handleTick = () => {
+    setTicked(!tick)
+  }
   const handleOpen = (type) => {
     console.log(type === "one")
     if (type === "one") {
@@ -138,11 +140,9 @@ function PieCharts(props) {
   }
 
   const handleClick = (e) => {
-    setTicked(!tick)
-
-    e.stopPropagation()
     console.log(e)
     if (e.target.classList.contains("overall")) {
+      setTicked(!tick)
       if (filters.nofilters.overall !== undefined) {
         const obj = {}
         setFilters({ ...filters, nofilters: obj })
@@ -337,7 +337,7 @@ function PieCharts(props) {
       labels,
       plotOptions: {
         pie: {
-          donut: {
+          pie: {
             size: "60%",
             labels: {
               show: true,
@@ -689,7 +689,7 @@ function PieCharts(props) {
                                 title: { text: val, align: "center" },
                               }}
                               series={filters[value][val]}
-                              type="donut"
+                              type="pie"
                               className="piechart"
                               style={{ margin: "0 auto" }}
                             />
@@ -743,7 +743,7 @@ function PieCharts(props) {
                                   title: { text: val, align: "center" },
                                 }}
                                 series={ageGender[value][val]}
-                                type="donut"
+                                type="pie"
                                 className="piechart"
                                 style={{ margin: "0 auto" }}
                               />
