@@ -1,3 +1,91 @@
+.main{
+  width:45%;
+  min-width:320px;
+  margin:0 auto;
+}
+@media only screen and (max-width: 1000px){
+  .main{
+  width:70% !important;
+  margin:0 auto;
+  }
+  .card {
+    margin: 10px 40px !important;
+    cursor: pointer;
+  }
+}
+@media only screen and (max-width: 900px){
+  .main{
+  width:80% !important;
+  margin:0 auto;
+  }
+  
+}
+@media only screen and (max-width: 785px){
+  .main{
+  width:80% !important;
+  margin:0 auto;
+  }
+  .card {
+    margin: 10px 20px !important;
+    cursor: pointer;
+  }
+  .ques {
+    font-size: 30px !important;
+  }
+  
+}
+@media only screen and (max-width: 770px){
+  .main{
+  width:90% !important;
+  margin:0 auto;
+  }
+  .card {
+    margin: 10px 40px !important;
+    cursor: pointer;
+  }
+  .tile {
+    width: 100px !important;
+    height: 100px !important;
+  }
+  .lol{
+    height: 40px !important;
+    width: 40px !important;
+  }
+  
+}
+@media only screen and (max-width: 585px){
+  .main{
+  width:90% !important;
+  margin:0 auto;
+  }
+  .card {
+    margin: 10px 20px !important;
+    cursor: pointer;
+  }
+  
+}
+@media only screen and (max-width: 480px){
+  .main{
+  width:90% !important;
+  margin:0 auto;
+  }
+  .card {
+    margin: 10px 10px !important;
+    cursor: pointer;
+  }
+  
+}
+@media only screen and (max-width: 480px){
+  .main{
+  width:90% !important;
+  margin:0 auto;
+  }
+  .card {
+    margin: 10px 0 !important;
+    cursor: pointer;
+  }
+  
+}
 .header {
   background: #fdf9f6;
   color: #535353;
@@ -17,7 +105,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 20px;
+  
 }
 .circle {
   border: 1px solid black;
@@ -45,20 +133,19 @@ margin: 0 20px;
 
 .body {
   text-align: center;
-  margin-bottom: 30px;
-  width: 900px;
+  
+  /* width: 45%; */
   margin: auto;
 }
 .ques {
   text-align: left;
   font-family: Poppins;
   font-weight: 600;
-  font-size: 46px;
-  margin-bottom: 20px;
+  font-size: 37px;
 }
 .qtext {
   text-align: left;
-  font-size: 28px;
+  font-size: 16px;
   font-weight: 400;
   font-family: Roboto;
   line-height: 33px;
@@ -69,30 +156,30 @@ margin: 0 20px;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  margin: 100px;
-  margin-left: 200px;
-  margin-right: 200px;
+  /* width:45%; */
+  margin: 40px auto;
   text-align: center;
   border: 2px solid transparent;
 }
 .card {
-  margin-bottom: 30px;
+  margin: 0 2px 20px 2px;
   cursor: pointer;
 }
 
 .lol{
-  height: 100px;
-  width: 100px;
+  height: 60px;
+  width: 60px;
 }
 .tile {
-  width: 190px;
-  height: 190px;
-  background-color: #fdeddb;
+  width: 130px;
+  height: 130px;
+  background-color: rgb(253, 249, 242);;
   margin-bottom: 10px;
   display: flex;
   align-items: center;
 justify-content: center;
 transition: all 0.3s;
+border:2px solid rgb(253, 238, 212);
 }
 .tile:hover{
   background-color: #d6b690;
