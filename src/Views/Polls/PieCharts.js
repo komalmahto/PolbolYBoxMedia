@@ -20,6 +20,7 @@ import CloseIcon from "@mui/icons-material/Close"
 import MenuIcon from "@mui/icons-material/Menu"
 import ShowChartIcon from "@mui/icons-material/ShowChart"
 import Modal from "@mui/material/Modal"
+import ModalComp from "./Modal"
 import "react-toastify/dist/ReactToastify.css"
 import "./graph.css"
 import "./PieChart.css"
@@ -394,15 +395,23 @@ function PieCharts(props) {
           )}
         </Box>
       </Modal>
-      <div className="container">
-        <ToastContainer />
+
+      <div
+        className="container"
+        style={{
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        {/* <ToastContainer /> */}
         {data && (
-          <h4 className="heading">
-            {data.data.payload.poll.question}{" "}
-            <span onClick={notify}>
-              <i style={{ color: "#84855d" }} className="fas fa-share-alt"></i>
-            </span>
-          </h4>
+          <>
+            <h4 className="heading">{data.data.payload.poll.question} </h4>
+            <ModalComp
+              question={data.data.payload.poll.question}
+              link={window.location.href}
+            />
+          </>
         )}
       </div>
       <div
@@ -419,7 +428,7 @@ function PieCharts(props) {
             }}
           >
             {" "}
-            <Typography className="filterHeading">
+            <Typography style={{ paddingLeft: "9%" }} className="filterHeading">
               <input
                 type="checkbox"
                 checked={tick}
@@ -445,7 +454,12 @@ function PieCharts(props) {
                           return (
                             <ListItem disablePadding>
                               <ListItemButton>
-                                <div style={{ marginRight: "7%" }}>
+                                <div
+                                  style={{
+                                    marginRight: "1%",
+                                    fontSize: "2px",
+                                  }}
+                                >
                                   <input
                                     type="checkbox"
                                     key={key}
@@ -523,7 +537,7 @@ function PieCharts(props) {
                               aria-controls="panel1a-content"
                               id="panel1a-header"
                             >
-                              <Typography>{value}</Typography>
+                              {value}
                             </AccordionSummary>
                             <AccordionDetails>
                               <List>
@@ -657,11 +671,13 @@ function PieCharts(props) {
                 Object.keys(filters[value]).length > 0 ? (
                   <>
                     <h4
-                      style={{ margin: "0 auto", textTransform: "uppercase" }}
+                      style={{
+                        marginLeft: "8%",
+                        textTransform: "capitalize",
+                      }}
                     >
                       {value !== "nofilters" ? value : ""}
                     </h4>
-
                     <Grid
                       container
                       spacing={0}
@@ -712,7 +728,11 @@ function PieCharts(props) {
                 Object.keys(ageGender[value]).length > 0 ? (
                   <>
                     <h4
-                      style={{ margin: "0 auto", textTransform: "uppercase" }}
+                      style={{
+                        margin: "0 auto",
+                        textTransform: "capitalize",
+                        fontSize: "15px",
+                      }}
                     >
                       {value}
                     </h4>
