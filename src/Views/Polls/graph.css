@@ -1,12 +1,17 @@
+.icon-bottom{
+  color:#84855d !important;
+}
+
 .container {
   padding: 10px;
 }
 .heading {
-  margin-bottom: 50px;
+  
   /* margin-left: 40px; */
   /* display: flex; */
   /* align-items: center; */
   text-align: center;
+  margin-right:1%;
   /* justify-content: space-between; */
 }
 .heading span {
@@ -31,10 +36,10 @@
 .box {
   display: flex;
   flex-wrap: wrap;
-  margin-left: 10px;
+  
   width: 100%;
   justify-content: flex-start;
-  /* align-items: flex-start; */
+   align-items: flex-start; 
 }
 
 .dropdowns {
@@ -77,6 +82,8 @@
   border: 1px solid black;
   margin: 10px;
 }
+@media only screen and (max-width: 780px) {
+}
 .vote__border {
   padding: auto !important;
 }
@@ -91,9 +98,9 @@
   font-size: 12px;
 }
 
-.apexcharts-xaxis {
+/* .apexcharts-xaxis {
   display: none !important;
-}
+} */
 .bar1 {
   margin-right: 10px;
 }

@@ -113,6 +113,7 @@ const Petitions = ({ auth: { user, token } }) => {
   const getActivePetitions = async () => {
     try {
       const { data } = await api.getActivePetitions()
+      console.log(data)
       setActivePetitionsTotal(data.payload.length)
       setActivePetitions(data.payload.payload)
     } catch (error) {
@@ -229,7 +230,6 @@ const Petitions = ({ auth: { user, token } }) => {
         </div>
       </div>
       <div className={styles.petitions}>
-        <h1>komal</h1>
         <div
           className={`${
             !myPet && active

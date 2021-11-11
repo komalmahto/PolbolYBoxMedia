@@ -2,10 +2,15 @@ import React, { useState, useEffect } from "react"
 import Chart from "react-apexcharts"
 import Dropdown from "react-bootstrap/Dropdown"
 import { FiCheck } from "react-icons/fi"
-import { FiXCircle } from "react-icons/fi"
 import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import "./graph.css"
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
+
+import AccordionSummary from "@mui/material/AccordionSummary"
+import AccordionDetails from "@mui/material/AccordionDetails"
+import Accordion from "@mui/material/Accordion"
+import { Line } from "@ant-design/charts"
 import DropdownCascade from "react-dropdown-cascade"
 import List from "@mui/material/List"
 import ListItem from "@mui/material/ListItem"
@@ -15,11 +20,162 @@ import { Typography, Grid } from "@mui/material"
 import CloseIcon from "@mui/icons-material/Close"
 import MenuIcon from "@mui/icons-material/Menu"
 import ShowChartIcon from "@mui/icons-material/ShowChart"
+import Button from "@mui/material/Button"
+import Modal from "@mui/material/Modal"
+
 function BarCharts(props) {
+  const [open, setOpen] = React.useState(false)
+  const [open1, setOpen1] = React.useState(false)
   const [style, setStyle] = useState(" ")
   const [id, setId] = useState(0)
   const [click, setClicked] = useState(false)
   const [hover, setHover] = useState("")
+  const [gotchart, setGotchart] = useState(null)
+  const [gotChart2, setGotchart2] = useState(null)
+  const handleOpen = (type) => {
+    console.log(type === "one")
+    if (type === "one") {
+      setOpen1(true)
+    } else {
+      setOpen1(false)
+    }
+    setOpen(true)
+  }
+
+  const handleClose = () => setOpen(false)
+
+  let lineChart = []
+  let lineChartGender = []
+
+  const [labels, setLabels] = useState(null)
+  const [daata, setDaata] = useState(null)
+  useEffect(() => {
+    setDaata(props.data)
+  }, [props])
+  useEffect(() => {
+    if (daata) {
+      setLabels(data.data.payload.poll.options.map((val, idx) => val.name))
+      console.log(labels)
+      settingOverall()
+    }
+  }, [daata])
+
+  const [datas, setDatas] = useState([])
+  useEffect(() => {
+    if (labels) {
+      asyncFetch1()
+      asyncFetch2()
+    }
+  }, [labels])
+
+  const asyncFetch1 = async () => {
+    console.log(props)
+    //setDatas(props?.data?.data?.payload?.age)
+
+    Object.keys(props?.data?.data.payload.age).forEach((i, idx) => {
+      console.log(i)
+      if (labels !== null) {
+        for (let j = 0; j < 10; j++) {
+          lineChart.push({
+            name: labels[j],
+            frequency: props?.data.data.payload.age[i].chartData[j].perc,
+            ageGap: i,
+          })
+          console.log(lineChart)
+        }
+      }
+    })
+    setGotchart(lineChart)
+  }
+
+  const asyncFetch2 = () => {
+    Object.keys(props?.data?.data?.payload?.gender).forEach((i, idx) => {
+      console.log(i)
+
+      if (labels !== null) {
+        for (let j = 0; j < 10; j++) {
+          lineChartGender.push({
+            name: labels[j],
+            frequency: props?.data?.data?.payload?.gender[i].chartData[j].perc,
+            gender: i,
+          })
+        }
+      }
+    })
+
+    setGotchart2(lineChartGender)
+    console.log(gotchart)
+    console.log(gotChart2)
+  }
+  console.log(lineChart)
+  var config1, config2
+  if (gotchart !== null && lineChartGender !== null) {
+    config2 = {
+      data: gotChart2,
+      yField: "frequency",
+      xField: "gender",
+      seriesField: "name",
+      xAxis: {
+        title: {
+          text: "Gender",
+          style: { fontSize: 20 },
+        },
+      },
+      yAxis: {
+        title: {
+          text: "Vote Percentage",
+          style: { fontSize: 20 },
+        },
+        label: {
+          formatter: function formatter(v) {
+            return "".concat(v, " %")
+          },
+        },
+      },
+
+      legend: { position: "top" },
+      smooth: true,
+      animation: {
+        appear: {
+          animation: "path-in",
+          duration: 2000,
+        },
+      },
+    }
+    config1 = {
+      data: gotchart !== null ? gotchart : " ",
+      yField: "frequency",
+      xField: "ageGap",
+      seriesField: "name",
+      xAxis: {
+        title: {
+          text: "Age Groups",
+          style: { fontSize: 20 },
+        },
+      },
+      yAxis: {
+        title: {
+          text: "Vote Percentage",
+          style: { fontSize: 20 },
+        },
+        label: {
+          formatter: function formatter(v) {
+            return "".concat(v, " %")
+          },
+        },
+      },
+
+      legend: { position: "top" },
+      smooth: true,
+      animation: {
+        appear: {
+          animation: "path-in",
+          duration: 10000,
+        },
+      },
+    }
+  }
+
   const showMenu = () => {
     setClicked(true)
     setStyle("dropdown-content")
@@ -30,8 +186,6 @@ function BarCharts(props) {
     setStyle("")
   }
   const [data, setData] = useState(null)
-  const [dropdownValue, setDropdownValue] = useState("Select filter")
-  const [it, setIt] = useState([])
 
   const [filters, setFilters] = useState({
     nofilters: {},
@@ -135,29 +289,7 @@ function BarCharts(props) {
       ],
     },
   ]
-  let options
-  useEffect(() => {
-    // console.log(data.data.payload.ageAndGender,"data")
-    setIt(
-      data &&
-        data.data &&
-        Object.keys(data.data.payload.ageAndGender).map((m, i) => {
-          return {
-            value: m,
-            label: m,
-            children: Object.keys(data.data.payload.ageAndGender[m]).map(
-              (p) => {
-                return {
-                  value: p,
-                  label: p,
-                }
-              }
-            ),
-          }
-        })
-    )
-    console.log(options)
-  }, [data])
+
   const handleClick = (e) => {
     e.stopPropagation()
     if (e.target.classList.contains("overall")) {
@@ -272,6 +404,42 @@ function BarCharts(props) {
 
   return (
     <div>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box
+          sx={style}
+          style={{
+            width: "80%",
+            margin: "0 auto",
+            backgroundColor: "white",
+            padding: "5%",
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+
+            bgcolor: "background.paper",
+
+            boxShadow: 24,
+            p: 4,
+          }}
+        >
+          {open1 === true && gotchart !== null && lineChartGender !== null ? (
+            <div>
+              <Line {...config1} />
+            </div>
+          ) : (
+            <div>
+              <Line {...config2} />
+            </div>
+          )}
+        </Box>
+      </Modal>
+
       <ToastContainer />
 
       {data ? (
@@ -285,6 +453,7 @@ function BarCharts(props) {
       ) : (
         ""
       )}
+
       <div
         style={{
           display: "flex",
@@ -299,94 +468,153 @@ function BarCharts(props) {
               flexDirection: "column",
             }}
           >
-            {" "}
-            <Dropdown.Item className="overall" onClick={handleClick}>
+            <Typography className="filterHeading">
+              <input
+                type="checkbox"
+                className="overall"
+                onClick={handleClick}
+              />{" "}
               Overall
-            </Dropdown.Item>
-            <Typography
-              center
-              variant="h6"
-              style={{ color: "#84855D", marginLeft: "6%" }}
-            >
-              Gender
             </Typography>
-            <List sx={{ bgcolor: "background.paper" }}>
-              {data
-                ? Object.keys(data.data.payload.gender).map((value, key) => {
-                    const labelId = `checkbox-list-label-${value}`
-                    return (
-                      <ListItem disablePadding>
-                        <ListItemButton>
-                          <div style={{ marginRight: "7%" }}>
-                            <input
-                              type="checkbox"
-                              key={key}
-                              id={"gender," + value + ":" + key}
-                              className={value}
-                              onClick={handleClick}
-                            />
-                          </div>
-                          {value}{" "}
-                          <FiCheck id={"check," + value} className={"check"} />
-                        </ListItemButton>
-                      </ListItem>
-                    )
-                  })
-                : ""}
-            </List>
-            <Typography
-              center
-              variant="h6"
-              style={{ color: "#84855D", marginLeft: "6%" }}
-            >
-              Age Groups
-            </Typography>
-            <List sx={{ bgcolor: "background.paper" }}>
-              {data
-                ? Object.keys(data.data.payload.age).map((value, key) => (
-                    <ListItem disablePadding>
-                      <ListItemButton>
-                        <div style={{ marginRight: "7%" }}>
-                          <input
-                            type="checkbox"
-                            key={key}
-                            id={"age," + value + ":" + key}
-                            className={value}
-                            onClick={handleClick}
-                          />
-                        </div>
-                        {value}
-                        <FiCheck id={"check," + value} className={"check"} />
-                      </ListItemButton>
-                    </ListItem>
-                  ))
-                : ""}
-            </List>
-            <Dropdown className="d-inline mx-2" autoClose="outside">
-              <Dropdown.Toggle
-                style={{ backgroundColor: "#84855D" }}
-                id="dropdown-autoclose-outside"
-                onMouseEnter={handleEnter}
+            <Accordion>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1a-content"
+                id="panel1a-header"
               >
-                Region
-              </Dropdown.Toggle>
-
-              <Dropdown.Menu>
-                {data
-                  ? Object.keys(data.data.payload.region).map((value, key) => (
-                      <Dropdown.Item
-                        key={key}
-                        id={"region," + value + ":" + key}
-                        className={value}
-                        onClick={handleClick}
-                      >
-                        {value}{" "}
-                        <FiCheck id={"check," + value} className={"check"} />
-                      </Dropdown.Item>
-                    ))
-                  : ""}
-              </Dropdown.Menu>
-            </Dropdown>
+                <Typography className="filterHeading">Gender</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <List sx={{ bgcolor: "background.paper" }}>
+                  {data
+                    ? Object.keys(data.data.payload.gender).map(
+                        (value, key) => {
+                          const labelId = `checkbox-list-label-${value}`
+                          return (
+                            <ListItem disablePadding>
+                              <ListItemButton>
+                                <div style={{ marginRight: "7%" }}>
+                                  <input
+                                    type="checkbox"
+                                    key={key}
+                                    id={"gender," + value + ":" + key}
+                                    className={value}
+                                    onClick={handleClick}
+                                  />
+                                </div>
+                                {value}{" "}
+                                <FiCheck
+                                  id={"check," + value}
+                                  className={"check"}
+                                />
+                              </ListItemButton>
+                            </ListItem>
+                          )
+                        }
+                      )
+                    : ""}
+                </List>
+              </AccordionDetails>
+            </Accordion>
+            <Accordion>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1a-content"
+                id="panel1a-header"
+              >
+                <Typography className="filterHeading">Age Groups</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <List sx={{ bgcolor: "background.paper" }}>
+                  {data
+                    ? Object.keys(data.data.payload.age).map((value, key) => (
+                        <ListItem disablePadding>
+                          <ListItemButton>
+                            <div style={{ marginRight: "7%" }}>
+                              <input
+                                type="checkbox"
+                                key={key}
+                                id={"age," + value + ":" + key}
+                                className={value}
+                                onClick={handleClick}
+                              />
+                            </div>
+                            {value}
+                            <FiCheck
+                              id={"check," + value}
+                              className={"check"}
+                            />
+                          </ListItemButton>
+                        </ListItem>
+                      ))
+                    : ""}
+                </List>
+              </AccordionDetails>
+            </Accordion>
+            <Accordion>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1a-content"
+                id="panel1a-header"
+              >
+                <Typography className="filterHeading">Option Trends</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <List sx={{ bgcolor: "background.paper" }}>
+                  <ListItem disablePadding>
+                    <ListItemButton
+                      onClick={() => {
+                        handleOpen("one")
+                      }}
+                    >
+                      Age
+                    </ListItemButton>
+                  </ListItem>
+                  <ListItem disablePadding>
+                    <ListItemButton
+                      onClick={() => {
+                        handleOpen("two")
+                      }}
+                    >
+                      Gender
+                    </ListItemButton>
+                  </ListItem>
+                </List>
+              </AccordionDetails>
+            </Accordion>
+            <Accordion>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1a-content"
+                id="panel1a-header"
+              >
+                <Typography className="filterHeading">Region</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <List>
+                  {data
+                    ? Object.keys(data.data.payload.region).map(
+                        (value, key) => (
+                          <ListItem disablePadding>
+                            <ListItemButton>
+                              <div style={{ marginRight: "2px" }}>
+                                <input
+                                  type="checkbox"
+                                  key={key}
+                                  id={"region," + value + ":" + key}
+                                  className={value}
+                                  onClick={handleClick}
+                                />
+                              </div>
+                              {value}
+                            </ListItemButton>
+                          </ListItem>
+                        )
+                      )
+                    : ""}
+                </List>
+              </AccordionDetails>
+            </Accordion>
           </div>
         </div>
         <div className="center_graph">
@@ -499,7 +727,7 @@ function BarCharts(props) {
               <div onClick={closeMenu}>
                 <CloseIcon
                   onClick={closeMenu}
-                  color="success"
+                  className="icon-bottom"
                   fontSize="large"
                 />
               </div>
@@ -608,7 +836,11 @@ function BarCharts(props) {
               </div>
             </>
           ) : (
-            <MenuIcon onClick={showMenu} color="success" fontSize="large" />
+            <MenuIcon
+              onClick={showMenu}
+              fontSize="large"
+              className="icon-bottom"
+            />
           )}
         </div>
       </div>
