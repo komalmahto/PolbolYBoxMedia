@@ -210,26 +210,6 @@ function PieCharts(props) {
     console.log(filters)
   }
 
-  // const handleDelete = (e) => {
-  //   if (e.target.classList.contains("overall")) {
-  //     if (filters.nofilters.overall !== undefined) {
-  //       const obj = {}
-  //       setFilters({ ...filters, nofilters: obj })
-  //     } else {
-  //       settingOverall()
-  //     }
-  //     return
-  //   }
-  //   const val = e.target.className
-  //   for (let key in filters) {
-  //     if (filters[key][val] !== undefined) {
-  //       const obj = { ...filters[key] }
-  //       delete obj[val]
-  //       setFilters({ ...filters, [key]: obj })
-  //     }
-  //   }
-  // }
-
   const settingOverall = () => {
     const arr = Object.values(data.data.payload.global)
     const obj = { overall: arr }
@@ -291,73 +271,96 @@ function PieCharts(props) {
           <div
             style={{
               display: "flex",
-              padding: "0 20px",
+
               flexDirection: "column",
             }}
           >
             {" "}
-            <Dropdown.Item className="overall" onClick={handleClick}>
+            <Typography className="filterHeading">
+              <input
+                type="checkbox"
+                className="overall"
+                onClick={handleClick}
+              />{" "}
               Overall
-            </Dropdown.Item>
-            <Typography
-              variant="h6"
-              style={{ color: "#84855D", padding: "0 auto" }}
-            >
-              Gender
             </Typography>
-            <List sx={{ bgcolor: "background.paper" }}>
-              {data
-                ? Object.keys(data.data.payload.gender).map((value, key) => {
-                    const labelId = `checkbox-list-label-${value}`
-                    return (
-                      <ListItem disablePadding>
-                        <ListItemButton>
-                          <div style={{ marginRight: "7%" }}>
-                            <input
-                              type="checkbox"
-                              key={key}
-                              id={"gender," + value + ":" + key}
-                              className={value}
-                              onClick={handleClick}
+            <Accordion>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1a-content"
+                id="panel1a-header"
+              >
+                <Typography className="filterHeading">Gender</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <List sx={{ bgcolor: "background.paper" }}>
+                  {data
+                    ? Object.keys(data.data.payload.gender).map(
+                        (value, key) => {
+                          const labelId = `checkbox-list-label-${value}`
+                          return (
+                            <ListItem disablePadding>
+                              <ListItemButton>
+                                <div style={{ marginRight: "7%" }}>
+                                  <input
+                                    type="checkbox"
+                                    key={key}
+                                    id={"gender," + value + ":" + key}
+                                    className={value}
+                                    onClick={handleClick}
+                                  />
+                                </div>
+                                {value}{" "}
+                                <FiCheck
+                                  id={"check," + value}
+                                  className={"check"}
+                                />
+                              </ListItemButton>
+                            </ListItem>
+                          )
+                        }
+                      )
+                    : ""}
+                </List>
+              </AccordionDetails>
+            </Accordion>
+            <Accordion>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1a-content"
+                id="panel1a-header"
+              >
+                <Typography className="filterHeading">Age Groups</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <List sx={{ bgcolor: "background.paper" }}>
+                  {data
+                    ? Object.keys(data.data.payload.age).map((value, key) => (
+                        <ListItem disablePadding>
+                          <ListItemButton>
+                            <div style={{ marginRight: "7%" }}>
+                              <input
+                                type="checkbox"
+                                key={key}
+                                id={"age," + value + ":" + key}
+                                className={value}
+                                onClick={handleClick}
+                              />
+                            </div>
+                            {value}
+                            <FiCheck
+                              id={"check," + value}
+                              className={"check"}
                             />
-                          </div>
-                          {value}{" "}
-                          <FiCheck id={"check," + value} className={"check"} />
-                        </ListItemButton>
-                      </ListItem>
-                    )
-                  })
-                : ""}
-            </List>
-            <Typography variant="h6" style={{ color: "#84855D" }}>
-              Age Groups
-            </Typography>
-            <List sx={{ bgcolor: "background.paper" }}>
-              {data
-                ? Object.keys(data.data.payload.age).map((value, key) => (
-                    <ListItem disablePadding>
-                      <ListItemButton>
-                        <div style={{ marginRight: "7%" }}>
-                          <input
-                            type="checkbox"
-                            key={key}
-                            id={"age," + value + ":" + key}
-                            className={value}
-                            onClick={handleClick}
-                          />
-                        </div>
-                        {value}
-                        <FiCheck id={"check," + value} className={"check"} />
-                      </ListItemButton>
-                    </ListItem>
-                  ))
-                : ""}
-            </List>
-            <Typography
-              variant="h6"
-              style={{ color: "#84855D", padding: "0 auto" }}
-            >
-              Age And Gender
+                          </ListItemButton>
+                        </ListItem>
+                      ))
+                    : ""}
+                </List>
+              </AccordionDetails>
+            </Accordion>
+            <Typography style={{ padding: "14px" }} className="filterHeading">
+              Age & Gender
             </Typography>
             {data &&
               Object.keys(data.data.payload.ageAndGender).map((value, key) => {
@@ -419,90 +422,42 @@ function PieCharts(props) {
                   </>
                 )
               })}
-            <Dropdown className="d-inline " autoClose="outside">
-              <Dropdown.Toggle
-                style={{ backgroundColor: "#84855D", width: "100%" }}
-                id="dropdown-autoclose-outside"
-                onMouseEnter={handleEnter}
+            <Accordion>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1a-content"
+                id="panel1a-header"
               >
-                Region
-              </Dropdown.Toggle>
-
-              <Dropdown.Menu>
-                {data
-                  ? Object.keys(data.data.payload.region).map((value, key) => (
-                      <Dropdown.Item
-                        key={key}
-                        id={"region," + value + ":" + key}
-                        className={value}
-                        onClick={handleClick}
-                      >
-                        {value}{" "}
-                        <FiCheck id={"check," + value} className={"check"} />
-                      </Dropdown.Item>
-                    ))
-                  : ""}
-              </Dropdown.Menu>
-            </Dropdown>
+                <Typography className="filterHeading">Region</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <List>
+                  {data
+                    ? Object.keys(data.data.payload.region).map(
+                        (value, key) => (
+                          <ListItem disablePadding>
+                            <ListItemButton>
+                              <div style={{ marginRight: "2px" }}>
+                                <input
+                                  type="checkbox"
+                                  key={key}
+                                  id={"region," + value + ":" + key}
+                                  className={value}
+                                  onClick={handleClick}
+                                />
+                              </div>
+                              {value}
+                            </ListItemButton>
+                          </ListItem>
+                        )
+                      )
+                    : ""}
+                </List>
+              </AccordionDetails>
+            </Accordion>
           </div>
         </div>
-        {/* <div className="sub">
-          {Object.keys(filters).map((value, key1) =>
-            Object.keys(filters[value]).length > 0 ? (
-              <>
-                <h5>{value !== "nofilters" ? value : ""}</h5>
-                <div key={key1} className="box">
-                  {Object.keys(filters[value]).map((val, idx) =>
-                    labels != null ? (
-                      <div>
-                        {idx === Object.keys(filters[value]).length - 1 ? (
-                          <Chart
-                            key={idx}
-                            className="chart"
-                            options={{
-                              ...graphOption.options,
-                              legend: legends,
-                              plotOptions: {
-                                ...graphOption.plotOptions,
-                                pie: {
-                                  ...graphOption.options.plotOptions.pie,
-                                  offsetX: -120,
-                                },
-                              },
-                              title: {
-                                text: val !== "overall" ? val : "",
-                                align: "left",
-                              },
-                            }}
-                            series={filters[value][val]}
-                            type="pie"
-                            width="700px"
-                          />
-                        ) : (
-                          <Chart
-                            key={idx}
-                            options={{
-                              ...graphOption.options,
-                              legend: legends1,
-                              title: { text: val, align: "center" },
-                            }}
-                            series={filters[value][val]}
-                            type="pie"
-                            width="340"
-                          />
-                        )}
-                      </div>
-                    ) : (
-                      <></>
-                    )
-                  )}
-                </div>
-              </>
-            ) : (
-              <></>
-            )
-          )}
-        </div> */}
+
         <div
           className="center_graph_piechart"
           style={{
@@ -623,7 +578,9 @@ function PieCharts(props) {
             return (
               <div style={{ display: "flex" }}>
                 <span
-                  // style={{ background: `${item.color}` }}
+                  style={{
+                    backgroundColor: `${arr[idx].color}`,
+                  }}
                   className="color_pie"
                 ></span>
                 <p className="pie_title">{item}</p>
@@ -658,7 +615,9 @@ function PieCharts(props) {
                     <div style={{ display: "flex" }}>
                       <span
                         className="color_pie"
-                        style={{ backgroundColor: "red" }}
+                        style={{
+                          backgroundColor: `${arr[idx].color}`,
+                        }}
                       ></span>
                       <p className="pie_title">{item}</p>
                     </div>

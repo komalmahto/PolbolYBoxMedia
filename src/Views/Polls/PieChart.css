@@ -21,13 +21,18 @@
 
 
 }
-
+.filterHeading{
+  font-size:17px !important;
+  font-weight: bold !important;
+  color: #84855D !important;
+  padding: 0 auto !important;
+}
 .filter__bar {
   left: 0;
   overflow-x: hidden;
   padding-top: 20px;
   overflow-y: scroll;
-  width: 14%;
+  width: 13%;
   position: fixed;
   min-width: 150px;
   display: flex;
@@ -35,6 +40,7 @@
 
 height:80vh;
   padding: 0 auto !important;
+  margin:1%;
 }
 
 .MuiListItem-root.MuiListItem-gutters.css-1nxmd3h-MuiListItem-root {
