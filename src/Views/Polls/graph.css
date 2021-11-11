@@ -1,8 +1,12 @@
+.icon-bottom{
+  color:#84855d !important;
+}
+
 .container {
   padding: 10px;
 }
 .heading {
-  margin-bottom: 50px;
+  
   /* margin-left: 40px; */
   /* display: flex; */
   /* align-items: center; */
@@ -31,10 +35,10 @@
 .box {
   display: flex;
   flex-wrap: wrap;
-  margin-left: 10px;
+  
   width: 100%;
   justify-content: flex-start;
-  /* align-items: flex-start; */
+   align-items: flex-start; 
 }
 
 .dropdowns {
@@ -77,14 +81,19 @@
   border: 1px solid black;
   margin: 10px;
 }
-
-.votes {
-  margin-left: -8px;
-  margin-top: -6px;
-  height: 212px;
+@media only screen and (max-width: 780px) {
 }
+.vote__border {
+  padding: auto !important;
+}
+.vote_head {
+  padding: 1px 0px 10px 0;
+}
+.votes {
+  margin: 2px auto;
+}
+
 .vote {
-  height: 2px;
   font-size: 12px;
 }
 
@@ -95,10 +104,11 @@
   margin-right: 10px;
 }
 .total {
-  margin-left: -100px;
+  font-weight: 800;
+  /* margin-left: -100px;
   width: 134px;
   margin-top: 30px;
-  font-weight: 800;
+  font-weight: 800; */
 }
 .bold {
   font-weight: 800;
@@ -116,7 +126,6 @@
   .heading {
     margin-left: auto;
     margin-right: auto;
-    width: 600px;
   }
   .dropdowns {
     margin-left: auto;
@@ -136,7 +145,6 @@
 @media screen and (max-width: 550px) {
   .heading {
     font-size: 20px;
-    width: 400px;
   }
 }
 @media screen and (max-width: 350px) {

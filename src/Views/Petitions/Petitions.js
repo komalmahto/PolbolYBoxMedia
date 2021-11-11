@@ -1,129 +1,125 @@
-import { useEffect, useState } from "react";
-import { petitionCategories } from "../../data";
-import { useHistory } from "react-router-dom";
-import FilteredPetitions from "./FilteredPetitions/FilteredPetitions";
-import * as api from "../../api";
-import Multiselect from "multiselect-react-dropdown";
-import styles from "./Petitions.module.css";
-import OverallPetitons from "./OverallPetitions";
-import Modal from "../../Components/Modal/Modal";
-import { connect } from "react-redux";
-import { AiFillPlusCircle } from "react-icons/ai";
-import Noty from "noty";
-import "noty/lib/noty.css";
-import "noty/lib/themes/mint.css";
-import { isAuthenticated } from "../../api/index";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import axios from '../../axios'
+import { useEffect, useState } from "react"
+import { petitionCategories } from "../../data"
+import { useHistory } from "react-router-dom"
+import FilteredPetitions from "./FilteredPetitions/FilteredPetitions"
+import * as api from "../../api"
+import Multiselect from "multiselect-react-dropdown"
+import styles from "./Petitions.module.css"
+import OverallPetitons from "./OverallPetitions"
+import Modal from "../../Components/Modal/Modal"
+import { connect } from "react-redux"
+import { AiFillPlusCircle } from "react-icons/ai"
+import Noty from "noty"
+import "noty/lib/noty.css"
+import "noty/lib/themes/mint.css"
+import { isAuthenticated } from "../../api/index"
+import { ToastContainer, toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
+import axios from "../../axios"
 
 const Petitions = ({ auth: { user, token } }) => {
   // const [polls, setPolls] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [selectedCategories, setSelectedCategories] = useState([]);
-  const [active, setActive] = useState(true);
-  const [activePetitions, setActivePetitions] = useState([]);
-  const [expiredPetitions, setExpiredPetitions] = useState([]);
-  const [activePetitionsTotal, setActivePetitionsTotal] = useState(0);
-  const [expiredPetitionsTotal, setExpiredPetitionsTotal] = useState(0);
-  const [myPet, setMyPet] = useState(false);
-  const [userPet,setUserPet]=useState([])
+  const [categories, setCategories] = useState([])
+  const [selectedCategories, setSelectedCategories] = useState([])
+  const [active, setActive] = useState(true)
+  const [activePetitions, setActivePetitions] = useState([])
+  const [expiredPetitions, setExpiredPetitions] = useState([])
+  const [activePetitionsTotal, setActivePetitionsTotal] = useState(0)
+  const [expiredPetitionsTotal, setExpiredPetitionsTotal] = useState(0)
+  const [myPet, setMyPet] = useState(false)
+  const [userPet, setUserPet] = useState([])
 
-  const history = useHistory(null);
+  const history = useHistory(null)
   const [page, setPage] = useState({
     activeNonfiltered: 1,
     activeFiltered: 1,
     expiredNonfiltered: 1,
     expiredFiltered: 1,
-  });
+  })
 
   const loadMorePage = (type) => {
     if (type === "ANF") {
-      let pos = window.scrollY;
-      console.log(pos, "poss");
-      setY(pos);
+      let pos = window.scrollY
+      console.log(pos, "poss")
+      setY(pos)
       setPage((prevState) => ({
         ...prevState,
         activeNonfiltered: prevState.activeNonfiltered + 1,
-      }));
-      console.log("len");
+      }))
+      console.log("len")
     }
     if (type === "AF") {
-      let pos = window.scrollY;
-      console.log(pos, "poss");
-      setY(pos);
+      let pos = window.scrollY
+      console.log(pos, "poss")
+      setY(pos)
       setPage((prevState) => ({
         ...prevState,
         activeFiltered: prevState.activeFiltered + 1,
-      }));
-      console.log("len");
+      }))
+      console.log("len")
     }
     if (type === "ENF") {
-      let pos = window.scrollY;
-      console.log(pos, "poss");
-      setY(pos);
+      let pos = window.scrollY
+      console.log(pos, "poss")
+      setY(pos)
       setPage((prevState) => ({
         ...prevState,
         expiredNonfiltered: prevState.expiredNonfiltered + 1,
-      }));
-      console.log("len");
+      }))
+      console.log("len")
     }
     if (type === "EF") {
-      let pos = window.scrollY;
-      console.log(pos, "poss");
-      setY(pos);
+      let pos = window.scrollY
+      console.log(pos, "poss")
+      setY(pos)
       setPage((prevState) => ({
         ...prevState,
         expiredFiltered: prevState.expiredFiltered + 1,
-      }));
-      console.log("len");
+      }))
+      console.log("len")
     }
-  };
-  const [y, setY] = useState(0);
+  }
+  const [y, setY] = useState(0)
 
   useEffect(() => {
-    setCategories([...petitionCategories]);
-    getActivePetitions();
+    setCategories([...petitionCategories])
+    getActivePetitions()
     // getExpiredPetitions();
-  }, []);
+  }, [])
 
-  useEffect(()=>{
-    if(token){
+  useEffect(() => {
+    if (token) {
       getMyPetitons()
     }
+  }, [token])
 
-  },[token])
-
-  const getMyPetitons=async()=>{
-    let data;
+  const getMyPetitons = async () => {
+    let data
     try {
-      const data=await axios.get(`petitions/myPetition`,{
+      const data = await axios.get(`petitions/myPetition`, {
         headers: {
           Authorization: `bearer ${JSON.parse(token)}`,
-        }})
-        console.log(data,"my pet")
-        setUserPet(data.data.payload)
-    } catch (error) {
-      
-    }
-    
-
-
+        },
+      })
+      console.log(data, "my pet")
+      setUserPet(data.data.payload)
+    } catch (error) {}
   }
 
   useEffect(() => {
-    getFilteredPetitions();
-  }, [selectedCategories]);
+    getFilteredPetitions()
+  }, [selectedCategories])
 
   const getActivePetitions = async () => {
     try {
-      const { data } = await api.getActivePetitions();
-      setActivePetitionsTotal(data.payload.length);
-      setActivePetitions(data.payload.payload);
+      const { data } = await api.getActivePetitions()
+      console.log(data)
+      setActivePetitionsTotal(data.payload.length)
+      setActivePetitions(data.payload.payload)
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  }
   // const getExpiredPetitions = async () => {
   //   try {
   //     const { data } = await api.getExpiredPetitions();
@@ -136,49 +132,49 @@ const Petitions = ({ auth: { user, token } }) => {
 
   const handleCategoryClick = (category) => {
     if (!selectedCategories.includes(category))
-      setSelectedCategories([...selectedCategories, category]);
+      setSelectedCategories([...selectedCategories, category])
     else
       setSelectedCategories(
         selectedCategories.filter((cat) => cat !== category)
-      );
-  };
+      )
+  }
 
   const getFilteredPetitions = async () => {
     try {
-      let mode = active ? "active" : "expired";
-      let categories = selectedCategories.join(",");
+      let mode = active ? "active" : "expired"
+      let categories = selectedCategories.join(",")
 
-      const { data } = await api.getFilteredPetitions(categories);
+      const { data } = await api.getFilteredPetitions(categories)
 
       if (active) {
-        setActivePetitionsTotal(data.payload.length);
-        setActivePetitions([...data.payload.payload]);
+        setActivePetitionsTotal(data.payload.length)
+        setActivePetitions([...data.payload.payload])
       } else {
-        setExpiredPetitionsTotal(data.payload.length);
-        setExpiredPetitions([...data.payload.payload]);
+        setExpiredPetitionsTotal(data.payload.length)
+        setExpiredPetitions([...data.payload.payload])
       }
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  }
 
   const onSelect = (selectedList, selectedItem) => {
-    setSelectedCategories([...selectedCategories, selectedItem.name]);
-  };
+    setSelectedCategories([...selectedCategories, selectedItem.name])
+  }
 
   const onRemove = (selectedList, selectedItem) => {
     setSelectedCategories(
       selectedCategories.filter((category) => category !== selectedItem.name)
-    );
-  };
+    )
+  }
 
   const createPetitionhandler = () => {
     if (isAuthenticated()) {
-      history.push("/petition");
+      history.push("/petition")
     } else {
-      toast("Please login to create petition");
+      toast("Please login to create petition")
     }
-  };
+  }
   return (
     <div className={styles.container}>
       <ToastContainer />
@@ -221,9 +217,7 @@ const Petitions = ({ auth: { user, token } }) => {
             {category.name}
           </span>
         ))}
-        <div
-          
-        >
+        <div>
           {/* <Multiselect
             style={{ height: "100%" }}
             options={petitionCategories.map((category) => ({ name: category }))}
@@ -247,16 +241,16 @@ const Petitions = ({ auth: { user, token } }) => {
         >
           <div
             onClick={() => {
-              setActive(true);
-              setMyPet(false);
+              setActive(true)
+              setMyPet(false)
             }}
           >
             ACTIVE <span>{activePetitionsTotal}</span>
           </div>
           <div
             onClick={() => {
-              setActive(false);
-              setMyPet(false);
+              setActive(false)
+              setMyPet(false)
             }}
           >
             EXPIRED <span>{expiredPetitionsTotal}</span>
@@ -266,12 +260,12 @@ const Petitions = ({ auth: { user, token } }) => {
           </div> */}
           {token && (
             <div onClick={() => setMyPet(true)}>
-              My Petitions <span>{userPet&&userPet.length}</span>
+              My Petitions <span>{userPet && userPet.length}</span>
             </div>
           )}
         </div>
       </div>
-      {!myPet&&active ? (
+      {!myPet && active ? (
         selectedCategories.length === 0 ? (
           <>
             <div className={styles.petitions}>
@@ -302,37 +296,39 @@ const Petitions = ({ auth: { user, token } }) => {
             )}{" "}
           </div>
         )
-      ) :!myPet? selectedCategories.length === 0 ? (
-        <>
+      ) : !myPet ? (
+        selectedCategories.length === 0 ? (
+          <>
+            <div className={styles.petitions}>
+              <OverallPetitons
+                page={page.expiredNonfiltered}
+                petitions={expiredPetitions}
+              />
+            </div>
+            <div>
+              {" "}
+              {expiredPetitions.length > page.expiredNonfiltered * 6 && (
+                <center className={styles.loadmore}>
+                  <span onClick={() => loadMorePage("ENF")}>Load more</span>
+                </center>
+              )}
+            </div>
+          </>
+        ) : (
           <div className={styles.petitions}>
-            <OverallPetitons
-              page={page.expiredNonfiltered}
+            <FilteredPetitions
+              page={page.expiredFiltered}
+              mode="expired"
               petitions={expiredPetitions}
             />
-          </div>
-          <div>
-            {" "}
-            {expiredPetitions.length > page.expiredNonfiltered * 6 && (
+            {expiredPetitions.length > page.expiredFiltered * 3 && (
               <center className={styles.loadmore}>
-                <span onClick={() => loadMorePage("ENF")}>Load more</span>
+                <span onClick={() => loadMorePage("EF")}>Load more</span>
               </center>
             )}
           </div>
-        </>
-      ) : (
-        <div className={styles.petitions}>
-          <FilteredPetitions
-            page={page.expiredFiltered}
-            mode="expired"
-            petitions={expiredPetitions}
-          />
-          {expiredPetitions.length > page.expiredFiltered * 3 && (
-            <center className={styles.loadmore}>
-              <span onClick={() => loadMorePage("EF")}>Load more</span>
-            </center>
-          )}
-        </div>
-      ):selectedCategories.length === 0 ? (
+        )
+      ) : selectedCategories.length === 0 ? (
         <>
           <div className={styles.petitions}>
             <OverallPetitons
@@ -364,11 +360,11 @@ const Petitions = ({ auth: { user, token } }) => {
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
-});
+})
 
-export default connect(mapStateToProps)(Petitions);
+export default connect(mapStateToProps)(Petitions)
