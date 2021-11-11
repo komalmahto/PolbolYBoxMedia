@@ -188,6 +188,7 @@ function PieCharts(props) {
 
   const notify = () => {
     navigator.clipboard.writeText(window.location.href)
+    console.log(window.location.href)
     toast("Copied to clipboard")
   }
 
@@ -502,69 +503,79 @@ function PieCharts(props) {
                 </List>
               </AccordionDetails>
             </Accordion>
-            <Typography style={{ padding: "14px" }} className="filterHeading">
-              Age & Gender
-            </Typography>
-            {data &&
-              Object.keys(data.data.payload.ageAndGender).map((value, key) => {
-                return (
-                  <>
-                    <Accordion>
-                      <AccordionSummary
-                        expandIcon={<ExpandMoreIcon />}
-                        aria-controls="panel1a-content"
-                        id="panel1a-header"
-                      >
-                        <Typography>{value}</Typography>
-                      </AccordionSummary>
-                      <AccordionDetails>
-                        <List>
-                          <ListItem disablePadding>
-                            <ListItemButton>
-                              <div style={{ marginRight: "2px" }}>
-                                <input
-                                  type="checkbox"
-                                  key={key}
-                                  id={value + ":" + "male"}
-                                  className={value}
-                                  onClick={handleSelect}
-                                />{" "}
-                              </div>
-                              male
-                            </ListItemButton>
-                          </ListItem>
-                          <ListItem disablePadding>
-                            <ListItemButton>
-                              <div style={{ marginRight: "2px" }}>
-                                <input
-                                  type="checkbox"
-                                  key={key}
-                                  id={value + ":" + "female"}
-                                  onClick={handleSelect}
-                                />{" "}
-                              </div>
-                              female
-                            </ListItemButton>
-                          </ListItem>
-                          <ListItem disablePadding>
-                            <ListItemButton>
-                              <div style={{ marginRight: "2px" }}>
-                                <input
-                                  type="checkbox"
-                                  key={key}
-                                  id={value + ":" + "other"}
-                                  onClick={handleSelect}
-                                />{" "}
-                              </div>
-                              other
-                            </ListItemButton>
-                          </ListItem>
-                        </List>
-                      </AccordionDetails>
-                    </Accordion>
-                  </>
-                )
-              })}
+            <Accordion>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1a-content"
+                id="panel1a-header"
+              >
+                <Typography className="filterHeading">Age & Gender</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                {data &&
+                  Object.keys(data.data.payload.ageAndGender).map(
+                    (value, key) => {
+                      return (
+                        <>
+                          <Accordion>
+                            <AccordionSummary
+                              expandIcon={<ExpandMoreIcon />}
+                              aria-controls="panel1a-content"
+                              id="panel1a-header"
+                            >
+                              <Typography>{value}</Typography>
+                            </AccordionSummary>
+                            <AccordionDetails>
+                              <List>
+                                <ListItem disablePadding>
+                                  <ListItemButton>
+                                    <div style={{ marginRight: "2px" }}>
+                                      <input
+                                        type="checkbox"
+                                        key={key}
+                                        id={value + ":" + "male"}
+                                        className={value}
+                                        onClick={handleSelect}
+                                      />{" "}
+                                    </div>
+                                    male
+                                  </ListItemButton>
+                                </ListItem>
+                                <ListItem disablePadding>
+                                  <ListItemButton>
+                                    <div style={{ marginRight: "2px" }}>
+                                      <input
+                                        type="checkbox"
+                                        key={key}
+                                        id={value + ":" + "female"}
+                                        onClick={handleSelect}
+                                      />{" "}
+                                    </div>
+                                    female
+                                  </ListItemButton>
+                                </ListItem>
+                                <ListItem disablePadding>
+                                  <ListItemButton>
+                                    <div style={{ marginRight: "2px" }}>
+                                      <input
+                                        type="checkbox"
+                                        key={key}
+                                        id={value + ":" + "other"}
+                                        onClick={handleSelect}
+                                      />{" "}
+                                    </div>
+                                    other
+                                  </ListItemButton>
+                                </ListItem>
+                              </List>
+                            </AccordionDetails>
+                          </Accordion>
+                        </>
+                      )
+                    }
+                  )}
+              </AccordionDetails>
+            </Accordion>
             <Accordion>
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
@@ -732,7 +743,7 @@ function PieCharts(props) {
                                   title: { text: val, align: "center" },
                                 }}
                                 series={ageGender[value][val]}
-                                type="pie"
+                                type="donut"
                                 className="piechart"
                                 style={{ margin: "0 auto" }}
                               />
