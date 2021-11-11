@@ -70,8 +70,8 @@
 }
 
 .result{
-  width:80%;
-  margin:2% auto;
+  margin-left: 100px;
+  margin-top: 50px;
 }
 .vote{
   display: block;

@@ -1,82 +1,80 @@
-import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
-import { convertFromRaw, EditorState } from "draft-js";
-import { Editor } from "react-draft-wysiwyg";
-import { convertToRaw } from "draft-js";
-import {stateToHTML} from 'draft-js-export-html';
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import styles from "./Petition.module.css";
-import { GiHorizontalFlip } from "react-icons/gi";
-import "draft-js/dist/Draft.css";
-import "./Editor.css";
-import { connect } from "react-redux";
-import { updatestateProblem, updatestateRelink } from "../../redux/Actions";
+import React, { useState, useEffect } from "react"
+import { useHistory } from "react-router-dom"
+import { convertFromRaw, EditorState } from "draft-js"
+import { Editor } from "react-draft-wysiwyg"
+import { convertToRaw } from "draft-js"
+import { stateToHTML } from "draft-js-export-html"
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css"
+import styles from "./Petition.module.css"
+import { GiHorizontalFlip } from "react-icons/gi"
+import "draft-js/dist/Draft.css"
+import "./Editor.css"
+import { connect } from "react-redux"
+import { updatestateProblem, updatestateRelink } from "../../redux/Actions"
 
 function Petition2(props) {
-  const history = useHistory();
+  const history = useHistory()
 
   const [editorState, setEditorState] = useState(() =>
     EditorState.createEmpty()
-  );
-  const [url, setUrl] = useState("");
-  const [convertedContent, setConvertedContent] = useState(null);
-  const [showdata,setShowdata]=useState(null);
- 
-  var html;
-  if(showdata!=null){
-  const contentState = convertFromRaw(showdata);
-  html=stateToHTML(contentState);
+  )
+  const [url, setUrl] = useState("")
+  const [convertedContent, setConvertedContent] = useState(null)
+  const [showdata, setShowdata] = useState(null)
+
+  var html
+  if (showdata != null) {
+    const contentState = convertFromRaw(showdata)
+    html = stateToHTML(contentState)
   }
 
   // useEffect(()=>{
   //   setUrl(props.reflinkstate?props.reflinkstate:"")
 
   // },[])
-  
-  const handleClick = () => {
-    props.updatestateProblem(convertedContent);
-    props.updatestateRelink(url);
 
-    history.push("/petition3");
-  };
+  const handleClick = () => {
+    props.updatestateProblem(convertedContent)
+    props.updatestateRelink(url)
+
+    history.push("/petition3")
+  }
   const handlePrevClick = () => {
-    history.push("/petition1");
-  };
+    history.push("/petition1")
+  }
   const handleEditorChange = (state) => {
-    setEditorState(state);
-    convertContentToRaw();
-  };
+    setEditorState(state)
+    convertContentToRaw()
+  }
   const convertContentToRaw = () => {
-    let currentContentAsRaw = convertToRaw(editorState.getCurrentContent());
-    setConvertedContent(currentContentAsRaw);
-  };
-  
+    let currentContentAsRaw = convertToRaw(editorState.getCurrentContent())
+    setConvertedContent(currentContentAsRaw)
+  }
+
   useEffect(() => {
-    setUrl(props.reflinkstate);
+    setUrl(props.reflinkstate)
     setShowdata(props.problemstate)
 
-    if(props.problemstate){
-    const contentState = convertFromRaw(props.problemstate);
+    if (props.problemstate) {
+      const contentState = convertFromRaw(props.problemstate)
 
-    setEditorState(    EditorState.createWithContent(contentState)
-    
-    )
+      setEditorState(EditorState.createWithContent(contentState))
     }
-   
+
     const unlisten = history.listen(() => {
-      window.scrollTo(0, 0);
-    });
+      window.scrollTo(0, 0)
+    })
     return () => {
-      unlisten();
-    };
-  }, []);
-  let val = null;
+      unlisten()
+    }
+  }, [])
+  let val = null
   if (convertedContent != null && convertedContent.blocks != null) {
     convertedContent.blocks.map((data) => {
-      val += data.text.length;
-    });
+      val += data.text.length
+    })
   }
-  console.log(convertedContent);
+  console.log(convertedContent)
   return (
     <div>
       <div className={styles.header}>
@@ -121,34 +119,34 @@ function Petition2(props) {
             editorClassName="editor-class"
             toolbarClassName="toolbar-class"
             placeholder="Write here"
-            editorStyle={{height:'max-content'}}
+            editorStyle={{ height: "max-content" }}
           />
         </div>
       </div>
 
-<div className={styles.pad}>
-      <p className={styles.message}>
-      <i className="fas fa-check-circle"></i>
-        Great — you’ve started writing your petition. We recommend adding
-        another {val ? 1000 - val : 1000} more characters before you finish.
-      </p>
-     
-      <p className={styles.reftext}>Provide Any Reference Link</p>
-      <input
-        className={styles.tbox}
-        placeholder="You can give any reference link"
-        value={url}
-        onChange={(e) => setUrl(e.target.value)}
-      ></input>
-       
-       <div className={styles.actions}>
-      <button className={styles.btn} onClick={handlePrevClick}>
-        Previous
-      </button>
-      <button className={styles.btn} onClick={handleClick}>
-        Continue
-      </button>
-      </div>
+      <div className={styles.pad}>
+        <p className={styles.message}>
+          <i className="fas fa-check-circle"></i>
+          Great — you’ve started writing your petition. We recommend adding
+          another {val ? 1000 - val : 1000} more characters before you finish.
+        </p>
+
+        <p className={styles.reftext}>Provide Any Reference Link</p>
+        <input
+          className={styles.tbox}
+          placeholder="You can give any reference link"
+          value={url}
+          onChange={(e) => setUrl(e.target.value)}
+        ></input>
+
+        <div className={styles.actions}>
+          <button className={styles.btn} onClick={handlePrevClick}>
+            Previous
+          </button>
+          <button className={styles.btn} onClick={handleClick}>
+            Continue
+          </button>
+        </div>
       </div>
       <div className={styles.desc}>
         <p className={styles.head}>Keep it short and to the point</p>
@@ -161,20 +159,20 @@ function Petition2(props) {
         </p>
       </div>
     </div>
-  );
+  )
 }
 
 const mapStateToProps = (state) => {
   return {
     problemstate: state.pet.problem,
     reflinkstate: state.pet.reflink,
-  };
-};
+  }
+}
 
 const mapDispatchToProps = (dispatch) => {
   return {
     updatestateProblem: (problem) => dispatch(updatestateProblem(problem)),
     updatestateRelink: (reflink) => dispatch(updatestateRelink(reflink)),
-  };
-};
-export default connect(mapStateToProps, mapDispatchToProps)(Petition2);
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Petition2)

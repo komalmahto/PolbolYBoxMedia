@@ -1,64 +1,64 @@
-import React, { useState, useEffect } from "react"
-import styles from "./Petition.module.css"
-import { useHistory } from "react-router-dom"
-import { GiHorizontalFlip } from "react-icons/gi"
-import { connect } from "react-redux"
+import React, { useState, useEffect } from "react";
+import styles from "./Petition.module.css";
+import { useHistory } from "react-router-dom";
+import { GiHorizontalFlip } from "react-icons/gi";
+import { connect } from "react-redux";
 
 import {
   updatestateTitle,
   updatestateDescription,
   updatestateExpectedSignatures,
   updatestateLifespan,
-} from "../../redux/Actions"
+} from "../../redux/Actions";
 
 function Petition1(props) {
-  const history = useHistory()
+  const history = useHistory();
 
-  const [title, setTitle] = useState("")
-  const [sign, setSign] = useState("")
-  const [lifespan, setLifespan] = useState(null)
-  const [desc, setDesc] = useState("")
+  const [title, setTitle] = useState("");
+  const [sign, setSign] = useState("");
+  const [lifespan, setLifespan] = useState(null);
+  const [desc, setDesc] = useState("");
 
   const handleTitle = (e) => {
-    setTitle(e.target.value)
-  }
+    setTitle(e.target.value);
+  };
 
   const handlesignChange = (e) => {
-    setSign(e.target.value)
-  }
+    setSign(e.target.value);
+  };
   const handleLsChange = (e) => {
-    setLifespan(e.target.value)
-  }
+    setLifespan(e.target.value);
+  };
 
   const handleDescription = (e) => {
-    setDesc(e.target.value)
-  }
+    setDesc(e.target.value);
+  };
 
   const handleClick = () => {
-    props.updatestateTitle(title)
-    props.updatestateDesc(desc)
-    props.updatestateExpectedSign(sign)
-    props.updatestateLifespan(lifespan)
-    console.log("hello")
-    history.push("/petition2")
-  }
+    props.updatestateTitle(title);
+    props.updatestateDesc(desc);
+    props.updatestateExpectedSign(sign);
+    props.updatestateLifespan(lifespan);
+    console.log("hello");
+    history.push("/petition2");
+  };
   const handlePrevClick = () => {
-    history.push("/petition")
-  }
+    history.push("/petition");
+  };
 
   useEffect(() => {
-    setTitle(props.titlestate)
-    setDesc(props.descstate)
-    setSign(props.expectedsignstate)
-    setLifespan(props.lifespanstate)
+    setTitle(props.titlestate);
+    setDesc(props.descstate);
+    setSign(props.expectedsignstate);
+    setLifespan(props.lifespanstate);
 
     const unlisten = history.listen(() => {
-      window.scrollTo(0, 0)
-    })
+      window.scrollTo(0, 0);
+    });
     return () => {
-      unlisten()
-    }
-  }, [])
+      unlisten();
+    };
+  }, []);
 
   return (
     <div>
@@ -149,7 +149,7 @@ function Petition1(props) {
         </p>
       </div>
     </div>
-  )
+  );
 }
 
 const mapStateToProps = (state) => {
@@ -158,8 +158,8 @@ const mapStateToProps = (state) => {
     descstate: state.pet.desc,
     expectedsignstate: state.pet.expectedSignatures,
     lifespanstate: state.pet.lifespan,
-  }
-}
+  };
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -168,6 +168,6 @@ const mapDispatchToProps = (dispatch) => {
     updatestateExpectedSign: (sign) =>
       dispatch(updatestateExpectedSignatures(sign)),
     updatestateLifespan: (span) => dispatch(updatestateLifespan(span)),
-  }
-}
-export default connect(mapStateToProps, mapDispatchToProps)(Petition1)
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Petition1);

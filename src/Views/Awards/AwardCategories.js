@@ -1,23 +1,23 @@
-import React, { useState, useEffect } from "react"
-import axios from "../../axios"
-import styles from "./AwardCategories.module.css"
-import { getSlug } from "../../helpers"
-import { useHistory } from "react-router"
+import React, { useState, useEffect } from "react";
+import axios from "../../axios";
+import styles from "./AwardCategories.module.css";
+import { getSlug } from "../../helpers";
+import { useHistory } from "react-router";
 
 function AwardCategories({ match }) {
-  const history = useHistory()
-  const { showId } = match.params
+  const history = useHistory();
+  const { showId } = match.params;
 
-  const [awards, setAwards] = useState([])
+  const [awards, setAwards] = useState([]);
 
   const fetchData = async () => {
-    const { data } = await axios.get(`award/awardCategoryList?id=${showId}`)
-    setAwards(data.payload)
-  }
+    const { data } = await axios.get(`award/awardCategoryList?id=${showId}`);
+    setAwards(data.payload);
+  };
 
   useEffect(() => {
-    fetchData()
-  }, [])
+    fetchData();
+  }, []);
 
   return (
     <div className={styles.container}>
@@ -37,7 +37,7 @@ function AwardCategories({ match }) {
                 onClick={() => {
                   history.push(
                     `/awards/categories/subcat/${showId}/${award._id}`
-                  )
+                  );
                 }}
               >
                 <img className={styles.image} src={award.image} />
@@ -49,7 +49,7 @@ function AwardCategories({ match }) {
           : ""}
       </div>
     </div>
-  )
+  );
 }
 
-export default AwardCategories
+export default AwardCategories;

@@ -1,6 +1,6 @@
 import { Provider } from "react-redux"
 import store from "./redux/store"
-import { HashRouter } from "react-router-dom"
+import { BrowserRouter as Router } from "react-router-dom"
 import "bootstrap/dist/css/bootstrap.min.css"
 import "react-modal-video/scss/modal-video.scss"
 
@@ -12,11 +12,10 @@ import Footer from "./Components/Footer/Footer"
 const App = () => {
   return (
     <Provider store={store}>
-      <HashRouter>
+      <Router>
         <Navbar />
         <MainView />
-        <Footer />
-      </HashRouter>
+      </Router>
     </Provider>
   )
 }
