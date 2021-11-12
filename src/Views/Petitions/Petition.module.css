@@ -94,7 +94,7 @@
   }
   
 }
-@media only screen and (min-width: 280px){
+@media only screen and (max-width: 280px){
   .main{
     width:90% !important;
     margin:0 auto;
