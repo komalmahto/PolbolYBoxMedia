@@ -111,7 +111,8 @@ function Petition1(props) {
             {" "}
             <label className={styles.ls}>Expected Signatures</label>
             <input
-              className={styles.tbox}
+              className={styles.tbox2}
+              style={{fontSize:'3vh'}}
               placeholder="Expected Signatures"
               onChange={handlesignChange}
               type="tel"
@@ -119,7 +120,7 @@ function Petition1(props) {
             />
           </div>
           <div className={styles.inputCont}>
-            <label className={styles.ls}>Lifespan</label>
+            <label className={styles.ls2} style={{paddingTop:'4vh',paddingRight:'26vw'}}>Lifespan</label>
             <input
               className={styles.tbox}
               onChange={handleLsChange}
