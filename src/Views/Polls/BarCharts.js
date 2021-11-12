@@ -6,7 +6,7 @@ import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import "./graph.css"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
-
+import Modal from "@mui/material/Modal"
 import AccordionSummary from "@mui/material/AccordionSummary"
 import AccordionDetails from "@mui/material/AccordionDetails"
 import Accordion from "@mui/material/Accordion"
@@ -21,7 +21,7 @@ import CloseIcon from "@mui/icons-material/Close"
 import MenuIcon from "@mui/icons-material/Menu"
 import ShowChartIcon from "@mui/icons-material/ShowChart"
 import Button from "@mui/material/Button"
-import Modal from "@mui/material/Modal"
+import ModalComp from "./Modal"
 
 function BarCharts(props) {
   const [open, setOpen] = React.useState(false)
@@ -30,6 +30,7 @@ function BarCharts(props) {
   const [id, setId] = useState(0)
   const [click, setClicked] = useState(false)
   const [hover, setHover] = useState("")
+  const [tick, setTicked] = useState(true)
   const [gotchart, setGotchart] = useState(null)
   const [gotChart2, setGotchart2] = useState(null)
   const handleOpen = (type) => {
@@ -293,6 +294,7 @@ function BarCharts(props) {
   const handleClick = (e) => {
     e.stopPropagation()
     if (e.target.classList.contains("overall")) {
+      setTicked(!tick)
       if (filters.nofilters.overall !== undefined) {
         const obj = {}
         const obj1 = {}
@@ -441,37 +443,42 @@ function BarCharts(props) {
       </Modal>
 
       <ToastContainer />
-
-      {data ? (
-        <h4 className="heading">
-          {data.data.payload.poll.question}
-          <span onClick={notify}>
-            Share result{" "}
-            <i style={{ color: "#84855d" }} className="fas fa-share-alt"></i>
-          </span>
-        </h4>
-      ) : (
-        ""
-      )}
-
+      <div
+        className="container"
+        style={{
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        {data && (
+          <>
+            <h4 className="heading">{data.data.payload.poll.question} </h4>
+            <ModalComp
+              question={data.data.payload.poll.question}
+              link={window.location.href}
+            />
+          </>
+        )}
+      </div>
       <div
         style={{
           display: "flex",
           margin: "0",
         }}
       >
-        <div className="filter__bar">
+        <div className="filter__bar" style={{ height: "100vh" }}>
           <div
             style={{
               display: "flex",
-              margin: "0 10px",
+
               flexDirection: "column",
             }}
           >
-            <Typography className="filterHeading">
+            <Typography style={{ paddingLeft: "9%" }} className="filterHeading">
               <input
                 type="checkbox"
                 className="overall"
+                checked={tick}
                 onClick={handleClick}
               />{" "}
               Overall
@@ -493,7 +500,9 @@ function BarCharts(props) {
                           return (
                             <ListItem disablePadding>
                               <ListItemButton>
-                                <div style={{ marginRight: "7%" }}>
+                                <div
+                                  style={{ marginRight: "1%", fontSize: "2px" }}
+                                >
                                   <input
                                     type="checkbox"
                                     key={key}
@@ -530,7 +539,7 @@ function BarCharts(props) {
                     ? Object.keys(data.data.payload.age).map((value, key) => (
                         <ListItem disablePadding>
                           <ListItemButton>
-                            <div style={{ marginRight: "7%" }}>
+                            <div style={{ marginRight: "1%", fontSize: "2px" }}>
                               <input
                                 type="checkbox"
                                 key={key}
@@ -626,7 +635,7 @@ function BarCharts(props) {
                     <h5
                       style={{
                         margin: "10px auto",
-                        textTransform: "uppercase",
+                        textTransform: "capitalize",
                       }}
                     >
                       {value !== "nofilters" ? value : ""}
