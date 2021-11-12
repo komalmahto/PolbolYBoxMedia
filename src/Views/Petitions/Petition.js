@@ -77,9 +77,9 @@ console.log(props[0])
           </div> */}
         </div>
         <div className={styles.body}>
-          <p className={styles.ques}>
+          <h1 className={styles.ques}>
             What kind of issue are you petitioning on?
-          </p>
+          </h1>
           <p className={styles.qtext}>
             Selecting a topic allows Change.org to recommend your petition to
             interested supporters.
@@ -100,6 +100,7 @@ console.log(props[0])
               <div
                 style={{
                   borderRadius: "50%",
+                  
                 }}
                 className={
                   category.includes(value.name)
@@ -123,11 +124,11 @@ console.log(props[0])
           ))}
         </div>
         {/* <div className={styles.box}>See More</div> */}
-        <center>
+        
           <button className={styles.btn} onClick={handleClick}>
             Continue
           </button>
-        </center>
+        
       </div>
     </div>
   )

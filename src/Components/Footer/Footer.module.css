@@ -1,4 +1,5 @@
 .footer {
+  height: 80px;
   width: 100%;
   background: #84855d;
   
@@ -31,5 +32,10 @@
 @media screen and (max-width: 450px) {
   .footer_container {
     width: 80%;
+  }
+}
+@media screen and (max-idth: 285px) {
+  .footer_container {
+    width: 100% !important;
   }
 }
