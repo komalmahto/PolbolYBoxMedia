@@ -634,7 +634,7 @@ function BarCharts(props) {
                   <>
                     <h5
                       style={{
-                        margin: "10px auto",
+                        marginLeft: "8%",
                         textTransform: "capitalize",
                       }}
                     >
@@ -666,7 +666,7 @@ function BarCharts(props) {
                                 textAlign: "center",
                                 display: "flex",
                                 margin: "0 auto",
-
+                                border: "1px solid black",
                                 displa: "flex",
                               }}
                             >
